@@ -45,10 +45,10 @@ model Soil {
   texture        String?  // Ej: "Franco-arcilloso"
   
   regionId       String
-  region         Region   @relation(fields: [regionId], references: [id])
+  region         Region   @relation(fields: [regionId], references: [id], onDelete: Restrict)
   
   createdBy      String?
-  user           User?    @relation(fields: [createdBy], references: [id])
+  user           User?    @relation(fields: [createdBy], references: [id], onDelete: SetNull)
   
   crops          CropSoilRecommendation[]
 
@@ -79,8 +79,8 @@ model CropSoilRecommendation {
   suitability String   // Ej: "Alta", "Media", "Baja"
   notes       String?
 
-  soil        Soil     @relation(fields: [soilId], references: [id])
-  crop        Crop     @relation(fields: [cropId], references: [id])
+  soil        Soil     @relation(fields: [soilId], references: [id], onDelete: Cascade)
+  crop        Crop     @relation(fields: [cropId], references: [id], onDelete: Cascade)
 
   @@unique([soilId, cropId])
 }

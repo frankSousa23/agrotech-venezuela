@@ -1,84 +1,54 @@
-# 🌱 Agrotech Venezuela
+# Agrotech Venezuela 🌾
 
-Bienvenido al sistema **Agrotech Venezuela**, una herramienta tecnológica orientada a ingenieros agrónomos y productores, diseñada para centralizar, analizar y consultar información vital sobre los **suelos** y **cultivos** en las diversas regiones del país.
+Plataforma de código abierto para la gestión científica, estadística y edafológica de los suelos de Venezuela y su cruzamiento de idoneidad con cultivos agrícolas.
 
-## 🚀 Tecnologías Principales (Stack)
+## Arquitectura y Stack Tecnológico
+Este sistema ha sido estructurado con estándares premium y arquitectura robusta para garantizar la integridad científica de los datos:
+- **Frontend**: Next.js 14+ (App Router), React, CSS Modules (Glassmorphism UI).
+- **Backend**: Next.js Route Handlers (API REST).
+- **Base de Datos**: PostgreSQL alojado a través de Docker.
+- **ORM**: Prisma (Migraciones, Seed, Seguridad Relacional en Cascada y Restricciones).
+- **Seguridad**: Control de Acceso Basado en Roles (RBAC) a nivel de Middleware.
+- **Testing**: Integración completa con Jest.
+- **Documentación**: API descrita bajo el estándar OpenAPI y renderizada con Swagger UI.
 
-*   **Frontend & Backend:** Next.js (App Router), TypeScript, React, CSS Modules (Glassmorphism design).
-*   **Base de Datos (ORM):** Prisma.
-*   **Base de Datos (Motor):** PostgreSQL.
-*   **Geoespacial:** Leaflet (`react-leaflet`) para mapas interactivos edafológicos.
-*   **Testing:** Jest & Supertest.
-*   **Documentación de API:** Swagger (OpenAPI 3.0).
+## Sistema de Roles y Permisos (RBAC)
+1. **ADMIN**: Acceso irrestricto. Puede crear, editar y realizar borrados destructivos (`DELETE`) de cualquier entidad del sistema.
+2. **AGRONOMIST (Ingeniero Agrónomo)**: Puede leer e ingresar nueva información científica (Suelos, Cultivos, Recomendaciones) mediante `POST` y `PUT`.
+3. **PRODUCER (Productor)**: Acceso de solo lectura (`GET`). Puede visualizar el mapa interactivo y exportar las recomendaciones a Excel o CSV, pero no puede mutar la base de datos.
 
----
+## Guía Rápida de Inicio (Entorno Local)
 
-## 💻 Desarrollo Local (Local Environment)
+### 1. Requisitos Previos
+- [Node.js](https://nodejs.org/en/) (v18+)
+- [Docker](https://www.docker.com/) y Docker Compose
 
-El proyecto está diseñado para poder ser ejecutado localmente sin necesidad de instalar bases de datos de forma nativa en tu computadora.
+### 2. Levantar la Base de Datos Local
+En la carpeta raíz del proyecto (`agrotech-app`), enciende tu contenedor de PostgreSQL (que correrá de forma segura en el puerto `5444`):
+```bash
+docker-compose up -d
+```
 
-### Requisitos Previos
-- Node.js (v18+)
-- Docker y Docker Compose
+### 3. Configurar e Instalar
+```bash
+npm install
+npx prisma generate
+npx prisma db push
+npx prisma db seed
+```
 
-### Instrucciones paso a paso
+### 4. Ejecutar la Aplicación y Tests
+```bash
+# Iniciar servidor
+npm run dev
 
-1. **Instalar dependencias:**
-   ```bash
-   npm install
-   ```
-
-2. **Levantar la Base de Datos Local:**
-   En la raíz del proyecto, asegúrate de utilizar el archivo `docker-compose.yml` para iniciar un contenedor de PostgreSQL aislado.
-   ```bash
-   docker-compose up -d
-   ```
-   > **Nota:** Este contenedor se levanta en el puerto `5444` (por defecto en tu `.env`) para no chocar con otras instalaciones locales de Postgres.
-
-3. **Sincronizar Esquemas:**
-   Una vez levantada la base de datos, envía las tablas desde Prisma:
-   ```bash
-   npx prisma db push
-   ```
-
-4. **Llenar Base de Datos (Seeding):**
-   Para poder tener datos de las regiones de Venezuela, perfiles de suelos y cultivos, corre:
-   ```bash
-   npm run tsx prisma/seed.ts
-   ```
-   *(Si `tsx` no está configurado como script, puedes ejecutar `npx tsx prisma/seed.ts`)*
-
-5. **Iniciar el servidor de desarrollo:**
-   ```bash
-   npm run dev
-   ```
-   Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver la interfaz.
+# Correr los tests de integración (Jest)
+npx jest
+```
+Visita [http://localhost:3000](http://localhost:3000) para el Dashboard, y [http://localhost:3000/api-docs](http://localhost:3000/api-docs) para visualizar la API.
 
 ---
 
-## ☁️ Despliegue en Producción (Deployment)
+> **Aviso para Despliegues en Producción:** Nunca subas el archivo `docker-compose.yml` ni la carpeta `node_modules`. En producción (Vercel/Railway), la variable de entorno `DATABASE_URL` debe apuntar directamente a tu servicio de base de datos en la nube.
 
-Es crucial entender la diferencia entre el entorno local y el de producción para evitar subir configuraciones erróneas.
-
-### 1. Base de Datos en Producción
-**No debes usar `docker-compose.yml` para desplegar la base de datos en producción.** 
-Para producción, debes utilizar un servicio de bases de datos PostgreSQL gestionado, tales como:
-- **Neon** o **Supabase** (Serveless PostgreSQL)
-- **Railway**, **Render** o **DigitalOcean** (Bases de datos relacionales).
-
-Al crear tu base de datos en alguna de estas plataformas, te proporcionarán una cadena de conexión (Connection String). Debes colocar esta cadena como tu variable de entorno **`DATABASE_URL`** en la plataforma de despliegue.
-
-### 2. Despliegue del Código (Frontend + API)
-Dado que el proyecto utiliza Next.js, puedes desplegar la aplicación fácilmente en **Vercel** o plataformas PaaS (Render, Railway).
-El proyecto cuenta con un `Dockerfile` base que puede ser utilizado en servicios que despliegan a partir de contenedores, aislando el código y ejecutando `npm run build` y `npm start`.
-
-*Asegúrate de agregar `DATABASE_URL` en las variables de entorno de tu proveedor de hosting antes de compilar.*
-
----
-
-## 📚 Documentación de API (Swagger)
-
-Puedes revisar todas las capacidades del Backend, rutas, y esquemas dirigiéndote a:
-[http://localhost:3000/api-docs](http://localhost:3000/api-docs)
-
-*(Esta página renderizará la UI de Swagger dinámicamente usando la especificación del sistema).*
+*Licencia MIT - Desarrollado por Frank Sousa (2026).*

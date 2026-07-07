@@ -13,6 +13,9 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+    if (!body.name) {
+      return NextResponse.json({ error: 'El nombre del cultivo es obligatorio' }, { status: 400 });
+    }
 
     const newCrop = await prisma.crop.create({
       data: {

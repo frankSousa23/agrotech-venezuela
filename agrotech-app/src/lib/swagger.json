@@ -78,6 +78,17 @@
           }
         }
       }
+    },
+    "/api/recomendaciones": {
+      "get": {
+        "summary": "Obtener matriz de recomendaciones",
+        "description": "Retorna la lista de relaciones (Alta, Media, Baja) entre cultivos y suelos registrados.",
+        "responses": {
+          "200": {
+            "description": "Lista de recomendaciones obtenida"
+          }
+        }
+      }
     }
   }
 }

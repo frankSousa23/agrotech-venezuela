@@ -3,25 +3,25 @@ import type { NextRequest } from 'next/server'
 
 // Implementación de RBAC (Role-Based Access Control)
 export function middleware(request: NextRequest) {
-  // En un sistema real, aquí decodificaríamos el JWT o sesión (ej. con NextAuth)
-  // Por ahora, leemos una cookie simulada, o asumimos un rol por defecto.
+  // Mockeamos la sesión. En producción esto vendría de JWT/NextAuth.
   const mockUserRole = request.cookies.get('user_role')?.value || 'AGRONOMIST'; 
   
-  // 1. Proteger el Dashboard
-  if (request.nextUrl.pathname.startsWith('/dashboard')) {
-    if (mockUserRole === 'GUEST') {
-      // En producción, si no hay sesión, se redirige al login
-      // return NextResponse.redirect(new URL('/', request.url));
-    }
-  }
-
-  // 2. Proteger la API de modificaciones (CRUD)
-  // Todas las peticiones que NO sean GET (ej: POST, PUT, DELETE) requieren permisos.
+  // Proteger la API de modificaciones (CRUD)
+  // GET es lectura, permitido para todos (ADMIN, AGRONOMIST, PRODUCER)
   if (request.nextUrl.pathname.startsWith('/api') && request.method !== 'GET') {
-    // Un productor solo puede consultar datos, no editarlos.
+    
+    // Si no es admin ni agrónomo (es decir, productor o invitado), bloqueamos cualquier mutación
     if (mockUserRole === 'PRODUCER' || mockUserRole === 'GUEST') {
       return NextResponse.json(
-        { error: 'Acceso Denegado. Se requieren permisos de Ingeniero Agrónomo o Administrador.' }, 
+        { error: 'Acceso Denegado. El Rol Productor solo tiene permisos de lectura y descarga.' }, 
+        { status: 403 }
+      );
+    }
+
+    // Si es un Agrónomo, puede crear (POST) o editar (PUT), pero el borrado (DELETE) es exclusivo del Admin
+    if (request.method === 'DELETE' && mockUserRole !== 'ADMIN') {
+      return NextResponse.json(
+        { error: 'Acceso Denegado. Solo los Administradores tienen permiso para eliminar registros.' }, 
         { status: 403 }
       );
     }
@@ -31,6 +31,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Definir las rutas donde actuará el middleware
-  matcher: ['/dashboard/:path*', '/api/:path*'],
+  matcher: ['/api/:path*'],
 }

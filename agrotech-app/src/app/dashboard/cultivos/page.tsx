@@ -2,28 +2,68 @@
 
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
+import CropModal from '@/components/forms/CropModal';
 
 export default function CultivosPage() {
   const [crops, setCrops] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
-  // En un caso real esto se manejaría con React Query o Next.js Server Components.
-  // Aquí usamos fetch para conectarnos a las rutas API (Route Handlers) recién creadas.
-  useEffect(() => {
+  const fetchCrops = () => {
+    setLoading(true);
     fetch('/api/crops')
       .then(res => res.json())
       .then(data => {
         setCrops(data);
         setLoading(false);
       });
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const res = await fetch('/api/import/crops', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (res.ok) {
+      alert('Cultivos importados con éxito');
+      fetchCrops();
+    } else {
+      alert('Error al importar o permisos insuficientes');
+    }
+  };
+
+  useEffect(() => {
+    fetchCrops();
   }, []);
 
   return (
     <div className={styles.container}>
       <header className={styles.header}>
         <h1>Catálogo de Cultivos</h1>
-        <button className="btn-primary"><span>+</span> Añadir Cultivo</button>
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          <label className="btn-secondary" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+            <span>📁</span> Subir CSV
+            <input type="file" accept=".csv" style={{ display: 'none' }} onChange={handleFileUpload} />
+          </label>
+          <button className="btn-primary" onClick={() => setShowModal(true)}>
+            <span>+</span> Añadir Cultivo
+          </button>
+        </div>
       </header>
+
+      {showModal && (
+        <CropModal 
+          onClose={() => setShowModal(false)} 
+          onSuccess={() => fetchCrops()} 
+        />
+      )}
       
       {loading ? (
         <div className="glass-panel" style={{ padding: '3rem', textAlign: 'center' }}>

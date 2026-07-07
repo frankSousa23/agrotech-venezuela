@@ -20,7 +20,7 @@ describe('Crops API', () => {
     });
     
     const res = await POST(req);
-    // Dado que falla la validación o prisma tira error por falta de campos
-    expect(res.status).toBe(500);
+    // Ahora retorna 400 gracias a la validación estricta de campos
+    expect(res.status).toBe(400);
   });
 });

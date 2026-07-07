@@ -18,6 +18,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <Link href="/dashboard/cultivos" className={styles.navItem}>
             <span>🌾</span> Cultivos
           </Link>
+          <Link href="/dashboard/suelos" className={styles.navItem}>
+            <span>🧪</span> Suelos
+          </Link>
+          <Link href="/dashboard/recomendaciones" className={styles.navItem}>
+            <span>💡</span> Recomendaciones
+          </Link>
           <Link href="/" className={styles.navItem} style={{ marginTop: 'auto' }}>
             <span>🏠</span> Volver a Inicio
           </Link>

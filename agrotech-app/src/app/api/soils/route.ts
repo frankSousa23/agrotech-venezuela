@@ -15,7 +15,10 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    
+    if (!body.name) {
+      return NextResponse.json({ error: 'El nombre del suelo es obligatorio' }, { status: 400 });
+    }
+
     // Para simplificar la prueba, si no hay región enviada, creamos una de prueba.
     // En producción, el usuario debería seleccionar la región desde el mapa.
     let regionId = body.regionId;
