@@ -1,0 +1,83 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Agrotech API",
+    "version": "1.0.0",
+    "description": "API REST para consulta y registro de Suelos y Cultivos en Venezuela."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor Local"
+    }
+  ],
+  "paths": {
+    "/api/crops": {
+      "get": {
+        "summary": "Obtener todos los cultivos",
+        "description": "Retorna una lista de todos los cultivos registrados en el sistema.",
+        "responses": {
+          "200": {
+            "description": "Lista de cultivos obtenida satisfactoriamente"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo cultivo",
+        "description": "Añade un nuevo cultivo a la base de datos (Requiere rol AGRONOMIST o ADMIN).",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "scientificName": { "type": "string" },
+                  "description": { "type": "string" },
+                  "idealPhMin": { "type": "number" },
+                  "idealPhMax": { "type": "number" },
+                  "waterReq": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Cultivo creado"
+          },
+          "403": {
+            "description": "Acceso Denegado"
+          }
+        }
+      }
+    },
+    "/api/soils": {
+      "get": {
+        "summary": "Obtener todos los suelos",
+        "description": "Retorna una lista de los perfiles de suelo registrados.",
+        "responses": {
+          "200": {
+            "description": "Lista de suelos obtenida"
+          }
+        }
+      },
+      "post": {
+        "summary": "Registrar nuevo suelo",
+        "description": "Añade un nuevo perfil edafológico a la base de datos (Requiere rol AGRONOMIST o ADMIN).",
+        "responses": {
+          "201": {
+            "description": "Suelo creado"
+          },
+          "403": {
+            "description": "Acceso Denegado"
+          }
+        }
+      }
+    }
+  }
+}

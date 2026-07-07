@@ -1,0 +1,108 @@
+:root {
+  /* Paleta Verde/Marrón Agronómica */
+  --primary: #2d4c3b; /* Verde oscuro elegante */
+  --primary-light: #3e6b52;
+  --primary-dark: #1f3328;
+  --secondary: #8c6239; /* Marrón tierra */
+  --secondary-light: #a97b4b;
+  --secondary-dark: #664526;
+  --accent: #d4a373; /* Caqui suave */
+  
+  --background: #f4f7f4; /* Fondo verde muy claro */
+  --surface: #ffffff;
+  --text-main: #1a1a1a;
+  --text-muted: #666666;
+  
+  --border-radius: 16px;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
+  
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f1411; /* Verde casi negro */
+    --surface: #19241e;
+    --text-main: #f0f0f0;
+    --text-muted: #a3b3ab;
+    --border: #2c3832;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: var(--background);
+  color: var(--text-main);
+  /* La fuente vendrá inyectada por Next.js en el layout */
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Glassmorphism Utilities - Para un aspecto premium */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+}
+
+@media (prefers-color-scheme: dark) {
+  .glass-panel {
+    background: rgba(30, 38, 34, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* Botones Base */
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}

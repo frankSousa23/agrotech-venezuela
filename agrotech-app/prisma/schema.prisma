@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  AGRONOMIST
+  PRODUCER
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      Role     @default(PRODUCER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  soils     Soil[]
+}
+
+model Region {
+  id        String   @id @default(cuid())
+  name      String
+  state     String
+  geojson   String?  // Para almacenar polígonos del mapa
+  soils     Soil[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Soil {
+  id             String   @id @default(cuid())
+  name           String
+  description    String?
+  ph             Float?
+  organicMatter  Float?
+  nitrogen       Float?
+  phosphorus     Float?
+  potassium      Float?
+  texture        String?  // Ej: "Franco-arcilloso"
+  
+  regionId       String
+  region         Region   @relation(fields: [regionId], references: [id])
+  
+  createdBy      String?
+  user           User?    @relation(fields: [createdBy], references: [id])
+  
+  crops          CropSoilRecommendation[]
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Crop {
+  id             String   @id @default(cuid())
+  name           String
+  scientificName String?
+  description    String?
+  idealPhMin     Float?
+  idealPhMax     Float?
+  waterReq       String?  // Requerimientos hídricos
+
+  soils          CropSoilRecommendation[]
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+// Relación explícita muchos-a-muchos para recomendaciones de cultivos por suelo
+model CropSoilRecommendation {
+  id          String   @id @default(cuid())
+  soilId      String
+  cropId      String
+  suitability String   // Ej: "Alta", "Media", "Baja"
+  notes       String?
+
+  soil        Soil     @relation(fields: [soilId], references: [id])
+  crop        Crop     @relation(fields: [cropId], references: [id])
+
+  @@unique([soilId, cropId])
+}
