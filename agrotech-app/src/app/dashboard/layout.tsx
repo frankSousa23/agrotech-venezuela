@@ -15,6 +15,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <Link href="/dashboard/mapa" className={styles.navItem}>
             <span>🗺️</span> Mapa de Suelos
           </Link>
+          <Link href="/dashboard/estadisticas" className={styles.navItem}>
+            <span>📈</span> Geoestadísticas
+          </Link>
           <Link href="/dashboard/cultivos" className={styles.navItem}>
             <span>🌾</span> Cultivos
           </Link>
