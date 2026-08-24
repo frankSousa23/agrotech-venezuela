@@ -1,0 +1,91 @@
+version: '3.8'
+
+services:
+  # 1. Base de Datos Relacional PostgreSQL 15
+  agrotech-db:
+    image: postgres:15-alpine
+    container_name: agrotech-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-agrotech_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-agrotech_secret_2026}
+      POSTGRES_DB: ${POSTGRES_DB:-agrotech_db}
+    ports:
+      - "5444:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agrotech_user -d agrotech_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - agrotech-network
+
+  # 2. Backend FastAPI - Ingesta Espacial, ML & Gemini AI
+  agrotech-api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: agrotech-fastapi-backend
+    restart: always
+    command: ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    ports:
+      - "8000:8000"
+    environment:
+      - GEE_SERVICE_ACCOUNT=${GEE_SERVICE_ACCOUNT:-}
+      - GEE_PRIVATE_KEY_PATH=${GEE_PRIVATE_KEY_PATH:-}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY:-}
+    volumes:
+      - ./backend/agrotech_spatial_cache.db:/app/agrotech_spatial_cache.db
+    networks:
+      - agrotech-network
+
+  # 3. Interfaz Interactiva de Visualización Streamlit
+  agrotech-dashboard:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: agrotech-streamlit-dashboard
+    restart: always
+    command: ["streamlit", "run", "streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+    ports:
+      - "8501:8501"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY:-}
+    depends_on:
+      - agrotech-api
+    networks:
+      - agrotech-network
+
+  # 4. Plataforma WebGIS Principal Next.js 16
+  agrotech-web:
+    build:
+      context: ./agrotech-app
+      dockerfile: Dockerfile
+    container_name: agrotech-nextjs-web
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://agrotech_user:agrotech_secret_2026@agrotech-db:5432/agrotech_db?schema=public
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:-super_secret_jwt_key_2026}
+      - NEXTAUTH_URL=http://localhost:3000
+      - SPATIAL_BACKEND_URL=http://agrotech-api:8000
+    depends_on:
+      agrotech-db:
+        condition: service_healthy
+      agrotech-api:
+        condition: service_started
+    networks:
+      - agrotech-network
+
+volumes:
+  pgdata:
+    driver: local
+
+networks:
+  agrotech-network:
+    driver: bridge

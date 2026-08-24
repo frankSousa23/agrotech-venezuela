@@ -57,16 +57,22 @@ npx prisma generate
 npx prisma db push
 npx prisma db seed
 
-# 4. Iniciar servidor de desarrollo
+# 4. Iniciar servidor Next.js
 npm run dev
 
-# 5. Correr tests automatizados
-npm test
+# 5. Iniciar backend espacial y motor de IA (FastAPI)
+cd ../backend
+py -m pip install -r requirements.txt
+py -m uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
+
+# 6. Correr tests automatizados (Jest & Pytest)
+npm test          # Tests de Frontend & APIs Next.js (30 tests)
+py -m pytest tests # Tests de Backend Espacial, ML & Gemini (28 tests)
 ```
 
-- Dashboard: [http://localhost:3000](http://localhost:3000)
-- Visor WebGIS: [http://localhost:3000/dashboard/mapa](http://localhost:3000/dashboard/mapa)
-- Documentación API (Swagger): [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
+- Plataforma Web & WebGIS: [http://localhost:3000](http://localhost:3000)
+- Motor Espacial & Swagger API: [http://localhost:8000/docs](http://localhost:8000/docs)
+- Documentación Swagger Next.js: [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
 
 ---
 

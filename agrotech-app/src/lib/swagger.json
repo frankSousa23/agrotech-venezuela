@@ -144,6 +144,51 @@
           }
         }
       }
+    },
+    "/api/v1/predict/crops": {
+      "post": {
+        "summary": "Predicción de idoneidad y rendimiento de cultivos con ML",
+        "description": "Evalúa el vector espacial y edafológico para predecir rendimientos en Ton/ha de 8 cultivos estratégicos.",
+        "responses": {
+          "200": {
+            "description": "Predicciones generadas exitosamente"
+          }
+        }
+      }
+    },
+    "/api/v1/predict/risks": {
+      "post": {
+        "summary": "Modelado de riesgos agroclimáticos y captura de carbono",
+        "description": "Cuantifica riesgos de sequía, encharcamiento, acidez y estrés térmico, más potencial de secuestro de CO2e/ha.",
+        "responses": {
+          "200": {
+            "description": "Evaluación de riesgos y carbono generada"
+          }
+        }
+      }
+    },
+    "/api/v1/ai/prescribe": {
+      "post": {
+        "summary": "Dictamen agronómico y prescripción técnica con Gemini AI",
+        "description": "Genera una receta técnica integral de enmiendas, encalado y nutrición N-P-K mediante Google Gemini.",
+        "responses": {
+          "200": {
+            "description": "Prescripción de IA generada con éxito"
+          }
+        }
+      }
+    },
+    "/api/v1/ai/consult": {
+      "post": {
+        "summary": "Consulta conversacional con el agente agrónomo Gemini",
+        "description": "Permite chatear interactivamente sobre el manejo de la parcela con el agente de IA.",
+        "responses": {
+          "200": {
+            "description": "Respuesta conversacional del asistente"
+          }
+        }
+      }
     }
   }
 }
+
