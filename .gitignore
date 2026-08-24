@@ -25,3 +25,14 @@ yarn-error.log*
 # sistema operativo
 .DS_Store
 Thumbs.db
+
+# Python & SQLite
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+*.db
+*.sqlite
+*.sqlite3
+backend/agrotech_spatial_cache.db*
+

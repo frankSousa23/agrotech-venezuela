@@ -1,8 +1,16 @@
 # Agrotech Venezuela 🌾🛰️
 
-**Plataforma WebGIS de Inteligencia Edafo-Climática, Zonificación de Cultivos y Prescripción Agronómica para Venezuela.**
+**Plataforma Integral de Inteligencia Edafo-Climática, Visión Satelital (WebGIS), Machine Learning Agronómico y Prescripción Asistida por IA.**
 
-Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LULC) de **MapBiomas Venezuela**, Agrotech transforma la observación satelital en **decisiones agronómicas precisas, prescriptivas y de acción directa** para agrónomos, productores e investigadores agrícolas.
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Next.js 16](https://img.shields.io/badge/Next.js-16%20(Turbopack)-black.svg)](https://nextjs.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-2.0-009688.svg)](https://fastapi.tiangolo.com/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.62-FF4B4B.svg)](https://streamlit.io/)
+[![Python 3.13](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
+[![PostgreSQL 15](https://img.shields.io/badge/PostgreSQL-15-336791.svg)](https://www.postgresql.org/)
+[![Tests: 63 Passing](https://img.shields.io/badge/Tests-63%20Passing-brightgreen.svg)]()
+
+Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LULC) de **MapBiomas Venezuela** (1985–2024), **Sentinel-2 L2A (Copernicus)** y **NASA POWER**, Agrotech transforma la observación satelital en **decisiones agronómicas precisas, prescriptivas y de acción directa** para agrónomos, productores e investigadores agrícolas.
 
 ---
 
@@ -10,129 +18,52 @@ Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LUL
 
 | Dimensión | MapBiomas Venezuela (Observacional) | Agrotech Venezuela (Prescriptivo y Acción) |
 | :--- | :--- | :--- |
-| **Enfoque** | Descriptivo / Histórico de coberturas (1985–2024). | Prescriptivo, predictivo y cálculo de precisión en tiempo real. |
-| **Interacción** | Consulta y descarga de mapas temáticos. | **Gemelo Digital de Parcela**: Delimitación vectorial interactiva de fincas con cálculo geodésico de hectáreas. |
-| **Edafología** | Cobertura vegetal general. | Cruzamiento fisicoquímico (pH, MO, N-P-K, textura) y curvas de tolerancia de cultivos autóctonos. |
-| **Prescripción** | No prescriptivo. | **Calculadora de Enmiendas y Encalado**: Cálculo exacto de toneladas de Cal Agrícola/Dolomítica ($CaCO_3$) y plan de fertilización $N-P-K$. |
-
----
-
-## 🏗️ Arquitectura y Stack Tecnológico
-
-- **Frontend & WebGIS**: Next.js 16+ (App Router con Turbopack), React 19, Leaflet / React-Leaflet, CSS Modules Glassmorphism.
-- **Backend & Geo-APIs**: Next.js Route Handlers (API REST con soporte GeoJSON FeatureCollection).
-- **Base de Datos & ORM**: PostgreSQL 15 en contenedor Docker, Prisma ORM (Migraciones, Seeds y Trazabilidad Relacional).
-- **Motor Geoespacial & Agronómico**:
-  - Cálculo geodésico esferoidal de Shoelace para superficies en hectáreas (ha).
-  - Algoritmo Multicriterio (AHP) de idoneidad y rendimiento de cultivos.
-  - Generador y exportador nativo de polígonos GeoJSON estándar.
-- **Seguridad**: Control de Acceso Basado en Roles (RBAC) con Middleware.
-- **Testing & Calidad**: Suite integral de pruebas automatizadas con Jest (100% pasadas).
-- **Documentación API**: Especificación OpenAPI 3.0 renderizada con Swagger UI interactivo en `/api-docs`.
+| **Ingreso de Datos** | Consulta manual en visor o descarga de rasters. | **Automático por Coordenadas GPS $(Lat, Lon)$**: Ingesta satelital de 40 años sin fricción. |
+| **Resolución Espacial** | 30 metros (Landsat). | **10 metros a nivel de parcela** (Sentinel-2 L2A con máscara de nubes SCL). |
+| **Clima en Tiempo Real** | Climatología general. | **NASA POWER Diario**: Temperatura, radiación solar y Grados Día de Desarrollo (**GDD**). |
+| **Modelado de Cosecha** | No disponible. | **Machine Learning Predictivo**: Estimación de rendimiento en **Ton/ha** para 8 cultivos estratégicos. |
+| **Prescripción Agronómica** | No prescriptivo. | **Calculadora de Encalado ($CaCO_3$) y Plan Nutricional $N-P-K$** adaptado a insumos venezolanos. |
+| **Inteligencia Artificial** | No disponible. | **Agente Google Gemini AI**: Diagnósticos técnicos estructurados y chat agronómico. |
+| **Resiliencia Rural** | Dependencia 100% de internet estable. | **Base de Datos SQLite en Caché Local (< 5ms)** y compatibilidad PWA Offline. |
 
 ---
 
 ## 🗺️ Módulos Principales del Sistema
 
-### 1. Visor WebGIS Multidimensional (`/dashboard/mapa`)
-- **Mapas Base de Alta Resolución**: Satélite Esri HD, CartoDB Dark Matter, OpenTopoMap (Relieve) y OpenStreetMap.
-- **Capas Temáticas Superponibles**:
-  - `🌱 Coberturas MapBiomas LULC`: Bosques, Pastizales, Agricultura, Sabanas, Agua.
-  - `🧪 Semáforo de pH del Suelo`: Muy Ácido (<5.5), Moderado (5.5-6.5), Óptimo (6.5-7.5), Alcalino (>7.5).
-  - `⭐ Fertilidad Edafológica`: Alta, Media y Baja.
-  - `🌧️ Pluviometría Anual (mm)`.
-- **Control de Opacidad Dinámico** y **Geo-Inspector Lateral** con desglose de coberturas por estado.
-- **Marcadores GPS**: Puntos de muestreo de campo con trazabilidad científica (`AGRO-ZUL-042`, `AGRO-POR-108`, etc.).
-
-### 2. Delimitador de Fincas y Gemelo Digital (`ParcelDiagnosticModal`)
-- Herramienta interactiva **`📐 Delimitar Parcela`** sobre mapa satelital.
-- Cálculo instantáneo de **Área en Hectáreas (ha)** y **Perímetro en km**.
-- Ficha técnica descargable en **GeoJSON** y lista para impresión agronómica.
-
-### 3. Motor Inteligente de Prescripción Edafológica (`/dashboard/recomendaciones`)
-- Simulador en vivo para ajustar pH, Materia Orgánica, Textura y Hectáreas.
-- Algoritmo AHP que evalúa y proyecta rendimientos en Ton/ha para:
-  - **Maíz Blanco Harinero**, **Arroz de Riego**, **Plátano/Banano**, **Cacao Criollo Fino**, **Café Arábica**, **Caña de Azúcar**, **Soya** y **Pasturas Tropicales**.
-- Receta de encalado con dosis recomendada por hectárea y toneladas totales requeridas.
-
-### 4. Analítica Territorial & Geoestadísticas (`/dashboard/estadisticas`)
-- Telemetría consolidada de Venezuela (~8.4M ha agrícolas, ~21.6M ha pastizales, 52.1% bosques).
-- Balance edafológico nacional de acidez y estimador de captura de carbono ($CO_2$).
-
-### 5. Catálogo Edafológico y de Cultivos (`/dashboard/suelos` y `/dashboard/cultivos`)
-- Búsqueda en tiempo real, filtros dinámicos por nivel de acidez y exportador a CSV/Excel.
+1. **Visor WebGIS Multidimensional (`/dashboard/mapa`)**: 4 Mapas base satelitales, capas temáticas MapBiomas LULC, semáforo de pH del suelo y Geo-Inspector lateral.
+2. **Delimitador de Fincas y Gemelo Digital (`ParcelDiagnosticModal`)**: Trazo de parcelas con cálculo geodésico de hectáreas (Shoelace) y exportación a GeoJSON.
+3. **Dashboard Interactivo de Prescripción (Streamlit en `:8501`)**: Sliders reactivos de suelo, gráfico de línea temporal MapBiomas 1985-2024 y descarga de informes.
+4. **Motor Predictivo de Machine Learning y Carbono**: Rendimientos proyectados en Ton/ha, riesgos agroclimáticos y balance de secuestro de carbono (**SOC**).
+5. **Agente Asesor con Google Gemini AI**: Prescripciones técnicas y chat agronómico interactivo.
 
 ---
 
-## 🔒 Sistema de Roles y Permisos (RBAC)
+## 🚀 Guía de Inicio Rápido
 
-1. **ADMIN**: Control total del sistema, administración de usuarios y borrados destructivos (`DELETE`).
-2. **AGRONOMIST (Ingeniero Agrónomo)**: Registro y edición de muestras edafológicas, catálogo de cultivos y prescripciones (`POST`, `PUT`, `GET`).
-3. **PRODUCER (Productor Agrícola)**: Visualización WebGIS, simulación de parcelas, descarga de GeoJSON y exportación de reportes (`GET`).
+```bash
+# Iniciar con Docker Compose
+docker-compose up -d --build
+```
+- Plataforma WebGIS: [http://localhost:3000](http://localhost:3000)
+- Dashboard Streamlit: [http://localhost:8501](http://localhost:8501)
+- Swagger FastAPI: [http://localhost:8000/docs](http://localhost:8000/docs)
+- Swagger Next.js: [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
 
 ---
 
-## 🚀 Guía Rápida de Inicio (Entorno Local)
+## 🧪 Pruebas Automatizadas (63 Tests)
 
-### 1. Requisitos Previos
-- [Node.js](https://nodejs.org/en/) (v18 o superior)
-- [Docker](https://www.docker.com/) y Docker Compose
-
-### 2. Encender Base de Datos PostgreSQL
 ```bash
-docker-compose up -d
-```
-*El contenedor PostgreSQL correrá en el puerto seguro `5444`.*
+# Tests de Backend (Pytest - 33 tests)
+cd backend && py -m pytest tests
 
-### 3. Configurar e Instalar Dependencias
-```bash
-npm install
-npx prisma generate
-npx prisma db push
-npx prisma db seed
-```
-
-### 4. Ejecutar el Servidor de Desarrollo
-```bash
-npm run dev
-```
-- Visita **[http://localhost:3000](http://localhost:3000)** para la plataforma.
-- Visita **[http://localhost:3000/dashboard/mapa](http://localhost:3000/dashboard/mapa)** para el Visor WebGIS.
-- Visita **[http://localhost:3000/api-docs](http://localhost:3000/api-docs)** para la Documentación Swagger OpenAPI.
-
-### 5. Ejecutar la Suite de Pruebas Automatizadas
-```bash
-npm test
-```
-
-### 6. Compilación de Producción
-```bash
-npm run build
+# Tests de Frontend (Jest - 30 tests)
+cd agrotech-app && npm test
 ```
 
 ---
 
-## 📡 API Endpoints Destacados
+## 📄 Licencia y Atribución
 
-- `GET /api/geo`: Obtiene capas vectoriales GeoJSON (`?type=geojson`), puntos GPS (`?type=points`) o metadatos (`?type=metadata`).
-- `GET /api/soils`: Listado de perfiles de suelo y datos fisicoquímicos.
-- `GET /api/crops`: Catálogo de cultivos y requerimientos edafoclimáticos.
-- `GET /api/recomendaciones`: Matriz de compatibilidad agronómica.
-- `GET /api/export/stats?format=csv|excel`: Exportación consolidada de datos.
-
-## 📄 Licencia, Términos Open Source y Atribución
-
-### Licencia de Software (Código Abierto)
-Este proyecto está publicado bajo los términos de la **Licencia MIT**:
-- **Uso libre y gratuito**: Cualquier persona u organización puede usar, estudiar, modificar, integrar y distribuir este software de forma gratuita tanto para fines académicos como comerciales.
-- **Condición de atribución**: Se requiere mantener el aviso de copyright original y otorgar el debido crédito al creador del proyecto (**Frank Sousa - Agrotech Venezuela**).
-
-### Atribución y Reconocimiento a MapBiomas Venezuela
-Las clasificaciones temáticas de cobertura y uso del suelo (LULC) integradas como referencia en esta plataforma están fundamentadas en los datos abiertos de la iniciativa **MapBiomas Venezuela**, publicados bajo la licencia internacional **Creative Commons Atribución 4.0 (CC BY 4.0)**:
-- **Referencia Oficial**: *Colección de Cobertura y Uso del Suelo de Venezuela*, desarrollada por **Provita**, el **Laboratorio LSIGMA de la Universidad Simón Bolívar (USB)**, **Wataniba** y la **Red Amazónica de Información Socioambiental Georreferenciada (RAISG)**.
-- **Portales de Acceso**: [venezuela.mapbiomas.org](https://venezuela.mapbiomas.org) | [plataforma.venezuela.mapbiomas.org](https://plataforma.venezuela.mapbiomas.org)
-
----
-
-*Desarrollado con fines de innovación científica y tecnológica por Frank Sousa (2026).*
-
+- **Licencia de Software**: MIT License (Copyright 2026 Frank Sousa - Agrotech Venezuela).
+- **Atribución MapBiomas**: Datos LULC referenciados bajo licencia **Creative Commons Atribución 4.0 (CC BY 4.0)** (Provita, LSIGMA USB, Wataniba y RAISG).
