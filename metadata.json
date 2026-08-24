@@ -1,0 +1,8 @@
+{
+  "name": "Agrotech Venezuela",
+  "description": "Plataforma WebGIS y prescripción edafológica con inteligencia geoespacial para Venezuela",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
