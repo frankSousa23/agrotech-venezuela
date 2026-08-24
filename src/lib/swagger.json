@@ -1,0 +1,216 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Agrotech Venezuela API (WebGIS & Precision Edafology)",
+    "version": "2.0.0",
+    "description": "API REST y Geoespacial para la gestión científica de suelos, zonificación de cultivos, datos MapBiomas Venezuela y Gemelo Digital de Parcelas."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor Local"
+    }
+  ],
+  "paths": {
+    "/api/geo": {
+      "get": {
+        "summary": "Obtener datos geoespaciales y capas MapBiomas de Venezuela",
+        "description": "Retorna capas vectoriales GeoJSON de estados, puntos GPS de muestreo edafológico y metadatos de clasificación.",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "description": "Tipo de salida: 'geojson' (FeatureCollection), 'points' (Muestras GPS), 'metadata' (Clases MapBiomas y rangos pH)",
+            "schema": {
+              "type": "string",
+              "enum": ["geojson", "points", "metadata"]
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "required": false,
+            "description": "Filtrar por ID de estado específico (ej: 'zulia', 'portuguesa', 'guarico')",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Datos geoespaciales obtenidos exitosamente"
+          }
+        }
+      }
+    },
+    "/api/crops": {
+      "get": {
+        "summary": "Obtener todos los cultivos",
+        "description": "Retorna una lista de todos los cultivos registrados en el sistema.",
+        "responses": {
+          "200": {
+            "description": "Lista de cultivos obtenida satisfactoriamente"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo cultivo",
+        "description": "Añade un nuevo cultivo a la base de datos (Requiere rol AGRONOMIST o ADMIN).",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "scientificName": { "type": "string" },
+                  "description": { "type": "string" },
+                  "idealPhMin": { "type": "number" },
+                  "idealPhMax": { "type": "number" },
+                  "waterReq": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Cultivo creado"
+          },
+          "403": {
+            "description": "Acceso Denegado"
+          }
+        }
+      }
+    },
+    "/api/soils": {
+      "get": {
+        "summary": "Obtener todos los suelos",
+        "description": "Retorna una lista de los perfiles de suelo registrados.",
+        "responses": {
+          "200": {
+            "description": "Lista de suelos obtenida"
+          }
+        }
+      },
+      "post": {
+        "summary": "Registrar nuevo suelo",
+        "description": "Añade un nuevo perfil edafológico a la base de datos (Requiere rol AGRONOMIST o ADMIN).",
+        "responses": {
+          "201": {
+            "description": "Suelo creado"
+          },
+          "403": {
+            "description": "Acceso Denegado"
+          }
+        }
+      }
+    },
+    "/api/recomendaciones": {
+      "get": {
+        "summary": "Obtener matriz de recomendaciones",
+        "description": "Retorna la lista de relaciones de compatibilidad agronómica entre cultivos y suelos.",
+        "responses": {
+          "200": {
+            "description": "Lista de recomendaciones obtenida"
+          }
+        }
+      }
+    },
+    "/api/export/stats": {
+      "get": {
+        "summary": "Exportar estadísticas y perfiles edafológicos",
+        "description": "Genera y descarga un archivo en formato CSV o Excel XLSX con el consolidado agro-edafológico.",
+        "parameters": [
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "description": "Formato deseado ('csv' o 'excel')",
+            "schema": {
+              "type": "string",
+              "enum": ["csv", "excel"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Descarga de archivo de reporte"
+          }
+        }
+      }
+    },
+    "/api/gemini/advisor": {
+      "post": {
+        "summary": "Asesor Agronómico Gemini con Memoria Territorial (40 Años MapBiomas)",
+        "description": "Genera diagnósticos y recomendaciones técnicas en tiempo real para cualquier parcela o punto de Venezuela considerando MapBiomas Colección 3 (1985-2024), MapBiomas Agua y Clima NASA POWER.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "prompt": { "type": "string", "example": "¿Cuál es la fecha óptima de siembra y dosis de encalado?" },
+                  "parcelContext": {
+                    "type": "object",
+                    "properties": {
+                      "coordinates": { "type": "object", "properties": { "lat": { "type": "number" }, "lng": { "type": "number" } } },
+                      "stateName": { "type": "string" },
+                      "areaHectares": { "type": "number" },
+                      "ph": { "type": "number" },
+                      "organicMatter": { "type": "number" },
+                      "texture": { "type": "string" },
+                      "selectedCrop": { "type": "string" }
+                    }
+                  }
+                },
+                "required": ["prompt"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Dictamen agronómico generado por Gemini AI"
+          }
+        }
+      }
+    },
+    "/api/geo/vector": {
+      "post": {
+        "summary": "Cálculo de Vector Territorial Unificado",
+        "description": "Genera la evaluación multicriterio integrando trayectoria MapBiomas, clima NASA POWER y prescripción de enmiendas.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "latitude": { "type": "number" },
+                  "longitude": { "type": "number" },
+                  "ph": { "type": "number" },
+                  "organicMatter": { "type": "number" },
+                  "areaHectares": { "type": "number" }
+                },
+                "required": ["latitude", "longitude"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Vector territorial y prescripción generados"
+          }
+        }
+      }
+    }
+  }
+}
+

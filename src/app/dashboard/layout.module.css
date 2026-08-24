@@ -1,0 +1,364 @@
+.dashboardContainer {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--background);
+  position: relative;
+}
+
+/* Mobile top bar */
+.mobileBar {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--surface-border);
+  padding: 0 16px;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+  box-shadow: var(--shadow-sm);
+}
+
+.mobileLogo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--primary);
+}
+
+.logoBadge {
+  font-size: 1.2rem;
+}
+
+.menuToggle {
+  background: transparent;
+  border: 1px solid var(--surface-border);
+  border-radius: var(--border-radius-sm);
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+.mobileBackdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1010;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 290px;
+  background: var(--surface);
+  border-right: 1px solid var(--surface-border);
+  padding: 1.75rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  z-index: 1020;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-xs);
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+}
+
+.brandArea {
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logoIconContainer {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--border-radius-md);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-accent) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.25);
+}
+
+.brandTitle {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+
+@media (prefers-color-scheme: dark) {
+  .brandTitle {
+    color: var(--text-main);
+  }
+}
+
+.brandSubtitle {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--primary-accent);
+  letter-spacing: 0.8px;
+  margin-top: 2px;
+}
+
+/* Status Box */
+.statusBox {
+  background: rgba(16, 185, 129, 0.06);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: var(--border-radius-sm);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.statusHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.statusLiveDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.statusLiveText {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .statusLiveText {
+    color: #34d399;
+  }
+}
+
+.statusDetails {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.statusItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.statusIcon {
+  color: #10b981;
+}
+
+/* Nav Section */
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+.navSectionLabel {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 0.4rem 0.75rem 0.2rem;
+}
+
+.navItem {
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--border-radius-sm);
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.88rem;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  position: relative;
+}
+
+.navItem:hover {
+  background-color: var(--primary-subtle);
+  color: var(--primary);
+  transform: translateX(3px);
+}
+
+.navItemActive {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(18, 61, 47, 0.2);
+}
+
+.navItemActive .navIcon {
+  color: #34d399;
+}
+
+.navItemHighlight {
+  border: 1px dashed rgba(124, 58, 237, 0.4);
+  background: rgba(124, 58, 237, 0.05);
+}
+
+.navItemHighlight:hover {
+  background: rgba(124, 58, 237, 0.12);
+  color: #7c3aed;
+}
+
+.navIcon {
+  flex-shrink: 0;
+}
+
+.navLabel {
+  flex: 1;
+}
+
+.navBadge {
+  background: rgba(16, 185, 129, 0.2);
+  color: #059669;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.navItemActive .navBadge {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.navItemHome {
+  margin-top: auto;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--border-radius-sm);
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.88rem;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid var(--surface-border);
+}
+
+.navItemHome:hover {
+  background: var(--surface-raised);
+  color: var(--primary);
+  border-color: var(--primary-accent);
+}
+
+/* Sidebar Footer */
+.sidebarFooter {
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--surface-border);
+}
+
+.footerInfo {
+  text-align: center;
+}
+
+.footerTitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.footerVersion {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+/* Main Content */
+.mainContent {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.contentWrapper {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.25rem 2.5rem;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 260px;
+  }
+  .contentWrapper {
+    padding: 1.75rem 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobileBar {
+    display: flex;
+  }
+  
+  .mobileBackdrop {
+    display: block;
+  }
+  
+  .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: -320px;
+    width: 280px;
+    transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 10px 0 25px rgba(0, 0, 0, 0.2);
+  }
+  
+  .sidebarOpen {
+    left: 0;
+  }
+  
+  .mainContent {
+    padding-top: 60px;
+  }
+  
+  .contentWrapper {
+    padding: 1.25rem 1rem;
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "Agrotech Venezuela",
-  "description": "Plataforma WebGIS y prescripción edafológica con inteligencia geoespacial para Venezuela",
+  "description": "Plataforma de inteligencia agronómica aplicada con datos abiertos de MapBiomas Venezuela Colección 3, NASA POWER y Asistente Gemini con memoria territorial",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
