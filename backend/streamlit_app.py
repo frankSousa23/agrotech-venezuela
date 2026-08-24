@@ -115,6 +115,19 @@ col_m3.metric("🛰️ NDVI Sentinel-2", f"{sentinel_data.get('latest_metrics', 
 col_m4.metric("🏆 Cultivo Sugerido", ml_predictions["top_recommended_crop"].split("(")[0])
 col_m5.metric("⚡ Tiempo Respuesta", f"{elapsed_ms} ms", delta="Caché SQLite" if is_from_cache else "Satelital en Vivo")
 
+# --- GUÍA DE ORIENTACIÓN PARA NUEVOS USUARIOS ---
+with st.expander("💡 **¿Eres nuevo en Agrotech? Haz clic aquí para ver la Guía Rápida y Consejos de Uso**", expanded=False):
+    st.markdown("""
+    ### 🌟 Bienvenido al Gemelo Digital de Agrotech Venezuela
+    Esta plataforma te permite evaluar cualquier terreno agrícola en Venezuela utilizando satélites e Inteligencia Artificial:
+    
+    1. **📍 Localizar tu Finca**: Usa la barra lateral izquierda para elegir una región preestablecida (ej: *Turén, Sur del Lago, Calabozo*) o escribe tus coordenadas GPS exactas.
+    2. **🛰️ Pestaña 1 (Diagnóstico Satelital)**: Revisa el mapa en alta definición y el gráfico inferior para ver cómo ha cambiado la cobertura de tu suelo en los últimos 40 años (1985–2024 según **MapBiomas Venezuela**).
+    3. **🌾 Pestaña 2 (Predicción de Cosechas)**: Mueve los controles de pH y Materia Orgánica en la barra lateral para ver cómo reacciona el modelo de Machine Learning y qué cultivo ofrece mayor rentabilidad en Ton/ha.
+    4. **⚠️ Pestaña 3 (Riesgos y Carbono)**: Consulta las alertas automáticas de sequía o acidez crítica, junto con el stock de carbono fijado en tu suelo.
+    5. **🤖 Pestaña 4 (Gemini AI)**: Pulsa **"Generar Dictamen Técnico"** para que el Dr. Agrónomo de IA elabore tu receta de encalado (Cal Dolomítica) y fertilizantes $N-P-K$ adaptados a Venezuela, y descarga tu informe oficial en Markdown o GeoJSON.
+    """)
+
 st.divider()
 
 # --- PESTAÑAS PRINCIPALES DE VISUALIZACIÓN (Día 15) ---

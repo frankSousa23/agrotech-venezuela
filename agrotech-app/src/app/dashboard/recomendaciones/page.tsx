@@ -143,6 +143,32 @@ export default function RecomendacionesPage() {
           </div>
         </div>
 
+        {/* Barra de Consejos Agronómicos Rápidos para Nuevos Usuarios */}
+        <div style={{
+          background: 'rgba(34, 197, 94, 0.08)',
+          borderLeft: '4px solid #16a34a',
+          padding: '0.85rem 1rem',
+          borderRadius: '6px',
+          margin: '1.25rem 0',
+          fontSize: '0.82rem',
+          color: 'var(--text-main)',
+          display: 'flex',
+          gap: '0.75rem',
+          alignItems: 'center'
+        }}>
+          <span style={{ fontSize: '1.25rem' }}>💡</span>
+          <div>
+            <strong>Consejo para Productores:</strong>{' '}
+            {simPh < 5.5 ? (
+              <span>Tu suelo presenta <b>acidez alta (pH &lt; 5.5)</b>. El algoritmo recomienda aplicar Cal Dolomítica para neutralizar el aluminio tóxico y mejorar la absorción de fósforo.</span>
+            ) : simPh <= 6.8 ? (
+              <span>Tu suelo se encuentra en el <b>rango ideal de fertilidad (pH 5.5 - 6.8)</b>, compatible con maíz, arroz, caña y hortalizas tropicales.</span>
+            ) : (
+              <span>Tu suelo tiende a la <b>alcalinidad (pH &gt; 6.8)</b>. Prioriza fertilizantes acidificantes como el sulfato de amonio.</span>
+            )}
+          </div>
+        </div>
+
         {/* Resultados del Análisis */}
         <div className={styles.simResultsSection}>
           {/* Grilla de Cultivos Ordenados por Idoneidad */}
