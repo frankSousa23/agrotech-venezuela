@@ -1,7 +1,22 @@
 /**
- * Servicio de integración con la API Agroclimática de NASA POWER
- * Proporciona radiación solar (ALLSKY_SFC_SW_DWN), temperatura (T2M, T2M_MAX, T2M_MIN),
- * precipitación (PRECTOTCORR) y humedad relativa (RH2M) para cualquier coordenada de Venezuela.
+ * ============================================================================
+ * AGROTECH VENEZUELA — CLIENTE AGROCLIMÁTICO NASA POWER (nasaPowerService.ts)
+ * ============================================================================
+ * 
+ * Proporciona variables meteorológicas y agroclimáticas de alta fidelidad:
+ * 1. Radiación Solar en Superficie (ALLSKY_SFC_SW_DWN) en MJ/m²/día.
+ * 2. Temperaturas (T2M Promedio, T2M_MAX, T2M_MIN) en °C.
+ * 3. Precipitación Total (PRECTOTCORR) acumulada anual y mensual en mm.
+ * 4. Humedad Relativa (RH2M) y estacionalidad (meses secos vs lluviosos).
+ * 
+ * Mecanismo de Resiliencia:
+ * - Consulta la API pública de climatología de 30 años de NASA POWER con timeout de 4.5s.
+ * - Implementa memoria caché TTL (24 horas) para optimizar consumo y reducir latencias.
+ * - Fallback automático a 'estimateVenezuelaAgroClimate': Malla climatológica offline calibrada
+ *   para las regiones venezolanas (Llanos, Andes, Zulia, Guayana, Centro-Norte-Costera).
+ * 
+ * Interacciones:
+ * - Usado por: ParcelDiagnosticModal, RecomendacionesPage, evaluateCropSuitability y Gemini AI.
  */
 
 export interface NasaAgroClimaticData {
@@ -22,7 +37,8 @@ const agroClimateCache = new Map<string, { data: NasaAgroClimaticData; timestamp
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 horas
 
 /**
- * Obtiene parámetros agroclimáticos para una coordenada geográfica en Venezuela
+ * Obtiene parámetros agroclimáticos para una coordenada geográfica en Venezuela.
+ * Intenta primero la API de NASA POWER y recurre a la malla local calibrada ante cualquier fallo.
  */
 export async function fetchNasaAgroClimate(lat: number, lon: number): Promise<NasaAgroClimaticData> {
   const cacheKey = `${lat.toFixed(2)}_${lon.toFixed(2)}`;

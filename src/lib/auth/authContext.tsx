@@ -1,8 +1,25 @@
+/**
+ * ============================================================================
+ * AGROTECH VENEZUELA — CONTEXTO GLOBAL DE AUTENTICACIÓN (authContext.tsx)
+ * ============================================================================
+ * 
+ * Gestiona el ciclo de vida de la sesión del usuario en el cliente:
+ * 1. Persistencia de Sesión: Almacenamiento seguro en LocalStorage con tokens JWT simulados.
+ * 2. Roles Soportados:
+ *    - FARMER: Productor agrícola (gestión de parcelas y bitácora de campo).
+ *    - AGRONOMIST: Ingeniero agrónomo (diagnósticos edafológicos y recomendaciones).
+ *    - ADMIN: Administrador (aprobación de cuentas y telemetría de la plataforma).
+ * 3. Modo Invitado (Sandbox): Permite interacción instantánea sin registro previo con
+ *    aislamiento de datos efímero.
+ * 
+ * Interacciones:
+ * - Utilizado por AppProviders, NavigationBar, ProtectedRoute, /api/parcels y /dashboard/admin.
+ */
+
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { UserSession } from './authUtils';
-
 
 interface AuthContextType {
   user: UserSession | null;

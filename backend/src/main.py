@@ -1,7 +1,20 @@
 """
-Agrotech Venezuela - FastAPI Spatial, ML & AI Agronomic Engine (Semana 1 & 2)
-Servicio backend de ingesta de coordenadas GPS, MapBiomas Col 3, Sentinel-2, NASA POWER,
-modelado predictivo de cosechas (ML), riesgos, carbono y prescripciones con Google Gemini.
+============================================================================
+AGROTECH VENEZUELA — BACKEND ESPACIAL, ML & GEMINI AI (main.py)
+============================================================================
+
+Servicio backend de alto rendimiento en FastAPI (Python 3.13):
+1. Ingesta Satelital Automatizada:
+   - MapBiomas Colección 3 (1985-2024): 40 años de trayectoria de cobertura del suelo.
+   - Sentinel-2 L2A Copernicus: Índices espectrales (NDVI, EVI, NDWI) con máscara SCL (10m).
+   - NASA POWER Climatology: Radiación, temperatura, lluvia y Grados Día de Desarrollo (GDD).
+2. Caché Geoespacial SQLite WAL:
+   - Hashing geodésico a 4 decimales (~11m de resolución) con latencias < 25ms.
+3. Machine Learning Agronómico & Edafología:
+   - Predictor de idoneidad y rendimiento en Ton/ha para 8 cadenas estratégicas.
+   - Análisis de riesgos agroclimáticos y captura de Carbono Orgánico del Suelo (SOC).
+4. Agente Asesor Google Gemini AI:
+   - Dictámenes técnicos estructurados adaptados a insumos comerciales en Venezuela.
 """
 
 import time

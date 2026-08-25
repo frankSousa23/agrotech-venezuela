@@ -1,3 +1,23 @@
+/**
+ * ============================================================================
+ * AGROTECH VENEZUELA — API REST DE GESTIÓN DE PARCELAS (/api/parcels)
+ * ============================================================================
+ * 
+ * Endpoint REST para la persistencia y consulta de parcelas agrícolas del productor:
+ * 1. GET /api/parcels:
+ *    - Filtra parcelas asociadas al 'userId' o 'guestId' actual.
+ *    - Intenta consultar PostgreSQL vía Prisma; en caso de modo offline/sandbox,
+ *      recurre al almacenamiento en memoria 'IN_MEMORY_PARCELS'.
+ * 2. POST /api/parcels:
+ *    - Registra un nuevo lote georreferenciado con polígono GeoJSON y área Shoelace calculada.
+ * 3. DELETE /api/parcels:
+ *    - Elimina un lote por 'id' garantizando aislamiento de datos.
+ * 
+ * Interacciones:
+ * - Usado por: MultiLevelMapViewer.tsx (guardado directo), Mis Tierras (/dashboard/tierras)
+ *   y Cuaderno de Campo (/dashboard/bitacora).
+ */
+
 import { NextResponse } from 'next/server';
 
 export interface InMemParcel {

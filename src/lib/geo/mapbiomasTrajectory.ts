@@ -1,6 +1,20 @@
 /**
- * Motor de Inteligencia Espacial y Trayectoria Histórica MapBiomas Venezuela (Colección 3: 1985–2024)
- * Integra análisis multitemporal, persistencia de MapBiomas Agua y el Escudo Ecológico del Orinoco.
+ * ============================================================================
+ * AGROTECH VENEZUELA — MOTOR DE TRAYECTORIA MULTITEMPORAL MAPBIOMAS (1985–2024)
+ * ============================================================================
+ * 
+ * Este módulo procesa la memoria ecológica y satelital del territorio nacional:
+ * 1. calculateMapBiomasTrajectory(lat, lng):
+ *    - Reconstruye 40 años continuos de cobertura y uso del suelo (1985-2024).
+ *    - Cuantifica el desgaste de materia orgánica (% pérdida) y años de presión antrópica.
+ *    - Interacciona con: ParcelDiagnosticModal, RecomendacionesPage, spatialUtils.ts y Gemini AI.
+ * 2. calculateMapBiomasAgua(lat, lng):
+ *    - Evalúa la persistencia del espejo de agua superficial (2000-2024) y régimen de inundación.
+ *    - Interacciona con: Gemelo Digital de Parcela y simulador de riego.
+ * 3. evaluateOrinocoConservationShield(lat, lng, currentClass):
+ *    - Salvaguarda ecológica al sur del río Orinoco (Lat < 7.8°). Bloquea monocultivos destructivos
+ *      y prescribe Sistemas Agroforestales (SAF) como Cacao Criollo, Copoazú, Café y Frutales Nativos.
+ *    - Interacciona con: evaluateCropSuitability en spatialUtils.ts y Gemini Advisor.
  */
 
 export interface LandCoverPoint {
@@ -68,7 +82,10 @@ export interface UnifiedTerritorialVector {
 }
 
 /**
- * Calcula la trayectoria de 40 años de MapBiomas para cualquier punto en Venezuela
+ * Calcula la trayectoria temporal de 40 años de MapBiomas (Colección 3: 1985–2024)
+ * @param lat Latitud WGS84 del punto
+ * @param lng Longitud WGS84 del punto
+ * @returns Serie anual clasificada con métricas de degradación y riesgo de carbono
  */
 export function calculateMapBiomasTrajectory(lat: number, lng: number): MapBiomasTrajectoryResult {
   const isSouth = lat < 7.8;

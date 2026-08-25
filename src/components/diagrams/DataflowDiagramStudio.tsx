@@ -1,3 +1,23 @@
+/**
+ * ============================================================================
+ * AGROTECH VENEZUELA — ESTUDIO DE DIAGRAMAS ARQUITECTÓNICOS (DataflowDiagramStudio.tsx)
+ * ============================================================================
+ * 
+ * Módulo visual e interactivo de documentación viva de la ingeniería del sistema:
+ * 1. Renderizado Dinámico Mermaid.js: Generación de diagramas de arquitectura en tiempo real
+ *    con soporte de zoom, paneo y exportación SVG/PNG.
+ * 2. Catálogo de Diagramas Técnicos:
+ *    - 1. Microservicios & Data Flow Global E2E (Next.js 16 + FastAPI + Streamlit + SQLite WAL).
+ *    - 2. Pipeline de Ingesta Satelital & Máscaras de Nubes (MapBiomas + Sentinel-2 SCL + NASA).
+ *    - 3. Árbol de Jerarquía y Navegación WebGIS Multi-Escala (Nivel 1, 2 y 3).
+ *    - 4. Ciclo de Vida de Autenticación, Sandbox Invitado y Aprobación Administrativa.
+ *    - 5. Motor Predictivo de Rendimiento ML, Factores Limitantes y Gemini Agro-Advisor.
+ * 
+ * Interacciones:
+ * - Ruta: `/dashboard/arquitectura`
+ * - Integra: Lucide Icons, Mermaid.js y CSS Modules Glassmorphism.
+ */
+
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';

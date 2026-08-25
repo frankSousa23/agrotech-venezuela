@@ -1,3 +1,21 @@
+/**
+ * ============================================================================
+ * AGROTECH VENEZUELA — API REST DE CUADERNO DE CAMPO DIGITAL (/api/field-logs)
+ * ============================================================================
+ * 
+ * Endpoint REST para la bitácora cronológica de labores agronómicas:
+ * 1. GET /api/field-logs:
+ *    - Obtiene los registros históricos agrupados por 'parcelId' o 'userId'.
+ *    - Filtra por tipo de labor (Siembra, Encalado, Fertilización, Riego, Cosecha).
+ * 2. POST /api/field-logs:
+ *    - Registra una nueva labor técnica con dosis, insumos aplicados y rendimientos en Ton/ha.
+ * 3. DELETE /api/field-logs:
+ *    - Elimina un evento de bitácora específico.
+ * 
+ * Interacciones:
+ * - Usado por: Cuaderno de Campo (/dashboard/bitacora) y Analítica Territorial (/dashboard/estadisticas).
+ */
+
 import { NextResponse } from 'next/server';
 
 export interface InMemFieldLog {
