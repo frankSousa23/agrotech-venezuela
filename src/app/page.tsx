@@ -70,7 +70,10 @@ export default function Home() {
               Dashboard
             </Link>
             <Link href="/dashboard/mapa" className={styles.navLink}>
-              Visor WebGIS
+              Visor WebGIS (3 Niveles)
+            </Link>
+            <Link href="/dashboard/tierras" className={styles.navLink}>
+              🚜 Mis Tierras
             </Link>
             <Link href="/dashboard/recomendaciones" className={styles.navLink}>
               Simulador Edafológico
@@ -80,8 +83,11 @@ export default function Home() {
             </Link>
           </nav>
 
-          <div className={styles.navActions}>
-            <Link href="/dashboard/mapa" className="btn-accent">
+          <div className={styles.navActions} style={{ display: 'flex', gap: '8px' }}>
+            <Link href="/auth/login" className="btn-secondary" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}>
+              <span>🚀</span> Modo Invitado / Login
+            </Link>
+            <Link href="/dashboard/mapa" className="btn-accent" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}>
               <span>🗺️</span> Iniciar WebGIS
             </Link>
           </div>

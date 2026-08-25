@@ -275,6 +275,99 @@
           }
         }
       }
+    },
+    "/api/municipalities": {
+      "get": {
+        "summary": "Consultar Municipios Agrícolas y Capas GeoJSON",
+        "description": "Retorna el catálogo y límites de los municipios agrícolas de los 24 estados venezolanos.",
+        "responses": {
+          "200": {
+            "description": "Lista de municipios o FeatureCollection GeoJSON"
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "summary": "Inicio de Sesión y Acceso Invitado (1-Click)",
+        "description": "Valida credenciales o genera sesión instantánea de invitado sandbox.",
+        "responses": {
+          "200": {
+            "description": "Token JWT y datos de sesión generados"
+          }
+        }
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "summary": "Registro de Nuevos Productores",
+        "description": "Registra una cuenta con estado PENDING sujeta a validación por el Administrador.",
+        "responses": {
+          "201": {
+            "description": "Usuario registrado exitosamente"
+          }
+        }
+      }
+    },
+    "/api/admin/users": {
+      "get": {
+        "summary": "Directorio de Usuarios y Solicitudes Pendientes (Admin)",
+        "description": "Lista todos los usuarios y solicitudes para validación.",
+        "responses": {
+          "200": {
+            "description": "Listado de usuarios y métricas"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Aprobar o Rechazar Solicitud de Productor (Admin)",
+        "description": "Modifica el estado del usuario a APPROVED o REJECTED.",
+        "responses": {
+          "200": {
+            "description": "Estado del usuario actualizado"
+          }
+        }
+      }
+    },
+    "/api/parcels": {
+      "get": {
+        "summary": "Listar Parcelas y Tierras del Productor",
+        "description": "Retorna las parcelas delimitadas en WebGIS guardadas por el usuario.",
+        "responses": {
+          "200": {
+            "description": "Lista de parcelas"
+          }
+        }
+      },
+      "post": {
+        "summary": "Guardar Nueva Parcela Delimitada en WebGIS",
+        "description": "Registra el polígono, hectáreas Shoelace, cultivo y suelo de la parcela.",
+        "responses": {
+          "201": {
+            "description": "Parcela guardada exitosamente"
+          }
+        }
+      }
+    },
+    "/api/field-logs": {
+      "get": {
+        "summary": "Consultar Cuaderno de Campo y Cosechas",
+        "description": "Retorna las labores agrícolas y rendimientos reales registrados.",
+        "responses": {
+          "200": {
+            "description": "Entradas de la bitácora"
+          }
+        }
+      },
+      "post": {
+        "summary": "Registrar Labor Agrícola o Cosecha",
+        "description": "Guarda siembras, encalados, fertilizaciones o rendimientos en Ton/ha.",
+        "responses": {
+          "201": {
+            "description": "Labor registrada en bitácora"
+          }
+        }
+      }
     }
   }
 }

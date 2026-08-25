@@ -28,14 +28,20 @@ export default function DashboardOverview() {
             Monitoreo agronómico integral, cruzamiento edafológico multitemporal y prescripción regenerativa para Venezuela.
           </p>
         </div>
-        <div className={styles.headerActions}>
+        <div className={styles.headerActions} style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
           <Link href="/dashboard/mapa" className="btn-primary">
             <Compass size={18} />
-            <span>Abrir Visor WebGIS</span>
+            <span>Visor WebGIS (3 Niveles)</span>
+          </Link>
+          <Link href="/dashboard/tierras" className="btn-secondary" style={{ borderColor: 'rgba(34, 197, 94, 0.4)', color: '#4ade80' }}>
+            <span>🚜</span> Mis Tierras
+          </Link>
+          <Link href="/dashboard/bitacora" className="btn-secondary" style={{ borderColor: 'rgba(56, 189, 248, 0.4)', color: '#38bdf8' }}>
+            <span>📖</span> Cuaderno de Campo
           </Link>
           <Link href="/dashboard/recomendaciones" className="btn-secondary">
             <Sparkles size={18} style={{ color: '#7c3aed' }} />
-            <span>Simulador de Suelos</span>
+            <span>Simulador & IA</span>
           </Link>
         </div>
       </header>
