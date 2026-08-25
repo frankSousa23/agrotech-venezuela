@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/agrotech_db?schema=public"
+  NEXT_TELEMETRY_DISABLED: "1"
+
 jobs:
   test-nextjs:
     name: Next.js 16 WebGIS & API Tests
@@ -13,23 +17,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js 20
+      - name: Setup Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
-          cache-dependency-path: package-lock.json
 
       - name: Install Dependencies
         run: npm ci
 
+      - name: Generate Prisma Client
+        run: npx prisma generate
+
       - name: Run Jest Test Suite (8 suites / 21 tests)
         run: npm test
 
-      - name: Verify TypeScript & Build
-        run: |
-          npx prisma generate
-          npm run build
+      - name: Build Next.js Production App
+        run: npm run build
 
   test-python-backend:
     name: Python Spatial, ML & Gemini Engine Tests
@@ -53,4 +57,5 @@ jobs:
       - name: Run Pytest Suite (39 tests)
         working-directory: ./backend
         run: python -m pytest tests
+
 
