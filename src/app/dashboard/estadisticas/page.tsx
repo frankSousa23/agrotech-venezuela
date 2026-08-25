@@ -135,31 +135,35 @@ export default function EstadisticasPage() {
           </div>
 
           <div className={styles.stateBarsList}>
-            {filteredStates.slice(0, 7).map((st) => (
-              <div key={st.id} className={styles.stateBarItem}>
-                <div className={styles.stateBarHeader}>
-                  <span className={styles.stateName}>{st.name} ({st.dominantSoil.split(' ')[0]})</span>
-                  <span className={styles.stateMetric}>{st.mapbiomasCover.agriculture}% Agrícola</span>
+            {filteredStates.slice(0, 7).map((st) => {
+              const domSoil = st.dominantSoil || st.soilTextureDominant || 'Franco';
+              const cover = st.mapbiomasCover || st.mapbiomasCoverPercentage || { agriculture: 25, pasture: 20, forest: 35 };
+              return (
+                <div key={st.id} className={styles.stateBarItem}>
+                  <div className={styles.stateBarHeader}>
+                    <span className={styles.stateName}>{st.name} ({domSoil.split(' ')[0]})</span>
+                    <span className={styles.stateMetric}>{cover.agriculture}% Agrícola</span>
+                  </div>
+                  <div className={styles.barTrack}>
+                    <div 
+                      className={styles.barFill} 
+                      style={{ width: `${cover.agriculture}%`, background: '#d946ef' }} 
+                      title={`Agrícola: ${cover.agriculture}%`}
+                    />
+                    <div 
+                      className={styles.barFill} 
+                      style={{ width: `${cover.pasture}%`, background: '#f59e0b' }} 
+                      title={`Pastos: ${cover.pasture}%`}
+                    />
+                    <div 
+                      className={styles.barFill} 
+                      style={{ width: `${cover.forest}%`, background: '#059669' }} 
+                      title={`Bosques: ${cover.forest}%`}
+                    />
+                  </div>
                 </div>
-                <div className={styles.barTrack}>
-                  <div 
-                    className={styles.barFill} 
-                    style={{ width: `${st.mapbiomasCover.agriculture}%`, background: '#d946ef' }} 
-                    title={`Agrícola: ${st.mapbiomasCover.agriculture}%`}
-                  />
-                  <div 
-                    className={styles.barFill} 
-                    style={{ width: `${st.mapbiomasCover.pasture}%`, background: '#f59e0b' }} 
-                    title={`Pastos: ${st.mapbiomasCover.pasture}%`}
-                  />
-                  <div 
-                    className={styles.barFill} 
-                    style={{ width: `${st.mapbiomasCover.forest}%`, background: '#059669' }} 
-                    title={`Bosques: ${st.mapbiomasCover.forest}%`}
-                  />
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 

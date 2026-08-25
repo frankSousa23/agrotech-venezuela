@@ -43,9 +43,9 @@ export default function RecomendacionesPage() {
     setSelectedStateId(stateId);
     const stateData = VENEZUELA_STATES_DATA.find(s => s.id === stateId);
     if (stateData) {
-      setSimPh(stateData.avgPh);
-      setSimOM(stateData.organicMatterPct);
-      setSimTexture(stateData.soilTexture);
+      setSimPh(stateData.averagePh || stateData.avgPh || 6.2);
+      setSimOM(stateData.organicMatterPct || 3.0);
+      setSimTexture(stateData.soilTextureDominant || stateData.soilTexture || 'Franco');
       const [lat, lng] = stateData.center;
       const traj = calculateMapBiomasTrajectory(lat, lng);
       setSimYearsUse(traj.yearsInAnthropicUse);

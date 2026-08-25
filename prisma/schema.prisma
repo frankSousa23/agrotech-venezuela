@@ -1,0 +1,58 @@
+// Prisma Schema for Agrotech Venezuela
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  FARMER
+  AGRONOMIST
+  ADMIN
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  role      Role     @default(FARMER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Crop {
+  id             String   @id @default(uuid())
+  name           String   @unique
+  scientificName String
+  description    String?
+  idealPhMin     Float
+  idealPhMax     Float
+  waterReq       String
+  createdAt      DateTime @default(now())
+}
+
+model Soil {
+  id            String   @id @default(uuid())
+  state         String
+  locationName  String
+  latitude      Float
+  longitude     Float
+  ph            Float
+  organicMatter Float
+  texture       String
+  analysisDate  DateTime @default(now())
+}
+
+model Recommendation {
+  id              String   @id @default(uuid())
+  cropName        String
+  soilTexture     String
+  minPh           Float
+  maxPh           Float
+  limingRequired  Boolean  @default(false)
+  limingDoseTonHa Float    @default(0.0)
+  recommendation  String
+}

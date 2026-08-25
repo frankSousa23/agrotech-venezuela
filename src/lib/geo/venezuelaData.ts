@@ -9,7 +9,11 @@ export interface StateGeoData {
   averageTempC: number;
   mainCrops: string[];
   soilTextureDominant: string;
+  soilTexture?: string;
+  dominantSoil?: string;
   averagePh: number;
+  avgPh?: number;
+  organicMatterPct?: number;
   mapbiomasCoverPercentage: {
     forest: number;
     savanna: number;
@@ -17,7 +21,15 @@ export interface StateGeoData {
     pasture: number;
     water: number;
   };
+  mapbiomasCover?: {
+    forest: number;
+    savanna: number;
+    agriculture: number;
+    pasture: number;
+    water: number;
+  };
 }
+
 
 export interface CropData {
   id: string;

@@ -505,7 +505,7 @@ export function calculatePointSuitability(lat: number, lng: number, ph: number, 
   const state = detectStateFromCoords(lat, lng);
   const results = evaluateCropSuitability(ph, organicMatter, state.soilTextureDominant, state.annualRainfallMm, { lat, lng });
   const topResult = results[0] || { suitabilityScore: 75, cropName: 'Maíz Blanco' };
-  const amendments = calculateSoilAmendments(ph, organicMatter, state.soilTextureDominant, topResult.cropName, 1.0);
+  const amendments = calculateSoilAmendments(ph, organicMatter, 1.0, topResult.cropName);
   
   const limitingFactors: string[] = [];
   if (ph < 5.5) limitingFactors.push('Acidez del suelo (pH < 5.5)');
