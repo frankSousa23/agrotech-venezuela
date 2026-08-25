@@ -182,3 +182,16 @@ export function estimateVenezuelaAgroClimate(lat: number, lon: number): NasaAgro
     fetchedAt: new Date().toISOString(),
   };
 }
+
+export async function getNasaAgroclimateSummary(lat: number, lon: number) {
+  const clim = await fetchNasaAgroClimate(lat, lon);
+  return {
+    annualRainfallMm: clim.annualPrecipitationMm,
+    avgTempC: clim.avgTemperatureC,
+    maxTempC: clim.maxTemperatureC,
+    minTempC: clim.minTemperatureC,
+    solarRadiation: clim.avgSolarRadiationMjM2Day,
+    relativeHumidity: clim.relativeHumidityPercent
+  };
+}
+

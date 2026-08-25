@@ -210,7 +210,73 @@
           }
         }
       }
+    "/api/v1/spatial/profile": {
+      "post": {
+        "summary": "Perfil Espacial Integral (MapBiomas + Sentinel-2 SCL 10m + NASA POWER + Caché SQLite)",
+        "description": "Ingesta automatizada por coordenadas GPS que consulta 40 años de uso de suelo, NDVI/EVI/NDWI a 10m y clima diario con respuesta en < 25ms.",
+        "responses": {
+          "200": {
+            "description": "Perfil espacial consolidado generado exitosamente"
+          }
+        }
+      }
+    },
+    "/api/v1/predict/crops": {
+      "post": {
+        "summary": "Predicción de Rendimiento y Aptitud de Cultivos con Machine Learning",
+        "description": "Modelo predictivo calibrado para Venezuela que proyecta rendimientos en Ton/ha e intervalos de confianza para 8 cultivos estratégicos.",
+        "responses": {
+          "200": {
+            "description": "Predicciones de cosechas generadas"
+          }
+        }
+      }
+    },
+    "/api/v1/predict/risks": {
+      "post": {
+        "summary": "Evaluación de Riesgos Agroclimáticos y Modelado de Carbono SOC / CO2e",
+        "description": "Cuantifica riesgos de sequía, encharcamiento, acidez y estrés térmico, más balances de secuestro de carbono bajo manejo regenerativo.",
+        "responses": {
+          "200": {
+            "description": "Riesgos y balance de carbono calculados"
+          }
+        }
+      }
+    },
+    "/api/v1/ai/prescribe": {
+      "post": {
+        "summary": "Dictamen Técnico y Prescripción Agronómica con Google Gemini AI",
+        "description": "Elabora una receta técnica integral con insumos disponibles en Venezuela (Cal Dolomítica, NPK 12-24-12, Urea, Roca Fosfórica) y exportación GeoJSON/Markdown.",
+        "responses": {
+          "200": {
+            "description": "Prescripción agronómica emitida por Gemini"
+          }
+        }
+      }
+    },
+    "/api/v1/ai/consult": {
+      "post": {
+        "summary": "Asistente Conversacional Geoespacial con Gemini AI",
+        "description": "Chat agronómico interactivo en tiempo real contextualizado a la parcela del productor.",
+        "responses": {
+          "200": {
+            "description": "Respuesta conversacional del asistente"
+          }
+        }
+      }
+    },
+    "/api/v1/cache/stats": {
+      "get": {
+        "summary": "Telemetría de Caché SQLite y Métricas Offline",
+        "description": "Retorna métricas de aciertos, latencias promedio y ahorro de ancho de banda del almacenamiento local.",
+        "responses": {
+          "200": {
+            "description": "Estadísticas de caché obtenidas"
+          }
+        }
+      }
     }
   }
 }
+
 

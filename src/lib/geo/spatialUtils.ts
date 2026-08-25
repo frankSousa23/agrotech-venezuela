@@ -58,10 +58,20 @@ export function isPointInPolygon(point: [number, number], polygon: number[][]): 
   return inside;
 }
 
+type CoordinateInput = [number, number] | { lat: number; lng: number };
+
+function normalizeCoords(coords: CoordinateInput[]): [number, number][] {
+  return coords.map(c => {
+    if (Array.isArray(c)) return c;
+    return [c.lat, c.lng];
+  });
+}
+
 /**
  * Calcula el área esférica de un polígono en hectáreas usando la fórmula esferoidal de Shoelace
  */
-export function calculatePolygonAreaHa(coords: [number, number][]): number {
+export function calculatePolygonAreaHa(inputCoords: CoordinateInput[]): number {
+  const coords = normalizeCoords(inputCoords);
   if (coords.length < 3) return 0;
 
   const EARTH_RADIUS = 6378137; // metros
@@ -88,7 +98,8 @@ export function calculatePolygonAreaHa(coords: [number, number][]): number {
 /**
  * Calcula el perímetro de un polígono en metros usando la fórmula de Haversine
  */
-export function calculatePolygonPerimeterMeters(coords: [number, number][]): number {
+export function calculatePolygonPerimeterMeters(inputCoords: CoordinateInput[]): number {
+  const coords = normalizeCoords(inputCoords);
   if (coords.length < 2) return 0;
 
   const EARTH_RADIUS = 6378137;
@@ -113,8 +124,14 @@ export function calculatePolygonPerimeterMeters(coords: [number, number][]): num
     totalPerimeter += EARTH_RADIUS * c;
   }
 
-  return Math.round(totalPerimeter);
+  return Math.round(totalPerimeter * 10) / 10;
 }
+
+export function calculatePolygonPerimeterKm(coords: CoordinateInput[]): number {
+  const meters = calculatePolygonPerimeterMeters(coords);
+  return Math.round((meters / 1000) * 100) / 100;
+}
+
 
 /**
  * Calcula el centroide geométrico de un conjunto de coordenadas
@@ -476,3 +493,31 @@ export function calculateSoilAmendments(
     technicalNotes
   };
 }
+
+// Re-exportar datos y constantes edafológicas
+export { VENEZUELA_STATES_DATA, VENEZUELA_CROPS, VENEZUELA_SOIL_POINTS } from './venezuelaData';
+
+// Alias de conveniencia
+export const calculatePolygonAreaHectares = calculatePolygonAreaHa;
+export const detectStateForPoint = detectStateFromCoords;
+
+export function calculatePointSuitability(lat: number, lng: number, ph: number, organicMatter: number) {
+  const state = detectStateFromCoords(lat, lng);
+  const results = evaluateCropSuitability(ph, organicMatter, state.soilTextureDominant, state.annualRainfallMm, { lat, lng });
+  const topResult = results[0] || { suitabilityScore: 75, cropName: 'Maíz Blanco' };
+  const amendments = calculateSoilAmendments(ph, organicMatter, state.soilTextureDominant, topResult.cropName, 1.0);
+  
+  const limitingFactors: string[] = [];
+  if (ph < 5.5) limitingFactors.push('Acidez del suelo (pH < 5.5)');
+  if (organicMatter < 2.5) limitingFactors.push('Baja materia orgánica');
+
+  return {
+    suitabilityScore: topResult.suitabilityScore,
+    recommendedCrops: results.map(r => r.cropName),
+    topCrop: topResult.cropName,
+    limingDoseTonHa: amendments.limeTonsPerHa,
+    recommendationText: amendments.needsLiming ? `Aplicar ${amendments.limeTonsPerHa} Ton/ha de ${amendments.limeType}` : 'Suelo en rango óptimo',
+    limitingFactors
+  };
+}
+

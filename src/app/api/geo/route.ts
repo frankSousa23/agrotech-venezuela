@@ -27,12 +27,17 @@ export async function GET(request: Request) {
   }
 
   if (type === 'points') {
+    if (stateId) {
+      const filtered = SAMPLE_SOIL_POINTS.filter(p => p.stateId.toLowerCase() === stateId.toLowerCase());
+      return NextResponse.json(filtered);
+    }
     return NextResponse.json(SAMPLE_SOIL_POINTS);
   }
 
   if (type === 'metadata') {
     return NextResponse.json({
       classes: MAPBIOMAS_CLASSES,
+      mapbiomasClasses: MAPBIOMAS_CLASSES,
       phRanges: SOIL_PH_RANGES,
       totalStates: VENEZUELA_STATES_DATA.length,
       samplePointsCount: SAMPLE_SOIL_POINTS.length,

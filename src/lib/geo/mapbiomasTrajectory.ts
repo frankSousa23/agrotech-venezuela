@@ -367,3 +367,15 @@ export function buildUnifiedTerritorialVector(
     },
   };
 }
+
+export function getHistoricalTrajectory(lat: number, lng: number) {
+  const traj = calculateMapBiomasTrajectory(lat, lng);
+  return {
+    historyYears: traj.yearlySeries.map(s => s.year),
+    currentClass2024: traj.currentClass2024,
+    initialClass1985: traj.initialClass1985,
+    trajectoryType: traj.trajectoryType,
+    yearlySeries: traj.yearlySeries
+  };
+}
+
