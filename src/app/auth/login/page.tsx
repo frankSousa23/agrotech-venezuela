@@ -5,18 +5,19 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/authContext';
 import styles from './page.module.css';
-import { Lock, Mail, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Lock, Mail, ArrowRight, ShieldCheck, Sparkles, Loader2 } from 'lucide-react';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('productor@agrotech.ve');
   const [password, setPassword] = useState('Agro2026*');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [guestLoading, setGuestLoading] = useState(false);
   const router = useRouter();
   const { login } = useAuth();
 
   const handleGuestLogin = async () => {
-    setLoading(true);
+    setGuestLoading(true);
     setError(null);
     try {
       const res = await fetch('/api/auth/login', {
@@ -26,25 +27,29 @@ export default function LoginPage() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Error al ingresar como invitado');
+      
       login(data.token, data.user);
       router.push('/dashboard/tierras');
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message || 'Error de conexión');
     } finally {
-      setLoading(false);
+      setGuestLoading(false);
     }
   };
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLogin = async (e?: React.FormEvent, customEmail?: string, customPass?: string) => {
+    if (e) e.preventDefault();
     setLoading(true);
     setError(null);
+
+    const targetEmail = customEmail || email;
+    const targetPass = customPass || password;
 
     try {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email: targetEmail, password: targetPass })
       });
       const data = await res.json();
 
@@ -59,15 +64,19 @@ export default function LoginPage() {
         router.push('/dashboard/tierras');
       }
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message || 'Error al procesar acceso');
     } finally {
       setLoading(false);
     }
   };
 
-  const setDemoRole = (demoEmail: string) => {
+  const setDemoRole = (demoEmail: string, autoLogin: boolean = false) => {
     setEmail(demoEmail);
     setPassword('Agro2026*');
+    setError(null);
+    if (autoLogin) {
+      handleLogin(undefined, demoEmail, 'Agro2026*');
+    }
   };
 
   return (
@@ -82,9 +91,10 @@ export default function LoginPage() {
         {/* Botón Destacado: 1-Click Guest Access */}
         <div style={{ marginBottom: '1.5rem' }}>
           <button
+            id="btn_guest_login"
             type="button"
             onClick={handleGuestLogin}
-            disabled={loading}
+            disabled={guestLoading || loading}
             style={{
               width: '100%',
               padding: '0.85rem 1rem',
@@ -94,16 +104,27 @@ export default function LoginPage() {
               color: '#fff',
               fontWeight: 700,
               fontSize: '0.92rem',
-              cursor: 'pointer',
+              cursor: guestLoading ? 'not-allowed' : 'pointer',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               gap: '8px',
               boxShadow: '0 4px 12px rgba(2, 132, 199, 0.3)',
-              transition: 'all 0.2s'
+              transition: 'all 0.2s',
+              opacity: guestLoading ? 0.8 : 1
             }}
           >
-            🚀 Ingresar como Invitado (1-Click Demo)
+            {guestLoading ? (
+              <>
+                <Loader2 size={18} className="animate-spin" />
+                <span>Iniciando sesión de invitado...</span>
+              </>
+            ) : (
+              <>
+                <Sparkles size={18} />
+                <span>🚀 Ingresar como Invitado (1-Click Demo)</span>
+              </>
+            )}
           </button>
           <div style={{ fontSize: '0.72rem', color: '#94a3b8', textAlign: 'center', marginTop: '6px' }}>
             Explora parcelas y bitácora con datos de muestra sin registro previo.
@@ -117,16 +138,19 @@ export default function LoginPage() {
         </div>
 
         {error && (
-          <div style={{ 
-            background: error.includes('pendiente') ? 'rgba(234, 179, 8, 0.15)' : 'rgba(239, 68, 68, 0.15)', 
-            border: error.includes('pendiente') ? '1px solid #eab308' : '1px solid #ef4444', 
-            color: error.includes('pendiente') ? '#fde047' : '#fca5a5', 
-            padding: '12px', 
-            borderRadius: '8px', 
-            marginBottom: '16px', 
-            fontSize: '0.82rem',
-            lineHeight: 1.4
-          }}>
+          <div 
+            id="auth_error_alert"
+            style={{ 
+              background: error.includes('pendiente') ? 'rgba(234, 179, 8, 0.15)' : 'rgba(239, 68, 68, 0.15)', 
+              border: error.includes('pendiente') ? '1px solid #eab308' : '1px solid #ef4444', 
+              color: error.includes('pendiente') ? '#fde047' : '#fca5a5', 
+              padding: '12px', 
+              borderRadius: '8px', 
+              marginBottom: '16px', 
+              fontSize: '0.82rem',
+              lineHeight: 1.4
+            }}
+          >
             {error.includes('pendiente') ? '⏳' : '⚠️'} {error}
           </div>
         )}
@@ -135,6 +159,7 @@ export default function LoginPage() {
           <div className={styles.formGroup}>
             <label className={styles.label}><Mail size={14} style={{ display: 'inline', marginRight: 4 }} /> Correo Electrónico:</label>
             <input
+              id="input_auth_email"
               type="email"
               required
               className={styles.input}
@@ -147,6 +172,7 @@ export default function LoginPage() {
           <div className={styles.formGroup}>
             <label className={styles.label}><Lock size={14} style={{ display: 'inline', marginRight: 4 }} /> Contraseña:</label>
             <input
+              id="input_auth_password"
               type="password"
               required
               className={styles.input}
@@ -156,8 +182,23 @@ export default function LoginPage() {
             />
           </div>
 
-          <button type="submit" className={styles.submitBtn} disabled={loading}>
-            {loading ? 'Validando credenciales...' : 'Ingresar a mi Cuenta'} <ArrowRight size={16} style={{ display: 'inline', verticalAlign: 'middle' }} />
+          <button 
+            id="btn_submit_login"
+            type="submit" 
+            className={styles.submitBtn} 
+            disabled={loading || guestLoading}
+          >
+            {loading ? (
+              <>
+                <Loader2 size={16} className="animate-spin" style={{ display: 'inline', marginRight: 6 }} />
+                <span>Validando credenciales...</span>
+              </>
+            ) : (
+              <>
+                <span>Ingresar a mi Cuenta</span>
+                <ArrowRight size={16} style={{ display: 'inline', verticalAlign: 'middle', marginLeft: 6 }} />
+              </>
+            )}
           </button>
         </form>
 
@@ -165,25 +206,31 @@ export default function LoginPage() {
           <div className={styles.demoCredsTitle}><ShieldCheck size={14} style={{ display: 'inline', marginRight: 4 }} /> Perfiles de Prueba Rápidos:</div>
           <div style={{ display: 'flex', gap: '6px', marginTop: '6px', flexWrap: 'wrap' }}>
             <button 
+              id="btn_quick_farmer"
               type="button" 
               onClick={() => setDemoRole('productor@agrotech.ve')}
-              style={{ fontSize: '0.72rem', background: '#334155', color: '#86efac', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer' }}
+              title="Cargar credenciales de Productor Aprobado"
+              style={{ fontSize: '0.72rem', background: email === 'productor@agrotech.ve' ? '#166534' : '#334155', color: '#86efac', border: '1px solid #16a34a', padding: '5px 9px', borderRadius: '4px', cursor: 'pointer', fontWeight: 600 }}
             >
-              Productor Aprobado
+              ✓ Productor Aprobado
             </button>
             <button 
+              id="btn_quick_pending"
               type="button" 
               onClick={() => setDemoRole('solicitante.turen@agrotech.ve')}
-              style={{ fontSize: '0.72rem', background: '#334155', color: '#fde047', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer' }}
+              title="Cargar credenciales de Productor Pendiente"
+              style={{ fontSize: '0.72rem', background: email === 'solicitante.turen@agrotech.ve' ? '#854d0e' : '#334155', color: '#fde047', border: '1px solid #eab308', padding: '5px 9px', borderRadius: '4px', cursor: 'pointer', fontWeight: 600 }}
             >
-              Productor Pendiente
+              ⏳ Productor Pendiente
             </button>
             <button 
+              id="btn_quick_admin"
               type="button" 
               onClick={() => setDemoRole('admin@agrotech.ve')}
-              style={{ fontSize: '0.72rem', background: '#334155', color: '#38bdf8', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer' }}
+              title="Cargar credenciales de Administrador"
+              style={{ fontSize: '0.72rem', background: email === 'admin@agrotech.ve' ? '#075985' : '#334155', color: '#38bdf8', border: '1px solid #0284c7', padding: '5px 9px', borderRadius: '4px', cursor: 'pointer', fontWeight: 600 }}
             >
-              Admin Sistema
+              ⚙️ Admin Sistema
             </button>
           </div>
         </div>
@@ -198,3 +245,4 @@ export default function LoginPage() {
     </div>
   );
 }
+

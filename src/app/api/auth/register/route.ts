@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { DEMO_USERS, hashPassword, generateToken, UserSession } from '@/lib/auth/authUtils';
+import { DEMO_USERS, hashPassword, UserSession } from '@/lib/auth/authUtils';
+
 
 export async function POST(req: Request) {
   try {

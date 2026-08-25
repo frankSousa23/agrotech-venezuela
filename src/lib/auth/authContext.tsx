@@ -1,7 +1,8 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { UserSession } from './authUtils';
+
 
 interface AuthContextType {
   user: UserSession | null;
@@ -24,46 +25,60 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Restaurar sesión desde localStorage
-    const storedUser = localStorage.getItem('agrotech_user');
-    const storedToken = localStorage.getItem('agrotech_token');
-    if (storedUser && storedToken) {
-      try {
+    try {
+      const storedUser = localStorage.getItem('agrotech_user');
+      const storedToken = localStorage.getItem('agrotech_token');
+      const isLoggedOut = localStorage.getItem('agrotech_logged_out');
+
+      if (storedUser && storedToken) {
         setUser(JSON.parse(storedUser));
-      } catch (e) {
-        localStorage.removeItem('agrotech_user');
-        localStorage.removeItem('agrotech_token');
+      } else if (!isLoggedOut) {
+        // Usuario demo inicial por defecto si el usuario nunca ha hecho logout
+        const defaultUser: UserSession = {
+          id: "usr-farmer-01",
+          email: "productor@agrotech.ve",
+          name: "Frank Sousa (Productor)",
+          role: "FARMER",
+          status: "APPROVED",
+          isGuest: false,
+          phone: "+58 412 1234567",
+          stateId: "portuguesa"
+        };
+        setUser(defaultUser);
+        localStorage.setItem('agrotech_user', JSON.stringify(defaultUser));
+        localStorage.setItem('agrotech_token', 'demo_jwt_token_frank');
+      } else {
+        setUser(null);
       }
-    } else {
-      // Por defecto para demo fluida: cargar perfil del productor
-      const defaultUser: UserSession = {
-        id: "usr-farmer-01",
-        email: "productor@agrotech.ve",
-        name: "Frank Sousa (Productor)",
-        role: "FARMER",
-        status: "APPROVED",
-        isGuest: false,
-        phone: "+58 412 1234567",
-        stateId: "portuguesa"
-      };
-      setUser(defaultUser);
-      localStorage.setItem('agrotech_user', JSON.stringify(defaultUser));
-      localStorage.setItem('agrotech_token', 'demo_jwt_token_frank');
+    } catch (e) {
+      console.error('Error initializing auth state:', e);
+      setUser(null);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
 
-  const login = (token: string, userData: UserSession) => {
+  const login = useCallback((token: string, userData: UserSession) => {
     setUser(userData);
-    localStorage.setItem('agrotech_token', token);
-    localStorage.setItem('agrotech_user', JSON.stringify(userData));
-  };
+    try {
+      localStorage.removeItem('agrotech_logged_out');
+      localStorage.setItem('agrotech_token', token);
+      localStorage.setItem('agrotech_user', JSON.stringify(userData));
+    } catch (e) {
+      console.error('Error saving session:', e);
+    }
+  }, []);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     setUser(null);
-    localStorage.removeItem('agrotech_token');
-    localStorage.removeItem('agrotech_user');
-  };
+    try {
+      localStorage.setItem('agrotech_logged_out', 'true');
+      localStorage.removeItem('agrotech_token');
+      localStorage.removeItem('agrotech_user');
+    } catch (e) {
+      console.error('Error removing session:', e);
+    }
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, loading, login, logout, isAuthenticated: !!user }}>
@@ -73,3 +88,4 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 export const useAuth = () => useContext(AuthContext);
+

@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import styles from './layout.module.css';
-import { AuthProvider, useAuth } from '@/lib/auth/authContext';
+import { useAuth } from '@/lib/auth/authContext';
 import { 
   LayoutDashboard, 
   Map as MapIcon, 
@@ -16,14 +16,15 @@ import {
   Menu, 
   X, 
   Radio, 
-  FileCode2,
-  ShieldCheck,
-  Tractor,
-  BookOpen,
-  User,
-  LogOut,
-  LogIn
+  ShieldCheck, 
+  Tractor, 
+  BookOpen, 
+  LogOut, 
+  LogIn,
+  FileCode2
 } from 'lucide-react';
+
+
 
 const NAV_ITEMS = [
   { href: '/dashboard', label: 'Resumen General', icon: LayoutDashboard },
@@ -38,9 +39,9 @@ const NAV_ITEMS = [
 
 function DashboardContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const { user, logout, isAuthenticated } = useAuth();
+
 
   return (
     <div className={styles.dashboardContainer}>
@@ -228,10 +229,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
 }
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <AuthProvider>
-      <DashboardContent>{children}</DashboardContent>
-    </AuthProvider>
-  );
+  return <DashboardContent>{children}</DashboardContent>;
 }
+
 
