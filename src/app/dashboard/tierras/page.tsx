@@ -5,6 +5,9 @@ import Link from 'next/link';
 import { useAuth } from '@/lib/auth/authContext';
 import styles from './page.module.css';
 import { InMemParcel } from '@/app/api/parcels/route';
+import ParcelDiagnosticModal from '@/components/gis/ParcelDiagnosticModal';
+import { ParcelGeometry } from '@/lib/geo/spatialUtils';
+import { VENEZUELA_STATES_DATA } from '@/lib/geo/venezuelaData';
 import { 
   Tractor, 
   Plus, 
@@ -13,14 +16,15 @@ import {
   FlaskConical, 
   BookOpen, 
   Sparkles,
-  ArrowRight,
-  TrendingUp
+  Map,
+  Eye
 } from 'lucide-react';
 
 export default function TierrasPage() {
   const { user } = useAuth();
   const [parcels, setParcels] = useState<InMemParcel[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedParcelForModal, setSelectedParcelForModal] = useState<ParcelGeometry | null>(null);
 
   const fetchParcels = () => {
     setLoading(true);
@@ -38,6 +42,28 @@ export default function TierrasPage() {
   }, [user]);
 
   const totalHectares = parcels.reduce((acc, p) => acc + (p.areaHectares || 0), 0);
+
+  const handleOpenDiagnostic = (p: InMemParcel) => {
+    const matchedState = VENEZUELA_STATES_DATA.find(s => s.id.toLowerCase() === p.stateId.toLowerCase()) || VENEZUELA_STATES_DATA[0];
+    const lat = p.centerLat || matchedState.center[0];
+    const lng = p.centerLng || matchedState.center[1];
+
+    const parcelGeom: ParcelGeometry = {
+      name: p.name,
+      coordinates: [
+        [lat - 0.003, lng - 0.003],
+        [lat + 0.003, lng - 0.003],
+        [lat + 0.003, lng + 0.003],
+        [lat - 0.003, lng + 0.003],
+      ],
+      areaHectares: p.areaHectares,
+      perimeterMeters: Math.round(Math.sqrt(p.areaHectares * 10000) * 4),
+      centroid: [lat, lng],
+      detectedState: matchedState
+    };
+
+    setSelectedParcelForModal(parcelGeom);
+  };
 
   return (
     <div className={styles.tierrasContainer}>
@@ -124,12 +150,29 @@ export default function TierrasPage() {
                   </div>
                 </div>
 
-                <div className={styles.cardActions}>
-                  <Link href={`/dashboard/bitacora?parcelId=${p.id}`} className={styles.actionBtn}>
-                    <BookOpen size={14} style={{ display: 'inline', marginRight: 4 }} /> Ver Cuaderno
+                <div className={styles.cardActions} style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '1.2rem' }}>
+                  <button 
+                    onClick={() => handleOpenDiagnostic(p)}
+                    className={styles.actionBtn}
+                    style={{ background: '#16a34a', border: 'none', color: '#fff', cursor: 'pointer', flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}
+                  >
+                    <Sparkles size={14} /> Gemelo Digital & IA
+                  </button>
+
+                  <Link 
+                    href={`/dashboard/mapa?state=${p.stateId}&level=3`} 
+                    className={styles.actionBtn}
+                    style={{ flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}
+                  >
+                    <Map size={14} /> Ver en WebGIS
                   </Link>
-                  <Link href={`/dashboard/recomendaciones?state=${p.stateId}&ph=${p.ph || 6.2}`} className={styles.actionBtn} style={{ background: '#16a34a', border: 'none' }}>
-                    <Sparkles size={14} style={{ display: 'inline', marginRight: 4 }} /> Diagnóstico IA
+
+                  <Link 
+                    href={`/dashboard/bitacora?parcelId=${p.id}`} 
+                    className={styles.actionBtn}
+                    style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}
+                  >
+                    <BookOpen size={14} /> Bitácora
                   </Link>
                 </div>
               </div>
@@ -137,6 +180,15 @@ export default function TierrasPage() {
           </div>
         )}
       </div>
+
+      {/* Modal de Diagnóstico Edafo-Climático & Gemini */}
+      {selectedParcelForModal && (
+        <ParcelDiagnosticModal
+          parcel={selectedParcelForModal}
+          onClose={() => setSelectedParcelForModal(null)}
+        />
+      )}
     </div>
   );
 }
+

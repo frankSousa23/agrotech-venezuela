@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import styles from './page.module.css';
 import { VENEZUELA_STATES_DATA } from '@/lib/geo/venezuelaData';
 import { evaluateCropSuitability, calculateSoilAmendments } from '@/lib/geo/spatialUtils';
@@ -19,16 +20,21 @@ import {
   Calendar, 
   ShieldCheck, 
   CheckCircle2, 
-  AlertTriangle
+  AlertTriangle,
+  MapPin
 } from 'lucide-react';
 
-export default function RecomendacionesPage() {
+function RecomendacionesContent() {
+  const searchParams = useSearchParams();
+  const stateQuery = searchParams.get('state');
+  const phQuery = searchParams.get('ph');
+
   const [recommendations, setRecommendations] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Parámetros del Simulador Edafo-Climático
-  const [selectedStateId, setSelectedStateId] = useState<string>('portuguesa');
-  const [simPh, setSimPh] = useState<number>(6.4);
+  const [selectedStateId, setSelectedStateId] = useState<string>(stateQuery || 'portuguesa');
+  const [simPh, setSimPh] = useState<number>(phQuery ? parseFloat(phQuery) : 6.4);
   const [simOM, setSimOM] = useState<number>(3.2);
   const [simTexture, setSimTexture] = useState<string>('Franco-limoso');
   const [simAreaHa, setSimAreaHa] = useState<number>(10);
@@ -465,5 +471,17 @@ export default function RecomendacionesPage() {
         )}
       </section>
     </div>
+  );
+}
+
+export default function RecomendacionesPage() {
+  return (
+    <Suspense fallback={
+      <div style={{ padding: '4rem 2rem', textAlign: 'center', color: '#4ade80' }}>
+        🧪 Cargando Simulador Edafo-Climático...
+      </div>
+    }>
+      <RecomendacionesContent />
+    </Suspense>
   );
 }

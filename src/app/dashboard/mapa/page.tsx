@@ -1,8 +1,22 @@
 'use client';
 
-import MultiLevelMapViewer from '@/components/gis/MultiLevelMapViewer';
+import { Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
+import MultiLevelMapViewer, { MapLevel } from '@/components/gis/MultiLevelMapViewer';
 import styles from './page.module.css';
 import { Map } from 'lucide-react';
+function MapaContent() {
+  const searchParams = useSearchParams();
+  const stateParam = searchParams.get('state') || 'portuguesa';
+  const levelParam = parseInt(searchParams.get('level') || '1', 10) as MapLevel;
+  const validLevel = (levelParam >= 1 && levelParam <= 3) ? levelParam : 1;
+
+  return (
+    <div className={styles.mapViewerWrapper}>
+      <MultiLevelMapViewer initialLevel={validLevel} initialStateId={stateParam} />
+    </div>
+  );
+}
 
 export default function MapaPage() {
   return (
@@ -62,10 +76,15 @@ export default function MapaPage() {
         </div>
       </div>
 
-      {/* Contenedor del Visor */}
-      <div className={styles.mapViewerWrapper}>
-        <MultiLevelMapViewer initialLevel={1} initialStateId="portuguesa" />
-      </div>
+      {/* Contenedor del Visor con Suspense */}
+      <Suspense fallback={
+        <div style={{ padding: '3rem', textAlign: 'center', color: '#4ade80', background: '#0b1329', borderRadius: '16px' }}>
+          🛰️ Cargando Visor WebGIS Multi-Escala...
+        </div>
+      }>
+        <MapaContent />
+      </Suspense>
     </div>
   );
 }
+

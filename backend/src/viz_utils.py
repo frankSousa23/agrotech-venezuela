@@ -103,6 +103,19 @@ def create_folium_map(
 
     folium.LayerControl(position="topright").add_to(m)
     plugins.Fullscreen(position="topleft").add_to(m)
+    plugins.Draw(
+        export=True,
+        filename=f"parcela_{parcel_name.replace(' ', '_').lower()}.geojson",
+        position="topleft",
+        draw_options={
+            "polyline": False,
+            "polygon": {"allowIntersection": False, "showArea": True},
+            "circle": False,
+            "rectangle": True,
+            "marker": True,
+            "circlemarker": False
+        }
+    ).add_to(m)
 
     return m
 

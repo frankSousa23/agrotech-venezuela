@@ -17,6 +17,7 @@ describe('Auth Cryptographic & Session Suite', () => {
       email: 'test@agrotech.ve',
       name: 'Tester Agrónomo',
       role: 'AGRONOMIST' as const,
+      status: 'APPROVED' as const,
       phone: '+58 412 0000000',
       stateId: 'portuguesa'
     };
@@ -37,7 +38,8 @@ describe('Auth Cryptographic & Session Suite', () => {
       id: 'usr-fake',
       email: 'fake@agrotech.ve',
       name: 'Fake User',
-      role: 'FARMER'
+      role: 'FARMER',
+      status: 'APPROVED'
     });
 
     const tamperedToken = token + 'tampered';

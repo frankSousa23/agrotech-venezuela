@@ -1,10 +1,12 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import dynamic from 'next/dynamic';
-import { VENEZUELA_STATES_DATA, VENEZUELA_SOIL_POINTS, StateGeoData } from '@/lib/geo/venezuelaData';
+import { VENEZUELA_STATES_DATA, VENEZUELA_SOIL_POINTS } from '@/lib/geo/venezuelaData';
+import { calculatePolygonAreaHa } from '@/lib/geo/spatialUtils';
+import type { ActiveLayerType } from './LeafletMapInner';
 
-const LeafletMap = dynamic(() => import('./LeafletMap'), {
+const LeafletMapInner = dynamic(() => import('./LeafletMapInner'), {
   ssr: false,
   loading: () => (
     <div style={{
@@ -15,70 +17,65 @@ const LeafletMap = dynamic(() => import('./LeafletMap'), {
       alignItems: 'center',
       justifyContent: 'center',
       background: '#0b1329',
-      color: '#4ade80'
+      color: '#4ade80',
+      fontSize: '0.9rem',
+      fontWeight: 600
     }}>
-      Cargando WebGIS MapBiomas...
+      🛰️ Cargando Visor Satelital MapBiomas Venezuela...
     </div>
-  ),
+  )
 });
 
 export default function MapBiomasViewer() {
-  const [selectedStateId, setSelectedStateId] = useState<string>('all');
-  const [selectedLayer, setSelectedLayer] = useState<'mapbiomas' | 'ph' | 'rainfall' | 'satellite'>('mapbiomas');
+  const [selectedState, setSelectedState] = useState<string>('all');
+  const [selectedLayer, setSelectedLayer] = useState<ActiveLayerType>('mapbiomas');
   const [isDrawing, setIsDrawing] = useState<boolean>(false);
-  const [drawnAreaHa, setDrawnAreaHa] = useState<number | null>(null);
+  const [drawnPoints, setDrawnPoints] = useState<[number, number][]>([]);
 
-  const selectedState = useMemo<StateGeoData>(() => {
-    if (selectedStateId === 'all') {
-      return {
-        id: 'venezuela_all',
-        name: 'Venezuela (Nacional)',
-        region: 'Nacional',
-        capital: 'Caracas',
-        center: [8.0, -66.0],
-        bounds: [[0.6, -73.4], [12.2, -59.8]],
-        annualRainfallMm: 1450,
-        averageTempC: 27.0,
-        mainCrops: ['Maíz', 'Arroz', 'Caña de Azúcar', 'Café', 'Cacao'],
-        soilTextureDominant: 'Variable',
-        averagePh: 6.1,
-        mapbiomasCoverPercentage: { forest: 52, savanna: 31, agriculture: 8, pasture: 7, water: 2 }
-      };
-    }
-    return VENEZUELA_STATES_DATA.find(s => s.id === selectedStateId) || VENEZUELA_STATES_DATA[0];
-  }, [selectedStateId]);
+  const filteredPoints = useMemo(() => {
+    return selectedState === 'all' 
+      ? VENEZUELA_SOIL_POINTS 
+      : VENEZUELA_SOIL_POINTS.filter(p => p.stateId.toLowerCase() === selectedState.toLowerCase());
+  }, [selectedState]);
 
   const mapCenter = useMemo(() => {
-    if (selectedStateId === 'all') {
+    if (selectedState === 'all') {
       return { lat: 8.0, lng: -66.0, zoom: 6 };
     }
-    return { lat: selectedState.center[0], lng: selectedState.center[1], zoom: 8 };
-  }, [selectedStateId, selectedState]);
+    const stateObj = VENEZUELA_STATES_DATA.find(s => s.id === selectedState);
+    return stateObj ? { lat: stateObj.center[0], lng: stateObj.center[1], zoom: 8 } : { lat: 8.0, lng: -66.0, zoom: 6 };
+  }, [selectedState]);
 
-  const filteredPoints = selectedStateId === 'all' 
-    ? VENEZUELA_SOIL_POINTS 
-    : VENEZUELA_SOIL_POINTS.filter(p => p.stateId === selectedStateId);
+  const handleAddPoint = useCallback((point: [number, number]) => {
+    setDrawnPoints(prev => [...prev, point]);
+  }, []);
 
   const handleSimulateDraw = () => {
-    setIsDrawing(true);
-    setTimeout(() => {
-      setIsDrawing(false);
-      setDrawnAreaHa(28.6);
-    }, 600);
+    const coords: [number, number][] = [
+      [mapCenter.lat - 0.005, mapCenter.lng - 0.005],
+      [mapCenter.lat + 0.005, mapCenter.lng - 0.005],
+      [mapCenter.lat + 0.005, mapCenter.lng + 0.005],
+      [mapCenter.lat - 0.005, mapCenter.lng + 0.005],
+    ];
+    setDrawnPoints(coords);
   };
 
+  const drawnAreaHa = useMemo(() => {
+    return calculatePolygonAreaHa(drawnPoints);
+  }, [drawnPoints]);
+
   return (
-    <div style={{ position: 'relative', width: '100%', height: '520px', borderRadius: '12px', overflow: 'hidden', background: '#0b1329', border: '1px solid rgba(255,255,255,0.1)' }}>
+    <div style={{ position: 'relative', width: '100%', height: '520px', borderRadius: '12px', overflow: 'hidden', background: '#0b1329' }}>
       {/* Controles Flotantes del WebGIS */}
       <div style={{
         position: 'absolute',
         top: 12,
         left: 12,
-        zIndex: 15,
-        background: 'rgba(15, 23, 42, 0.92)',
+        zIndex: 1000,
+        background: 'rgba(15, 23, 42, 0.9)',
         backdropFilter: 'blur(12px)',
         border: '1px solid rgba(255, 255, 255, 0.15)',
-        borderRadius: '8px',
+        borderRadius: '10px',
         padding: '12px 14px',
         color: '#fff',
         display: 'flex',
@@ -91,13 +88,13 @@ export default function MapBiomasViewer() {
           🛰️ Capas MapBiomas Venezuela
         </div>
         
-        <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
           <button 
             id="btn_biomas_lulc"
             onClick={() => setSelectedLayer('mapbiomas')}
             style={{
               padding: '4px 8px',
-              fontSize: '0.72rem',
+              fontSize: '0.75rem',
               borderRadius: '4px',
               border: 'none',
               background: selectedLayer === 'mapbiomas' ? '#16a34a' : '#334155',
@@ -109,11 +106,27 @@ export default function MapBiomasViewer() {
             LULC 2024
           </button>
           <button 
+            id="btn_biomas_sat"
+            onClick={() => setSelectedLayer('satellite')}
+            style={{
+              padding: '4px 8px',
+              fontSize: '0.75rem',
+              borderRadius: '4px',
+              border: 'none',
+              background: selectedLayer === 'satellite' ? '#9333ea' : '#334155',
+              color: '#fff',
+              cursor: 'pointer',
+              fontWeight: selectedLayer === 'satellite' ? 700 : 400
+            }}
+          >
+            Satélite HD
+          </button>
+          <button 
             id="btn_biomas_ph"
             onClick={() => setSelectedLayer('ph')}
             style={{
               padding: '4px 8px',
-              fontSize: '0.72rem',
+              fontSize: '0.75rem',
               borderRadius: '4px',
               border: 'none',
               background: selectedLayer === 'ph' ? '#f59e0b' : '#334155',
@@ -129,10 +142,10 @@ export default function MapBiomasViewer() {
             onClick={() => setSelectedLayer('rainfall')}
             style={{
               padding: '4px 8px',
-              fontSize: '0.72rem',
+              fontSize: '0.75rem',
               borderRadius: '4px',
               border: 'none',
-              background: selectedLayer === 'rainfall' ? '#0284c7' : '#334155',
+              background: selectedLayer === 'rainfall' ? '#3b82f6' : '#334155',
               color: '#fff',
               cursor: 'pointer',
               fontWeight: selectedLayer === 'rainfall' ? 700 : 400
@@ -140,37 +153,19 @@ export default function MapBiomasViewer() {
           >
             Lluvias NASA
           </button>
-          <button 
-            id="btn_biomas_sat"
-            onClick={() => setSelectedLayer('satellite')}
-            style={{
-              padding: '4px 8px',
-              fontSize: '0.72rem',
-              borderRadius: '4px',
-              border: 'none',
-              background: selectedLayer === 'satellite' ? '#9333ea' : '#334155',
-              color: '#fff',
-              cursor: 'pointer',
-              fontWeight: selectedLayer === 'satellite' ? 700 : 400
-            }}
-          >
-            Satélite
-          </button>
         </div>
 
-        <label style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Situar en Estado:</label>
         <select 
           id="select_biomas_state"
-          value={selectedStateId} 
-          onChange={(e) => setSelectedStateId(e.target.value)}
+          value={selectedState} 
+          onChange={(e) => setSelectedState(e.target.value)}
           style={{
             background: '#0f172a',
             color: '#fff',
-            border: '1px solid #38bdf8',
+            border: '1px solid #475569',
             borderRadius: '4px',
             padding: '6px 8px',
-            fontSize: '0.78rem',
-            fontWeight: 600
+            fontSize: '0.78rem'
           }}
         >
           <option value="all">🇻🇪 Todos los Estados (24)</option>
@@ -179,56 +174,81 @@ export default function MapBiomasViewer() {
           ))}
         </select>
 
-        <button 
-          id="btn_biomas_draw"
-          onClick={handleSimulateDraw}
-          style={{
-            background: isDrawing ? '#eab308' : '#22c55e',
-            color: '#000',
-            fontWeight: 700,
-            border: 'none',
-            borderRadius: '4px',
-            padding: '6px 10px',
-            fontSize: '0.76rem',
-            cursor: 'pointer'
-          }}
-        >
-          {isDrawing ? '📐 Trazando Parcela...' : '📐 Delimitar Parcela Shoelace'}
-        </button>
+        <div style={{ display: 'flex', gap: '6px' }}>
+          <button 
+            id="btn_biomas_draw"
+            onClick={handleSimulateDraw}
+            style={{
+              flex: 1,
+              background: '#22c55e',
+              color: '#000',
+              fontWeight: 700,
+              border: 'none',
+              borderRadius: '4px',
+              padding: '6px 10px',
+              fontSize: '0.78rem',
+              cursor: 'pointer'
+            }}
+          >
+            📐 Delimitar Parcela
+          </button>
+          {drawnPoints.length > 0 && (
+            <button
+              onClick={() => setDrawnPoints([])}
+              style={{
+                background: '#475569',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '4px',
+                padding: '6px 10px',
+                fontSize: '0.78rem',
+                cursor: 'pointer'
+              }}
+            >
+              Borrar
+            </button>
+          )}
+        </div>
 
-        {drawnAreaHa && (
-          <div style={{ fontSize: '0.75rem', color: '#86efac', background: 'rgba(34, 197, 94, 0.15)', padding: '4px 6px', borderRadius: '4px' }}>
-            ✓ Parcela: <b>{drawnAreaHa} ha</b> calculadas con fórmula Shoelace.
+        {drawnAreaHa > 0 && (
+          <div style={{ fontSize: '0.75rem', color: '#86efac', background: 'rgba(34, 197, 94, 0.15)', padding: '6px 8px', borderRadius: '4px', border: '1px solid #22c55e' }}>
+            ✓ Superficie: <b>{drawnAreaHa} ha</b> (Shoelace WGS84)
           </div>
         )}
       </div>
 
-      {/* Mapa Base Visual e Interactivo con Leaflet */}
+      {/* Mapa Base Visual e Interactivo Leaflet */}
       <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-        <LeafletMap
-          center={[mapCenter.lat, mapCenter.lng]}
-          zoom={mapCenter.zoom}
-          selectedState={selectedState}
+        <LeafletMapInner
+          currentLevel={selectedState === 'all' ? 1 : 2}
+          selectedStateId={selectedState === 'all' ? 'portuguesa' : selectedState}
+          selectedMunicipalityId="turen"
           activeLayer={selectedLayer}
-          onSelectState={(stId) => setSelectedStateId(stId)}
+          mapCenter={mapCenter}
+          isDrawing={isDrawing}
+          drawnPoints={drawnPoints}
+          onAddPoint={handleAddPoint}
+          onSelectState={(stId) => setSelectedState(stId)}
+          onSelectMunicipality={() => {}}
+          showSoilPoints={true}
         />
 
-        {/* Marcadores de Muestras Edafológicas */}
+        {/* Marcadores de Muestras Edafológicas Footer */}
         <div style={{
           position: 'absolute',
           bottom: 12,
           right: 12,
-          zIndex: 15,
-          background: 'rgba(15, 23, 42, 0.85)',
+          zIndex: 1000,
+          background: 'rgba(15, 23, 42, 0.88)',
           backdropFilter: 'blur(8px)',
           border: '1px solid rgba(255, 255, 255, 0.15)',
           borderRadius: '8px',
           padding: '8px 12px',
           color: '#fff',
-          fontSize: '0.72rem'
+          fontSize: '0.75rem'
         }}>
-          <div><b>{filteredPoints.length}</b> Muestras Edafológicas en {selectedState.name}</div>
-          <div style={{ color: '#94a3b8', fontSize: '0.68rem' }}>Resolución: 30m MapBiomas / 10m Sentinel-2</div>
+          <div><b>{filteredPoints.length}</b> Muestras Edafológicas GPS</div>
+          <div style={{ color: '#94a3b8', fontSize: '0.7rem' }}>Resolución: 30m MapBiomas / 10m Sentinel-2</div>
         </div>
       </div>
     </div>

@@ -193,6 +193,23 @@ export default function SuelosPage() {
                       <strong className={styles.textureValue}>{soil.texture}</strong>
                     </div>
                   )}
+
+                  <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'flex-end' }}>
+                    <a
+                      href={`/dashboard/mapa?state=${soil.region?.name ? soil.region.name.toLowerCase() : 'portuguesa'}&level=2`}
+                      style={{
+                        fontSize: '0.78rem',
+                        color: 'var(--primary-accent)',
+                        textDecoration: 'none',
+                        fontWeight: 600,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px'
+                      }}
+                    >
+                      <MapPin size={13} /> Ver Mapa Regional WebGIS ➔
+                    </a>
+                  </div>
                 </div>
               );
             })

@@ -141,7 +141,13 @@ export default function EstadisticasPage() {
               return (
                 <div key={st.id} className={styles.stateBarItem}>
                   <div className={styles.stateBarHeader}>
-                    <span className={styles.stateName}>{st.name} ({domSoil.split(' ')[0]})</span>
+                    <a 
+                      href={`/dashboard/mapa?state=${st.id}&level=2`} 
+                      style={{ color: 'inherit', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}
+                      title="Explorar este estado en el Visor WebGIS"
+                    >
+                      <span className={styles.stateName}>📍 {st.name} ({domSoil.split(' ')[0]})</span>
+                    </a>
                     <span className={styles.stateMetric}>{cover.agriculture}% Agrícola</span>
                   </div>
                   <div className={styles.barTrack}>

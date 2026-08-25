@@ -152,7 +152,20 @@ with tab_geo:
             ndvi_val=sentinel_data.get("latest_metrics", {}).get("ndvi", 0.74),
             coverage_name=mapbiomas_data.get("latest_coverage_2024", {}).get("class_name", "Agricultura")
         )
-        st_folium(folium_map, width=700, height=420)
+        map_output = st_folium(
+            folium_map, 
+            width=700, 
+            height=420,
+            key=f"folium_map_{lat}_{lon}",
+            returned_objects=["last_active_drawing", "last_clicked"]
+        )
+
+        if map_output and map_output.get("last_active_drawing"):
+            st.success("📐 ¡Polígono/Geometría detectada en el mapa satelital!")
+            st.json(map_output["last_active_drawing"])
+        elif map_output and map_output.get("last_clicked"):
+            click_pt = map_output["last_clicked"]
+            st.caption(f"📍 Punto seleccionado en mapa: `{click_pt.get('lat', 0):.4f}, {click_pt.get('lng', 0):.4f}`")
 
     with col_info:
         st.markdown("#### 📊 Indicadores Biofísicos de la Parcela")
