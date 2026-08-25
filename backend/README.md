@@ -58,28 +58,32 @@ graph TD
      - `POST /api/v1/ai/prescribe`: Dictamen técnico agronómico con Gemini.
      - `POST /api/v1/ai/consult`: Chat interactivo agronómico.
 
-6. **`tests/` (Día 13)**:
-   - **28/28 pruebas unitarias y de integración continuas aprobadas** con Pytest.
+6. **`tests/`**:
+   - **39/39 pruebas unitarias, de integración, resiliencia y carga continua aprobadas** con Pytest.
 
 ---
 
-## 🚀 Cómo Ejecutar el Backend
+## 🚀 Cómo Ejecutar el Backend y Dashboard
 
 ```bash
 # 1. Instalar requerimientos
 py -m pip install -r requirements.txt
 
-# 2. Iniciar servidor FastAPI
+# 2. Iniciar servidor FastAPI (Puerto 8000)
 py -m uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
 
-# 3. Correr todas las pruebas
+# 3. Iniciar Dashboard de Prescripción Streamlit (Puerto 8501)
+py -m streamlit run streamlit_app.py
+
+# 4. Correr todas las pruebas con Pytest (39 tests)
 py -m pytest tests
 ```
 
 - **Swagger UI**: [http://localhost:8000/docs](http://localhost:8000/docs)
 - **Health Check**: [http://localhost:8000/health](http://localhost:8000/health)
+- **Dashboard Streamlit**: [http://localhost:8501](http://localhost:8501)
 
 ---
 
-## 🧭 Preparación para la Semana 3
-En la **Semana 3**, conectaremos este motor de Inteligencia Artificial con interfaces visuales interactivas y paneles de control espacial (Streamlit / Next.js WebGIS) para la visualización en tiempo real de mapas de calor de rendimiento, curvas de carbono y el gemelo digital de la parcela.
+## 🧭 Integración con Plataforma WebGIS Next.js 16
+El backend se comunica fluidamente tanto con el frontend de Next.js 16 (`http://localhost:3000`) como con el panel interactivo de Streamlit, entregando latencias de respuesta menores a 25ms para consultas en caché SQLite WAL y ofreciendo fallback sintético geoespacial en caso de indisponibilidad de red en campo.

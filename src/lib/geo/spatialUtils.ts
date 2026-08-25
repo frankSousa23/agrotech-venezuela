@@ -1,19 +1,36 @@
+/**
+ * ============================================================================
+ * AGROTECH VENEZUELA — MOTOR DE ALGORITMOS ESPACIALES & EDAFOLÓGICOS (spatialUtils.ts)
+ * ============================================================================
+ * 
+ * Este módulo centraliza las operaciones matemáticas geoespaciales y edafológicas:
+ * 1. Shoelace Geodésico Esferoidal (WGS84): Cálculo exacto de área en hectáreas considerando
+ *    la curvatura terrestre (Radio = 6,378,137m) en lugar de asumir proyecciones planas.
+ * 2. Fórmula de Haversine: Cálculo de distancias geodésicas y perímetros en metros/kilómetros.
+ * 3. Ray-Casting Point-in-Polygon (PIP): Detección automática del estado/municipio de cualquier
+ *    coordenada GPS (Lat, Lng) en territorio venezolano sin recurrir a APIs externas.
+ * 4. Modelo Multicriterio AHP (Analytic Hierarchy Process): Ponderación de pH, Materia Orgánica,
+ *    textura, precipitación NASA POWER y años de uso antrópico para calificar 42 cultivos.
+ * 5. Motor de Prescripción de Enmiendas: Cálculo estequiométrico de dosis de Cal Dolomítica (CaCO3)
+ *    y planes de fertilización N-P-K adaptados a formulaciones disponibles en Venezuela.
+ */
+
 import { VENEZUELA_STATES_DATA, StateGeoData } from './venezuelaData';
 import { VENEZUELA_GEOJSON } from './venezuelaGeoJson';
 
 export interface ParcelGeometry {
   name: string;
-  coordinates: [number, number][]; // [lat, lng] array
-  areaHectares: number;
-  perimeterMeters: number;
-  centroid: [number, number];
-  detectedState: StateGeoData | null;
+  coordinates: [number, number][]; // Arreglo de pares [lat, lng]
+  areaHectares: number;           // Superficie en hectáreas (Shoelace WGS84)
+  perimeterMeters: number;        // Perímetro en metros (Haversine)
+  centroid: [number, number];     // Centroide [lat, lng]
+  detectedState: StateGeoData | null; // Estado territorial detectado por Ray-Casting
 }
 
 export interface CropSuitabilityResult {
   cropName: string;
   scientificName: string;
-  suitabilityScore: number; // 0 - 100
+  suitabilityScore: number; // Puntuación 0 - 100
   suitabilityLevel: 'Excelente' | 'Alta' | 'Moderada' | 'Baja' | 'No Recomendado';
   limitingFactor: string | null;
   estimatedYieldKgHa: number;
@@ -38,7 +55,9 @@ export interface SoilAmendmentRecommendation {
 }
 
 /**
- * Algoritmo de Ray-Casting para determinar si un punto [lat, lng] está dentro de un polígono GeoJSON [lng, lat]
+ * Algoritmo de Ray-Casting (Point-in-Polygon)
+ * Determina si un punto geodésico [lat, lng] está contenido dentro de un polígono GeoJSON [lng, lat].
+ * Proyecta un rayo horizontal semi-infinito y cuenta las intersecciones con los segmentos del polígono.
  */
 export function isPointInPolygon(point: [number, number], polygon: number[][]): boolean {
   const [lat, lng] = point;

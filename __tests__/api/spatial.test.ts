@@ -2,8 +2,18 @@ import {
   calculatePolygonAreaHectares, 
   calculatePolygonPerimeterKm, 
   detectStateForPoint, 
-  calculatePointSuitability 
+  calculatePointSuitability,
+  calculatePolygonAreaHa,
+  calculatePolygonPerimeterMeters
 } from '@/lib/geo/spatialUtils';
+import { 
+  calculateMapBiomasTrajectory, 
+  calculateMapBiomasAgua, 
+  evaluateOrinocoConservationShield 
+} from '@/lib/geo/mapbiomasTrajectory';
+import { estimateVenezuelaAgroClimate } from '@/lib/geo/nasaPowerService';
+import { getMunicipalitiesByState, VENEZUELA_MUNICIPALITIES_DATA } from '@/lib/geo/venezuelaMunicipalities';
+import { VENEZUELA_STATES_DATA } from '@/lib/geo/venezuelaData';
 
 describe('Spatial & Geodetic Algorithms Tests', () => {
   it('debe calcular correctamente el área de un polígono en hectáreas usando Shoelace geodésico', () => {
@@ -17,6 +27,19 @@ describe('Spatial & Geodetic Algorithms Tests', () => {
     const areaHa = calculatePolygonAreaHectares(polygon);
     expect(areaHa).toBeGreaterThan(90);
     expect(areaHa).toBeLessThan(130);
+  });
+
+  it('debe soportar coordenadas en formato tupla [lat, lng] para calculatePolygonAreaHa', () => {
+    const coords: [number, number][] = [
+      [9.3200, -69.1100],
+      [9.3290, -69.1100],
+      [9.3290, -69.1000],
+      [9.3200, -69.1000]
+    ];
+    const areaHa = calculatePolygonAreaHa(coords);
+    const perimM = calculatePolygonPerimeterMeters(coords);
+    expect(areaHa).toBeGreaterThan(90);
+    expect(perimM).toBeGreaterThan(3500);
   });
 
   it('debe calcular el perímetro en kilómetros usando Haversine', () => {
@@ -34,7 +57,7 @@ describe('Spatial & Geodetic Algorithms Tests', () => {
   it('debe detectar el estado territorial correcto por Point-in-Polygon (Ray Casting)', () => {
     const state = detectStateForPoint(9.3240, -69.1120);
     expect(state).toBeDefined();
-    expect(state.id).toBe('portuguesa');
+    expect(state?.id).toBe('portuguesa');
   });
 
   it('debe calcular aptitud multicriterio AHP considerando pH y materia orgánica', () => {
@@ -43,4 +66,38 @@ describe('Spatial & Geodetic Algorithms Tests', () => {
     expect(result.suitabilityScore).toBeGreaterThan(70);
     expect(result.recommendedCrops.length).toBeGreaterThan(0);
   });
+
+  it('debe recuperar municipios filtrados por estado para el Visor WebGIS Nivel 2', () => {
+    const portuguesMunis = getMunicipalitiesByState('portuguesa');
+    expect(portuguesMunis.length).toBeGreaterThanOrEqual(1);
+    expect(portuguesMunis.some(m => m.id === 'turen')).toBe(true);
+  });
+
+  it('debe calcular la serie temporal de 40 años de MapBiomas (1985-2024)', () => {
+    const traj = calculateMapBiomasTrajectory(9.3240, -69.1120);
+    expect(traj).toBeDefined();
+    expect(traj.yearsTracked).toBe(40);
+    expect(traj.yearlySeries.length).toBe(40);
+    expect(traj.yearsInAnthropicUse).toBeGreaterThanOrEqual(0);
+    expect(traj.currentClass2024).toBeDefined();
+  });
+
+  it('debe activar el Escudo de Conservación al sur del río Orinoco', () => {
+    // Coordenada en Amazonas (Lat 3.12, Lon -65.54)
+    const shieldSouth = evaluateOrinocoConservationShield(3.12, -65.54, 'Bosque');
+    expect(shieldSouth.shieldActive).toBe(true);
+    expect(shieldSouth.recommendedAgroforestryCrops.length).toBeGreaterThan(0);
+
+    // Coordenada en Portuguesa (Norte del Orinoco)
+    const shieldNorth = evaluateOrinocoConservationShield(9.32, -69.11, 'Agricultura');
+    expect(shieldNorth.shieldActive).toBe(false);
+  });
+
+  it('debe estimar datos agroclimáticos NASA POWER coherentes para el territorio nacional', () => {
+    const climate = estimateVenezuelaAgroClimate(9.3240, -69.1120);
+    expect(climate.annualPrecipitationMm).toBeGreaterThan(500);
+    expect(climate.avgTemperatureC).toBeGreaterThan(15);
+    expect(climate.wetSeasonMonths.length).toBeGreaterThan(0);
+  });
 });
+

@@ -48,7 +48,7 @@ Este documento define los estándares arquitectónicos, convenciones de código 
 Antes de realizar cualquier commit a la rama `main`, se **deben** ejecutar y pasar ambas suites de pruebas automatizadas:
 
 ```bash
-# 1. Pruebas de Frontend WebGIS, Auth, Diary & APIs (Jest - 32 tests)
+# 1. Pruebas de Frontend WebGIS, Auth, Diary, Spatial & APIs (Jest - 40 tests)
 npm test
 
 # 2. Pruebas de Backend Espacial, ML, IA y Carga (Pytest - 39 tests)
@@ -56,7 +56,7 @@ cd backend && py -m pytest tests
 ```
 
 - **Verificación de Tipos TypeScript**: `npx tsc --noEmit` debe arrojar 0 errores.
-- **Compilación de Producción**: `npm run build` debe compilar todas las 23 rutas estáticas y dinámicas limpiamente con Turbopack.
+- **Compilación de Producción**: `npm run build` debe compilar todas las 24 rutas estáticas y dinámicas limpiamente con Turbopack.
 
 ---
 

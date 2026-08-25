@@ -1,3 +1,19 @@
+/**
+ * ============================================================================
+ * AGROTECH VENEZUELA — VISOR CARTOGRÁFICO NATIVO LEAFLET (LeafletMapInner.tsx)
+ * ============================================================================
+ * 
+ * Componente cliente puro (renderizado exclusivamente en browser, SSR: false).
+ * 
+ * Capacidades Principales:
+ * 1. Jerarquía Geoespacial Multi-Escala (Nivel 1 Nacional, Nivel 2 Municipal, Nivel 3 Parcela).
+ * 2. Capas Dinámicas: MapBiomas 2024 (LULC), Satélite Esri HD, Semáforo de Acidez Edafológica pH,
+ *    Precipitación Anual NASA POWER y Modo Oscuro CartoDB.
+ * 3. Transición Cinemática Fluida: Animación 'flyTo' con interpolación cúbica al cambiar de nivel.
+ * 4. Trazado Interactivo de Polígonos de Parcela con cálculo en tiempo real de Shoelace (ha).
+ * 5. Puntos de Muestreo Edafológico GPS con Popups analíticos interactivos.
+ */
+
 'use client';
 
 import React, { useEffect, useMemo } from 'react';
@@ -17,7 +33,7 @@ import { VENEZUELA_STATES_DATA, StateGeoData, VENEZUELA_SOIL_POINTS } from '@/li
 import { VENEZUELA_MUNICIPALITIES_DATA, MunicipalityGeoData } from '@/lib/geo/venezuelaMunicipalities';
 import { calculatePolygonAreaHa, calculatePolygonPerimeterMeters } from '@/lib/geo/spatialUtils';
 
-// Fix para iconos de Leaflet en Next.js
+// Fix para marcadores vectoriales en Next.js (evita errores de rutas 404 en assets de Leaflet)
 const vertexIcon = L.divIcon({
   className: 'custom-vertex-marker',
   html: `<div style="
@@ -32,7 +48,10 @@ const vertexIcon = L.divIcon({
   iconAnchor: [6, 6]
 });
 
-// Componente para animar la vista del mapa ante cambios de nivel o estado
+/**
+ * MapViewController: Controlador reactivo para animar la cámara de Leaflet
+ * Utiliza 'map.flyTo' cuando las propiedades de centro o zoom cambian.
+ */
 function MapViewController({ center, zoom }: { center: [number, number]; zoom: number }) {
   const map = useMap();
   useEffect(() => {
@@ -44,7 +63,10 @@ function MapViewController({ center, zoom }: { center: [number, number]; zoom: n
   return null;
 }
 
-// Componente para capturar clics de dibujo interactivo
+/**
+ * MapDrawingHandler: Intercepta eventos de clic sobre el canvas del mapa
+ * Cuando 'isDrawing' está activo, añade las coordenadas [lat, lng] al polígono de la micro-parcela.
+ */
 function MapDrawingHandler({
   isDrawing,
   onAddPoint
