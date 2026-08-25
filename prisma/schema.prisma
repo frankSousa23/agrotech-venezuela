@@ -15,12 +15,67 @@ enum Role {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  name      String?
-  role      Role     @default(FARMER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String          @id @default(uuid())
+  email        String          @unique
+  name         String
+  passwordHash String          @default("demo_hash")
+  role         Role            @default(FARMER)
+  phone        String?
+  stateId      String?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  parcels      Parcel[]
+  fieldLogs    FieldLog[]
+  harvests     HarvestRecord[]
+}
+
+model Parcel {
+  id             String          @id @default(uuid())
+  userId         String
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name           String
+  stateId        String
+  municipalityId String
+  areaHectares   Float
+  polygonGeoJson String          // GeoJSON Polygon string
+  centerLat      Float
+  centerLng      Float
+  currentCrop    String?
+  soilTexture    String?
+  ph             Float?
+  organicMatter  Float?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  fieldLogs      FieldLog[]
+  harvests       HarvestRecord[]
+}
+
+model FieldLog {
+  id          String   @id @default(uuid())
+  parcelId    String
+  parcel      Parcel   @relation(fields: [parcelId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  logType     String   // SIEMBRA, ENCALADO, FERTILIZACION, RIEGO, FITOSANITARIO, OBSERVACION
+  title       String
+  description String
+  dosage      String?
+  date        DateTime @default(now())
+}
+
+model HarvestRecord {
+  id             String   @id @default(uuid())
+  parcelId       String
+  parcel         Parcel   @relation(fields: [parcelId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cropName       String
+  sowingDate     DateTime
+  harvestDate    DateTime
+  yieldTonHa     Float
+  predictedTonHa Float?
+  notes          String?
+  createdAt      DateTime @default(now())
 }
 
 model Crop {
@@ -56,3 +111,4 @@ model Recommendation {
   limingDoseTonHa Float    @default(0.0)
   recommendation  String
 }
+

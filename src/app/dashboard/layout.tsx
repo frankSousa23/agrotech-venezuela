@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import styles from './layout.module.css';
+import { AuthProvider, useAuth } from '@/lib/auth/authContext';
 import { 
   LayoutDashboard, 
   Map as MapIcon, 
@@ -16,21 +17,30 @@ import {
   X, 
   Radio, 
   FileCode2,
-  ShieldCheck
+  ShieldCheck,
+  Tractor,
+  BookOpen,
+  User,
+  LogOut,
+  LogIn
 } from 'lucide-react';
 
 const NAV_ITEMS = [
-  { href: '/dashboard', label: 'Resumen', icon: LayoutDashboard },
-  { href: '/dashboard/mapa', label: 'Visor WebGIS', icon: MapIcon, badge: 'En Vivo' },
+  { href: '/dashboard', label: 'Resumen General', icon: LayoutDashboard },
+  { href: '/dashboard/mapa', label: 'Visor WebGIS', icon: MapIcon, badge: '3 Niveles' },
+  { href: '/dashboard/tierras', label: 'Mis Tierras & Fincas', icon: Tractor, badge: 'Mi Finca' },
+  { href: '/dashboard/bitacora', label: 'Cuaderno de Campo', icon: BookOpen },
+  { href: '/dashboard/recomendaciones', label: 'Simulador & IA', icon: Sparkles, highlight: true },
   { href: '/dashboard/estadisticas', label: 'Geoestadísticas', icon: BarChart3 },
   { href: '/dashboard/cultivos', label: 'Catálogo de Cultivos', icon: Sprout },
   { href: '/dashboard/suelos', label: 'Perfiles Edafológicos', icon: FlaskConical },
-  { href: '/dashboard/recomendaciones', label: 'Simulador & IA', icon: Sparkles, highlight: true },
 ];
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+function DashboardContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { user, logout, isAuthenticated } = useAuth();
 
   return (
     <div className={styles.dashboardContainer}>
@@ -72,6 +82,60 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           </Link>
         </div>
 
+        {/* User Session Pill */}
+        <div style={{
+          margin: '0 1rem 0.8rem 1rem',
+          padding: '8px 12px',
+          background: 'rgba(30, 41, 59, 0.7)',
+          borderRadius: '10px',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{
+              width: 32,
+              height: 32,
+              borderRadius: '50%',
+              background: user?.role === 'AGRONOMIST' ? '#0284c7' : '#16a34a',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: 700,
+              fontSize: '0.85rem'
+            }}>
+              {user?.name ? user.name.charAt(0) : 'P'}
+            </div>
+            <div>
+              <div style={{ fontSize: '0.78rem', fontWeight: 600, color: '#f8fafc', maxWidth: '120px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {user?.name || 'Productor'}
+              </div>
+              <div style={{ fontSize: '0.68rem', color: user?.role === 'AGRONOMIST' ? '#38bdf8' : '#4ade80' }}>
+                {user?.role === 'AGRONOMIST' ? 'Ing. Agrónomo' : user?.role === 'ADMIN' ? 'Administrador' : 'Productor Agrícola'}
+              </div>
+            </div>
+          </div>
+
+          {isAuthenticated ? (
+            <button 
+              onClick={() => logout()}
+              title="Cerrar Sesión"
+              style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: 4 }}
+            >
+              <LogOut size={16} />
+            </button>
+          ) : (
+            <Link 
+              href="/auth/login"
+              title="Iniciar Sesión"
+              style={{ color: '#4ade80', display: 'flex', alignItems: 'center' }}
+            >
+              <LogIn size={16} />
+            </Link>
+          )}
+        </div>
+
         {/* Live Status Indicator */}
         <div className={styles.statusBox}>
           <div className={styles.statusHeader}>
@@ -92,10 +156,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
         {/* Navigation Links */}
         <nav className={styles.nav}>
-          <div className={styles.navSectionLabel}>NAVEGACIÓN PRINCIPAL</div>
+          <div className={styles.navSectionLabel}>HERRAMIENTAS TERRITORIALES</div>
           {NAV_ITEMS.map((item) => {
             const Icon = item.icon;
-            const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname?.startsWith(item.href));
+            const isActive = pathname === item.href;
 
             return (
               <Link 
@@ -149,3 +213,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     </div>
   );
 }
+
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <AuthProvider>
+      <DashboardContent>{children}</DashboardContent>
+    </AuthProvider>
+  );
+}
+
