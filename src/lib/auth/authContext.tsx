@@ -41,6 +41,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         email: "productor@agrotech.ve",
         name: "Frank Sousa (Productor)",
         role: "FARMER",
+        status: "APPROVED",
+        isGuest: false,
         phone: "+58 412 1234567",
         stateId: "portuguesa"
       };

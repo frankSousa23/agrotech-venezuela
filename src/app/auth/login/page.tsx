@@ -15,6 +15,26 @@ export default function LoginPage() {
   const router = useRouter();
   const { login } = useAuth();
 
+  const handleGuestLogin = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ isGuest: true })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Error al ingresar como invitado');
+      login(data.token, data.user);
+      router.push('/dashboard/tierras');
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -33,7 +53,11 @@ export default function LoginPage() {
       }
 
       login(data.token, data.user);
-      router.push('/dashboard/tierras');
+      if (data.user.role === 'ADMIN') {
+        router.push('/dashboard/admin');
+      } else {
+        router.push('/dashboard/tierras');
+      }
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -55,9 +79,55 @@ export default function LoginPage() {
           <p className={styles.authSubtitle}>Acceso a Mis Tierras & Cuaderno de Campo Digital</p>
         </div>
 
+        {/* Botón Destacado: 1-Click Guest Access */}
+        <div style={{ marginBottom: '1.5rem' }}>
+          <button
+            type="button"
+            onClick={handleGuestLogin}
+            disabled={loading}
+            style={{
+              width: '100%',
+              padding: '0.85rem 1rem',
+              background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+              border: '1px solid rgba(56, 189, 248, 0.4)',
+              borderRadius: '10px',
+              color: '#fff',
+              fontWeight: 700,
+              fontSize: '0.92rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              boxShadow: '0 4px 12px rgba(2, 132, 199, 0.3)',
+              transition: 'all 0.2s'
+            }}
+          >
+            🚀 Ingresar como Invitado (1-Click Demo)
+          </button>
+          <div style={{ fontSize: '0.72rem', color: '#94a3b8', textAlign: 'center', marginTop: '6px' }}>
+            Explora parcelas y bitácora con datos de muestra sin registro previo.
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', margin: '1.2rem 0', color: '#64748b', fontSize: '0.75rem' }}>
+          <div style={{ flex: 1, height: '1px', background: '#334155' }}></div>
+          <span style={{ padding: '0 10px', textTransform: 'uppercase', fontWeight: 600 }}>o ingresa con tu cuenta</span>
+          <div style={{ flex: 1, height: '1px', background: '#334155' }}></div>
+        </div>
+
         {error && (
-          <div style={{ background: 'rgba(239, 68, 68, 0.15)', border: '1px solid #ef4444', color: '#fca5a5', padding: '10px', borderRadius: '8px', marginBottom: '16px', fontSize: '0.85rem' }}>
-            ⚠️ {error}
+          <div style={{ 
+            background: error.includes('pendiente') ? 'rgba(234, 179, 8, 0.15)' : 'rgba(239, 68, 68, 0.15)', 
+            border: error.includes('pendiente') ? '1px solid #eab308' : '1px solid #ef4444', 
+            color: error.includes('pendiente') ? '#fde047' : '#fca5a5', 
+            padding: '12px', 
+            borderRadius: '8px', 
+            marginBottom: '16px', 
+            fontSize: '0.82rem',
+            lineHeight: 1.4
+          }}>
+            {error.includes('pendiente') ? '⏳' : '⚠️'} {error}
           </div>
         )}
 
@@ -92,28 +162,28 @@ export default function LoginPage() {
         </form>
 
         <div className={styles.demoCreds}>
-          <div className={styles.demoCredsTitle}><ShieldCheck size={14} style={{ display: 'inline', marginRight: 4 }} /> Perfiles Demo Disponibles:</div>
+          <div className={styles.demoCredsTitle}><ShieldCheck size={14} style={{ display: 'inline', marginRight: 4 }} /> Perfiles de Prueba Rápidos:</div>
           <div style={{ display: 'flex', gap: '6px', marginTop: '6px', flexWrap: 'wrap' }}>
             <button 
               type="button" 
               onClick={() => setDemoRole('productor@agrotech.ve')}
               style={{ fontSize: '0.72rem', background: '#334155', color: '#86efac', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer' }}
             >
-              Productor Agrícola
+              Productor Aprobado
             </button>
             <button 
               type="button" 
-              onClick={() => setDemoRole('agronomo@agrotech.ve')}
-              style={{ fontSize: '0.72rem', background: '#334155', color: '#93c5fd', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer' }}
+              onClick={() => setDemoRole('solicitante.turen@agrotech.ve')}
+              style={{ fontSize: '0.72rem', background: '#334155', color: '#fde047', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer' }}
             >
-              Ing. Agrónomo
+              Productor Pendiente
             </button>
             <button 
               type="button" 
               onClick={() => setDemoRole('admin@agrotech.ve')}
-              style={{ fontSize: '0.72rem', background: '#334155', color: '#fde047', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer' }}
+              style={{ fontSize: '0.72rem', background: '#334155', color: '#38bdf8', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer' }}
             >
-              Admin
+              Admin Sistema
             </button>
           </div>
         </div>

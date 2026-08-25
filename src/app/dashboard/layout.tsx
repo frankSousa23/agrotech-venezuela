@@ -175,6 +175,19 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
             );
           })}
 
+          {user?.role === 'ADMIN' && (
+            <Link 
+              href="/dashboard/admin" 
+              className={`${styles.navItem} ${pathname === '/dashboard/admin' ? styles.navItemActive : ''}`}
+              style={{ background: 'rgba(56, 189, 248, 0.15)', border: '1px solid rgba(56, 189, 248, 0.3)' }}
+              onClick={() => setMobileOpen(false)}
+            >
+              <ShieldCheck size={18} className={styles.navIcon} color="#38bdf8" />
+              <span className={styles.navLabel} style={{ color: '#38bdf8', fontWeight: 700 }}>Panel Admin</span>
+              <span className={styles.navBadge} style={{ background: '#0284c7' }}>Gestión</span>
+            </Link>
+          )}
+
           <div className={styles.navSectionLabel} style={{ marginTop: '1.2rem' }}>RECURSOS & DESARROLLO</div>
           <Link 
             href="/api-docs" 

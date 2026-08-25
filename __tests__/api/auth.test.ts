@@ -45,14 +45,34 @@ describe('Auth Cryptographic & Session Suite', () => {
     expect(result).toBeNull();
   });
 
-  it('debe incluir los perfiles demo requeridos por el sistema', () => {
+  it('debe incluir los perfiles demo requeridos por el sistema con sus estados', () => {
     expect(DEMO_USERS.length).toBeGreaterThanOrEqual(3);
-    const farmer = DEMO_USERS.find(u => u.role === 'FARMER');
+    const farmer = DEMO_USERS.find(u => u.role === 'FARMER' && u.status === 'APPROVED');
     const agronomist = DEMO_USERS.find(u => u.role === 'AGRONOMIST');
     const admin = DEMO_USERS.find(u => u.role === 'ADMIN');
+    const pendingFarmer = DEMO_USERS.find(u => u.status === 'PENDING');
 
     expect(farmer).toBeDefined();
     expect(agronomist).toBeDefined();
     expect(admin).toBeDefined();
+    expect(pendingFarmer).toBeDefined();
+  });
+
+  it('debe generar y verificar tokens para el usuario Invitado (1-Click Guest)', () => {
+    const guestUser = {
+      id: 'usr-guest-demo',
+      email: 'invitado@agrotech.ve',
+      name: 'Usuario Invitado',
+      role: 'FARMER' as const,
+      status: 'GUEST' as const,
+      isGuest: true
+    };
+
+    const token = generateToken(guestUser);
+    const verified = verifyToken(token);
+
+    expect(verified).not.toBeNull();
+    expect(verified?.status).toBe('GUEST');
+    expect(verified?.isGuest).toBe(true);
   });
 });

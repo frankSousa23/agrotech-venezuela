@@ -1,10 +1,14 @@
 import crypto from 'crypto';
 
+export type UserStatus = 'PENDING' | 'APPROVED' | 'REJECTED' | 'GUEST';
+
 export interface UserSession {
   id: string;
   email: string;
   name: string;
   role: 'FARMER' | 'AGRONOMIST' | 'ADMIN';
+  status: UserStatus;
+  isGuest?: boolean;
   phone?: string;
   stateId?: string;
 }
@@ -46,6 +50,8 @@ export function verifyToken(token: string): UserSession | null {
       email: payload.email,
       name: payload.name,
       role: payload.role,
+      status: payload.status || 'APPROVED',
+      isGuest: payload.isGuest || false,
       phone: payload.phone,
       stateId: payload.stateId
     };
@@ -54,13 +60,26 @@ export function verifyToken(token: string): UserSession | null {
   }
 }
 
-// Usuarios iniciales del sistema para acceso inmediato
+// Usuario Invitado / Sandbox
+export const GUEST_USER: UserSession = {
+  id: "usr-guest-demo",
+  email: "invitado@agrotech.ve",
+  name: "Usuario Invitado (Modo Muestra)",
+  role: "FARMER",
+  status: "GUEST",
+  isGuest: true,
+  phone: "+58 412 0000000",
+  stateId: "portuguesa"
+};
+
+// Usuarios iniciales del sistema
 export const DEMO_USERS: (UserSession & { passwordHash: string })[] = [
   {
     id: "usr-farmer-01",
     email: "productor@agrotech.ve",
     name: "Frank Sousa (Productor Agrícola)",
     role: "FARMER",
+    status: "APPROVED",
     phone: "+58 412 1234567",
     stateId: "portuguesa",
     passwordHash: hashPassword("Agro2026*")
@@ -68,8 +87,9 @@ export const DEMO_USERS: (UserSession & { passwordHash: string })[] = [
   {
     id: "usr-agronomist-01",
     email: "agronomo@agrotech.ve",
-    name: "Ing. Agr. Carlos Mendoza (Asesor Técnico)",
+    name: "Ing. Agr. Carlos Mendoza (Asesor)",
     role: "AGRONOMIST",
+    status: "APPROVED",
     phone: "+58 414 7654321",
     stateId: "guarico",
     passwordHash: hashPassword("Agro2026*")
@@ -77,10 +97,22 @@ export const DEMO_USERS: (UserSession & { passwordHash: string })[] = [
   {
     id: "usr-admin-01",
     email: "admin@agrotech.ve",
-    name: "Administrador Agrotech",
+    name: "Administrador General Agrotech",
     role: "ADMIN",
+    status: "APPROVED",
     phone: "+58 416 9998877",
+    stateId: "portuguesa",
+    passwordHash: hashPassword("Agro2026*")
+  },
+  {
+    id: "usr-pending-01",
+    email: "solicitante.turen@agrotech.ve",
+    name: "Manuel Gómez (Finca Los Jabillos)",
+    role: "FARMER",
+    status: "PENDING",
+    phone: "+58 424 5554433",
     stateId: "portuguesa",
     passwordHash: hashPassword("Agro2026*")
   }
 ];
+

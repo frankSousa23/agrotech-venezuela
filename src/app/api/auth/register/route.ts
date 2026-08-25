@@ -20,22 +20,23 @@ export async function POST(req: Request) {
       email,
       name,
       role: role as 'FARMER' | 'AGRONOMIST' | 'ADMIN',
+      status: 'PENDING', // Requiere aprobación del Administrador
       phone,
       stateId,
       passwordHash: hashPassword(password)
     };
 
     DEMO_USERS.push(newUser);
-    const token = generateToken(newUser);
 
     return NextResponse.json({
       success: true,
-      token,
+      message: 'Registro exitoso. Tu cuenta está pendiente de aprobación por el Administrador.',
       user: {
         id: newUser.id,
         email: newUser.email,
         name: newUser.name,
         role: newUser.role,
+        status: newUser.status,
         phone: newUser.phone,
         stateId: newUser.stateId
       }

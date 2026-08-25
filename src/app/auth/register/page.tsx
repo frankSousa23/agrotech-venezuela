@@ -20,6 +20,8 @@ export default function RegisterPage() {
   const router = useRouter();
   const { login } = useAuth();
 
+  const [registeredSuccess, setRegisteredSuccess] = useState(false);
+
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -37,14 +39,33 @@ export default function RegisterPage() {
         throw new Error(data.error || 'Error al registrar usuario');
       }
 
-      login(data.token, data.user);
-      router.push('/dashboard/tierras');
+      setRegisteredSuccess(true);
     } catch (err: any) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
   };
+
+  if (registeredSuccess) {
+    return (
+      <div className={styles.authContainer}>
+        <div className={styles.authCard} style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>⏳🌾</div>
+          <h2 style={{ color: '#4ade80', margin: '0 0 0.5rem 0' }}>¡Solicitud Registrada con Éxito!</h2>
+          <p style={{ color: '#cbd5e1', fontSize: '0.9rem', lineHeight: 1.5 }}>
+            Hola <b>{name}</b>, tu cuenta ha sido creada y enviada al <b>Administrador del Sistema</b> para su validación agronómica.
+          </p>
+          <div style={{ background: 'rgba(30, 41, 59, 0.7)', border: '1px dashed #38bdf8', borderRadius: '8px', padding: '12px', margin: '1.5rem 0', fontSize: '0.82rem', color: '#94a3b8' }}>
+            Una vez aprobada tu cuenta, podrás ingresar con tu correo (<b>{email}</b>) y acceder a <b>Mis Tierras</b> y el <b>Cuaderno de Campo Digital</b>.
+          </div>
+          <Link href="/auth/login" className={styles.submitBtn} style={{ display: 'inline-block', textDecoration: 'none', textAlign: 'center' }}>
+            Volver a la Pantalla de Acceso
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.authContainer}>
