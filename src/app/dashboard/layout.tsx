@@ -21,10 +21,9 @@ import {
   BookOpen, 
   LogOut, 
   LogIn,
-  FileCode2
+  FileCode2,
+  Workflow
 } from 'lucide-react';
-
-
 
 const NAV_ITEMS = [
   { href: '/dashboard', label: 'Resumen General', icon: LayoutDashboard },
@@ -32,6 +31,7 @@ const NAV_ITEMS = [
   { href: '/dashboard/tierras', label: 'Mis Tierras & Fincas', icon: Tractor, badge: 'Mi Finca' },
   { href: '/dashboard/bitacora', label: 'Cuaderno de Campo', icon: BookOpen },
   { href: '/dashboard/recomendaciones', label: 'Simulador & IA', icon: Sparkles, highlight: true },
+  { href: '/dashboard/arquitectura', label: 'Diagramas & Datos', icon: Workflow, badge: 'E2E' },
   { href: '/dashboard/estadisticas', label: 'Geoestadísticas', icon: BarChart3 },
   { href: '/dashboard/cultivos', label: 'Catálogo de Cultivos', icon: Sprout },
   { href: '/dashboard/suelos', label: 'Perfiles Edafológicos', icon: FlaskConical },

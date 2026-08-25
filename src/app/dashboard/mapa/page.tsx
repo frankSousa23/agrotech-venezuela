@@ -2,7 +2,7 @@
 
 import MultiLevelMapViewer from '@/components/gis/MultiLevelMapViewer';
 import styles from './page.module.css';
-import { Map, Layers, Compass, Sprout, Satellite } from 'lucide-react';
+import { Map } from 'lucide-react';
 
 export default function MapaPage() {
   return (

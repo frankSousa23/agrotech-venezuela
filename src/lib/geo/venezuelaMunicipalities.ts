@@ -3,6 +3,8 @@
  * Representa la escala meso (Nivel 2) del WebGIS Agrotech.
  */
 
+import { VENEZUELA_STATES_DATA } from './venezuelaData';
+
 export interface MunicipalityGeoData {
   id: string;
   name: string;
@@ -361,7 +363,27 @@ export const VENEZUELA_MUNICIPALITIES_DATA: MunicipalityGeoData[] = [
 ];
 
 export function getMunicipalitiesByState(stateId: string): MunicipalityGeoData[] {
-  return VENEZUELA_MUNICIPALITIES_DATA.filter(m => m.stateId.toLowerCase() === stateId.toLowerCase());
+  const munis = VENEZUELA_MUNICIPALITIES_DATA.filter(m => m.stateId.toLowerCase() === stateId.toLowerCase());
+  if (munis.length > 0) return munis;
+
+  const st = VENEZUELA_STATES_DATA.find(s => s.id.toLowerCase() === stateId.toLowerCase());
+  if (st) {
+    return [{
+      id: `${st.id}_capital`,
+      name: `Distrito Agrícola ${st.capital}`,
+      stateId: st.id,
+      capital: st.capital,
+      center: st.center,
+      bounds: st.bounds,
+      mainCrops: st.mainCrops,
+      soilTexture: st.soilTextureDominant || 'Franco',
+      avgPh: st.averagePh || 6.2,
+      annualRainfallMm: st.annualRainfallMm || 1200,
+      hasIrrigationSystem: false,
+      agriculturalHighlights: `Polo agrícola y pecuario principal del Estado ${st.name} (${st.region}).`
+    }];
+  }
+  return [];
 }
 
 export function getMunicipalityById(id: string): MunicipalityGeoData | undefined {
