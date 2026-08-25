@@ -1,6 +1,6 @@
 # Agrotech Venezuela 🌾🛰️
 
-**Plataforma Integral de Inteligencia Edafo-Climática, Visión Satelital (WebGIS), Machine Learning Agronómico y Prescripción Asistida por IA.**
+**Plataforma Integral de Inteligencia Edafo-Climática, Visión Satelital Multi-Escala (WebGIS 3 Niveles), Machine Learning Agronómico, Asesoría Asistida por Gemini AI y Cuaderno de Campo Digital.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Next.js 16](https://img.shields.io/badge/Next.js-16%20(Turbopack)-black.svg)](https://nextjs.org/)
@@ -8,23 +8,26 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.62-FF4B4B.svg)](https://streamlit.io/)
 [![Python 3.13](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
 [![PostgreSQL 15](https://img.shields.io/badge/PostgreSQL-15-336791.svg)](https://www.postgresql.org/)
-[![Tests: 63 Passing](https://img.shields.io/badge/Tests-63%20Passing-brightgreen.svg)]()
+[![Tests: 71 Passing](https://img.shields.io/badge/Tests-71%20Passing-brightgreen.svg)]()
 
-Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LULC) de **MapBiomas Venezuela** (1985–2024), **Sentinel-2 L2A (Copernicus)** y **NASA POWER**, Agrotech transforma la observación satelital en **decisiones agronómicas precisas, prescriptivas y de acción directa** para agrónomos, productores e investigadores agrícolas.
+Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LULC) de **MapBiomas Venezuela** (1985–2024), **Sentinel-2 L2A (Copernicus)** y **NASA POWER**, Agrotech transforma la observación satelital en **decisiones agronómicas precisas, prescriptivas y de acción directa** para productores, agrónomos e investigadores agrícolas.
 
 ---
 
-## 🌟 Visión e Innovación Tecnológica (Nivel Competición)
+## 🌟 Visión e Innovación Tecnológica
 
 | Dimensión | MapBiomas Venezuela (Observacional) | Agrotech Venezuela (Prescriptivo y Acción) |
 | :--- | :--- | :--- |
-| **Ingreso de Datos** | Consulta manual en visor o descarga de rasters. | **Automático por Coordenadas GPS $(Lat, Lon)$**: Ingesta satelital de 40 años sin fricción. |
+| **Jerarquía Cartográfica** | Nivel Macro-Nacional. | **WebGIS Multi-Escala de 3 Niveles**: Nacional (24 Estados) ➔ Municipal (Polos Agrícolas) ➔ Micro-Parcela Sentinel-2. |
+| **Ingreso de Datos** | Consulta manual en visor o rasters. | **Automático por GPS $(Lat, Lon)$**: Ingesta satelital de 40 años sin fricción y trazado de polígonos. |
 | **Resolución Espacial** | 30 metros (Landsat). | **10 metros a nivel de parcela** (Sentinel-2 L2A con máscara de nubes SCL). |
-| **Clima en Tiempo Real** | Climatología general. | **NASA POWER Diario**: Temperatura, radiación solar y Grados Día de Desarrollo (**GDD**). |
-| **Modelado de Cosecha** | No disponible. | **Machine Learning Predictivo**: Estimación de rendimiento en **Ton/ha** para 8 cultivos estratégicos. |
+| **Clima en Tiempo Real** | Climatología general. | **NASA POWER Diario**: Temperatura, radiación solar, precipitación y Grados Día de Desarrollo (**GDD**). |
+| **Modelado de Cosecha** | No disponible. | **Machine Learning Predictivo**: Estimación de rendimiento en **Ton/ha** para 8 cadenas productivas estratégicas. |
 | **Prescripción Agronómica** | No prescriptivo. | **Calculadora de Encalado ($CaCO_3$) y Plan Nutricional $N-P-K$** adaptado a insumos venezolanos. |
-| **Inteligencia Artificial** | No disponible. | **Agente Google Gemini AI**: Diagnósticos técnicos estructurados y chat agronómico. |
-| **Resiliencia Rural** | Dependencia 100% de internet estable. | **Base de Datos SQLite en Caché Local (< 5ms)** y compatibilidad PWA Offline. |
+| **Espacio del Productor** | No disponible. | **Mis Tierras & Cuaderno de Campo Digital**: Registro cronológico de labores, encalados y cosechas reales. |
+| **Control de Acceso** | Acceso público general. | **Modo Invitado (1-Click Sandbox)**, Registro con estado `PENDING` y **Panel de Administración (`/dashboard/admin`)**. |
+| **Inteligencia Artificial** | No disponible. | **Agente Google Gemini AI**: Diagnósticos técnicos estructurados y chat agronómico contextual. |
+| **Resiliencia Rural** | Dependencia 100% de internet estable. | **Base de Datos SQLite en Caché Local (< 5ms)** con hashing geodésico a 4 decimales (~11m). |
 
 ---
 
@@ -32,13 +35,13 @@ Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LUL
 
 ```mermaid
 graph TD
-  User[Productor / Agrónomo] --> Web[Next.js 16 WebGIS - Puerto 3000]
-  User --> Dash[Streamlit Interactive Dashboard - Puerto 8501]
+  User[Productor / Agrónomo / Admin / Invitado] --> Web[Next.js 16 WebGIS - Puerto 3000]
+  User --> Dash[Streamlit Prescription Dashboard - Puerto 8501]
   
   Web --> FastApi[FastAPI Spatial & ML Backend - Puerto 8000]
   Dash --> FastApi
   
-  FastApi --> Cache{Caché Espacial SQLite}
+  FastApi --> Cache{Caché Espacial SQLite WAL}
   Cache -->|Hit < 5ms| Response[JSON Payload Estandarizado]
   Cache -->|Miss| Ingestion[Pipelines Satelitales]
   
@@ -54,137 +57,93 @@ graph TD
   Risk --> Response
   Gemini --> Response
   
-  Web --> PG[(PostgreSQL 15 - Docker 5444)]
+  Web --> Prisma[Prisma ORM & PostgreSQL 15]
 ```
 
 ---
 
 ## 🗺️ Módulos Principales del Sistema
 
-1. **Visor WebGIS Multidimensional (`/dashboard/mapa`)**:
-   - 4 Mapas base de alta resolución (Satélite Esri HD, Dark Matter, OpenTopoMap, OSM).
-   - Capas temáticas superponibles (MapBiomas LULC, Semáforo de pH del Suelo, Fertilidad Edafológica y Lluvia).
-   - Control de opacidad dinámico, Geo-Inspector lateral y marcadores GPS trazables.
+### 1. Visor WebGIS Multi-Escala de 3 Niveles (`/dashboard/mapa`)
+- **Nivel 1 (Nacional)**: Los 24 estados georreferenciados con selector de capas en vivo (**MapBiomas 2024 LULC**, **Semáforo de pH del Suelo**, **Lluvia NASA POWER**, **Sentinel-2 L2A**).
+- **Nivel 2 (Municipal)**: Transición fluida a polos productivos agrícolas (Turén, Santa Rosalía, Calabozo, Colón, Pedraza, Quíbor, etc.) con polígonos vectoriales GeoJSON, centros de acopio y pH promedio.
+- **Nivel 3 (Micro-Parcela)**: Imagen satelital de alta resolución con herramienta vectorial de delimitación y cálculo esferoidal de hectáreas (**Shoelace geodésico proyectado sobre WGS84**).
 
-2. **Delimitador de Fincas y Gemelo Digital (`ParcelDiagnosticModal`)**:
-   - Herramienta vectorial interactiva para delimitar parcelas sobre el mapa satelital.
-   - Cálculo geodésico exacto de hectáreas (Shoelace) y perímetro (Haversine).
-   - Exportación descargable en formato **GeoJSON** estándar.
+### 2. Autenticación & Perfiles de Acceso (`/auth/login` y `/auth/register`)
+- **Modo Invitado (1-Click Demo Sandbox)**: Acceso instantáneo con parcelas y datos de muestra sin registro.
+- **Flujo de Aprobación Administrativa**: Nuevos registros quedan en estado **`PENDING`** hasta ser validados.
+- **Perfiles Soportados**: `FARMER` (Productor Agrícola), `AGRONOMIST` (Ingeniero Agrónomo), `ADMIN` (Administrador).
 
-3. **Dashboard Interactivo de Prescripción (Streamlit en `:8501`)**:
-   - Selector de zonas agrícolas clave (Turén, Sur del Lago, Calabozo, Chuao, Bailadores, Maturín).
-   - Sliders reactivos de pH, Materia Orgánica, Textura y Hectáreas.
-   - Gráfico cronológico de 40 años de transición de coberturas (1985–2024) y semáforo de riesgos.
-   - Dictamen técnico agronómico descargable en Markdown y GeoJSON.
+### 3. Panel de Administración (`/dashboard/admin`)
+- Bandeja de solicitudes pendientes con botones de acción rápida en 1-click (**Aprobar ✓** / **Rechazar ✕**).
+- Directorio de usuarios y telemetría general de la plataforma.
 
-4. **Motor Predictivo de Machine Learning y Carbono**:
-   - Curvas de respuesta agroecológica calibradas para Venezuela (CENIAP/INIA/Danac/Fundación Polar).
-   - Proyecciones de rendimiento en Ton/ha para: *Maíz Blanco, Arroz de Riego, Plátano, Cacao Criollo, Café Arábica, Caña de Azúcar, Soya y Pasturas Tropicales*.
-   - Cuantificación de riesgos (Sequía, Encharcamiento, Acidez, Calor) y balance de captura de Carbono Orgánico del Suelo (**SOC / $CO_2$ eq**).
+### 4. Espacio del Productor: "Mis Tierras" y "Cuaderno de Campo Digital"
+- **Mis Tierras (`/dashboard/tierras`)**: Gestión de parcelas delimitadas, cultivo actual, textura edafológica y acceso a diagnósticos con Gemini AI.
+- **Cuaderno de Campo (`/dashboard/bitacora`)**: Registro cronológico de labores (Siembra, Encalado dolomítico, Fertilización NPK/Urea, Riego, Cosecha) y comparación de rendimientos reales (**Ton/ha**).
 
-5. **Agente Asesor con Google Gemini AI**:
-   - Dictámenes técnicos estructurados con recomendaciones de enmiendas (Cal Dolomítica) y nutrición balanceada (NPK 12-24-12, Urea, Roca Fosfórica de Riecito).
-   - Chat interactivo agronómico en tiempo real.
+### 5. Simulador Edafológico & Asesor Gemini AI (`/dashboard/recomendaciones`)
+- Sliders reactivos de pH, Materia Orgánica y Textura del Suelo.
+- Generación de dictamen agronómico con Gemini AI y exportación de Gemelo Digital en GeoJSON.
 
----
-
-## 🚀 Guía de Inicio Rápido
-
-### Opción 1: Despliegue con Docker Compose (Recomendado)
-```bash
-# 1. Clonar el repositorio
-git clone https://github.com/frankSousa23/agrotech-venezuela.git
-cd agrotech-venezuela
-
-# 2. Levantar todos los microservicios en Docker
-docker-compose up -d --build
-```
-- **Plataforma WebGIS Principal**: [http://localhost:3000](http://localhost:3000)
-- **Dashboard Streamlit Interactivo**: [http://localhost:8501](http://localhost:8501)
-- **Documentación Swagger FastAPI**: [http://localhost:8000/docs](http://localhost:8000/docs)
-- **Swagger UI Next.js**: [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
+### 6. Documentación OpenAPI / Swagger 3.0 (`/api-docs` y `/docs`)
+- Catálogo REST interactivo que documenta los endpoints de WebGIS, Autenticación, Administración, Parcelas, Bitácora, Edafología y Gemini AI.
 
 ---
 
-### Opción 2: Ejecución Local en Desarrollo
+## 🚀 Despliegue y Ejecución Local
 
-#### 1. Iniciar Base de Datos PostgreSQL
+### Prerrequisitos
+- Node.js 20+ o 22+
+- Python 3.13+
+- PostgreSQL 15 (o Docker)
+
+### 1. Iniciar Plataforma WebGIS (Next.js 16)
 ```bash
-docker-compose up -d agrotech-db
+# Instalar dependencias y generar cliente Prisma
+npm install
+npx prisma generate
+
+# Iniciar servidor de desarrollo con Turbopack
+npm run dev
+# Acceder a http://localhost:3000
 ```
 
-#### 2. Backend de Ingesta Espacial, ML y Gemini AI (Python)
+### 2. Iniciar Backend Espacial & ML (FastAPI)
 ```bash
 cd backend
 py -m pip install -r requirements.txt
-py -m pip install scikit-learn google-genai streamlit folium streamlit-folium plotly
-
-# Iniciar API FastAPI en puerto 8000
-py -m uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
-
-# Iniciar Dashboard Streamlit en puerto 8501 (en otra terminal)
-py -m streamlit run streamlit_app.py
+py -m uvicorn src.main:app --port 8000 --reload
+# Documentación interactiva en http://localhost:8000/docs
 ```
 
-#### 3. Frontend WebGIS (Next.js 16)
+### 3. Iniciar Dashboard de Prescripción (Streamlit)
 ```bash
-cd agrotech-app
-npm install
-npx prisma generate
-npx prisma db push
-npx prisma db seed
-npm run dev
-```
-
----
-
-## 🧪 Suite Integral de Pruebas Automatizadas (63 Tests)
-
-El proyecto cuenta con cobertura de pruebas automatizadas en ambas capas:
-
-```bash
-# 1. Tests de Backend Espacial, ML, Gemini, Folium y Carga (33 tests)
 cd backend
-py -m pytest tests
-
-# 2. Tests de Frontend WebGIS, Cálculos Geodésicos y APIs (30 tests)
-cd agrotech-app
-npm test
+py -m streamlit run streamlit_app.py
+# Acceder a http://localhost:8501
 ```
 
-**Resultado de Pruebas**: **63 / 63 pruebas aprobadas al 100%**.
+---
+
+## 🧪 Validación y Pruebas Automatizadas (71 Tests)
+
+Antes de cualquier commit a la rama `main`, se ejecutan y validan ambas suites de testing:
+
+```bash
+# 1. Pruebas Unitarias Frontend & APIs (Jest - 32 tests)
+npm test
+
+# 2. Compilación de Producción (Next.js 16 Turbopack)
+npm run build
+
+# 3. Pruebas Backend Espacial, ML y Caché (Pytest - 39 tests)
+cd backend && py -m pytest tests
+```
 
 ---
 
-## 📡 Catálogo de APIs REST (OpenAPI 3.0)
+## 📜 Licenciamiento y Atribución
 
-| Endpoint | Método | Descripción |
-| :--- | :--- | :--- |
-| `/api/geo` | `GET / POST` | Capas GeoJSON de Venezuela, puntos GPS, metadatos y perfil espacial unificado. |
-| `/api/v1/spatial/profile` | `POST` | Ingesta de $(Lat, Lon)$, MapBiomas Col 3, Sentinel-2 SCL 10m y NASA POWER con caché SQLite. |
-| `/api/v1/predict/crops` | `POST` | Predicción ML de aptitud y rendimiento (Ton/ha) para 8 cultivos. |
-| `/api/v1/predict/risks` | `POST` | Cuantificación de riesgos agroclimáticos y captura de carbono ($CO_2$ eq/ha). |
-| `/api/v1/ai/prescribe` | `POST` | Generación de prescripción agronómica integral con Google Gemini AI. |
-| `/api/v1/ai/consult` | `POST` | Consulta conversacional interactiva con el agente agrónomo. |
-| `/api/crops` | `GET / POST` | Catálogo de cultivos y tolerancias de pH. |
-| `/api/soils` | `GET / POST` | Registro y consulta de perfiles edafológicos. |
-| `/api/recomendaciones` | `GET` | Matriz de compatibilidad y dosis de encalado. |
-| `/api/export/stats` | `GET` | Exportación consolidada en formato CSV y Excel XLSX. |
-
----
-
-## 📄 Licencia, Términos Open Source y Atribución
-
-### Licencia de Software (Código Abierto)
-Este proyecto está publicado bajo los términos de la **Licencia MIT**:
-- **Uso libre y gratuito**: Cualquier persona u organización puede usar, estudiar, modificar, integrar y distribuir este software de forma gratuita tanto para fines académicos como comerciales.
-- **Condición de atribución**: Se requiere mantener el aviso de copyright original y otorgar el debido crédito al creador del proyecto (**Frank Sousa - Agrotech Venezuela**).
-
-### Atribución y Reconocimiento a MapBiomas Venezuela
-Las clasificaciones temáticas de cobertura y uso del suelo (LULC) integradas como referencia en esta plataforma están fundamentadas en los datos abiertos de la iniciativa **MapBiomas Venezuela**, publicados bajo la licencia internacional **Creative Commons Atribución 4.0 (CC BY 4.0)**:
-- **Referencia Oficial**: *Colección de Cobertura y Uso del Suelo de Venezuela*, desarrollada por **Provita**, el **Laboratorio LSIGMA de la Universidad Simón Bolívar (USB)**, **Wataniba** y la **Red Amazónica de Información Socioambiental Georreferenciada (RAISG)**.
-- **Portales de Acceso**: [venezuela.mapbiomas.org](https://venezuela.mapbiomas.org) | [plataforma.venezuela.mapbiomas.org](https://plataforma.venezuela.mapbiomas.org)
-
----
-
-*Desarrollado con fines de innovación científica y tecnológica por Frank Sousa (2026).*
+- **Código Fuente**: Licencia **MIT** (Copyright © 2026 Frank Sousa - Agrotech Venezuela).
+- **Datos de Cobertura y Uso del Suelo**: Referencian y construyen sobre la iniciativa **MapBiomas Venezuela** (Provita, LSIGMA USB, Wataniba y RAISG), disponible bajo licencia **Creative Commons Atribución 4.0 Internacional (CC BY 4.0)**.

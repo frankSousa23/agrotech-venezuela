@@ -34,6 +34,10 @@ Este documento define los estándares arquitectónicos, convenciones de código 
 - **Cálculo de Área en Hectáreas**: Fórmula esferoidal de Shoelace geodésico proyectada sobre el elipsoide WGS84.
 - **Cálculo de Distancias y Perímetro**: Fórmula de Haversine en kilómetros.
 - **Detección de Estado Territorial**: Algoritmo Ray-Casting (Point-in-Polygon) sobre las geometrías de `src/lib/geo/venezuelaGeoJson.ts` antes de recurrir a distancia euclidiana.
+- **Jerarquía WebGIS Multi-Escala**:
+  - Nivel 1: Nacional (`src/lib/geo/venezuelaData.ts`).
+  - Nivel 2: Municipal (`src/lib/geo/venezuelaMunicipalities.ts` y `venezuelaMunicipalitiesGeoJson.ts`).
+  - Nivel 3: Micro-Parcela Sentinel-2 con delimitador interactivo y persistencia en `/api/parcels`.
 - **Máscara de Nubes Sentinel-2 L2A**: Utilizar la banda SCL (Scene Classification Layer) excluyendo sombras (3), nubes medias/altas (8, 9) y cirros (10).
 - **Cálculo de GDD**: Base térmica $10.0^\circ\text{C}$ con umbral superior $30.0^\circ\text{C}$.
 
@@ -44,7 +48,7 @@ Este documento define los estándares arquitectónicos, convenciones de código 
 Antes de realizar cualquier commit a la rama `main`, se **deben** ejecutar y pasar ambas suites de pruebas automatizadas:
 
 ```bash
-# 1. Pruebas de Frontend WebGIS & APIs (Jest - 30 tests)
+# 1. Pruebas de Frontend WebGIS, Auth, Diary & APIs (Jest - 32 tests)
 npm test
 
 # 2. Pruebas de Backend Espacial, ML, IA y Carga (Pytest - 39 tests)
@@ -52,7 +56,7 @@ cd backend && py -m pytest tests
 ```
 
 - **Verificación de Tipos TypeScript**: `npx tsc --noEmit` debe arrojar 0 errores.
-- **Compilación de Producción**: `npm run build` debe compilar todas las rutas estáticas y dinámicas limpiamente con Turbopack.
+- **Compilación de Producción**: `npm run build` debe compilar todas las 23 rutas estáticas y dinámicas limpiamente con Turbopack.
 
 ---
 
