@@ -60,7 +60,22 @@ export function verifyToken(token: string): UserSession | null {
   }
 }
 
-// Usuario Invitado / Sandbox
+// Generador de sesiones efímeras de invitado para alta concurrencia
+export function createGuestSession(): UserSession {
+  const ephemeralId = crypto.randomBytes(6).toString('hex');
+  return {
+    id: `usr-guest-${ephemeralId}`,
+    email: `invitado_${ephemeralId}@agrotech.ve`,
+    name: `Usuario Invitado (${ephemeralId.slice(0, 4).toUpperCase()})`,
+    role: "FARMER",
+    status: "GUEST",
+    isGuest: true,
+    phone: "+58 412 0000000",
+    stateId: "portuguesa"
+  };
+}
+
+// Usuario Invitado base / Sandbox por defecto
 export const GUEST_USER: UserSession = {
   id: "usr-guest-demo",
   email: "invitado@agrotech.ve",

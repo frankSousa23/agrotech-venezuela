@@ -75,7 +75,20 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get('userId') || 'usr-farmer-01';
-    const parcels = IN_MEMORY_PARCELS.filter(p => p.userId === userId);
+
+    let parcels = IN_MEMORY_PARCELS.filter(p => p.userId === userId);
+
+    // Si es un usuario invitado recién ingresado sin parcelas creadas aún, clonar datos de muestra
+    if (parcels.length === 0 && userId.startsWith('usr-guest')) {
+      const demoSamples: InMemParcel[] = IN_MEMORY_PARCELS.slice(0, 2).map((p, idx) => ({
+        ...p,
+        id: `parc-guest-${userId.replace('usr-guest-', '')}-${idx + 1}`,
+        userId: userId,
+        name: idx === 0 ? "Finca Demostración — Tablón Turén" : "Lote Demostración — Arroz Calabozo"
+      }));
+      parcels = demoSamples;
+    }
+
     return NextResponse.json(parcels);
   } catch (error) {
     return NextResponse.json({ error: 'Error al consultar parcelas' }, { status: 500 });

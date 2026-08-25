@@ -1,18 +1,19 @@
 import { NextResponse } from 'next/server';
-import { DEMO_USERS, GUEST_USER, verifyPassword, generateToken } from '@/lib/auth/authUtils';
+import { DEMO_USERS, createGuestSession, verifyPassword, generateToken } from '@/lib/auth/authUtils';
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { email, password, isGuest } = body;
 
-    // 1. Acceso Invitado (1-Click Guest Login)
+    // 1. Acceso Invitado (1-Click Guest Login con sesión única y aislada)
     if (isGuest) {
-      const token = generateToken(GUEST_USER);
+      const guestSession = createGuestSession();
+      const token = generateToken(guestSession);
       return NextResponse.json({
         success: true,
         token,
-        user: GUEST_USER
+        user: guestSession
       });
     }
 

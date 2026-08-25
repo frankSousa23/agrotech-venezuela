@@ -63,6 +63,17 @@ export async function GET(req: Request) {
     const parcelId = searchParams.get('parcelId');
 
     let logs = IN_MEMORY_LOGS.filter(l => l.userId === userId);
+
+    // Si es un invitado recién llegado sin logs propios, entregarle copia de muestra
+    if (logs.length === 0 && userId.startsWith('usr-guest')) {
+      const demoLogs: InMemFieldLog[] = IN_MEMORY_LOGS.slice(0, 3).map((l, idx) => ({
+        ...l,
+        id: `log-guest-${userId.replace('usr-guest-', '')}-${idx + 1}`,
+        userId: userId
+      }));
+      logs = demoLogs;
+    }
+
     if (parcelId) {
       logs = logs.filter(l => l.parcelId === parcelId);
     }
