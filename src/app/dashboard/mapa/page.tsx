@@ -2,18 +2,17 @@
 
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import MultiLevelMapViewer, { MapLevel } from '@/components/gis/MultiLevelMapViewer';
+import VenezuelaStateMapViewer from '@/components/gis/VenezuelaStateMapViewer';
 import styles from './page.module.css';
 import { Map } from 'lucide-react';
+
 function MapaContent() {
   const searchParams = useSearchParams();
   const stateParam = searchParams.get('state') || 'portuguesa';
-  const levelParam = parseInt(searchParams.get('level') || '1', 10) as MapLevel;
-  const validLevel = (levelParam >= 1 && levelParam <= 3) ? levelParam : 1;
 
   return (
     <div className={styles.mapViewerWrapper}>
-      <MultiLevelMapViewer initialLevel={validLevel} initialStateId={stateParam} />
+      <VenezuelaStateMapViewer initialStateId={stateParam} />
     </div>
   );
 }
