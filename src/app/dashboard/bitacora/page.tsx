@@ -5,6 +5,9 @@ import { useAuth } from '@/lib/auth/authContext';
 import styles from './page.module.css';
 import { InMemFieldLog } from '@/app/api/field-logs/route';
 import { InMemParcel } from '@/app/api/parcels/route';
+import ShimmerSkeleton from '@/components/ui/ShimmerSkeleton';
+import EmptyStateCard from '@/components/ui/EmptyStateCard';
+import { useToast } from '@/components/ui/ToastProvider';
 import { 
   BookOpen, 
   Plus, 
@@ -21,6 +24,7 @@ import {
 
 export default function BitacoraPage() {
   const { user } = useAuth();
+  const toast = useToast();
   const [logs, setLogs] = useState<InMemFieldLog[]>([]);
   const [parcels, setParcels] = useState<InMemParcel[]>([]);
   const [loading, setLoading] = useState(true);
@@ -39,9 +43,10 @@ export default function BitacoraPage() {
     const uId = user?.id || 'usr-farmer-01';
     
     Promise.all([
-      fetch(`/api/field-logs?userId=${uId}`).then(r => r.json()),
-      fetch(`/api/parcels?userId=${uId}`).then(r => r.json())
-    ]).then(([logsData, parcelsData]) => {
+      fetch(`/api/field-logs?userId=${uId}`).then(res => res.json()),
+      fetch(`/api/parcels?userId=${uId}`).then(res => res.json())
+    ])
+    .then(([logsData, parcelsData]) => {
       setLogs(Array.isArray(logsData) ? logsData : []);
       const pList = Array.isArray(parcelsData) ? parcelsData : [];
       setParcels(pList);
@@ -49,7 +54,8 @@ export default function BitacoraPage() {
         setParcelId(pList[0].id);
       }
       setLoading(false);
-    }).catch(() => setLoading(false));
+    })
+    .catch(() => setLoading(false));
   };
 
   useEffect(() => {
@@ -74,15 +80,19 @@ export default function BitacoraPage() {
       });
 
       if (res.ok) {
+        toast.success('Labor Registrada con Éxito', `"${title}" ha sido asentada en tu cuaderno de campo.`);
         setShowModal(false);
         setTitle('');
         setDescription('');
         setDosage('');
         setYieldTonHa('');
         fetchData();
+      } else {
+        toast.error('Error al Guardar', 'No se pudo registrar la labor. Intenta nuevamente.');
       }
     } catch (err) {
       console.error(err);
+      toast.error('Error de Conexión', 'Ocurrió un problema al sincronizar con el servidor.');
     }
   };
 
@@ -132,13 +142,25 @@ export default function BitacoraPage() {
       {/* Listado de Entradas de la Bitácora */}
       <div className={styles.timeline}>
         {loading ? (
-          <div style={{ color: '#94a3b8', padding: '2rem', textAlign: 'center' }}>Cargando bitácora...</div>
-        ) : logs.length === 0 ? (
-          <div style={{ background: 'rgba(15, 23, 42, 0.5)', border: '1px dashed rgba(255,255,255,0.15)', borderRadius: '12px', padding: '3rem', textAlign: 'center', color: '#94a3b8' }}>
-            <FileText size={40} style={{ margin: '0 auto 0.5rem auto', opacity: 0.6 }} />
-            <h3>No hay registros de labores en el cuaderno</h3>
-            <p style={{ fontSize: '0.88rem' }}>Comienza registrando la siembra, encalado dolomítico o cosecha de tus parcelas.</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            <ShimmerSkeleton height="140px" borderRadius="12px" />
+            <ShimmerSkeleton height="140px" borderRadius="12px" />
+            <ShimmerSkeleton height="140px" borderRadius="12px" />
           </div>
+        ) : logs.length === 0 ? (
+          <EmptyStateCard
+            icon={BookOpen}
+            iconColor="#38bdf8"
+            title="Cuaderno de Campo sin Labores"
+            description="Registra la siembra, encalado dolomítico, fertilización NPK o cosecha de tus parcelas para monitorear el rendimiento en Ton/ha."
+            steps={[
+              { number: 1, text: '🌱 Selecciona la parcela o tablón de tu finca' },
+              { number: 2, text: '⚖️ Indica el tipo de labor y la dosis/insumo aplicado' },
+              { number: 3, text: '🌾 Guarda y genera historial cronológico trazable' }
+            ]}
+            actionLabel="+ Registrar Primera Labor"
+            onActionClick={() => setShowModal(true)}
+          />
         ) : (
           logs.map(log => {
             const badge = getBadgeColor(log.logType);

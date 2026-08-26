@@ -8,6 +8,8 @@ import { InMemParcel } from '@/app/api/parcels/route';
 import ParcelDiagnosticModal from '@/components/gis/ParcelDiagnosticModal';
 import { ParcelGeometry } from '@/lib/geo/spatialUtils';
 import { VENEZUELA_STATES_DATA } from '@/lib/geo/venezuelaData';
+import ShimmerSkeleton from '@/components/ui/ShimmerSkeleton';
+import EmptyStateCard from '@/components/ui/EmptyStateCard';
 import { 
   Tractor, 
   Plus, 
@@ -112,16 +114,19 @@ export default function TierrasPage() {
         <h2 style={{ fontSize: '1.2rem', color: '#fff', margin: '0 0 1rem 0' }}>Tablones y Parcelas Activas</h2>
         
         {loading ? (
-          <div style={{ color: '#94a3b8', padding: '2rem', textAlign: 'center' }}>Cargando tus tierras...</div>
-        ) : parcels.length === 0 ? (
-          <div style={{ background: 'rgba(15, 23, 42, 0.5)', border: '1px dashed rgba(255,255,255,0.15)', borderRadius: '12px', padding: '3rem', textAlign: 'center', color: '#94a3b8' }}>
-            <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>🚜</div>
-            <h3>Aún no tienes parcelas delimitadas</h3>
-            <p style={{ fontSize: '0.88rem' }}>Ve al Visor WebGIS interactivo para trazar los polígonos de tu finca con cálculo de hectáreas Shoelace.</p>
-            <Link href="/dashboard/mapa" className={styles.newParcelBtn} style={{ display: 'inline-flex', marginTop: '1rem' }}>
-              Abrir WebGIS & Trazar Mi Parcela
-            </Link>
+          <div className={styles.parcelsGrid}>
+            <ShimmerSkeleton height="220px" borderRadius="16px" />
+            <ShimmerSkeleton height="220px" borderRadius="16px" />
+            <ShimmerSkeleton height="220px" borderRadius="16px" />
           </div>
+        ) : parcels.length === 0 ? (
+          <EmptyStateCard
+            icon={Tractor}
+            title="Aún no tienes parcelas delimitadas"
+            description="Tus lotes georreferenciados aparecerán aquí con su telemetría edafoclimática y acceso directo a Gemelos Digitales de Gemini AI."
+            actionLabel="Abrir WebGIS & Delimitar Mi Primer Lote"
+            actionHref="/dashboard/mapa"
+          />
         ) : (
           <div className={styles.parcelsGrid}>
             {parcels.map(p => (

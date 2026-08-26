@@ -6,6 +6,8 @@ import { usePathname } from 'next/navigation';
 import styles from './layout.module.css';
 import { useAuth } from '@/lib/auth/authContext';
 import ConnectivityStatusBadge from '@/components/layout/ConnectivityStatusBadge';
+import CommandPalette from '@/components/layout/CommandPalette';
+import SunlightThemeToggle from '@/components/layout/SunlightThemeToggle';
 import { 
   LayoutDashboard, 
   Map as MapIcon, 
@@ -52,14 +54,17 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
           <div className={styles.logoBadge}>🌱</div>
           <span>Agrotech</span>
         </Link>
-        <button 
-          id="btn_toggle_mobile_menu"
-          className={styles.menuToggle} 
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Alternar Menú"
-        >
-          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <SunlightThemeToggle />
+          <button 
+            id="btn_toggle_mobile_menu"
+            className={styles.menuToggle} 
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Alternar Menú"
+          >
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </div>
 
       {/* Backdrop for mobile */}
@@ -99,31 +104,40 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
             <div style={{
               width: 32,
               height: 32,
-              borderRadius: '50%',
-              background: user?.role === 'AGRONOMIST' ? '#0284c7' : '#16a34a',
+              borderRadius: '8px',
+              background: 'rgba(34, 197, 94, 0.2)',
+              color: '#22c55e',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 700,
               fontSize: '0.85rem'
             }}>
-              {user?.name ? user.name.charAt(0) : 'P'}
+              {user?.name ? user.name[0].toUpperCase() : 'P'}
             </div>
-            <div>
-              <div style={{ fontSize: '0.78rem', fontWeight: 600, color: '#f8fafc', maxWidth: '120px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                {user?.name || 'Productor'}
+            <div style={{ overflow: 'hidden' }}>
+              <div style={{ fontSize: '0.82rem', fontWeight: 600, color: '#f8fafc', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
+                {user?.name || 'Productor Invitado'}
               </div>
-              <div style={{ fontSize: '0.68rem', color: user?.role === 'AGRONOMIST' ? '#38bdf8' : '#4ade80' }}>
-                {user?.role === 'AGRONOMIST' ? 'Ing. Agrónomo' : user?.role === 'ADMIN' ? 'Administrador' : 'Productor Agrícola'}
+              <div style={{ fontSize: '0.7rem', color: '#94a3b8' }}>
+                {user?.role === 'ADMIN' ? '🛡️ Administrador' : '🌾 Productor Agrícola'}
               </div>
             </div>
           </div>
 
           {isAuthenticated ? (
             <button 
-              onClick={() => logout()}
+              onClick={logout}
               title="Cerrar Sesión"
-              style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: 4 }}
+              style={{ 
+                background: 'transparent', 
+                border: 'none', 
+                color: '#ef4444', 
+                cursor: 'pointer', 
+                padding: 4,
+                display: 'flex',
+                alignItems: 'center'
+              }}
             >
               <LogOut size={16} />
             </button>
@@ -224,6 +238,23 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
       
       {/* Main Content Area */}
       <main className={styles.mainContent}>
+        {/* Top Floating Utility Bar (Desktop) */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '12px 24px',
+          background: 'rgba(15, 23, 42, 0.65)',
+          backdropFilter: 'blur(12px)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          marginBottom: '8px'
+        }}>
+          <CommandPalette />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <SunlightThemeToggle />
+          </div>
+        </div>
+
         <div className={styles.contentWrapper}>
           {children}
         </div>
@@ -235,5 +266,3 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return <DashboardContent>{children}</DashboardContent>;
 }
-
-

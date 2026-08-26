@@ -65,6 +65,60 @@
   }
 }
 
+/* ☀️ Modo Pleno Sol (High-Contrast Daylight Sunlight Mode) */
+[data-theme="sunlight"] {
+  --background: #f8fafc !important;
+  --surface: #ffffff !important;
+  --surface-raised: #f1f5f9 !important;
+  --surface-border: #cbd5e1 !important;
+  --border: #94a3b8 !important;
+  --text-main: #0f172a !important;
+  --text-muted: #334155 !important;
+}
+
+[data-theme="sunlight"] body {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+[data-theme="sunlight"] .glass-panel {
+  background: #ffffff !important;
+  border: 2px solid #cbd5e1 !important;
+  color: #0f172a !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+@keyframes slideInToast {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes shimmerAnimation {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
