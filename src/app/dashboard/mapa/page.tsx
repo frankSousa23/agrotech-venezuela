@@ -1,18 +1,93 @@
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import VenezuelaStateMapViewer from '@/components/gis/VenezuelaStateMapViewer';
+import MultiLevelMapViewer, { MapLevel } from '@/components/gis/MultiLevelMapViewer';
 import styles from './page.module.css';
-import { Map } from 'lucide-react';
+import { Map, Layers, Sparkles } from 'lucide-react';
 
 function MapaContent() {
   const searchParams = useSearchParams();
   const stateParam = searchParams.get('state') || 'portuguesa';
+  const levelParam = parseInt(searchParams.get('level') || '1', 10) as MapLevel;
+  const initialMode = searchParams.get('mode') === 'multilevel' ? 'multilevel' : 'state';
+  const [activeMode, setActiveMode] = useState<'state' | 'multilevel'>(initialMode);
 
   return (
     <div className={styles.mapViewerWrapper}>
-      <VenezuelaStateMapViewer initialStateId={stateParam} />
+      {/* Selector de Modo de Visualización */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        background: 'rgba(15, 23, 42, 0.75)',
+        backdropFilter: 'blur(12px)',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
+        borderRadius: '12px',
+        padding: '8px 14px',
+        marginBottom: '12px',
+        gap: '10px',
+        flexWrap: 'wrap'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: '#94a3b8' }}>
+          <Layers size={16} color="#22c55e" />
+          <span style={{ fontWeight: 600, color: '#f8fafc' }}>Modo Cartográfico:</span>
+        </div>
+
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <button
+            id="btn_mode_state_explorer"
+            onClick={() => setActiveMode('state')}
+            style={{
+              padding: '6px 14px',
+              borderRadius: '8px',
+              border: 'none',
+              background: activeMode === 'state' ? '#16a34a' : '#1e293b',
+              color: '#fff',
+              fontSize: '0.82rem',
+              fontWeight: activeMode === 'state' ? 700 : 500,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              transition: 'all 0.2s'
+            }}
+          >
+            🇻🇪 Explorador Estatal (24 Estados)
+          </button>
+
+          <button
+            id="btn_mode_multilevel"
+            onClick={() => setActiveMode('multilevel')}
+            style={{
+              padding: '6px 14px',
+              borderRadius: '8px',
+              border: 'none',
+              background: activeMode === 'multilevel' ? '#2563eb' : '#1e293b',
+              color: '#fff',
+              fontSize: '0.82rem',
+              fontWeight: activeMode === 'multilevel' ? 700 : 500,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              transition: 'all 0.2s'
+            }}
+          >
+            🛰️ Multi-Escala & Delimitación de Parcelas (Niveles 1-2-3)
+          </button>
+        </div>
+      </div>
+
+      {activeMode === 'state' ? (
+        <VenezuelaStateMapViewer initialStateId={stateParam} />
+      ) : (
+        <MultiLevelMapViewer 
+          initialLevel={(levelParam >= 1 && levelParam <= 3) ? levelParam : 1} 
+          initialStateId={stateParam} 
+        />
+      )}
     </div>
   );
 }
