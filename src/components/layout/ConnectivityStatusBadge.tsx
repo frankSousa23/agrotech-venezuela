@@ -12,7 +12,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { Wifi, WifiOff, RefreshCw, CheckCircle, Database } from 'lucide-react';
+import { Wifi, WifiOff, RefreshCw } from 'lucide-react';
 
 export default function ConnectivityStatusBadge() {
   const [isOnline, setIsOnline] = useState<boolean>(true);
@@ -36,6 +36,26 @@ export default function ConnectivityStatusBadge() {
       setPendingCount(0);
     }
   }, []);
+
+  // Manejador de sincronización manual o automática
+  const handleSync = useCallback(async () => {
+    if (typeof window === 'undefined' || !navigator.onLine || isSyncing) return;
+    
+    setIsSyncing(true);
+    setSyncFeedback('Sincronizando datos...');
+
+    try {
+      // Simulación de procesamiento de cola offline
+      await new Promise(resolve => setTimeout(resolve, 1200));
+      setPendingCount(0);
+      setSyncFeedback('¡Sincronizado!');
+      setTimeout(() => setSyncFeedback(null), 3000);
+    } catch {
+      setSyncFeedback('Error al sincronizar');
+    } finally {
+      setIsSyncing(false);
+    }
+  }, [isSyncing]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -63,27 +83,7 @@ export default function ConnectivityStatusBadge() {
       window.removeEventListener('offline', handleOffline);
       clearInterval(interval);
     };
-  }, [checkPendingQueue]);
-
-  // Manejador de sincronización manual o automática
-  const handleSync = async () => {
-    if (!navigator.onLine || isSyncing) return;
-    
-    setIsSyncing(true);
-    setSyncFeedback('Sincronizando datos...');
-
-    try {
-      // Simulación de procesamiento de cola offline
-      await new Promise(resolve => setTimeout(resolve, 1200));
-      setPendingCount(0);
-      setSyncFeedback('¡Sincronizado!');
-      setTimeout(() => setSyncFeedback(null), 3000);
-    } catch {
-      setSyncFeedback('Error al sincronizar');
-    } finally {
-      setIsSyncing(false);
-    }
-  };
+  }, [checkPendingQueue, handleSync]);
 
   return (
     <div style={{

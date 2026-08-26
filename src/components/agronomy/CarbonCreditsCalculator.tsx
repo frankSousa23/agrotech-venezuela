@@ -12,7 +12,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { Leaf, DollarSign, Award, ShieldCheck, ArrowUpRight, Sparkles, Trees } from 'lucide-react';
+import { Leaf } from 'lucide-react';
 
 interface CarbonCreditsCalculatorProps {
   initialAreaHa?: number;
