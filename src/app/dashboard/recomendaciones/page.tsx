@@ -11,6 +11,8 @@ import {
   evaluateOrinocoConservationShield 
 } from '@/lib/geo/mapbiomasTrajectory';
 import { estimateVenezuelaAgroClimate } from '@/lib/geo/nasaPowerService';
+import { calculateHydroThermalGdd } from '@/lib/geo/hydroThermalEngine';
+import CarbonCreditsCalculator from '@/components/agronomy/CarbonCreditsCalculator';
 import { 
   Sparkles, 
   FlaskConical, 
@@ -21,7 +23,9 @@ import {
   ShieldCheck, 
   CheckCircle2, 
   AlertTriangle,
-  MapPin
+  MapPin,
+  Clock,
+  Waves
 } from 'lucide-react';
 
 function RecomendacionesContent() {
@@ -416,6 +420,83 @@ function RecomendacionesContent() {
               <p className={styles.aiResponseText}>{aiAdvice}</p>
             </div>
           )}
+        </div>
+
+        {/* 💧 Módulo de Balance Hídrico y Grados Día (GDD) */}
+        <div style={{
+          marginTop: '20px',
+          background: 'rgba(15, 23, 42, 0.85)',
+          backdropFilter: 'blur(16px)',
+          border: '1px solid rgba(56, 189, 248, 0.25)',
+          borderRadius: '16px',
+          padding: '20px',
+          color: '#fff',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#38bdf8', fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase' }}>
+                <Waves size={16} /> Agroclimatología Predictiva
+              </div>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 800, margin: '2px 0 0 0', color: '#f8fafc' }}>
+                Balance Hídrico & Grados Día de Crecimiento ({suitabilityResults[0]?.cropName || 'Maíz'})
+              </h3>
+            </div>
+            <span style={{ fontSize: '0.72rem', background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', padding: '3px 10px', borderRadius: '999px', border: '1px solid #38bdf8', fontWeight: 600 }}>
+              GDD Base 10°C • Techo 30°C
+            </span>
+          </div>
+
+          {/* KPI GDD */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '10px' }}>
+            <div style={{ background: 'rgba(30, 41, 59, 0.6)', padding: '12px', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+              <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Requerimiento Térmico Total</div>
+              <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#facc15', marginTop: '2px' }}>
+                {calculateHydroThermalGdd(suitabilityResults[0]?.cropName, selectedState.averageTempC, nasaClimate.annualPrecipitationMm).totalGddRequired} <span style={{ fontSize: '0.75rem', fontWeight: 400 }}>GDD</span>
+              </div>
+            </div>
+
+            <div style={{ background: 'rgba(30, 41, 59, 0.6)', padding: '12px', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+              <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Acumulación Diaria Promedio</div>
+              <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#38bdf8', marginTop: '2px' }}>
+                {calculateHydroThermalGdd(suitabilityResults[0]?.cropName, selectedState.averageTempC, nasaClimate.annualPrecipitationMm).dailyAvgGdd} <span style={{ fontSize: '0.75rem', fontWeight: 400 }}>GDD/día</span>
+              </div>
+            </div>
+
+            <div style={{ background: 'rgba(30, 41, 59, 0.6)', padding: '12px', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+              <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Ciclo Estimado a Cosecha</div>
+              <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#4ade80', marginTop: '2px' }}>
+                {calculateHydroThermalGdd(suitabilityResults[0]?.cropName, selectedState.averageTempC, nasaClimate.annualPrecipitationMm).predictedCycleDays} <span style={{ fontSize: '0.75rem', fontWeight: 400 }}>Días</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Hitos Fenológicos */}
+          <div style={{ background: 'rgba(30, 41, 59, 0.4)', padding: '14px', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+            <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#f8fafc', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Clock size={14} color="#38bdf8" /> Hitos Fenológicos Previstos:
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {calculateHydroThermalGdd(suitabilityResults[0]?.cropName, selectedState.averageTempC, nasaClimate.annualPrecipitationMm).milestones.map((m, idx) => (
+                <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.78rem', background: 'rgba(15, 23, 42, 0.6)', padding: '6px 10px', borderRadius: '6px' }}>
+                  <span style={{ color: '#f8fafc', fontWeight: 600 }}>{m.stageName} (Día ~{m.estimatedDaysAfterSowing})</span>
+                  <span style={{ color: '#94a3b8', fontSize: '0.72rem' }}>{m.accumulatedGdd} GDD</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* 🌿 Módulo de Certificación de Créditos de Carbono */}
+        <div style={{ marginTop: '20px' }}>
+          <CarbonCreditsCalculator
+            initialAreaHa={simAreaHa}
+            initialOrganicMatterPct={simOM}
+            initialTexture={simTexture}
+            parcelName={`Finca en ${selectedState.name}`}
+          />
         </div>
       </section>
 

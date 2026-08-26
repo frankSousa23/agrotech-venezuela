@@ -12,6 +12,8 @@ import {
   evaluateOrinocoConservationShield 
 } from '@/lib/geo/mapbiomasTrajectory';
 import { estimateVenezuelaAgroClimate } from '@/lib/geo/nasaPowerService';
+import { estimateSarRadarBackscatter } from '@/lib/geo/sarRadarService';
+import { calculateHydroThermalGdd } from '@/lib/geo/hydroThermalEngine';
 import { getMunicipalitiesByState, VENEZUELA_MUNICIPALITIES_DATA } from '@/lib/geo/venezuelaMunicipalities';
 import { VENEZUELA_STATES_DATA } from '@/lib/geo/venezuelaData';
 
@@ -98,6 +100,26 @@ describe('Spatial & Geodetic Algorithms Tests', () => {
     expect(climate.annualPrecipitationMm).toBeGreaterThan(500);
     expect(climate.avgTemperatureC).toBeGreaterThan(15);
     expect(climate.wetSeasonMonths.length).toBeGreaterThan(0);
+  });
+
+  it('debe calcular la retrodispersión de Radar SAR Sentinel-1 (Banda C) libre de nubes', () => {
+    const sar = estimateSarRadarBackscatter(9.3240, -69.1120, 1400);
+    expect(sar.sensor).toBe('Sentinel-1A');
+    expect(sar.backscatterVV_dB).toBeLessThan(0);
+    expect(sar.backscatterVH_dB).toBeLessThan(sar.backscatterVV_dB);
+    expect(sar.soilMoistureIndexPct).toBeGreaterThanOrEqual(0);
+    expect(sar.soilMoistureIndexPct).toBeLessThanOrEqual(100);
+    expect(sar.cloudPenetrationStatus).toContain('100% libre de interferencia');
+  });
+
+  it('debe computar el reporte de Grados Día de Crecimiento (GDD) y balance hídrico mensual', () => {
+    const gdd = calculateHydroThermalGdd('Maíz Blanco Harinero', 27.5, 1450);
+    expect(gdd.totalGddRequired).toBe(1650);
+    expect(gdd.dailyAvgGdd).toBeGreaterThan(5);
+    expect(gdd.predictedCycleDays).toBeGreaterThan(90);
+    expect(gdd.predictedCycleDays).toBeLessThan(180);
+    expect(gdd.milestones.length).toBe(5);
+    expect(gdd.monthlyWaterBalance.length).toBe(12);
   });
 });
 

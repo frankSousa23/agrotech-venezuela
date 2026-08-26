@@ -15,6 +15,7 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { VENEZUELA_STATES_DATA, StateGeoData } from '@/lib/geo/venezuelaData';
+import { estimateSarRadarBackscatter } from '@/lib/geo/sarRadarService';
 import type { ActiveMapLayer } from './VenezuelaStateMapInner';
 import { 
   Layers, 
@@ -27,7 +28,8 @@ import {
   Compass, 
   ArrowRight,
   ExternalLink,
-  Info
+  Info,
+  Radio
 } from 'lucide-react';
 
 // Carga dinámica de Leaflet para Next.js 16 App Router
@@ -233,6 +235,23 @@ export default function VenezuelaStateMapViewer({
           >
             MapBiomas
           </button>
+
+          <button
+            id="btn_layer_sar"
+            onClick={() => setActiveLayer('sar')}
+            style={{
+              padding: '5px 10px',
+              fontSize: '0.76rem',
+              borderRadius: '6px',
+              border: 'none',
+              background: activeLayer === 'sar' ? '#0ea5e9' : '#1e293b',
+              color: '#fff',
+              cursor: 'pointer',
+              fontWeight: activeLayer === 'sar' ? 700 : 400
+            }}
+          >
+            📡 Radar SAR (Sin Nubes)
+          </button>
         </div>
       </div>
 
@@ -376,6 +395,29 @@ export default function VenezuelaStateMapViewer({
               <span style={{ color: '#d946ef' }}>■ {cover.agriculture}% Agrícola</span>
               <span style={{ color: '#f59e0b' }}>■ {cover.pasture}% Pastos</span>
               <span style={{ color: '#059669' }}>■ {cover.forest}% Bosques</span>
+            </div>
+          </div>
+
+          {/* Telemetría Radar SAR Sentinel-1 */}
+          <div style={{ 
+            background: activeLayer === 'sar' ? 'rgba(14, 165, 233, 0.15)' : 'rgba(30, 41, 59, 0.6)', 
+            padding: '10px 12px', 
+            borderRadius: '12px', 
+            border: activeLayer === 'sar' ? '1px solid #0ea5e9' : '1px solid rgba(255, 255, 255, 0.05)' 
+          }}>
+            <div style={{ fontSize: '0.76rem', fontWeight: 700, color: '#38bdf8', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Radio size={14} /> Sentinel-1 SAR (Radar Sin Nubes)
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.74rem', color: '#cbd5e1', marginBottom: '2px' }}>
+              <span>Retrodispersión VV:</span>
+              <b style={{ color: '#38bdf8' }}>{estimateSarRadarBackscatter(selectedState.center[0], selectedState.center[1], selectedState.annualRainfallMm).backscatterVV_dB} dB</b>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.74rem', color: '#cbd5e1', marginBottom: '4px' }}>
+              <span>Saturación de Humedad:</span>
+              <b style={{ color: '#4ade80' }}>{estimateSarRadarBackscatter(selectedState.center[0], selectedState.center[1], selectedState.annualRainfallMm).soilMoistureIndexPct}%</b>
+            </div>
+            <div style={{ fontSize: '0.7rem', color: '#94a3b8', fontStyle: 'italic' }}>
+              {estimateSarRadarBackscatter(selectedState.center[0], selectedState.center[1], selectedState.annualRainfallMm).saturationRisk}
             </div>
           </div>
 

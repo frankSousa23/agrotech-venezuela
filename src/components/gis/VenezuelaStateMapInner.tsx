@@ -24,7 +24,7 @@ import {
 import L from 'leaflet';
 import { VENEZUELA_STATES_DATA, StateGeoData } from '@/lib/geo/venezuelaData';
 
-export type ActiveMapLayer = 'thematic' | 'satellite' | 'ph' | 'rainfall' | 'mapbiomas' | 'dark';
+export type ActiveMapLayer = 'thematic' | 'satellite' | 'ph' | 'rainfall' | 'mapbiomas' | 'sar' | 'dark';
 
 interface VenezuelaStateMapInnerProps {
   selectedStateId: string;
@@ -85,6 +85,11 @@ function getStatePolygonStyle(
     if (cover.agriculture > 35) fillColor = '#d946ef'; // Agrícola Intenso
     else if (cover.forest > 60) fillColor = '#047857';  // Forestal
     else fillColor = '#eab308';                         // Pastizales / Mosaicos
+  } else if (activeLayer === 'sar') {
+    // Radar Sentinel-1 SAR: Saturación de humedad libre de nubes
+    if (rain > 1800) fillColor = '#3b82f6';     // Alta humedad / Anegamiento
+    else if (rain > 1100) fillColor = '#06b6d4'; // Humedad óptima
+    else fillColor = '#cbd5e1';                 // Suelo seco / alta rugosidad
   } else if (activeLayer === 'satellite' || activeLayer === 'dark') {
     fillColor = isSelected ? '#22c55e' : '#38bdf8';
   }

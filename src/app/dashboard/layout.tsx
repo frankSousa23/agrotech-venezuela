@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './layout.module.css';
 import { useAuth } from '@/lib/auth/authContext';
+import ConnectivityStatusBadge from '@/components/layout/ConnectivityStatusBadge';
 import { 
   LayoutDashboard, 
   Map as MapIcon, 
@@ -137,7 +138,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
           )}
         </div>
 
-        {/* Live Status Indicator */}
+        {/* Live Status & Connectivity Indicator */}
         <div className={styles.statusBox}>
           <div className={styles.statusHeader}>
             <span className={styles.statusLiveDot}></span>
@@ -152,6 +153,9 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
               <ShieldCheck size={12} className={styles.statusIcon} />
               <span>NASA POWER V2.0</span>
             </div>
+          </div>
+          <div style={{ marginTop: '8px', display: 'flex', justifyContent: 'center' }}>
+            <ConnectivityStatusBadge />
           </div>
         </div>
 
