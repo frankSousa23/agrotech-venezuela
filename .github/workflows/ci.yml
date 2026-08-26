@@ -29,7 +29,10 @@ jobs:
       - name: Generate Prisma Client
         run: npx prisma generate
 
-      - name: Run Jest Test Suite (8 suites / 21 tests)
+      - name: TypeScript Type Check
+        run: npx tsc --noEmit
+
+      - name: Run Jest Test Suite (12 suites / 42 tests)
         run: npm test
 
       - name: Build Next.js Production App
