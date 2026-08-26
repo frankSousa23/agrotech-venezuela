@@ -51,7 +51,7 @@ Este documento define los estándares arquitectónicos, convenciones de código 
 Antes de realizar cualquier commit a la rama `main`, se **deben** ejecutar y pasar ambas suites de pruebas automatizadas:
 
 ```bash
-# 1. Pruebas de Frontend WebGIS, SAR Radar, GDD, Auth, Diary, Spatial & APIs (Jest - 42 tests)
+# 1. Pruebas de Frontend WebGIS, SAR Radar, GDD, Auth, Diary, Spatial & APIs (Jest - 56 tests)
 npm test
 
 # 2. Verificación de Tipos TypeScript (0 errores obligatorios)

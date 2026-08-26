@@ -8,7 +8,7 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.62-FF4B4B.svg)](https://streamlit.io/)
 [![Python 3.13](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
 [![PostgreSQL 15](https://img.shields.io/badge/PostgreSQL-15-336791.svg)](https://www.postgresql.org/)
-[![Tests: 81 Passing](https://img.shields.io/badge/Tests-81%20Passing-brightgreen.svg)]()
+[![Tests: 95 Passing](https://img.shields.io/badge/Tests-95%20Passing-brightgreen.svg)]()
 
 Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LULC) de **MapBiomas Venezuela** (1985–2024), **Sentinel-1 SAR Radar**, **Sentinel-2 L2A (Copernicus)** y **NASA POWER**, Agrotech transforma la observación satelital en **decisiones agronómicas precisas, prescriptivas y de acción directa** para productores, agrónomos e investigadores agrícolas.
 
@@ -68,7 +68,7 @@ graph TD
 ## 🗺️ Módulos Principales del Sistema
 
 ### 1. Visor WebGIS Multi-Escala & Radar SAR (`/dashboard/mapa`)
-- **Nivel 1 (Nacional)**: Los 24 estados georreferenciados con selector de capas en vivo (**MapBiomas 2024 LULC**, **Semáforo de pH del Suelo**, **Lluvia NASA POWER**, **Radar SAR Sentinel-1**, **Satélite Esri HD**).
+- **Nivel 1 (Nacional)**: Los 24 estados georreferenciados con selector de capas en vivo (**MapBiomas 2024 LULC**, **Semáforo de pH del Suelo**, **Lluvia NASA POWER**, **Radar SAR Sentinel-1**, **Satélite Esri HD**), leyendas dinámicas flotantes y sincronización de redimensionamiento (`map.invalidateSize()`).
 - **Nivel 2 (Municipal)**: Transición fluida a polos productivos agrícolas (Turén, Santa Rosalía, Calabozo, Colón, Pedraza, Quíbor, etc.) con polígonos vectoriales GeoJSON, centros de acopio y pH promedio.
 - **Nivel 3 (Micro-Parcela)**: Imagen satelital con herramienta vectorial interactiva de delimitación y cálculo esferoidal de hectáreas (**Shoelace geodésico proyectado sobre WGS84**).
 
@@ -131,12 +131,12 @@ py -m streamlit run streamlit_app.py --server.headless true
 
 ---
 
-## 🧪 Validación y Pruebas Automatizadas (81 Tests)
+## 🧪 Validación y Pruebas Automatizadas (95 Tests)
 
 Antes de cualquier commit a la rama `main`, se ejecutan y validan ambas suites de testing:
 
 ```bash
-# 1. Pruebas Unitarias Frontend, WebGIS, SAR Radar, GDD, Auth & APIs (Jest - 42 tests)
+# 1. Pruebas Unitarias Frontend, WebGIS, SAR Radar, GDD, Map Viewer & APIs (Jest - 56 tests)
 npm test
 
 # 2. Verificación Estática TypeScript

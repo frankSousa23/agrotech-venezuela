@@ -17,6 +17,7 @@ import dynamic from 'next/dynamic';
 import { VENEZUELA_STATES_DATA, StateGeoData } from '@/lib/geo/venezuelaData';
 import { estimateSarRadarBackscatter } from '@/lib/geo/sarRadarService';
 import type { ActiveMapLayer } from './VenezuelaStateMapInner';
+import styles from './VenezuelaStateMapViewer.module.css';
 import { 
   Layers, 
   MapPin, 
@@ -29,7 +30,9 @@ import {
   ArrowRight,
   ExternalLink,
   Info,
-  Radio
+  Radio,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 
 // Carga dinámica de Leaflet para Next.js 16 App Router
@@ -94,30 +97,13 @@ export default function VenezuelaStateMapViewer({
     return { label: 'Alcalino / Calcáreo', color: '#0284c7', bg: 'rgba(2, 132, 199, 0.15)' };
   }, [selectedState.averagePh]);
 
+  const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(true);
   const cover = selectedState.mapbiomasCoverPercentage || { agriculture: 30, pasture: 25, forest: 40, water: 5 };
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '14px',
-      width: '100%',
-      background: 'transparent'
-    }}>
+    <div className={styles.mapViewerContainer}>
       {/* 🧭 Barra de Control Superior */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        background: 'rgba(15, 23, 42, 0.85)',
-        backdropFilter: 'blur(12px)',
-        border: '1px solid rgba(255, 255, 255, 0.12)',
-        borderRadius: '12px',
-        padding: '10px 16px',
-        color: '#fff',
-        flexWrap: 'wrap',
-        gap: '10px'
-      }}>
+      <div className={styles.controlBar}>
         {/* Selector de Estado Desplegable */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <MapPin size={18} color="#22c55e" />
@@ -193,7 +179,7 @@ export default function VenezuelaStateMapViewer({
               fontSize: '0.76rem',
               borderRadius: '6px',
               border: 'none',
-              background: activeLayer === 'ph' ? '#f59e0b' : '#1e293b',
+              background: activeLayer === 'ph' ? '#eab308' : '#1e293b',
               color: '#fff',
               cursor: 'pointer',
               fontWeight: activeLayer === 'ph' ? 700 : 400
@@ -256,21 +242,9 @@ export default function VenezuelaStateMapViewer({
       </div>
 
       {/* 🗺️ Grid Principal: Mapa a la Izquierda, Ficha a la Derecha */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'minmax(0, 1fr) 360px',
-        gap: '14px',
-        minHeight: '620px'
-      }}>
+      <div className={styles.mainGrid}>
         {/* Contenedor del Mapa Leaflet */}
-        <div style={{
-          position: 'relative',
-          borderRadius: '16px',
-          overflow: 'hidden',
-          border: '1px solid rgba(255, 255, 255, 0.12)',
-          boxShadow: '0 8px 30px rgba(0,0,0,0.35)',
-          background: '#0b1329'
-        }}>
+        <div className={styles.mapWrapper}>
           <VenezuelaStateMapInner
             selectedStateId={selectedStateId}
             activeLayer={activeLayer}
@@ -279,39 +253,37 @@ export default function VenezuelaStateMapViewer({
         </div>
 
         {/* 📊 Ficha Informativa y Telemetría del Estado Activo */}
-        <div style={{
-          background: 'rgba(15, 23, 42, 0.9)',
-          backdropFilter: 'blur(16px)',
-          border: '1px solid rgba(255, 255, 255, 0.12)',
-          borderRadius: '16px',
-          padding: '20px',
-          color: '#fff',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '14px',
-          boxShadow: '0 8px 30px rgba(0,0,0,0.35)',
-          overflowY: 'auto',
-          maxHeight: '680px'
-        }}>
-          {/* Cabecera del Estado */}
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
-              <span style={{ fontSize: '0.74rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#38bdf8', fontWeight: 700 }}>
-                Entidad Federal
-              </span>
-              <span style={{ fontSize: '0.72rem', background: 'rgba(34, 197, 94, 0.15)', color: '#4ade80', padding: '2px 8px', borderRadius: '999px', border: '1px solid #22c55e' }}>
-                Región {selectedState.region}
-              </span>
-            </div>
-            <h2 style={{ fontSize: '1.4rem', fontWeight: 800, margin: '0 0 2px 0', color: '#f8fafc' }}>
-              🇻🇪 {selectedState.name}
-            </h2>
-            <div style={{ fontSize: '0.82rem', color: '#94a3b8' }}>
-              Capital: <b>{selectedState.capital}</b> | Coordenadas: [{selectedState.center[0].toFixed(2)}°, {selectedState.center[1].toFixed(2)}°]
-            </div>
-          </div>
+        <div className={styles.telemetryCard}>
+          {/* Botón de Colapso para Móvil */}
+          <button 
+            className={styles.mobileDrawerToggle}
+            onClick={() => setIsMobileDrawerOpen(!isMobileDrawerOpen)}
+          >
+            <span>📊 Ficha de Telemetría: <b>{selectedState.name}</b></span>
+            {isMobileDrawerOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+          </button>
 
-          <div style={{ height: '1px', background: 'rgba(255, 255, 255, 0.08)' }} />
+          {isMobileDrawerOpen && (
+            <>
+              {/* Cabecera del Estado */}
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
+                  <span style={{ fontSize: '0.74rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#38bdf8', fontWeight: 700 }}>
+                    Entidad Federal
+                  </span>
+                  <span style={{ fontSize: '0.72rem', background: 'rgba(34, 197, 94, 0.15)', color: '#4ade80', padding: '2px 8px', borderRadius: '999px', border: '1px solid #22c55e' }}>
+                    Región {selectedState.region}
+                  </span>
+                </div>
+                <h2 style={{ fontSize: '1.4rem', fontWeight: 800, margin: '0 0 2px 0', color: '#f8fafc' }}>
+                  🇻🇪 {selectedState.name}
+                </h2>
+                <div style={{ fontSize: '0.82rem', color: '#94a3b8' }}>
+                  Capital: <b>{selectedState.capital}</b> | Coordenadas: [{selectedState.center[0].toFixed(2)}°, {selectedState.center[1].toFixed(2)}°]
+                </div>
+              </div>
+
+              <div style={{ height: '1px', background: 'rgba(255, 255, 255, 0.08)' }} />
 
           {/* KPI Agroclimáticos Rápidos */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
@@ -421,28 +393,29 @@ export default function VenezuelaStateMapViewer({
             </div>
           </div>
 
-          {/* Botón de Enlace al Simulador */}
-          <a
-            href={`/dashboard/recomendaciones?state=${selectedState.id}&ph=${selectedState.averagePh}`}
-            style={{
-              marginTop: 'auto',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '6px',
-              background: '#16a34a',
-              color: '#fff',
-              textDecoration: 'none',
-              padding: '10px',
-              borderRadius: '8px',
-              fontWeight: 700,
-              fontSize: '0.82rem',
-              transition: 'background 0.2s',
-              textAlign: 'center'
-            }}
-          >
-            <Sparkles size={16} /> Evaluar con Simulador IA <ArrowRight size={14} />
-          </a>
+            <a
+              href={`/dashboard/recomendaciones?state=${selectedState.id}&ph=${selectedState.averagePh}`}
+              style={{
+                marginTop: 'auto',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '6px',
+                background: '#16a34a',
+                color: '#fff',
+                textDecoration: 'none',
+                padding: '10px',
+                borderRadius: '8px',
+                fontWeight: 700,
+                fontSize: '0.82rem',
+                transition: 'background 0.2s',
+                textAlign: 'center'
+              }}
+            >
+              <Sparkles size={16} /> Evaluar con Simulador IA <ArrowRight size={14} />
+            </a>
+          </>
+        )}
         </div>
       </div>
     </div>

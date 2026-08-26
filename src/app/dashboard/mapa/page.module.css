@@ -72,8 +72,43 @@
 
 .mapViewerWrapper {
   width: 100%;
-  height: 680px;
+  min-height: 640px;
+  height: auto;
   border-radius: 16px;
-  overflow: hidden;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 900px) {
+  .mapPageContainer {
+    padding: 0.75rem;
+    gap: 1rem;
+  }
+  
+  .headerTitle {
+    font-size: 1.3rem;
+  }
+  
+  .kpiRow {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .kpiCard {
+    padding: 0.85rem;
+    gap: 0.6rem;
+  }
+
+  .kpiIcon {
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+  }
+
+  .kpiValue {
+    font-size: 1.1rem;
+  }
+
+  .kpiLabel {
+    font-size: 0.7rem;
+  }
 }

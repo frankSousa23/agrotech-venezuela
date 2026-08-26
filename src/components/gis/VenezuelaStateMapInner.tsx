@@ -23,6 +23,8 @@ import {
 } from 'react-leaflet';
 import L from 'leaflet';
 import { VENEZUELA_STATES_DATA, StateGeoData } from '@/lib/geo/venezuelaData';
+import MapResizeSynchronizer from './MapResizeSynchronizer';
+import MapLayerLegendOverlay from './MapLayerLegendOverlay';
 
 export type ActiveMapLayer = 'thematic' | 'satellite' | 'ph' | 'rainfall' | 'mapbiomas' | 'sar' | 'dark';
 
@@ -153,6 +155,7 @@ export default function VenezuelaStateMapInner({
         scrollWheelZoom={true}
       >
         <MapCameraController center={mapCenter} zoom={mapZoom} />
+        <MapResizeSynchronizer />
 
         <TileLayer
           url={tileLayerUrl}
@@ -210,6 +213,9 @@ export default function VenezuelaStateMapInner({
           );
         })}
       </MapContainer>
+
+      {/* 🏷️ Leyenda Dinámica Flotante según Capa Activa */}
+      <MapLayerLegendOverlay activeLayer={activeLayer} />
     </div>
   );
 }
