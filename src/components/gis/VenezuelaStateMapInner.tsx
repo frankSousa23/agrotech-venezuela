@@ -41,16 +41,14 @@ function getStatePolygonStyle(
   let fillColor = '#16a34a'; // default verde
 
   if (activeLayer === 'thematic') {
-    switch (state.region) {
-      case 'Llanos': fillColor = '#d97706'; break;       // Ámbar
-      case 'Andes': fillColor = '#059669'; break;        // Esmeralda
-      case 'Zulia': fillColor = '#0284c7'; break;        // Azul
-      case 'Guayana': fillColor = '#15803d'; break;      // Verde Bosque
-      case 'Centro-Occidente': fillColor = '#ca8a04'; break; // Amarillo
-      case 'Centro': fillColor = '#9333ea'; break;       // Púrpura
-      case 'Oriente': fillColor = '#ea580c'; break;      // Naranja
-      default: fillColor = '#2563eb';
-    }
+    if (state.region.includes('Llanos')) fillColor = '#d97706';
+    else if (state.region.includes('Andes')) fillColor = '#059669';
+    else if (state.region.includes('Zulia') || state.region.includes('Lago')) fillColor = '#0284c7';
+    else if (state.region.includes('Guayana')) fillColor = '#15803d';
+    else if (state.region.includes('Centro-Occidente')) fillColor = '#ca8a04';
+    else if (state.region.includes('Centro')) fillColor = '#9333ea';
+    else if (state.region.includes('Oriente')) fillColor = '#ea580c';
+    else fillColor = '#2563eb';
   } else if (activeLayer === 'ph') {
     if (ph < 5.2) fillColor = '#ef4444';      // Muy Ácido (Rojo)
     else if (ph < 6.0) fillColor = '#f97316'; // Moderadamente Ácido (Naranja)
