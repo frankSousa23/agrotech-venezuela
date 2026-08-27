@@ -3,27 +3,21 @@
  * AGROTECH VENEZUELA — VISOR ESTATAL LEAFLET (VenezuelaStateMapInner.tsx)
  * ============================================================================
  * 
- * Componente cliente dedicado para la exploración territorial de Venezuela:
- * - Renderiza los 24 estados federales con polígonos vectoriales GeoJSON.
+ * Componente cliente nativo de Leaflet puro (L.map con useRef):
+ * - Cero dependencias de contexto react-leaflet para 100% de resiliencia en
+ *   entornos sandboxed, iframes (Google AI Studio / Cloud Run) y React 19.
+ * - Renderiza los 24 estados federales con polígonos vectoriales y tooltips.
  * - Soporte para capas temáticas: División Territorial, Satélite Esri HD,
- *   Semáforo de pH del suelo, Precipitación NASA y Cobertura MapBiomas.
- * - Animación cinemática fluida (flyTo) al seleccionar cualquier estado.
- * - Tooltips interactivos con nombres y capitales estadales.
+ *   Semáforo de pH del suelo, Precipitación NASA, MapBiomas y Radar SAR.
+ * - Animación cinemática fluida (flyTo) y ResizeObserver integrado.
  */
 
 'use client';
 
-import React, { useEffect, useMemo } from 'react';
-import { 
-  MapContainer, 
-  TileLayer, 
-  Polygon, 
-  Tooltip, 
-  useMap 
-} from 'react-leaflet';
+import React, { useEffect, useRef, useMemo } from 'react';
 import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { VENEZUELA_STATES_DATA, StateGeoData } from '@/lib/geo/venezuelaData';
-import MapResizeSynchronizer from './MapResizeSynchronizer';
 import MapLayerLegendOverlay from './MapLayerLegendOverlay';
 
 export type ActiveMapLayer = 'thematic' | 'satellite' | 'ph' | 'rainfall' | 'mapbiomas' | 'sar' | 'dark';
@@ -32,18 +26,6 @@ interface VenezuelaStateMapInnerProps {
   selectedStateId: string;
   activeLayer: ActiveMapLayer;
   onSelectState: (stateId: string) => void;
-}
-
-// Controlador de cámara de Leaflet para animación flyTo
-function MapCameraController({ center, zoom }: { center: [number, number]; zoom: number }) {
-  const map = useMap();
-  useEffect(() => {
-    map.flyTo(center, zoom, {
-      duration: 1.1,
-      easeLinearity: 0.25
-    });
-  }, [center, zoom, map]);
-  return null;
 }
 
 // Función auxiliar para calcular colores según la capa activa
@@ -59,7 +41,6 @@ function getStatePolygonStyle(
   let fillColor = '#16a34a'; // default verde
 
   if (activeLayer === 'thematic') {
-    // Color por Región Agroecológica
     switch (state.region) {
       case 'Llanos': fillColor = '#d97706'; break;       // Ámbar
       case 'Andes': fillColor = '#059669'; break;        // Esmeralda
@@ -71,27 +52,23 @@ function getStatePolygonStyle(
       default: fillColor = '#2563eb';
     }
   } else if (activeLayer === 'ph') {
-    // Semáforo de Acidez Edafológica
     if (ph < 5.2) fillColor = '#ef4444';      // Muy Ácido (Rojo)
     else if (ph < 6.0) fillColor = '#f97316'; // Moderadamente Ácido (Naranja)
     else if (ph <= 7.2) fillColor = '#10b981'; // Óptimo (Verde)
     else fillColor = '#0284c7';                // Alcalino / Calcáreo (Azul)
   } else if (activeLayer === 'rainfall') {
-    // Precipitación Anual NASA POWER
     if (rain < 800) fillColor = '#fed7aa';     // Árido / Semiárido
     else if (rain < 1400) fillColor = '#38bdf8'; // Húmedo
     else if (rain < 2000) fillColor = '#0284c7'; // Muy Húmedo
     else fillColor = '#1e40af';                 // Pluvial / Selva
   } else if (activeLayer === 'mapbiomas') {
-    // Vocación Agrícola vs Bosques MapBiomas
     if (cover.agriculture > 35) fillColor = '#d946ef'; // Agrícola Intenso
     else if (cover.forest > 60) fillColor = '#047857';  // Forestal
     else fillColor = '#eab308';                         // Pastizales / Mosaicos
   } else if (activeLayer === 'sar') {
-    // Radar Sentinel-1 SAR: Saturación de humedad libre de nubes
-    if (rain > 1800) fillColor = '#3b82f6';     // Alta humedad / Anegamiento
+    if (rain > 1800) fillColor = '#3b82f6';     // Alta humedad
     else if (rain > 1100) fillColor = '#06b6d4'; // Humedad óptima
-    else fillColor = '#cbd5e1';                 // Suelo seco / alta rugosidad
+    else fillColor = '#cbd5e1';                 // Suelo seco
   } else if (activeLayer === 'satellite' || activeLayer === 'dark') {
     fillColor = isSelected ? '#22c55e' : '#38bdf8';
   }
@@ -111,11 +88,16 @@ export default function VenezuelaStateMapInner({
   activeLayer,
   onSelectState
 }: VenezuelaStateMapInnerProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<L.Map | null>(null);
+  const tileLayerRef = useRef<L.TileLayer | null>(null);
+  const polygonLayerGroupRef = useRef<L.LayerGroup | null>(null);
+
   const selectedState = useMemo(() => {
     return VENEZUELA_STATES_DATA.find(s => s.id === selectedStateId) || VENEZUELA_STATES_DATA[0];
   }, [selectedStateId]);
 
-  // Centro y zoom enfocado
+  // Centro y zoom calculado
   const mapCenter = useMemo<[number, number]>(() => {
     if (!selectedStateId || selectedStateId === 'all') {
       return [7.85, -66.0];
@@ -128,88 +110,149 @@ export default function VenezuelaStateMapInner({
     return 8;
   }, [selectedStateId]);
 
-  // Capa Base TileLayer URL (Sin marcas de agua)
-  const tileLayerUrl = useMemo(() => {
+  // Capa base TileLayer URL (Sin marcas de agua)
+  const tileConfig = useMemo(() => {
     if (activeLayer === 'satellite') {
-      return 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+      return {
+        url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        attribution: '&copy; Esri &mdash; World Imagery (High Resolution)'
+      };
     }
-    return 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+    return {
+      url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    };
   }, [activeLayer]);
 
-  const tileLayerAttribution = useMemo(() => {
-    if (activeLayer === 'satellite') {
-      return '&copy; Esri &mdash; World Imagery (High Resolution)';
-    }
-    return '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-  }, [activeLayer]);
+  // 1. Inicialización Nativa del Mapa Leaflet
+  useEffect(() => {
+    if (!containerRef.current || mapInstanceRef.current) return;
+
+    const map = L.map(containerRef.current, {
+      center: mapCenter,
+      zoom: mapZoom,
+      zoomControl: true,
+      scrollWheelZoom: true
+    });
+
+    const tileLayer = L.tileLayer(tileConfig.url, {
+      attribution: tileConfig.attribution,
+      maxZoom: 18
+    }).addTo(map);
+
+    const polygonLayerGroup = L.layerGroup().addTo(map);
+
+    tileLayerRef.current = tileLayer;
+    polygonLayerGroupRef.current = polygonLayerGroup;
+    mapInstanceRef.current = map;
+
+    // ResizeObserver reactivo para redimensionamiento en iframe / ventana
+    const resizeObserver = new ResizeObserver(() => {
+      map.invalidateSize();
+    });
+    resizeObserver.observe(containerRef.current);
+
+    // Timeout escalonado de seguridad para inicialización de iframe
+    const t1 = setTimeout(() => map.invalidateSize(), 100);
+    const t2 = setTimeout(() => map.invalidateSize(), 500);
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      resizeObserver.disconnect();
+      map.remove();
+      mapInstanceRef.current = null;
+      tileLayerRef.current = null;
+      polygonLayerGroupRef.current = null;
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // 2. Sincronización de Capa de Teselas
+  useEffect(() => {
+    if (!mapInstanceRef.current || !tileLayerRef.current) return;
+    tileLayerRef.current.setUrl(tileConfig.url);
+  }, [tileConfig]);
+
+  // 3. Sincronización de Polígonos de los 24 Estados
+  useEffect(() => {
+    if (!mapInstanceRef.current || !polygonLayerGroupRef.current) return;
+
+    polygonLayerGroupRef.current.clearLayers();
+
+    VENEZUELA_STATES_DATA.forEach((state) => {
+      const isSelected = state.id === selectedStateId;
+      const polygonCoords: [number, number][] = [
+        [state.bounds[0][0], state.bounds[0][1]],
+        [state.bounds[0][0], state.bounds[1][1]],
+        [state.bounds[1][0], state.bounds[1][1]],
+        [state.bounds[1][0], state.bounds[0][1]],
+      ];
+
+      const polygon = L.polygon(polygonCoords, getStatePolygonStyle(state, isSelected, activeLayer));
+
+      // Tooltip agronómico nativo
+      polygon.bindTooltip(`
+        <div style="padding: 4px 6px; text-align: center; font-size: 0.8rem; color: #0f172a;">
+          <b>🇻🇪 ${state.name}</b>
+          <div style="font-size: 0.72rem; color: #475569;">
+            Capital: ${state.capital} | Región ${state.region}
+          </div>
+          <div style="font-size: 0.7rem; color: #16a34a; font-weight: 600; margin-top: 2px;">
+            pH: ${state.averagePh} | ${state.annualRainfallMm} mm/año
+          </div>
+        </div>
+      `, {
+        sticky: true,
+        direction: 'top',
+        opacity: 0.95
+      });
+
+      polygon.on('click', () => {
+        onSelectState(state.id);
+      });
+
+      polygon.on('mouseover', () => {
+        if (!isSelected) {
+          polygon.setStyle({
+            fillOpacity: 0.75,
+            weight: 2.5,
+            color: '#38bdf8'
+          });
+        }
+      });
+
+      polygon.on('mouseout', () => {
+        if (!isSelected) {
+          polygon.setStyle(getStatePolygonStyle(state, false, activeLayer));
+        }
+      });
+
+      polygonLayerGroupRef.current?.addLayer(polygon);
+    });
+  }, [selectedStateId, activeLayer, onSelectState]);
+
+  // 4. Animación Cinemática de Cámara (flyTo)
+  useEffect(() => {
+    if (!mapInstanceRef.current) return;
+    mapInstanceRef.current.flyTo(mapCenter, mapZoom, {
+      duration: 1.1,
+      easeLinearity: 0.25
+    });
+  }, [mapCenter, mapZoom]);
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-      <MapContainer
-        center={mapCenter}
-        zoom={mapZoom}
-        style={{ width: '100%', height: '100%', minHeight: '620px', background: '#0b1329' }}
-        scrollWheelZoom={true}
-      >
-        <MapCameraController center={mapCenter} zoom={mapZoom} />
-        <MapResizeSynchronizer />
-
-        <TileLayer
-          url={tileLayerUrl}
-          attribution={tileLayerAttribution}
-          maxZoom={18}
-        />
-
-        {/* Polígonos de los 24 Estados de Venezuela */}
-        {VENEZUELA_STATES_DATA.map((state) => {
-          const isSelected = state.id === selectedStateId;
-          const polygonCoords: [number, number][] = [
-            [state.bounds[0][0], state.bounds[0][1]],
-            [state.bounds[0][0], state.bounds[1][1]],
-            [state.bounds[1][0], state.bounds[1][1]],
-            [state.bounds[1][0], state.bounds[0][1]],
-          ];
-
-          return (
-            <Polygon
-              key={state.id}
-              positions={polygonCoords}
-              pathOptions={getStatePolygonStyle(state, isSelected, activeLayer)}
-              eventHandlers={{
-                click: () => onSelectState(state.id),
-                mouseover: (e) => {
-                  const layer = e.target;
-                  if (!isSelected) {
-                    layer.setStyle({
-                      fillOpacity: 0.75,
-                      weight: 2.5,
-                      color: '#38bdf8'
-                    });
-                  }
-                },
-                mouseout: (e) => {
-                  const layer = e.target;
-                  if (!isSelected) {
-                    layer.setStyle(getStatePolygonStyle(state, false, activeLayer));
-                  }
-                }
-              }}
-            >
-              <Tooltip sticky direction="top" opacity={0.95}>
-                <div style={{ padding: '4px 6px', textAlign: 'center', fontSize: '0.8rem', color: '#0f172a' }}>
-                  <b>🇻🇪 {state.name}</b>
-                  <div style={{ fontSize: '0.72rem', color: '#475569' }}>
-                    Capital: {state.capital} | Región {state.region}
-                  </div>
-                  <div style={{ fontSize: '0.7rem', color: '#16a34a', fontWeight: 600, marginTop: '2px' }}>
-                    pH: {state.averagePh} | {state.annualRainfallMm} mm/año
-                  </div>
-                </div>
-              </Tooltip>
-            </Polygon>
-          );
-        })}
-      </MapContainer>
+      <div 
+        ref={containerRef} 
+        style={{ 
+          width: '100%', 
+          height: '100%', 
+          minHeight: '620px', 
+          background: '#0b1329',
+          borderRadius: '16px',
+          overflow: 'hidden'
+        }} 
+      />
 
       {/* 🏷️ Leyenda Dinámica Flotante según Capa Activa */}
       <MapLayerLegendOverlay activeLayer={activeLayer} />
