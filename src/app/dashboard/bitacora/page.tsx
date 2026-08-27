@@ -204,11 +204,11 @@ export default function BitacoraPage() {
 
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div>
-                <label style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Parcela / Lote:</label>
+                <label style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Parcela / Lote:</label>
                 <select
                   value={parcelId}
                   onChange={e => setParcelId(e.target.value)}
-                  style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #334155', background: '#1e293b', color: '#fff' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-raised)', color: 'var(--text-main)' }}
                 >
                   {parcels.map(p => (
                     <option key={p.id} value={p.id}>{p.name} ({p.areaHectares} ha)</option>
@@ -218,11 +218,11 @@ export default function BitacoraPage() {
 
               <div style={{ display: 'flex', gap: '10px' }}>
                 <div style={{ flex: 1 }}>
-                  <label style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Tipo de Labor:</label>
+                  <label style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Tipo de Labor:</label>
                   <select
                     value={logType}
                     onChange={e => setLogType(e.target.value as any)}
-                    style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #334155', background: '#1e293b', color: '#fff' }}
+                    style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-raised)', color: 'var(--text-main)' }}
                   >
                     <option value="SIEMBRA">🌱 Siembra</option>
                     <option value="ENCALADO">🧪 Encalado (Cal)</option>
@@ -235,49 +235,49 @@ export default function BitacoraPage() {
 
                 {logType === 'COSECHA' && (
                   <div style={{ flex: 1 }}>
-                    <label style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Rendimiento (Ton/ha):</label>
+                    <label style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Rendimiento (Ton/ha):</label>
                     <input
                       type="number"
                       step="0.1"
                       value={yieldTonHa}
                       onChange={e => setYieldTonHa(e.target.value)}
                       placeholder="ej: 7.2"
-                      style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #334155', background: '#1e293b', color: '#fff' }}
+                      style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-raised)', color: 'var(--text-main)' }}
                     />
                   </div>
                 )}
               </div>
 
               <div>
-                <label style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Título de la Labor:</label>
+                <label style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Título de la Labor:</label>
                 <input
                   required
                   value={title}
                   onChange={e => setTitle(e.target.value)}
                   placeholder="ej: Siembra de Maíz Blanco Híbrido"
-                  style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #334155', background: '#1e293b', color: '#fff' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-raised)', color: 'var(--text-main)' }}
                 />
               </div>
 
               <div>
-                <label style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Dosis o Fórmula de Insumo:</label>
+                <label style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Dosis o Fórmula de Insumo:</label>
                 <input
                   value={dosage}
                   onChange={e => setDosage(e.target.value)}
                   placeholder="ej: 1.5 Ton/ha Cal Dolomítica o 200 kg/ha NPK 12-24-12"
-                  style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #334155', background: '#1e293b', color: '#fff' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-raised)', color: 'var(--text-main)' }}
                 />
               </div>
 
               <div>
-                <label style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Observaciones Agronómicas / Notas de Manejo:</label>
+                <label style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Observaciones Agronómicas / Notas de Manejo:</label>
                 <textarea
                   required
                   rows={3}
                   value={description}
                   onChange={e => setDescription(e.target.value)}
                   placeholder="Detalla condiciones climáticas, humedad de suelo, vigor de plántulas o incidencias..."
-                  style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #334155', background: '#1e293b', color: '#fff', resize: 'none' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-raised)', color: 'var(--text-main)', resize: 'none' }}
                 />
               </div>
 
@@ -285,13 +285,13 @@ export default function BitacoraPage() {
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  style={{ padding: '8px 16px', borderRadius: '6px', border: 'none', background: '#334155', color: '#fff', cursor: 'pointer' }}
+                  style={{ padding: '10px 18px', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-raised)', color: 'var(--text-main)', cursor: 'pointer', fontWeight: 600 }}
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  style={{ padding: '8px 16px', borderRadius: '6px', border: 'none', background: '#0284c7', color: '#fff', fontWeight: 600, cursor: 'pointer' }}
+                  style={{ padding: '10px 18px', borderRadius: '8px', border: 'none', background: '#0284c7', color: '#fff', fontWeight: 700, cursor: 'pointer' }}
                 >
                   Guardar en Bitácora
                 </button>

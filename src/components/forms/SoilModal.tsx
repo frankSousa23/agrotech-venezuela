@@ -61,23 +61,24 @@ export default function SoilModal({ isOpen = true, onClose, onSuccess }: SoilMod
       backdropFilter: 'blur(4px)'
     }}>
       <div style={{
-        background: '#0f172a',
-        border: '1px solid rgba(255,255,255,0.15)',
-        borderRadius: '12px',
+        background: 'var(--surface)',
+        border: '1px solid var(--surface-border)',
+        borderRadius: '16px',
         padding: '24px',
         maxWidth: '520px',
         width: '90%',
-        color: '#fff'
+        color: 'var(--text-main)',
+        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.5)'
       }}>
         <h3 style={{ margin: '0 0 16px 0', fontSize: '1.2rem', color: '#38bdf8' }}>🧪 Registrar Muestra Edafológica GPS</h3>
         
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <div>
-            <label style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Estado / Región:</label>
+            <label style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Estado / Región:</label>
             <select
               value={state}
               onChange={e => setState(e.target.value)}
-              style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #334155', background: '#1e293b', color: '#fff' }}
+              style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-raised)', color: 'var(--text-main)' }}
             >
               {VENEZUELA_STATES_DATA.map(st => (
                 <option key={st.id} value={st.id}>{st.name} ({st.region})</option>
@@ -86,58 +87,58 @@ export default function SoilModal({ isOpen = true, onClose, onSuccess }: SoilMod
           </div>
 
           <div>
-            <label style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Nombre de la Finca / Lote:</label>
+            <label style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Nombre de la Finca / Lote:</label>
             <input 
               required
               value={locationName}
               onChange={e => setLocationName(e.target.value)}
               placeholder="ej: Finca La Esperanza - Tablón 4"
-              style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #334155', background: '#1e293b', color: '#fff' }}
+              style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-raised)', color: 'var(--text-main)' }}
             />
           </div>
 
           <div style={{ display: 'flex', gap: '12px' }}>
             <div style={{ flex: 1 }}>
-              <label style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Latitud GPS:</label>
+              <label style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Latitud GPS:</label>
               <input 
                 type="number"
                 step="0.0001"
                 value={lat}
                 onChange={e => setLat(e.target.value)}
-                style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #334155', background: '#1e293b', color: '#fff' }}
+                style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-raised)', color: 'var(--text-main)' }}
               />
             </div>
             <div style={{ flex: 1 }}>
-              <label style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Longitud GPS:</label>
+              <label style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Longitud GPS:</label>
               <input 
                 type="number"
                 step="0.0001"
                 value={lng}
                 onChange={e => setLng(e.target.value)}
-                style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #334155', background: '#1e293b', color: '#fff' }}
+                style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-raised)', color: 'var(--text-main)' }}
               />
             </div>
           </div>
 
           <div style={{ display: 'flex', gap: '12px' }}>
             <div style={{ flex: 1 }}>
-              <label style={{ fontSize: '0.8rem', color: '#94a3b8' }}>pH:</label>
+              <label style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>pH:</label>
               <input 
                 type="number"
                 step="0.1"
                 value={ph}
                 onChange={e => setPh(e.target.value)}
-                style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #334155', background: '#1e293b', color: '#fff' }}
+                style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-raised)', color: 'var(--text-main)' }}
               />
             </div>
             <div style={{ flex: 1 }}>
-              <label style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Materia Orgánica (%):</label>
+              <label style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Materia Orgánica (%):</label>
               <input 
                 type="number"
                 step="0.1"
                 value={om}
                 onChange={e => setOm(e.target.value)}
-                style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #334155', background: '#1e293b', color: '#fff' }}
+                style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-raised)', color: 'var(--text-main)' }}
               />
             </div>
           </div>
@@ -146,14 +147,14 @@ export default function SoilModal({ isOpen = true, onClose, onSuccess }: SoilMod
             <button 
               type="button" 
               onClick={onClose}
-              style={{ padding: '8px 16px', borderRadius: '6px', border: 'none', background: '#334155', color: '#fff', cursor: 'pointer' }}
+              style={{ padding: '10px 18px', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-raised)', color: 'var(--text-main)', cursor: 'pointer', fontWeight: 600 }}
             >
               Cancelar
             </button>
             <button 
               type="submit" 
               disabled={submitting}
-              style={{ padding: '8px 16px', borderRadius: '6px', border: 'none', background: '#0284c7', color: '#fff', fontWeight: 600, cursor: 'pointer' }}
+              style={{ padding: '10px 18px', borderRadius: '8px', border: 'none', background: '#0284c7', color: '#fff', fontWeight: 700, cursor: 'pointer' }}
             >
               {submitting ? 'Guardando...' : 'Guardar Muestra'}
             </button>

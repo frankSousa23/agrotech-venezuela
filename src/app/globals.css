@@ -74,6 +74,7 @@
   --border: #94a3b8 !important;
   --text-main: #0f172a !important;
   --text-muted: #334155 !important;
+  --primary-accent: #15803d !important;
 }
 
 [data-theme="sunlight"] body {
@@ -86,6 +87,48 @@
   border: 2px solid #cbd5e1 !important;
   color: #0f172a !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-theme="sunlight"] input,
+[data-theme="sunlight"] select,
+[data-theme="sunlight"] textarea {
+  background: #ffffff !important;
+  border-color: #94a3b8 !important;
+  color: #0f172a !important;
+}
+
+[data-theme="sunlight"] select option {
+  background: #ffffff !important;
+  color: #0f172a !important;
+}
+
+[data-theme="sunlight"] table {
+  background: #ffffff !important;
+  color: #0f172a !important;
+}
+
+[data-theme="sunlight"] th {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-bottom: 2px solid #cbd5e1 !important;
+}
+
+[data-theme="sunlight"] td {
+  border-bottom: 1px solid #e2e8f0 !important;
+  color: #1e293b !important;
+}
+
+/* 📱 Ergonomía Táctil en Dispositivos Móviles (< 640px) */
+@media (max-width: 640px) {
+  button, 
+  .btn-primary,
+  select,
+  input[type="text"],
+  input[type="number"],
+  input[type="search"] {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
 }
 
 @keyframes slideInToast {

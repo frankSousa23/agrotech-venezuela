@@ -56,58 +56,59 @@ export default function CropModal({ isOpen = true, onClose, onSuccess }: CropMod
       backdropFilter: 'blur(4px)'
     }}>
       <div style={{
-        background: '#0f172a',
-        border: '1px solid rgba(255,255,255,0.15)',
-        borderRadius: '12px',
+        background: 'var(--surface)',
+        border: '1px solid var(--surface-border)',
+        borderRadius: '16px',
         padding: '24px',
         maxWidth: '480px',
         width: '90%',
-        color: '#fff'
+        color: 'var(--text-main)',
+        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.5)'
       }}>
         <h3 style={{ margin: '0 0 16px 0', fontSize: '1.2rem', color: '#4ade80' }}>🌱 Añadir Nuevo Cultivo</h3>
         
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <div>
-            <label style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Nombre Común:</label>
+            <label style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Nombre Común:</label>
             <input 
               required
               value={name}
               onChange={e => setName(e.target.value)}
               placeholder="ej: Maíz Blanco Harinero"
-              style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #334155', background: '#1e293b', color: '#fff' }}
+              style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-raised)', color: 'var(--text-main)' }}
             />
           </div>
 
           <div>
-            <label style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Nombre Científico:</label>
+            <label style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Nombre Científico:</label>
             <input 
               required
               value={scientificName}
               onChange={e => setScientificName(e.target.value)}
               placeholder="ej: Zea mays"
-              style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #334155', background: '#1e293b', color: '#fff' }}
+              style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-raised)', color: 'var(--text-main)' }}
             />
           </div>
 
           <div style={{ display: 'flex', gap: '12px' }}>
             <div style={{ flex: 1 }}>
-              <label style={{ fontSize: '0.8rem', color: '#94a3b8' }}>pH Mínimo:</label>
+              <label style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>pH Mínimo:</label>
               <input 
                 type="number"
                 step="0.1"
                 value={phMin}
                 onChange={e => setPhMin(e.target.value)}
-                style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #334155', background: '#1e293b', color: '#fff' }}
+                style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-raised)', color: 'var(--text-main)' }}
               />
             </div>
             <div style={{ flex: 1 }}>
-              <label style={{ fontSize: '0.8rem', color: '#94a3b8' }}>pH Máximo:</label>
+              <label style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>pH Máximo:</label>
               <input 
                 type="number"
                 step="0.1"
                 value={phMax}
                 onChange={e => setPhMax(e.target.value)}
-                style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #334155', background: '#1e293b', color: '#fff' }}
+                style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-raised)', color: 'var(--text-main)' }}
               />
             </div>
           </div>
@@ -116,14 +117,14 @@ export default function CropModal({ isOpen = true, onClose, onSuccess }: CropMod
             <button 
               type="button" 
               onClick={onClose}
-              style={{ padding: '8px 16px', borderRadius: '6px', border: 'none', background: '#334155', color: '#fff', cursor: 'pointer' }}
+              style={{ padding: '10px 18px', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-raised)', color: 'var(--text-main)', cursor: 'pointer', fontWeight: 600 }}
             >
               Cancelar
             </button>
             <button 
               type="submit" 
               disabled={submitting}
-              style={{ padding: '8px 16px', borderRadius: '6px', border: 'none', background: '#16a34a', color: '#fff', fontWeight: 600, cursor: 'pointer' }}
+              style={{ padding: '10px 18px', borderRadius: '8px', border: 'none', background: '#16a34a', color: '#fff', fontWeight: 700, cursor: 'pointer' }}
             >
               {submitting ? 'Guardando...' : 'Guardar Cultivo'}
             </button>
