@@ -128,22 +128,19 @@ export default function VenezuelaStateMapInner({
     return 8;
   }, [selectedStateId]);
 
-  // Capa Base TileLayer URL
+  // Capa Base TileLayer URL (Sin marcas de agua)
   const tileLayerUrl = useMemo(() => {
     if (activeLayer === 'satellite') {
       return 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
     }
-    if (activeLayer === 'dark') {
-      return 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
-    }
-    return 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+    return 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
   }, [activeLayer]);
 
   const tileLayerAttribution = useMemo(() => {
     if (activeLayer === 'satellite') {
-      return '&copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
+      return '&copy; Esri &mdash; World Imagery (High Resolution)';
     }
-    return '&copy; <a href="https://carto.com/">CARTO</a> &copy; OpenStreetMap';
+    return '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
   }, [activeLayer]);
 
   return (

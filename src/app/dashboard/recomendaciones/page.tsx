@@ -405,9 +405,22 @@ function RecomendacionesContent() {
               className="btn-primary" 
               onClick={handleRequestGeminiAdvice}
               disabled={isLoadingAi}
-              style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)', border: 'none' }}
+              style={{ 
+                background: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)', 
+                border: 'none',
+                padding: '10px 20px',
+                whiteSpace: 'nowrap',
+                borderRadius: '10px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                color: '#fff',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
             >
-              {isLoadingAi ? '⏳ Generando dictamen...' : '✨ Consultar Gemini Territorial'}
+              <Sparkles size={16} />
+              <span>{isLoadingAi ? 'Generando dictamen...' : 'Consultar Gemini Territorial'}</span>
             </button>
           </div>
 

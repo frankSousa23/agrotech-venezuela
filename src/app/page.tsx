@@ -289,7 +289,7 @@ export default function Home() {
                 Asistente de IA con acceso en tiempo real a las coordenadas del productor, resolviendo dudas de manejo edafológico en lenguaje sencillo.
               </p>
               <ul className={styles.featureBullets}>
-                <li><CheckCircle2 size={15} /> Prescripción de encalado ($CaCO_3$)</li>
+                <li><CheckCircle2 size={15} /> Prescripción de encalado (CaCO₃)</li>
                 <li><CheckCircle2 size={15} /> Formulación comercial N-P-K recomendada</li>
               </ul>
             </div>

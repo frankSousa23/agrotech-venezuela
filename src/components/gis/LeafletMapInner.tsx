@@ -114,29 +114,17 @@ export default function LeafletMapInner({
   showSoilPoints = true
 }: LeafletMapInnerProps) {
 
-  // Tile layer URL & attribution
+  // Tile layer URL & attribution (Sin marcas de agua)
   const tileConfig = useMemo(() => {
     if (activeLayer === 'satellite' || activeLayer === 'mapbiomas') {
       return {
         url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-        attr: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-      };
-    }
-    if (activeLayer === 'dark') {
-      return {
-        url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-        attr: '&copy; CartoDB &copy; OpenStreetMap contributors'
-      };
-    }
-    if (activeLayer === 'streets') {
-      return {
-        url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        attr: '&copy; OpenStreetMap contributors'
+        attr: 'Tiles &copy; Esri &mdash; World Imagery (High Resolution)'
       };
     }
     return {
-      url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-      attr: 'Esri World Imagery'
+      url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+      attr: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     };
   }, [activeLayer]);
 

@@ -143,7 +143,7 @@ export default function DashboardOverview() {
             </div>
             <h4 className={styles.tipTitle}>Simula el Perfil de Suelo</h4>
             <p className={styles.tipDesc}>
-              Ajusta los sliders de pH y Materia Orgánica para recalcular dosis de cal ($CaCO_3$) y fertilización N-P-K.
+              Ajusta los sliders de pH y Materia Orgánica para recalcular dosis de cal (CaCO₃) y fertilización N-P-K.
             </p>
             <Link href="/dashboard/recomendaciones" className={styles.tipLink}>
               <span>Abrir Simulador</span> <ArrowRight size={14} />

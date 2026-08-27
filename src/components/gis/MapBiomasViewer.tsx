@@ -66,11 +66,11 @@ export default function MapBiomasViewer() {
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '520px', borderRadius: '12px', overflow: 'hidden', background: '#0b1329' }}>
-      {/* Controles Flotantes del WebGIS */}
+      {/* Controles Flotantes del WebGIS (Desplazados a la derecha de los botones de zoom) */}
       <div style={{
         position: 'absolute',
         top: 12,
-        left: 12,
+        left: 54,
         zIndex: 1000,
         background: 'rgba(15, 23, 42, 0.9)',
         backdropFilter: 'blur(12px)',
