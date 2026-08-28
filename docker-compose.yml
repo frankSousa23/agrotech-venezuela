@@ -63,7 +63,7 @@ services:
   # 4. Plataforma WebGIS Principal Next.js 16
   agrotech-web:
     build:
-      context: ./agrotech-app
+      context: .
       dockerfile: Dockerfile
     container_name: agrotech-nextjs-web
     restart: always

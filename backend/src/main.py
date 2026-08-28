@@ -36,10 +36,34 @@ from src.gemini_agro_advisor import GeminiAgroAdvisor
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("agrotech-backend")
 
+import asyncio
+from contextlib import asynccontextmanager
+
+async def periodic_cache_purge():
+    while True:
+        try:
+            logger.info("Iniciando purga programada de la caché SQLite (registros expirados).")
+            cache_mgr.clear_expired()
+            logger.info("Purga de caché completada exitosamente.")
+        except Exception as e:
+            logger.error(f"Error durante la purga de la caché: {e}")
+        # Run once a day (86400 seconds)
+        await asyncio.sleep(86400)
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup: register the periodic task
+    logger.info("Registrando tarea en segundo plano para purga de caché SQLite...")
+    task = asyncio.create_task(periodic_cache_purge())
+    yield
+    # Shutdown
+    task.cancel()
+
 app = FastAPI(
     title="Agrotech Venezuela - Spatial, ML & Gemini AI Backend Engine",
     version="2.0.0",
-    description="API REST y de Inteligencia Artificial para ingesta satelital (MapBiomas, Sentinel-2, NASA POWER), Machine Learning agronómico y orquestación con Google Gemini."
+    description="API REST y de Inteligencia Artificial para ingesta satelital (MapBiomas, Sentinel-2, NASA POWER), Machine Learning agronómico y orquestación con Google Gemini.",
+    lifespan=lifespan
 )
 
 # CORS para integración con Next.js y apps móviles
@@ -62,19 +86,19 @@ yield_predictor = CropYieldPredictor()
 risk_carbon_engine = RiskAndCarbonEngine()
 gemini_advisor = GeminiAgroAdvisor()
 
-# Schemas Pydantic
+# Schemas Pydantic (Swagger Documentation)
 class CoordinateQuery(BaseModel):
     latitude: float = Field(..., ge=-4.5, le=13.5, description="Latitud en Venezuela (WGS84)", json_schema_extra={"example": 9.324})
     longitude: float = Field(..., ge=-73.5, le=-59.5, description="Longitud en Venezuela (WGS84)", json_schema_extra={"example": -69.112})
     ph: Optional[float] = Field(6.2, ge=3.5, le=9.5, description="pH del suelo (opcional)")
     organic_matter_pct: Optional[float] = Field(3.0, ge=0.2, le=12.0, description="Materia Orgánica % (opcional)")
     texture: Optional[str] = Field("Franco-limoso", description="Textura del suelo (opcional)")
-    parcel_area_ha: Optional[float] = Field(10.0, ge=0.1, le=10000.0, description="Área en hectáreas")
+    parcel_area_ha: Optional[float] = Field(10.0, ge=0.1, le=10000.0, description="Área en hectáreas del polígono (calculado vía Shoelace geodésico)")
     force_refresh: bool = Field(False, description="Forzar consulta satelital en vivo omitiendo caché")
 
 class ChatConsultQuery(BaseModel):
-    latitude: float = Field(..., ge=-4.5, le=13.5)
-    longitude: float = Field(..., ge=-73.5, le=-59.5)
+    latitude: float = Field(..., ge=-4.5, le=13.5, description="Latitud (WGS84) para proveer contexto espacial a Gemini")
+    longitude: float = Field(..., ge=-73.5, le=-59.5, description="Longitud (WGS84) para proveer contexto espacial a Gemini")
     message: str = Field(..., min_length=1, description="Pregunta o consulta del productor")
     conversation_history: Optional[List[Dict[str, str]]] = Field(default=[], description="Historial de mensajes previos")
 

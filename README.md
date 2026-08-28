@@ -94,6 +94,13 @@ graph TD
 - Sliders reactivos de pH, Materia Orgánica y Textura del Suelo.
 - Generación de dictamen agronómico con Gemini AI y exportación de Gemelo Digital en GeoJSON.
 
+### 7. Omnibox (Command Palette) & Navegación Global
+- Búsqueda interactiva (Ctrl+K) de estados, municipios y herramientas del sistema.
+- Redirección automática y enfoque profundo en el WebGIS usando parámetros de URL (`?state=Zulia`).
+
+### 8. Sistema de Temas & Modo Pleno Sol
+- Modos Claro, Oscuro y **Pleno Sol (Alto Contraste)** diseñados para operaciones de campo bajo alta luminosidad, cumpliendo con estándares WCAG AAA.
+
 ---
 
 ## 🚀 Despliegue y Ejecución Local
@@ -131,18 +138,18 @@ py -m streamlit run streamlit_app.py --server.headless true
 
 ---
 
-## 🧪 Validación y Pruebas Automatizadas (95 Tests)
+## 🧪 Validación y Pruebas Automatizadas (116 Tests)
 
 Antes de cualquier commit a la rama `main`, se ejecutan y validan ambas suites de testing:
 
 ```bash
-# 1. Pruebas Unitarias Frontend, WebGIS, SAR Radar, GDD, Map Viewer & APIs (Jest - 56 tests)
+# 1. Pruebas Unitarias Frontend, WebGIS, SAR Radar, GDD, Map Viewer, Temas, Omnibox & APIs (Jest - 77 tests)
 npm test
 
 # 2. Verificación Estática TypeScript
 npx tsc --noEmit
 
-# 3. Compilación de Producción (Next.js 16 Turbopack - 24 rutas)
+# 3. Compilación de Producción (Next.js 16 Turbopack - 25 rutas)
 npm run build
 
 # 4. Pruebas Backend Espacial, ML, GEE, Carbono y Caché (Pytest - 39 tests)

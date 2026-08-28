@@ -8,9 +8,9 @@ Este documento define los estándares arquitectónicos, convenciones de código 
 
 1. **Plataforma WebGIS (Next.js 16 App Router con Turbopack)**:
    - Directorio: `src/`
-   - Tecnologías: Next.js 16, React 19, Leaflet / React-Leaflet, CSS Modules Glassmorphism, Prisma ORM.
+   - Tecnologías: Next.js 16, React 19, Leaflet Nativo (L.map) + useRef, CSS Modules Glassmorphism, Prisma ORM.
    - Puerto por defecto: `3000` (`npm run dev`).
-   - Componentes interactivos de Leaflet **deben** renderizarse con dynamic import (`ssr: false`).
+   - Componentes interactivos de Leaflet **deben** renderizarse con dynamic import (`ssr: false`) usando el motor Leaflet puro (`L.map`) y ciclo de vida controlado por `useRef` (No usar react-leaflet).
    - Resiliencia PWA: Indicador de conectividad reactivo (`src/components/layout/ConnectivityStatusBadge.tsx`) y cola de mutaciones en IndexedDB.
 
 2. **Backend Espacial, ML & Gemini AI (FastAPI)**:
