@@ -634,6 +634,35 @@ export default function MultiLevelMapViewer({
           onSelectMunicipality={handleSelectMunicipality}
           showSoilPoints={true}
         />
+        
+        {/* Atribución Obligatoria MapBiomas (Premio 2026) */}
+        <div style={{
+          position: 'absolute',
+          bottom: 20,
+          right: 20,
+          zIndex: 1000,
+          background: 'rgba(15, 23, 42, 0.85)',
+          backdropFilter: 'blur(8px)',
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+          borderRadius: '6px',
+          padding: '6px 12px',
+          fontSize: '0.7rem',
+          color: '#e2e8f0',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '6px',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.5)'
+        }}>
+          <span>🛰️ Datos de cobertura:</span>
+          <a 
+            href="https://venezuela.mapbiomas.org/terminos-de-uso/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ color: '#4ade80', fontWeight: 600, textDecoration: 'none' }}
+          >
+            MapBiomas Venezuela
+          </a>
+        </div>
       </div>
     </div>
   );

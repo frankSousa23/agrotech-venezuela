@@ -19,6 +19,7 @@ from src.risk_and_carbon_engine import RiskAndCarbonEngine
 from src.gemini_agro_advisor import GeminiAgroAdvisor
 from src.viz_utils import create_folium_map, create_mapbiomas_timeline_chart, create_crop_yield_bar_chart, create_carbon_scenarios_chart
 from src.report_generator import ReportGenerator
+from src.mapbiomas_analyzer import mapbiomas_optimizer
 
 # Configuración de Página
 st.set_page_config(
@@ -131,8 +132,9 @@ with st.expander("💡 **¿Eres nuevo en Agrotech? Haz clic aquí para ver la Gu
 st.divider()
 
 # --- PESTAÑAS PRINCIPALES DE VISUALIZACIÓN (Día 15) ---
-tab_geo, tab_ml, tab_risk, tab_ai, tab_cache = st.tabs([
+tab_geo, tab_mapbiomas, tab_ml, tab_risk, tab_ai, tab_cache = st.tabs([
     "🛰️ Diagnóstico Espacial & WebGIS",
+    "🏆 Análisis MapBiomas",
     "🌾 Predicción de Cosechas (ML)",
     "⚠️ Riesgos y Captura de Carbono",
     "🤖 Asesor Inteligente Gemini AI",
@@ -177,6 +179,29 @@ with tab_geo:
         st.write(f"- **Transiciones Históricas MapBiomas**: `{mapbiomas_data.get('detected_transitions_count', 1)} cambios de uso en 40 años`")
 
     st.plotly_chart(create_mapbiomas_timeline_chart(mapbiomas_data.get("annual_series", {})), use_container_width=True)
+
+# --- TAB 1.5: ANÁLISIS MAPBIOMAS (PREMIO 2026) ---
+with tab_mapbiomas:
+    st.markdown("### 🏆 Análisis MapBiomas y Clima (Premio 2026)")
+    st.markdown("Cruce avanzado de datos históricos espaciales (MapBiomas Venezuela) y variables climáticas simuladas (NASA POWER) para la optimización de rendimientos.")
+    
+    top_crop = ml_predictions["top_recommended_crop"].split("(")[0].strip()
+    mapbiomas_result = mapbiomas_optimizer.generate_yield_optimization_strategy(lat, lon, top_crop, ph)
+    
+    col_mb1, col_mb2 = st.columns(2)
+    with col_mb1:
+        st.info(f"**Transición Histórica Detectada:**\n\n{mapbiomas_result['mapbiomas_historical_transition']}")
+        st.metric("Modificador de Rendimiento Esperado", f"{mapbiomas_result['yield_potential_modifier']}x")
+        
+    with col_mb2:
+        st.warning("**Contexto Climático (NASA POWER):**")
+        st.json(mapbiomas_result['climate_correlation'])
+        
+    st.markdown("#### 🚜 Recomendaciones de Optimización de Rendimiento")
+    for idx, rec in enumerate(mapbiomas_result["optimization_recommendations"]):
+        st.write(f"{idx+1}. {rec}")
+    
+    st.caption("🛰️ Datos de cobertura: [MapBiomas Venezuela](https://venezuela.mapbiomas.org/terminos-de-uso/)")
 
 # --- TAB 2: PREDICCIÓN ML & CULTIVOS (Día 17) ---
 with tab_ml:

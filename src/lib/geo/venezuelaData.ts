@@ -586,6 +586,15 @@ export const SAMPLE_SOIL_POINTS: SoilSamplePoint[] = [
   { id: "S-YAR-02", lat: 10.350, lng: -68.720, ph: 6.3, organicMatter: 3.6, texture: "Franco", stateId: "yaracuy", samplingDate: "2026-02-28" }
 ];
 
+export const MAPBIOMAS_ATTRIBUTION = {
+  text: "Datos de cobertura: MapBiomas Venezuela",
+  url: "https://venezuela.mapbiomas.org/terminos-de-uso/"
+};
+
+/**
+ * Clasificación de coberturas basada en MapBiomas Venezuela.
+ * Fuente: https://venezuela.mapbiomas.org/terminos-de-uso/
+ */
 export const MAPBIOMAS_CLASSES = [
   { id: 3, name: "Formación Forestal (Bosque)", color: "#129912", category: "Natural" },
   { id: 4, name: "Formación Sabana", color: "#BDB76B", category: "Natural" },

@@ -30,6 +30,7 @@ export default function CarbonCreditsCalculator({
   const [areaHa, setAreaHa] = useState<number>(initialAreaHa);
   const [organicMatterPct, setOrganicMatterPct] = useState<number>(initialOrganicMatterPct);
   const [managementType, setManagementType] = useState<'regenerative' | 'agroforestry' | 'conventional'>('regenerative');
+  const [mapbiomasTransition, setMapbiomasTransition] = useState<string>('pastura_agricultura');
   const [creditPriceUsd, setCreditPriceUsd] = useState<number>(18.5); // USD por tCO2e (Estándar Verra / Gold Standard)
 
   // Densidad aparente estimada por textura (g/cm3)
@@ -49,10 +50,17 @@ export default function CarbonCreditsCalculator({
 
   // Tasa anual de secuestro de carbono (tC/ha/año)
   const annualSequestrationTcHa = useMemo(() => {
-    if (managementType === 'agroforestry') return 0.85; // Sistemas Agroforestales (SAF)
-    if (managementType === 'regenerative') return 0.55; // Siembra directa + Abonos verdes
-    return 0.05; // Convencional con labranza
-  }, [managementType]);
+    let baseRate = 0.05; // Convencional con labranza
+    if (managementType === 'agroforestry') baseRate = 0.85; // Sistemas Agroforestales (SAF)
+    else if (managementType === 'regenerative') baseRate = 0.55; // Siembra directa + Abonos verdes
+    
+    // Impacto según historial MapBiomas
+    if (mapbiomasTransition === 'bosque_agricultura') baseRate -= 0.30;
+    else if (mapbiomasTransition === 'agricultura_continua') baseRate -= 0.10;
+    else if (mapbiomasTransition === 'pastura_agricultura') baseRate += 0.15;
+    
+    return Math.max(0, baseRate);
+  }, [managementType, mapbiomasTransition]);
 
   // Conversión tC a tCO2e (Ratio 44/12 = 3.667)
   const annualCo2eHa = useMemo(() => {
@@ -163,6 +171,30 @@ export default function CarbonCreditsCalculator({
             <option value="regenerative">🌱 Siembra Directa + Coberturas</option>
             <option value="agroforestry">🌳 Sistema Agroforestal (SAF)</option>
             <option value="conventional">🚜 Labranza Convencional</option>
+          </select>
+        </div>
+
+        {/* Historial MapBiomas */}
+        <div style={{ background: 'rgba(30, 41, 59, 0.6)', padding: '10px 12px', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+          <label style={{ fontSize: '0.74rem', color: '#94a3b8', display: 'block', marginBottom: '4px' }}>Transición Histórica (MapBiomas):</label>
+          <select
+            value={mapbiomasTransition}
+            onChange={(e) => setMapbiomasTransition(e.target.value)}
+            style={{
+              width: '100%',
+              background: '#0f172a',
+              border: '1px solid #334155',
+              borderRadius: '6px',
+              color: '#fff',
+              padding: '6px 8px',
+              fontSize: '0.82rem',
+              fontWeight: 600
+            }}
+          >
+            <option value="bosque_agricultura">🌳 Bosque ➔ Agricultura (Riesgo Emisión)</option>
+            <option value="sabana_agricultura">🌾 Sabana ➔ Agricultura</option>
+            <option value="pastura_agricultura">🐄 Pastura ➔ Agricultura (Regenerable)</option>
+            <option value="agricultura_continua">🚜 Agricultura Continua (Degradación)</option>
           </select>
         </div>
       </div>
