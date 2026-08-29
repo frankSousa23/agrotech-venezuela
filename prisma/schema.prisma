@@ -48,6 +48,66 @@ model Parcel {
   updatedAt      DateTime        @updatedAt
   fieldLogs      FieldLog[]
   harvests       HarvestRecord[]
+  iotNodes       IoTNode[]
+}
+
+enum NodeType {
+  SOIL_NPK_NODE
+  WEATHER_STATION
+  VALVE_ACTUATOR
+}
+
+enum ActuatorState {
+  OFF
+  ON
+  AUTO_SCHEDULED
+}
+
+model IoTNode {
+  id              String         @id @default(uuid())
+  parcelId        String
+  parcel          Parcel         @relation(fields: [parcelId], references: [id], onDelete: Cascade)
+  nodeName        String
+  nodeType        NodeType       @default(SOIL_NPK_NODE)
+  hardwareUid     String         @unique
+  apiSecretKey    String
+  lat             Float
+  lng             Float
+  batteryLevel    Int            @default(100)
+  solarVoltage    Float?
+  isOnline        Boolean        @default(true)
+  lastPingAt      DateTime       @default(now())
+  createdAt       DateTime       @default(now())
+  
+  telemetries     IoTTelemetry[]
+  actuators       IoTActuator[]
+}
+
+model IoTTelemetry {
+  id              String    @id @default(uuid())
+  nodeId          String
+  node            IoTNode   @relation(fields: [nodeId], references: [id], onDelete: Cascade)
+  soilMoisturePct Float
+  soilTempC       Float
+  ph              Float?
+  nitrogenMgKg    Float?
+  phosphorusMgKg  Float?
+  potassiumMgKg   Float?
+  ecUsCm          Float?
+  rawRssi         Int?
+  recordedAt      DateTime  @default(now())
+}
+
+model IoTActuator {
+  id              String        @id @default(uuid())
+  nodeId          String
+  node            IoTNode       @relation(fields: [nodeId], references: [id], onDelete: Cascade)
+  name            String
+  state           ActuatorState @default(OFF)
+  isAutoMode      Boolean       @default(true)
+  flowRateLpm     Float         @default(25.0)
+  totalWaterM3    Float         @default(0.0)
+  lastActivatedAt DateTime?
 }
 
 model FieldLog {

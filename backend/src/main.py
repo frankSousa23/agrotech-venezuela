@@ -33,6 +33,7 @@ from src.crop_yield_predictor import CropYieldPredictor
 from src.risk_and_carbon_engine import RiskAndCarbonEngine
 from src.gemini_agro_advisor import GeminiAgroAdvisor
 from src.mapbiomas_discrepancy_detector import discrepancy_detector
+from src.iot_manager import iot_manager, IoTNodeRegister, TelemetryPayload, ActuatorCommand
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("agrotech-backend")
@@ -341,6 +342,50 @@ def get_sentinel_ndvi(
 @app.get("/api/v1/cache/stats", tags=["Caché & Optimización"])
 def get_cache_statistics():
     return cache_mgr.get_stats()
+
+# ============================================================================
+# ENDPOINTS AGRO-IOT & AUTOMATIZACIÓN DE RIEGO PREDICTIVO
+# ============================================================================
+
+@app.post("/api/iot/nodes", tags=["Agro-IoT"])
+@app.post("/api/v1/iot/nodes", tags=["Agro-IoT"])
+def register_iot_node(payload: IoTNodeRegister):
+    """Registra un nuevo sensor IoT o actuador vinculado a una parcela."""
+    return iot_manager.register_node(payload)
+
+@app.get("/api/iot/nodes", tags=["Agro-IoT"])
+@app.get("/api/v1/iot/nodes", tags=["Agro-IoT"])
+def list_iot_nodes(parcel_id: str = Query(..., description="ID de la parcela a consultar")):
+    """Lista todos los nodos asociados a una parcela con su última lectura y batería."""
+    return iot_manager.list_nodes_by_parcel(parcel_id)
+
+@app.post("/api/iot/telemetry", tags=["Agro-IoT"])
+@app.post("/api/v1/iot/telemetry", tags=["Agro-IoT"])
+def ingest_iot_telemetry(
+    payload: TelemetryPayload,
+    x_device_token: str = Query("sec_iot_node_turen_001", description="Token de autenticación del dispositivo"),
+    forecast_rain_6h_mm: float = Query(0.0, description="Lluvia pronosticada (NASA POWER) en 6 horas")
+):
+    """
+    Ingesta en tiempo real desde nodos ESP32. Evalúa déficit y calcula orden de riego.
+    """
+    try:
+        return iot_manager.process_telemetry(
+            payload=payload,
+            token=x_device_token,
+            forecast_rain_6h_mm=forecast_rain_6h_mm
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=str(e))
+
+@app.post("/api/iot/actuators/{actuator_id}/command", tags=["Agro-IoT"])
+@app.post("/api/v1/iot/actuators/{actuator_id}/command", tags=["Agro-IoT"])
+def send_actuator_command(actuator_id: str, command: ActuatorCommand):
+    """Envía un comando de activación / apagado a un actuador o electroválvula."""
+    try:
+        return iot_manager.set_actuator_state(actuator_id, command)
+    except KeyError as e:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
 
 def _identify_agro_zone(lat: float, lon: float) -> str:
     if -70.5 < lon < -68.5 and 8.0 < lat < 10.0:

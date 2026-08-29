@@ -10,6 +10,7 @@ import { ParcelGeometry } from '@/lib/geo/spatialUtils';
 import { VENEZUELA_STATES_DATA } from '@/lib/geo/venezuelaData';
 import ShimmerSkeleton from '@/components/ui/ShimmerSkeleton';
 import EmptyStateCard from '@/components/ui/EmptyStateCard';
+import IoTDigitalTwinPanel from '@/components/agronomy/IoTDigitalTwinPanel';
 import { 
   Tractor, 
   Plus, 
@@ -19,7 +20,8 @@ import {
   BookOpen, 
   Sparkles,
   Map,
-  Eye
+  Eye,
+  Cpu
 } from 'lucide-react';
 
 export default function TierrasPage() {
@@ -185,6 +187,9 @@ export default function TierrasPage() {
           </div>
         )}
       </div>
+
+      {/* Panel de Gemelo Digital IoT In-Situ */}
+      <IoTDigitalTwinPanel parcelName={parcels[0]?.name || "Tablón Portuguesa A1"} />
 
       {/* Modal de Diagnóstico Edafo-Climático & Gemini */}
       {selectedParcelForModal && (
