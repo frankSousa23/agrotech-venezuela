@@ -77,4 +77,21 @@ describe('Auth Cryptographic & Session Suite', () => {
     expect(verified?.status).toBe('GUEST');
     expect(verified?.isGuest).toBe(true);
   });
+
+  it('debe validar la autenticación exitosa para todos los roles demostrativos', () => {
+    const rolesToTest = ['productor@agrotech.ve', 'agronomo@agrotech.ve', 'admin@agrotech.ve', 'solicitante.turen@agrotech.ve'];
+    
+    rolesToTest.forEach(email => {
+      const user = DEMO_USERS.find(u => u.email === email);
+      expect(user).toBeDefined();
+      if (user) {
+        expect(verifyPassword('Agro2026*', user.passwordHash)).toBe(true);
+        const token = generateToken(user);
+        const verified = verifyToken(token);
+        expect(verified?.email).toBe(email);
+        expect(verified?.role).toBe(user.role);
+        expect(verified?.status).toBe(user.status);
+      }
+    });
+  });
 });

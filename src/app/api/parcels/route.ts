@@ -88,6 +88,81 @@ export const IN_MEMORY_PARCELS: InMemParcel[] = [
     ph: 6.8,
     organicMatter: 2.4,
     createdAt: new Date().toISOString()
+  },
+  {
+    id: "parc-003",
+    userId: "usr-farmer-01",
+    name: "Hacienda San José — Tablón Sur del Lago (Plátano)",
+    stateId: "zulia",
+    municipalityId: "colon",
+    areaHectares: 35.0,
+    polygonGeoJson: JSON.stringify({
+      type: "Polygon",
+      coordinates: [[
+        [-71.730, 8.980],
+        [-71.720, 8.980],
+        [-71.720, 8.990],
+        [-71.730, 8.990],
+        [-71.730, 8.980]
+      ]]
+    }),
+    centerLat: 8.985,
+    centerLng: -71.725,
+    currentCrop: "Plátano Hartón / Cacao",
+    soilTexture: "Franco-arcilloso",
+    ph: 6.4,
+    organicMatter: 2.9,
+    createdAt: new Date().toISOString()
+  },
+  {
+    id: "parc-004",
+    userId: "usr-farmer-01",
+    name: "Finca Los Frailes — Cafetal Andino de Sombra",
+    stateId: "merida",
+    municipalityId: "rivas_davila",
+    areaHectares: 18.5,
+    polygonGeoJson: JSON.stringify({
+      type: "Polygon",
+      coordinates: [[
+        [-71.820, 8.415],
+        [-71.810, 8.415],
+        [-71.810, 8.425],
+        [-71.820, 8.425],
+        [-71.820, 8.415]
+      ]]
+    }),
+    centerLat: 8.420,
+    centerLng: -71.815,
+    currentCrop: "Café Arábica de Especialidad",
+    soilTexture: "Franco Andino",
+    ph: 5.6,
+    organicMatter: 4.5,
+    createdAt: new Date().toISOString()
+  },
+  {
+    id: "parc-005",
+    userId: "usr-farmer-01",
+    name: "Agropecuaria Las Mesas — Lote Soya Oriente",
+    stateId: "monagas",
+    municipalityId: "maturin",
+    areaHectares: 80.0,
+    polygonGeoJson: JSON.stringify({
+      type: "Polygon",
+      coordinates: [[
+        [-63.185, 9.738],
+        [-63.175, 9.738],
+        [-63.175, 9.746],
+        [-63.185, 9.746],
+        [-63.185, 9.738]
+      ]]
+    }),
+    centerLat: 9.742,
+    centerLng: -63.180,
+    currentCrop: "Soya / Rotación Granos",
+    soilTexture: "Franco-arenoso Oxisol",
+    ph: 5.2,
+    organicMatter: 1.8,
+    createdAt: new Date().toISOString()
   }
 ];
 

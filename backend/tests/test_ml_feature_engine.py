@@ -18,9 +18,10 @@ def test_feature_vector_builder():
 
 def test_vector_normalizer():
     engine = MLFeatureEngine()
-    raw_vector = [6.4, 3.2, 20.0, 65.0, 15.0, 1650.0, 27.2, 450.0, 19.1, 0.76, 0.32, 1.0, 0.0, 0.0]
+    raw_vector = [6.4, 3.2, 20.0, 65.0, 15.0, 1650.0, 27.2, 450.0, 19.1, 0.76, 0.32, 1.0, 0.0, 0.0, 0.8, 0.0]
     norm_vec = engine.normalize_vector(raw_vector)
     
     assert len(norm_vec) == len(raw_vector)
     for val in norm_vec:
         assert 0.0 <= val <= 1.0
+

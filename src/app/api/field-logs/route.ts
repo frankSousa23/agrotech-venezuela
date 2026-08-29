@@ -71,6 +71,36 @@ export const IN_MEMORY_LOGS: InMemFieldLog[] = [
     dosage: "Rendimiento óptimo obtenido",
     yieldTonHa: 6.8,
     date: "2026-02-28"
+  },
+  {
+    id: "log-005",
+    parcelId: "parc-003",
+    userId: "usr-farmer-01",
+    logType: "FERTILIZACION",
+    title: "Fertilización Potásica y Foliar en Plátano",
+    description: "Aplicación al cuello de la planta con alto contenido de K para llenado de racimo.",
+    dosage: "220 kg/ha Cloruro de Potasio (KCl)",
+    date: "2026-02-10"
+  },
+  {
+    id: "log-006",
+    parcelId: "parc-004",
+    userId: "usr-farmer-01",
+    logType: "OBSERVACION",
+    title: "Monitoreo de Sombra y Poda de Café",
+    description: "Ajuste de cobertura arbórea con Guamo (Inga sp.) para 40% de radiación difusa.",
+    dosage: "Poda sanitaria manual",
+    date: "2026-02-18"
+  },
+  {
+    id: "log-007",
+    parcelId: "parc-005",
+    userId: "usr-farmer-01",
+    logType: "SIEMBRA",
+    title: "Inoculación y Siembra de Soya",
+    description: "Inoculación biológica con Bradyrhizobium japonicum para fijación biológica de Nitrógeno.",
+    dosage: "65 kg/ha semilla tratada",
+    date: "2026-01-20"
   }
 ];
 

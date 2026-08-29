@@ -32,6 +32,7 @@ from src.ml_feature_engine import MLFeatureEngine
 from src.crop_yield_predictor import CropYieldPredictor
 from src.risk_and_carbon_engine import RiskAndCarbonEngine
 from src.gemini_agro_advisor import GeminiAgroAdvisor
+from src.mapbiomas_discrepancy_detector import discrepancy_detector
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("agrotech-backend")
@@ -295,6 +296,24 @@ def consult_gemini_advisor(query: ChatConsultQuery):
     )
 
     return reply
+
+@app.post("/api/mapbiomas/discrepancy", tags=["MapBiomas"])
+@app.post("/api/v1/mapbiomas/discrepancy", tags=["MapBiomas"])
+def evaluate_mapbiomas_discrepancy(query: CoordinateQuery):
+    """
+    Evalúa discrepancias y genera alertas de deforestación / expansión agrícola
+    contrastando MapBiomas 2024 contra Sentinel-2 L2A y SAR en tiempo real.
+    """
+    spatial_profile = get_unified_spatial_profile(query)
+    mapbiomas_class_id = spatial_profile.mapbiomas_lulc.get("latest_coverage_2024", {}).get("class_id", 18)
+    sentinel_metrics = spatial_profile.sentinel_vegetation.get("latest_metrics", {})
+    
+    return discrepancy_detector.evaluate_discrepancy(
+        lat=query.latitude,
+        lon=query.longitude,
+        mapbiomas_class_id=mapbiomas_class_id,
+        sentinel_metrics=sentinel_metrics
+    )
 
 @app.get("/api/v1/spatial/mapbiomas", tags=["MapBiomas"])
 def get_mapbiomas_history(

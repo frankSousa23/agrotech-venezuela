@@ -39,7 +39,9 @@ class MLFeatureEngine:
         "sentinel_ndwi",
         "mapbiomas_agri_history_ratio",
         "mapbiomas_forest_history_ratio",
-        "mapbiomas_pasture_history_ratio"
+        "mapbiomas_pasture_history_ratio",
+        "mapbiomas_transition_risk_score",
+        "soil_compaction_legacy_index"
     ]
 
     def build_feature_vector(
@@ -86,6 +88,10 @@ class MLFeatureEngine:
         forest_ratio = round(forest_years / total_years, 3)
         pasture_ratio = round(pasture_years / total_years, 3)
 
+        # 5. Índices de Legado y Transición MapBiomas
+        compaction_index = round(min(1.0, pasture_ratio * 1.3), 3)
+        transition_risk = round(min(1.0, agri_ratio * 0.8 + (0.4 if forest_ratio > 0.5 and ph < 5.5 else 0.0)), 3)
+
         features = {
             "ph": ph,
             "organic_matter_pct": om,
@@ -100,7 +106,9 @@ class MLFeatureEngine:
             "sentinel_ndwi": ndwi,
             "mapbiomas_agri_history_ratio": agri_ratio,
             "mapbiomas_forest_history_ratio": forest_ratio,
-            "mapbiomas_pasture_history_ratio": pasture_ratio
+            "mapbiomas_pasture_history_ratio": pasture_ratio,
+            "mapbiomas_transition_risk_score": transition_risk,
+            "soil_compaction_legacy_index": compaction_index
         }
 
         feature_array = [features[col] for col in self.FEATURE_NAMES]
@@ -129,7 +137,9 @@ class MLFeatureEngine:
             (-0.5, 0.8),  # ndwi
             (0.0, 1.0),   # agri_ratio
             (0.0, 1.0),   # forest_ratio
-            (0.0, 1.0)    # pasture_ratio
+            (0.0, 1.0),   # pasture_ratio
+            (0.0, 1.0),   # mapbiomas_transition_risk_score
+            (0.0, 1.0)    # soil_compaction_legacy_index
         ]
 
         normalized = []

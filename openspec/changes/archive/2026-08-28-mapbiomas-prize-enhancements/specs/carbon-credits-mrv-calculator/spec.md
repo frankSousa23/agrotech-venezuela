@@ -1,10 +1,4 @@
-# carbon-credits-mrv-calculator Specification
-
-## Purpose
-
-Quantifies Soil Organic Carbon (SOC) storage, avoided emissions, and potential carbon credit certificate revenues under regenerative agricultural management.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Soil Carbon Storage and MRV Quantification
 The system SHALL quantify annual carbon sequestration potential ($\text{tCO}_2\text{e}/\text{ha}/\text{yr}$) based on soil texture, organic matter percentage, tillage practice, parcel area, and historical MapBiomas land cover transition categories.

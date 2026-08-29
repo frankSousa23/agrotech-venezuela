@@ -154,9 +154,27 @@ class CropYieldPredictor:
 
             # 4. Factor de Materia Orgánica y Textura
             om_factor = min(1.15, 0.75 + (om * 0.08))
+
+            # 5. Factor de Legado Histórico MapBiomas Venezuela
+            compaction_idx = float(feature_dict.get("soil_compaction_legacy_index", 0.0))
+            forest_hist_ratio = float(feature_dict.get("mapbiomas_forest_history_ratio", 0.0))
+            agri_risk_score = float(feature_dict.get("mapbiomas_transition_risk_score", 0.0))
+
+            mapbiomas_modifier = 1.0
+            mapbiomas_limiting = None
+
+            if compaction_idx > 0.4 and crop_id in ["maiz_blanco", "soya", "arroz"]:
+                penalty = compaction_idx * 0.15
+                mapbiomas_modifier -= penalty
+                mapbiomas_limiting = f"Compactación residual por historial de pasturas (MapBiomas: -{round(penalty*100)}% vigor radicular)"
+            elif forest_hist_ratio > 0.4 and crop_id in ["cacao_criollo", "cafe_arabica", "platano"]:
+                mapbiomas_modifier += 0.10
+            elif agri_risk_score > 0.6 and crop_id in ["maiz_blanco", "arroz"]:
+                mapbiomas_modifier -= 0.08
+                mapbiomas_limiting = "Suelo con fatiga de monocultivo continuo histórico (MapBiomas)"
             
             # Score de compatibilidad (0.0 a 1.0)
-            composite_score = (ph_factor * 0.35) + (temp_factor * 0.25) + (rain_factor * 0.25) + (om_factor * 0.15)
+            composite_score = ((ph_factor * 0.30) + (temp_factor * 0.25) + (rain_factor * 0.25) + (om_factor * 0.20)) * mapbiomas_modifier
             suitability_pct = round(float(np.clip(composite_score * 100, 10.0, 99.0)), 1)
 
             # Rendimiento Proyectado (Ton/ha)
@@ -175,7 +193,7 @@ class CropYieldPredictor:
             else:
                 level = "Baja Aptitud / No Recomendado"
 
-            primary_limiting = ph_limiting or temp_limiting or rain_limiting
+            primary_limiting = mapbiomas_limiting or ph_limiting or temp_limiting or rain_limiting
 
             predictions.append({
                 "crop_id": crop_id,
@@ -190,6 +208,11 @@ class CropYieldPredictor:
                 },
                 "recommended_planting_season": model["planting_season"],
                 "primary_limiting_factor": primary_limiting,
+                "mapbiomas_legacy_impact": {
+                    "modifier_applied": round(mapbiomas_modifier, 2),
+                    "pasture_compaction_risk": compaction_idx,
+                    "soil_legacy_status": "Favorable" if mapbiomas_modifier >= 1.0 else "Requiere Enmienda/Descompactación"
+                },
                 "feature_contributions": {
                     "ph_score": round(ph_factor * 100, 1),
                     "thermal_score": round(temp_factor * 100, 1),
@@ -202,7 +225,7 @@ class CropYieldPredictor:
         predictions.sort(key=lambda x: x["suitability_score_pct"], reverse=True)
 
         return {
-            "model_version": "Agrotech-ML-Yield-V2.1",
+            "model_version": "Agrotech-ML-Yield-V2.2-MapBiomasCoupled",
             "top_recommended_crop": predictions[0]["crop_name"],
             "predictions": predictions
         }

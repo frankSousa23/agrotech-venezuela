@@ -25,7 +25,8 @@ import {
   LogOut, 
   LogIn,
   FileCode2,
-  Workflow
+  Workflow,
+  UserPlus
 } from 'lucide-react';
 
 const NAV_ITEMS = [
@@ -44,7 +45,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const { user, logout, isAuthenticated } = useAuth();
-
+  const isGuest = user?.isGuest || user?.status === 'GUEST';
 
   return (
     <div className={styles.dashboardContainer}>
@@ -93,9 +94,9 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
         <div style={{
           margin: '0 1rem 0.8rem 1rem',
           padding: '8px 12px',
-          background: 'rgba(30, 41, 59, 0.7)',
+          background: isGuest ? 'rgba(234, 179, 8, 0.15)' : 'rgba(30, 41, 59, 0.7)',
           borderRadius: '10px',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
+          border: isGuest ? '1px solid rgba(234, 179, 8, 0.35)' : '1px solid rgba(255, 255, 255, 0.1)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between'
@@ -105,22 +106,22 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
               width: 32,
               height: 32,
               borderRadius: '8px',
-              background: 'rgba(34, 197, 94, 0.2)',
-              color: '#22c55e',
+              background: isGuest ? 'rgba(234, 179, 8, 0.25)' : 'rgba(34, 197, 94, 0.2)',
+              color: isGuest ? '#facc15' : '#22c55e',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 700,
               fontSize: '0.85rem'
             }}>
-              {user?.name ? user.name[0].toUpperCase() : 'P'}
+              {isGuest ? '🚀' : (user?.name ? user.name[0].toUpperCase() : 'P')}
             </div>
             <div style={{ overflow: 'hidden' }}>
               <div style={{ fontSize: '0.82rem', fontWeight: 600, color: '#f8fafc', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
                 {user?.name || 'Productor Invitado'}
               </div>
-              <div style={{ fontSize: '0.7rem', color: '#94a3b8' }}>
-                {user?.role === 'ADMIN' ? '🛡️ Administrador' : '🌾 Productor Agrícola'}
+              <div style={{ fontSize: '0.7rem', color: isGuest ? '#fde047' : '#94a3b8' }}>
+                {isGuest ? 'Modo Sandbox (Efímero)' : (user?.role === 'ADMIN' ? '🛡️ Administrador' : user?.role === 'AGRONOMIST' ? '🌱 Ing. Agrónomo' : '🌾 Productor Agrícola')}
               </div>
             </div>
           </div>
@@ -247,10 +248,44 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
           background: 'rgba(15, 23, 42, 0.65)',
           backdropFilter: 'blur(12px)',
           borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-          marginBottom: '8px'
+          marginBottom: '8px',
+          gap: '12px',
+          flexWrap: 'wrap'
         }}>
           <CommandPalette />
+          
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            {isGuest && (
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'rgba(234, 179, 8, 0.15)',
+                border: '1px solid rgba(234, 179, 8, 0.4)',
+                padding: '4px 10px',
+                borderRadius: '8px',
+                fontSize: '0.75rem',
+                color: '#facc15'
+              }}>
+                <span>🚀 Sesión Sandbox</span>
+                <Link 
+                  href="/auth/register"
+                  style={{
+                    background: '#eab308',
+                    color: '#0f172a',
+                    fontWeight: 700,
+                    padding: '2px 8px',
+                    borderRadius: '4px',
+                    textDecoration: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px'
+                  }}
+                >
+                  <UserPlus size={12} /> Guardar Finca
+                </Link>
+              </div>
+            )}
             <SunlightThemeToggle />
           </div>
         </div>

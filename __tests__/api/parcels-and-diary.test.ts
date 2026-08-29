@@ -26,4 +26,22 @@ describe('Parcels & Field Diary Dataflow Suite', () => {
     expect(cosechaLog).toBeDefined();
     expect(cosechaLog?.yieldTonHa).toBeGreaterThan(4.0);
   });
+
+  it('debe contener parcelas y bitácoras de los 5 polos agro-productivos de Venezuela', () => {
+    const states = IN_MEMORY_PARCELS.map(p => p.stateId);
+    expect(states).toContain('portuguesa');
+    expect(states).toContain('guarico');
+    expect(states).toContain('zulia');
+    expect(states).toContain('merida');
+    expect(states).toContain('monagas');
+
+    const zuliaParcel = IN_MEMORY_PARCELS.find(p => p.stateId === 'zulia');
+    expect(zuliaParcel?.currentCrop).toContain('Plátano');
+
+    const meridaParcel = IN_MEMORY_PARCELS.find(p => p.stateId === 'merida');
+    expect(meridaParcel?.currentCrop).toContain('Café');
+
+    const monagasParcel = IN_MEMORY_PARCELS.find(p => p.stateId === 'monagas');
+    expect(monagasParcel?.currentCrop).toContain('Soya');
+  });
 });

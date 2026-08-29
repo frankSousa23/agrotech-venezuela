@@ -20,6 +20,7 @@ from src.gemini_agro_advisor import GeminiAgroAdvisor
 from src.viz_utils import create_folium_map, create_mapbiomas_timeline_chart, create_crop_yield_bar_chart, create_carbon_scenarios_chart
 from src.report_generator import ReportGenerator
 from src.mapbiomas_analyzer import mapbiomas_optimizer
+from src.mapbiomas_discrepancy_detector import discrepancy_detector
 
 # Configuración de Página
 st.set_page_config(
@@ -182,9 +183,28 @@ with tab_geo:
 
 # --- TAB 1.5: ANÁLISIS MAPBIOMAS (PREMIO 2026) ---
 with tab_mapbiomas:
-    st.markdown("### 🏆 Análisis MapBiomas y Clima (Premio 2026)")
-    st.markdown("Cruce avanzado de datos históricos espaciales (MapBiomas Venezuela) y variables climáticas simuladas (NASA POWER) para la optimización de rendimientos.")
+    st.markdown("### 🏆 Análisis MapBiomas, Clima y Validación Ground Truth (Premio 2026)")
+    st.markdown("Cruce avanzado de datos históricos espaciales (MapBiomas Venezuela), telemetría activa Sentinel-2/SAR y variables climáticas (NASA POWER).")
     
+    # 1. Detección de Discrepancias / Ground Truth
+    baseline_class_id = mapbiomas_data.get("latest_coverage_2024", {}).get("class_id", 18)
+    disc_eval = discrepancy_detector.evaluate_discrepancy(
+        lat=lat,
+        lon=lon,
+        mapbiomas_class_id=baseline_class_id,
+        sentinel_metrics=sentinel_data.get("latest_metrics", {})
+    )
+
+    if disc_eval["discrepancy_detected"]:
+        st.error(f"🚨 **{disc_eval['discrepancy_type']}** (Severidad: {disc_eval['severity']})")
+        st.write(f"🔍 {disc_eval['diagnostic_summary']}")
+        st.info(f"💡 **Recomendación para MapBiomas:** {disc_eval['recommended_mapbiomas_update']}")
+    else:
+        st.success("✅ **Validación de Terreno Concordante:** La firma satelital actual coincide fielmente con la clasificación histórica de MapBiomas.")
+
+    st.divider()
+
+    # 2. Estrategia de Optimización de Rendimiento
     top_crop = ml_predictions["top_recommended_crop"].split("(")[0].strip()
     mapbiomas_result = mapbiomas_optimizer.generate_yield_optimization_strategy(lat, lon, top_crop, ph)
     
@@ -201,7 +221,7 @@ with tab_mapbiomas:
     for idx, rec in enumerate(mapbiomas_result["optimization_recommendations"]):
         st.write(f"{idx+1}. {rec}")
     
-    st.caption("🛰️ Datos de cobertura: [MapBiomas Venezuela](https://venezuela.mapbiomas.org/terminos-de-uso/)")
+    st.caption("🛰️ Datos de cobertura y colecciones: [MapBiomas Venezuela](https://venezuela.mapbiomas.org/terminos-de-uso/)")
 
 # --- TAB 2: PREDICCIÓN ML & CULTIVOS (Día 17) ---
 with tab_ml:

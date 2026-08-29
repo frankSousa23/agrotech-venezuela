@@ -203,34 +203,43 @@ export default function LoginPage() {
         </form>
 
         <div className={styles.demoCreds}>
-          <div className={styles.demoCredsTitle}><ShieldCheck size={14} style={{ display: 'inline', marginRight: 4 }} /> Perfiles de Prueba Rápidos:</div>
-          <div style={{ display: 'flex', gap: '6px', marginTop: '6px', flexWrap: 'wrap' }}>
+          <div className={styles.demoCredsTitle}><ShieldCheck size={14} style={{ display: 'inline', marginRight: 4 }} /> Perfiles Demostrativos Rápidos (1-Click Switcher):</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '6px', marginTop: '8px' }}>
             <button 
               id="btn_quick_farmer"
               type="button" 
-              onClick={() => setDemoRole('productor@agrotech.ve')}
-              title="Cargar credenciales de Productor Aprobado"
-              style={{ fontSize: '0.72rem', background: email === 'productor@agrotech.ve' ? '#166534' : '#334155', color: '#86efac', border: '1px solid #16a34a', padding: '5px 9px', borderRadius: '4px', cursor: 'pointer', fontWeight: 600 }}
+              onClick={() => setDemoRole('productor@agrotech.ve', true)}
+              title="Iniciar sesión como Productor Aprobado"
+              style={{ fontSize: '0.74rem', background: email === 'productor@agrotech.ve' ? '#166534' : 'rgba(30, 41, 59, 0.8)', color: '#86efac', border: '1px solid #16a34a', padding: '6px 8px', borderRadius: '6px', cursor: 'pointer', fontWeight: 600, textAlign: 'center' }}
             >
-              ✓ Productor Aprobado
+              🚜 Productor
             </button>
             <button 
-              id="btn_quick_pending"
+              id="btn_quick_agronomist"
               type="button" 
-              onClick={() => setDemoRole('solicitante.turen@agrotech.ve')}
-              title="Cargar credenciales de Productor Pendiente"
-              style={{ fontSize: '0.72rem', background: email === 'solicitante.turen@agrotech.ve' ? '#854d0e' : '#334155', color: '#fde047', border: '1px solid #eab308', padding: '5px 9px', borderRadius: '4px', cursor: 'pointer', fontWeight: 600 }}
+              onClick={() => setDemoRole('agronomo@agrotech.ve', true)}
+              title="Iniciar sesión como Ingeniero Agrónomo"
+              style={{ fontSize: '0.74rem', background: email === 'agronomo@agrotech.ve' ? '#065f46' : 'rgba(30, 41, 59, 0.8)', color: '#6ee7b7', border: '1px solid #059669', padding: '6px 8px', borderRadius: '6px', cursor: 'pointer', fontWeight: 600, textAlign: 'center' }}
             >
-              ⏳ Productor Pendiente
+              🌱 Agrónomo
             </button>
             <button 
               id="btn_quick_admin"
               type="button" 
-              onClick={() => setDemoRole('admin@agrotech.ve')}
-              title="Cargar credenciales de Administrador"
-              style={{ fontSize: '0.72rem', background: email === 'admin@agrotech.ve' ? '#075985' : '#334155', color: '#38bdf8', border: '1px solid #0284c7', padding: '5px 9px', borderRadius: '4px', cursor: 'pointer', fontWeight: 600 }}
+              onClick={() => setDemoRole('admin@agrotech.ve', true)}
+              title="Iniciar sesión como Administrador"
+              style={{ fontSize: '0.74rem', background: email === 'admin@agrotech.ve' ? '#075985' : 'rgba(30, 41, 59, 0.8)', color: '#38bdf8', border: '1px solid #0284c7', padding: '6px 8px', borderRadius: '6px', cursor: 'pointer', fontWeight: 600, textAlign: 'center' }}
             >
-              ⚙️ Admin Sistema
+              🛡️ Admin
+            </button>
+            <button 
+              id="btn_quick_pending"
+              type="button" 
+              onClick={() => setDemoRole('solicitante.turen@agrotech.ve', true)}
+              title="Probar acceso con Productor Pendiente de Aprobación"
+              style={{ fontSize: '0.74rem', background: email === 'solicitante.turen@agrotech.ve' ? '#854d0e' : 'rgba(30, 41, 59, 0.8)', color: '#fde047', border: '1px solid #eab308', padding: '6px 8px', borderRadius: '6px', cursor: 'pointer', fontWeight: 600, textAlign: 'center' }}
+            >
+              ⏳ Solicitante
             </button>
           </div>
         </div>

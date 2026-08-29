@@ -52,3 +52,16 @@ def test_cache_stats_endpoint():
     assert response.status_code == 200
     data = response.json()
     assert "total_cached_spatial_points" in data
+
+def test_mapbiomas_discrepancy_endpoint():
+    payload = {
+        "latitude": 9.324,
+        "longitude": -69.112
+    }
+    response = client.post("/api/mapbiomas/discrepancy", json=payload)
+    assert response.status_code == 200
+    data = response.json()
+    assert "discrepancy_detected" in data
+    assert "ground_truth_status" in data
+    assert "mapbiomas_baseline" in data
+
