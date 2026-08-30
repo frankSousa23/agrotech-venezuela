@@ -8,7 +8,7 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.62-FF4B4B.svg)](https://streamlit.io/)
 [![Python 3.13](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
 [![PostgreSQL 15](https://img.shields.io/badge/PostgreSQL-15-336791.svg)](https://www.postgresql.org/)
-[![Tests: 116 Passing](https://img.shields.io/badge/Tests-116%20Passing-brightgreen.svg)]()
+[![Tests: 140 Passing](https://img.shields.io/badge/Tests-140%20Passing-brightgreen.svg)]()
 
 Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LULC) de **MapBiomas Venezuela** (1985–2024), **Sentinel-1 SAR Radar**, **Sentinel-2 L2A (Copernicus)** y **NASA POWER**, Agrotech transforma la observación satelital en **decisiones agronómicas precisas, prescriptivas y de acción directa** para productores, agrónomos e investigadores agrícolas.
 
@@ -138,21 +138,21 @@ py -m streamlit run streamlit_app.py --server.headless true
 
 ---
 
-## 🧪 Validación y Pruebas Automatizadas (116 Tests)
+## 🧪 Validación y Pruebas Automatizadas (140 Tests)
 
 Antes de cualquier commit a la rama `main`, se ejecutan y validan ambas suites de testing:
 
 ```bash
-# 1. Pruebas Unitarias Frontend, WebGIS, SAR Radar, GDD, Map Viewer, Temas, Omnibox & APIs (Jest - 77 tests)
+# 1. Pruebas Frontend: WebGIS, SAR Radar, GDD, Auth, Diary, Spatial, Routing & Search (Jest — 89 tests)
 npm test
 
-# 2. Verificación Estática TypeScript
+# 2. Verificación Estática TypeScript (0 errores obligatorios)
 npx tsc --noEmit
 
-# 3. Compilación de Producción (Next.js 16 Turbopack - 25 rutas)
+# 3. Compilación de Producción (Next.js 16 Turbopack)
 npm run build
 
-# 4. Pruebas Backend Espacial, ML, GEE, Carbono y Caché (Pytest - 39 tests)
+# 4. Pruebas Backend Espacial, ML, IA y Carga (Pytest — 51 tests)
 cd backend && py -m pytest tests
 ```
 

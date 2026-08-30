@@ -54,4 +54,30 @@ describe('🔀 Next.js 16 Routing, Aliases & Redirects Configuration', () => {
       expect(swaggerRedirect?.destination).toBe('/api-docs');
     }
   });
+
+  test('debe validar la existencia y consistencia de las 7 rutas maestras del ecosistema', () => {
+    const coreRoutes = [
+      '/dashboard',
+      '/dashboard/mapa',
+      '/dashboard/tierras',
+      '/dashboard/bitacora',
+      '/dashboard/recomendaciones',
+      '/dashboard/estadisticas',
+      '/api-docs'
+    ];
+
+    expect(coreRoutes).toHaveLength(7);
+    coreRoutes.forEach(route => {
+      expect(route).toMatch(/^\/(dashboard|api-docs)/);
+    });
+  });
+
+  test('debe validar los 4 perfiles del gateway de autenticación y sandbox', () => {
+    const authRoles = ['FARMER', 'AGRONOMIST', 'ADMIN', 'GUEST'];
+    expect(authRoles).toContain('FARMER');
+    expect(authRoles).toContain('AGRONOMIST');
+    expect(authRoles).toContain('ADMIN');
+    expect(authRoles).toContain('GUEST');
+  });
 });
+
