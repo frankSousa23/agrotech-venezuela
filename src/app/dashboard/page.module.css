@@ -37,11 +37,10 @@
   line-height: 1.15;
 }
 
-@media (prefers-color-scheme: dark) {
-  .title {
+:global([data-theme="dark"]) .title {
     color: var(--text-main);
   }
-}
+
 
 .subtitle {
   color: var(--text-muted);
@@ -138,11 +137,10 @@
   letter-spacing: 0.5px;
 }
 
-@media (prefers-color-scheme: dark) {
-  .onboardingBadge {
+:global([data-theme="dark"]) .onboardingBadge {
     color: #34d399;
   }
-}
+
 
 .onboardingTitle {
   font-size: 1.25rem;
@@ -150,11 +148,10 @@
   color: var(--primary-dark);
 }
 
-@media (prefers-color-scheme: dark) {
-  .onboardingTitle {
+:global([data-theme="dark"]) .onboardingTitle {
     color: var(--text-main);
   }
-}
+
 
 .onboardingSubtitle {
   font-size: 0.88rem;
@@ -215,11 +212,10 @@
   color: var(--primary-dark);
 }
 
-@media (prefers-color-scheme: dark) {
-  .tipTitle {
+:global([data-theme="dark"]) .tipTitle {
     color: var(--text-main);
   }
-}
+
 
 .tipDesc {
   font-size: 0.82rem;
@@ -264,11 +260,10 @@
   color: var(--primary-dark);
 }
 
-@media (prefers-color-scheme: dark) {
-  .mapSectionTitle {
+:global([data-theme="dark"]) .mapSectionTitle {
     color: var(--text-main);
   }
-}
+
 
 .mapSectionSubtitle {
   font-size: 0.85rem;

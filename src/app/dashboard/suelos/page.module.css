@@ -21,11 +21,10 @@
   line-height: 1.15;
 }
 
-@media (prefers-color-scheme: dark) {
-  .title {
+:global([data-theme="dark"]) .title {
     color: var(--text-main);
   }
-}
+
 
 .subtitle {
   color: var(--text-muted);
@@ -122,11 +121,10 @@
   color: var(--primary-dark);
 }
 
-@media (prefers-color-scheme: dark) {
-  .soilName {
+:global([data-theme="dark"]) .soilName {
     color: var(--text-main);
   }
-}
+
 
 .regionBadge {
   display: inline-flex;
@@ -187,11 +185,10 @@
   margin-top: 2px;
 }
 
-@media (prefers-color-scheme: dark) {
-  .statValue {
+:global([data-theme="dark"]) .statValue {
     color: var(--primary-light);
   }
-}
+
 
 .textureInfo {
   margin-top: 0.5rem;
@@ -211,11 +208,10 @@
   color: var(--primary-dark);
 }
 
-@media (prefers-color-scheme: dark) {
-  .textureValue {
+:global([data-theme="dark"]) .textureValue {
     color: var(--text-main);
   }
-}
+
 
 .spinner {
   width: 36px;

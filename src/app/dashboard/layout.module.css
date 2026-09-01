@@ -106,10 +106,8 @@
   line-height: 1.1;
 }
 
-@media (prefers-color-scheme: dark) {
-  .brandTitle {
-    color: var(--text-main);
-  }
+:global([data-theme="dark"]) .brandTitle {
+  color: var(--text-main);
 }
 
 .brandSubtitle {
@@ -160,10 +158,8 @@
   letter-spacing: 0.3px;
 }
 
-@media (prefers-color-scheme: dark) {
-  .statusLiveText {
-    color: #34d399;
-  }
+:global([data-theme="dark"]) .statusLiveText {
+  color: #34d399;
 }
 
 .statusDetails {

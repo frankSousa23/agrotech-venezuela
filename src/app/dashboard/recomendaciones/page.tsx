@@ -25,8 +25,10 @@ import {
   AlertTriangle,
   MapPin,
   Clock,
-  Waves
+  Waves,
+  Map as MapIcon
 } from 'lucide-react';
+import EmptyStateCard from '@/components/ui/EmptyStateCard';
 
 function RecomendacionesContent() {
   const searchParams = useSearchParams();
@@ -34,7 +36,9 @@ function RecomendacionesContent() {
   const phQuery = searchParams.get('ph');
 
   const [recommendations, setRecommendations] = useState<any[]>([]);
+  const [parcels, setParcels] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [parcelsLoading, setParcelsLoading] = useState(true);
 
   // Parámetros del Simulador Edafo-Climático
   const [selectedStateId, setSelectedStateId] = useState<string>(stateQuery || 'portuguesa');
@@ -137,14 +141,30 @@ function RecomendacionesContent() {
   };
 
   useEffect(() => {
-    fetch('/api/recomendaciones')
-      .then(res => res.json())
-      .then(data => {
-        setRecommendations(Array.isArray(data) ? data : []);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+    Promise.all([
+      fetch('/api/recomendaciones').then(res => res.json()).catch(() => []),
+      fetch('/api/parcels').then(res => res.json()).catch(() => [])
+    ]).then(([recsData, parcelsData]) => {
+      setRecommendations(Array.isArray(recsData) ? recsData : []);
+      setParcels(Array.isArray(parcelsData) ? parcelsData : []);
+      setLoading(false);
+      setParcelsLoading(false);
+    });
   }, []);
+
+  if (!parcelsLoading && parcels.length === 0) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '70vh' }}>
+        <EmptyStateCard
+          icon={MapIcon}
+          title="Falta Delimitar Parcela"
+          description="Para generar recomendaciones agronómicas con Gemini IA y cálculos climáticos, primero necesitamos saber exactamente dónde está tu terreno."
+          actionLabel="Dibujar mi Parcela"
+          actionHref="/dashboard/mapa"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>

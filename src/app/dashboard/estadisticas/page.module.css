@@ -21,11 +21,10 @@
   line-height: 1.15;
 }
 
-@media (prefers-color-scheme: dark) {
-  .title {
+:global([data-theme="dark"]) .title {
     color: var(--text-main);
   }
-}
+
 
 .subtitle {
   color: var(--text-muted);
@@ -126,11 +125,10 @@
   gap: 8px;
 }
 
-@media (prefers-color-scheme: dark) {
-  .chartTitle {
+:global([data-theme="dark"]) .chartTitle {
     color: var(--text-main);
   }
-}
+
 
 .selectInput {
   background: var(--surface-raised);
@@ -262,11 +260,10 @@
   color: var(--primary-dark);
 }
 
-@media (prefers-color-scheme: dark) {
-  .carbonTitle {
+:global([data-theme="dark"]) .carbonTitle {
     color: var(--text-main);
   }
-}
+
 
 .carbonDesc {
   font-size: 0.88rem;

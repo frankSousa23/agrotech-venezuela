@@ -29,16 +29,34 @@ import {
   UserPlus
 } from 'lucide-react';
 
-const NAV_ITEMS = [
-  { href: '/dashboard', label: 'Resumen General', icon: LayoutDashboard },
-  { href: '/dashboard/mapa', label: 'Visor WebGIS', icon: MapIcon, badge: '3 Niveles' },
-  { href: '/dashboard/tierras', label: 'Mis Tierras & Fincas', icon: Tractor, badge: 'Mi Finca' },
-  { href: '/dashboard/bitacora', label: 'Cuaderno de Campo', icon: BookOpen },
-  { href: '/dashboard/recomendaciones', label: 'Simulador & IA', icon: Sparkles, highlight: true },
-  { href: '/dashboard/arquitectura', label: 'Diagramas & Datos', icon: Workflow, badge: 'E2E' },
+const NAV_GROUPS = [
+  {
+    title: 'Fase 1: Identificación',
+    items: [
+      { href: '/dashboard', label: 'Resumen General', icon: LayoutDashboard },
+      { href: '/dashboard/mapa', label: 'Mapa Satelital', icon: MapIcon, badge: '3 Niveles' },
+      { href: '/dashboard/tierras', label: 'Mis Fincas y Lotes', icon: Tractor, badge: 'Mi Finca' },
+    ]
+  },
+  {
+    title: 'Fase 2: Diagnóstico',
+    items: [
+      { href: '/dashboard/suelos', label: 'Suelos y Nutrientes', icon: FlaskConical },
+      { href: '/dashboard/cultivos', label: 'Catálogo de Cultivos', icon: Sprout },
+    ]
+  },
+  {
+    title: 'Fase 3: Operación',
+    items: [
+      { href: '/dashboard/recomendaciones', label: 'Asesor IA', icon: Sparkles, highlight: true },
+      { href: '/dashboard/bitacora', label: 'Cuaderno de Campo', icon: BookOpen },
+    ]
+  }
+];
+
+const ADVANCED_ITEMS = [
   { href: '/dashboard/estadisticas', label: 'Geoestadísticas', icon: BarChart3 },
-  { href: '/dashboard/cultivos', label: 'Catálogo de Cultivos', icon: Sprout },
-  { href: '/dashboard/suelos', label: 'Perfiles Edafológicos', icon: FlaskConical },
+  { href: '/dashboard/arquitectura', label: 'Arquitectura E2E', icon: Workflow, badge: 'E2E' },
 ];
 
 function DashboardContent({ children }: { children: React.ReactNode }) {
@@ -176,8 +194,32 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
 
         {/* Navigation Links */}
         <nav className={styles.nav}>
-          <div className={styles.navSectionLabel}>HERRAMIENTAS TERRITORIALES</div>
-          {NAV_ITEMS.map((item) => {
+          {NAV_GROUPS.map((group) => (
+            <div key={group.title}>
+              <div className={styles.navSectionLabel} style={{ marginTop: group.title.includes('Fase 1') ? '0' : '1.2rem' }}>
+                {group.title}
+              </div>
+              {group.items.map((item) => {
+                const Icon = item.icon;
+                const isActive = pathname === item.href;
+                return (
+                  <Link 
+                    key={item.href}
+                    href={item.href} 
+                    className={`${styles.navItem} ${isActive ? styles.navItemActive : ''} ${item.highlight ? styles.navItemHighlight : ''}`}
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    <Icon size={18} className={styles.navIcon} />
+                    <span className={styles.navLabel}>{item.label}</span>
+                    {item.badge && <span className={styles.navBadge}>{item.badge}</span>}
+                  </Link>
+                );
+              })}
+            </div>
+          ))}
+
+          <div className={styles.navSectionLabel} style={{ marginTop: '1.2rem' }}>HERRAMIENTAS AVANZADAS</div>
+          {ADVANCED_ITEMS.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href;
 

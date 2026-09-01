@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={inter.variable}>
+    <html lang="es" className={inter.variable} suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link
@@ -36,8 +36,21 @@ export default function RootLayout({
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
           crossOrigin=""
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var storedTheme = localStorage.getItem('agrotech-theme');
+                  var theme = storedTheme || 'light';
+                  document.documentElement.setAttribute('data-theme', theme);
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
       </head>
-      <body style={{ margin: 0, padding: 0, background: '#0b1329', color: '#f8fafc', fontFamily: 'var(--font-inter), sans-serif' }}>
+      <body style={{ margin: 0, padding: 0, background: 'var(--background, #0b1329)', color: 'var(--text-main, #f8fafc)', fontFamily: 'var(--font-inter), sans-serif' }}>
         <AppProviders>
           {children}
         </AppProviders>

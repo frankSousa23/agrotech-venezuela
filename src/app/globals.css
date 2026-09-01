@@ -48,21 +48,19 @@
   --transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0b1310;
-    --surface: #121c17;
-    --surface-raised: #18251f;
-    --surface-border: #1f332a;
-    --border: #1f332a;
-    
-    --text-main: #f0fdf4;
-    --text-muted: #94a39b;
-    --text-inverse: #0b1310;
-    
-    --primary-subtle: rgba(16, 185, 129, 0.18);
-    --secondary-subtle: rgba(171, 112, 71, 0.2);
-  }
+[data-theme="dark"] {
+  --background: #0b1310;
+  --surface: #121c17;
+  --surface-raised: #18251f;
+  --surface-border: #1f332a;
+  --border: #1f332a;
+  
+  --text-main: #f0fdf4;
+  --text-muted: #94a39b;
+  --text-inverse: #0b1310;
+  
+  --primary-subtle: rgba(16, 185, 129, 0.18);
+  --secondary-subtle: rgba(171, 112, 71, 0.2);
 }
 
 /* ☀️ Modo Pleno Sol (High-Contrast Daylight Sunlight Mode) */
@@ -262,13 +260,11 @@ a {
   background: rgba(18, 61, 47, 0.4);
 }
 
-@media (prefers-color-scheme: dark) {
-  ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.3);
-  }
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 /* Clean Elevation & Glass Cards */
@@ -397,9 +393,7 @@ a {
   border: 1px solid rgba(124, 58, 237, 0.3);
 }
 
-@media (prefers-color-scheme: dark) {
-  .badge-emerald { color: #34d399; }
-  .badge-cyan { color: #38bdf8; }
-  .badge-amber { color: #fbbf24; }
-  .badge-purple { color: #c084fc; }
-}
+[data-theme="dark"] .badge-emerald { color: #34d399; }
+[data-theme="dark"] .badge-cyan { color: #38bdf8; }
+[data-theme="dark"] .badge-amber { color: #fbbf24; }
+[data-theme="dark"] .badge-purple { color: #c084fc; }

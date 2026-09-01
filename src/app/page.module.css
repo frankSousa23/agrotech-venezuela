@@ -16,11 +16,10 @@
   border-bottom: 1px solid var(--surface-border);
 }
 
-@media (prefers-color-scheme: dark) {
-  .header {
+:global([data-theme="dark"]) .header {
     background: rgba(18, 28, 23, 0.9);
   }
-}
+
 
 .navContainer {
   max-width: 1380px;
@@ -58,11 +57,10 @@
   display: block;
 }
 
-@media (prefers-color-scheme: dark) {
-  .logoTitle {
+:global([data-theme="dark"]) .logoTitle {
     color: var(--text-main);
   }
-}
+
 
 .logoSubtitle {
   font-size: 0.65rem;
@@ -142,11 +140,10 @@
   width: fit-content;
 }
 
-@media (prefers-color-scheme: dark) {
-  .awardBadge {
+:global([data-theme="dark"]) .awardBadge {
     color: #34d399;
   }
-}
+
 
 .awardIcon {
   color: #10b981;
@@ -160,11 +157,10 @@
   color: var(--primary-dark);
 }
 
-@media (prefers-color-scheme: dark) {
-  .heroTitle {
+:global([data-theme="dark"]) .heroTitle {
     color: var(--text-main);
   }
-}
+
 
 .heroGradientText {
   color: #10b981;
@@ -206,11 +202,10 @@
   color: var(--primary);
 }
 
-@media (prefers-color-scheme: dark) {
-  .metricNumber {
+:global([data-theme="dark"]) .metricNumber {
     color: #34d399;
   }
-}
+
 
 .metricDesc {
   font-size: 0.72rem;
@@ -269,11 +264,10 @@
   letter-spacing: 0.5px;
 }
 
-@media (prefers-color-scheme: dark) {
-  .previewTitle {
+:global([data-theme="dark"]) .previewTitle {
     color: var(--text-main);
   }
-}
+
 
 .previewTabs {
   display: flex;
@@ -322,11 +316,11 @@
   font-weight: 700;
 }
 
-@media (prefers-color-scheme: dark) {
+
   .previewTitleRow h3 {
     color: var(--text-main);
   }
-}
+
 
 .previewCoords {
   font-size: 0.75rem;
@@ -416,11 +410,11 @@
   letter-spacing: -0.5px;
 }
 
-@media (prefers-color-scheme: dark) {
+
   .sectionHeader h2 {
     color: var(--text-main);
   }
-}
+
 
 .sectionHeader p {
   color: var(--text-muted);
@@ -456,11 +450,11 @@
   color: var(--primary-dark);
 }
 
-@media (prefers-color-scheme: dark) {
+
   .featureCard h3 {
     color: var(--text-main);
   }
-}
+
 
 .featureCard p {
   font-size: 0.9rem;
@@ -670,11 +664,10 @@
   gap: 6px;
 }
 
-@media (prefers-color-scheme: dark) {
-  .moduleSteps {
+:global([data-theme="dark"]) .moduleSteps {
     background: rgba(15, 23, 42, 0.5);
   }
-}
+
 
 .stepItem {
   font-size: 0.8rem;

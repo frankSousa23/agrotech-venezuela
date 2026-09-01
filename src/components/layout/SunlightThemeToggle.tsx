@@ -10,52 +10,86 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Sun } from 'lucide-react';
+import { Sun, Moon, SunMedium } from 'lucide-react';
+
+type Theme = 'light' | 'dark' | 'sunlight';
 
 export default function SunlightThemeToggle() {
-  const [isSunlightMode, setIsSunlightMode] = useState(false);
+  const [theme, setTheme] = useState<Theme>('light');
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('agrotech_theme');
-    if (savedTheme === 'sunlight') {
-      setIsSunlightMode(true);
-      document.documentElement.setAttribute('data-theme', 'sunlight');
+    const savedTheme = localStorage.getItem('agrotech-theme') as Theme;
+    if (savedTheme && ['light', 'dark', 'sunlight'].includes(savedTheme)) {
+      setTheme(savedTheme);
+      document.documentElement.setAttribute('data-theme', savedTheme);
     }
   }, []);
 
-  const toggleTheme = () => {
-    if (isSunlightMode) {
-      document.documentElement.removeAttribute('data-theme');
-      localStorage.setItem('agrotech_theme', 'dark');
-      setIsSunlightMode(false);
-    } else {
-      document.documentElement.setAttribute('data-theme', 'sunlight');
-      localStorage.setItem('agrotech_theme', 'sunlight');
-      setIsSunlightMode(true);
+  const cycleTheme = () => {
+    const themes: Theme[] = ['light', 'dark', 'sunlight'];
+    const currentIndex = themes.indexOf(theme);
+    const nextTheme = themes[(currentIndex + 1) % themes.length];
+    
+    document.documentElement.setAttribute('data-theme', nextTheme);
+    localStorage.setItem('agrotech-theme', nextTheme);
+    setTheme(nextTheme);
+  };
+
+  const getConfig = () => {
+    switch (theme) {
+      case 'dark':
+        return {
+          label: 'Modo Oscuro',
+          icon: <Moon size={14} />,
+          bg: 'rgba(30, 41, 59, 0.7)',
+          color: '#cbd5e1',
+          border: '1px solid rgba(203, 213, 225, 0.3)'
+        };
+      case 'sunlight':
+        return {
+          label: 'Pleno Sol ☀️',
+          icon: <Sun size={14} />,
+          bg: '#fef08a',
+          color: '#854d0e',
+          border: '1px solid #eab308'
+        };
+      case 'light':
+      default:
+        return {
+          label: 'Modo Claro',
+          icon: <SunMedium size={14} />,
+          bg: 'rgba(255, 255, 255, 0.9)',
+          color: '#0f172a',
+          border: '1px solid #cbd5e1'
+        };
     }
   };
 
+  const config = getConfig();
+
   return (
     <button
-      onClick={toggleTheme}
+      onClick={cycleTheme}
       style={{
         display: 'flex',
         alignItems: 'center',
         gap: '6px',
-        background: isSunlightMode ? '#fef08a' : 'rgba(30, 41, 59, 0.7)',
-        color: isSunlightMode ? '#854d0e' : '#fbbf24',
-        border: isSunlightMode ? '1px solid #eab308' : '1px solid rgba(251, 191, 36, 0.3)',
+        background: config.bg,
+        color: config.color,
+        border: config.border,
         borderRadius: '8px',
         padding: '6px 10px',
         fontSize: '0.78rem',
         fontWeight: 600,
         cursor: 'pointer',
-        transition: 'all 0.2s ease'
+        transition: 'all 0.2s ease',
+        minWidth: '110px',
+        justifyContent: 'center'
       }}
-      title={isSunlightMode ? 'Volver a Modo Nocturno' : 'Activar Modo Pleno Sol (Alto Contraste)'}
+      title='Cambiar apariencia visual'
     >
-      {isSunlightMode ? <Sun size={14} /> : <Sun size={14} />}
-      <span>{isSunlightMode ? 'Pleno Sol ☀️' : 'Modo Sol'}</span>
+      {config.icon}
+      <span>{config.label}</span>
     </button>
   );
 }

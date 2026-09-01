@@ -19,7 +19,8 @@ import {
   ShieldAlert, 
   CheckCircle,
   TrendingUp,
-  FileText
+  FileText,
+  Map as MapIcon
 } from 'lucide-react';
 
 export default function BitacoraPage() {
@@ -106,6 +107,20 @@ export default function BitacoraPage() {
       default: return { bg: 'rgba(148, 163, 184, 0.2)', text: '#94a3b8' };
     }
   };
+
+  if (!loading && parcels.length === 0) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '70vh' }}>
+        <EmptyStateCard
+          icon={MapIcon}
+          title="Falta Delimitar Parcela"
+          description="Para llevar el cuaderno de campo y bitácora de cosechas, primero necesitamos saber exactamente dónde está tu terreno."
+          actionLabel="Dibujar mi Parcela"
+          actionHref="/dashboard/mapa"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className={styles.bitacoraContainer}>
