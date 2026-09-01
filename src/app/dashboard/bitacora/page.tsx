@@ -60,6 +60,7 @@ export default function BitacoraPage() {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const handleSubmit = async (e: React.FormEvent) => {

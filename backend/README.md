@@ -59,7 +59,7 @@ graph TD
      - `POST /api/v1/ai/consult`: Chat interactivo agronómico.
 
 6. **`tests/`**:
-   - **39/39 pruebas unitarias, de integración, resiliencia y carga continua aprobadas** con Pytest.
+   - **51/51 pruebas unitarias, de integración, resiliencia y carga continua aprobadas** con Pytest.
 
 ---
 
@@ -75,7 +75,7 @@ py -m uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
 # 3. Iniciar Dashboard de Prescripción Streamlit (Puerto 8501)
 py -m streamlit run streamlit_app.py
 
-# 4. Correr todas las pruebas con Pytest (39 tests)
+# 4. Correr todas las pruebas con Pytest (51 tests)
 py -m pytest tests
 ```
 

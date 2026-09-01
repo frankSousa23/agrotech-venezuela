@@ -225,6 +225,7 @@ export default function LeafletMap({
       vectorsLayerGroupRef.current = null;
       drawingLayerGroupRef.current = null;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Montaje único en cliente
 
   // 2. Transición reactiva de cámara al cambiar centro o zoom

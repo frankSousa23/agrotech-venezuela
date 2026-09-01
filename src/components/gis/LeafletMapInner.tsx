@@ -318,6 +318,7 @@ export default function LeafletMapInner({
 
       vectorLayerGroupRef.current?.addLayer(centerMarker);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLevel, selectedStateId, selectedMunicipalityId, activeLayer, onSelectState, onSelectMunicipality]);
 
   // 4. Sincronización de Dibujo de Parcela (Vértices + Polígono Shoelace)

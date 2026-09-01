@@ -10,7 +10,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Sun, Moon } from 'lucide-react';
+import { Sun } from 'lucide-react';
 
 export default function SunlightThemeToggle() {
   const [isSunlightMode, setIsSunlightMode] = useState(false);

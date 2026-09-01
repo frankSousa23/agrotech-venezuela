@@ -43,6 +43,7 @@ export default function TierrasPage() {
 
   useEffect(() => {
     fetchParcels();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const totalHectares = parcels.reduce((acc, p) => acc + (p.areaHectares || 0), 0);

@@ -6,7 +6,7 @@ retrodispersión SAR Sentinel-1 Banda C para proveer retroalimentación y alerta
 """
 
 import logging
-from typing import Dict, Any, Optional
+from typing import Any, Dict, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -17,8 +17,9 @@ MAPBIOMAS_CODE_NAMES = {
     11: "Humedal / Pantano",
     15: "Pastura Sembrada",
     18: "Agricultura / Cultivo Anual",
-    33: "Cuerpo de Agua Continental"
+    33: "Cuerpo de Agua Continental",
 }
+
 
 class MapBiomasDiscrepancyDetector:
     """Detector de discrepancias entre cobertura histórica de MapBiomas y telemetría satelital activa."""
@@ -29,7 +30,7 @@ class MapBiomasDiscrepancyDetector:
         lon: float,
         mapbiomas_class_id: int,
         sentinel_metrics: Dict[str, Any],
-        sar_backscatter_db: Optional[float] = None
+        sar_backscatter_db: Optional[float] = None,
     ) -> Dict[str, Any]:
         """
         Evalúa si la observación en tiempo real difiere sustancialmente del baseline histórico.
@@ -37,7 +38,7 @@ class MapBiomasDiscrepancyDetector:
         ndvi = float(sentinel_metrics.get("ndvi", 0.65))
         ndwi = float(sentinel_metrics.get("ndwi", 0.20))
         evi = float(sentinel_metrics.get("evi", 0.45))
-        
+
         # Valor por defecto de SAR Banda C si no está presente
         if sar_backscatter_db is None:
             sar_backscatter_db = -11.5
@@ -60,7 +61,9 @@ class MapBiomasDiscrepancyDetector:
                     "Alerta de Deforestación Reciente: El dosel forestal mapeado en 2024 presenta "
                     f"una caída crítica de vigor fotosintético (NDVI: {ndvi}) y baja retrodispersión SAR ({sar_backscatter_db} dB)."
                 )
-                suggested_update = "Reclasificar a Suelo Desnudo / Transición Antrópica en la próxima colección."
+                suggested_update = (
+                    "Reclasificar a Suelo Desnudo / Transición Antrópica en la próxima colección."
+                )
             elif 0.40 <= ndvi <= 0.65 and evi > 0.40:
                 discrepancy_detected = True
                 discrepancy_type = "AGRICULTURAL_EXPANSION_IN_FOREST"
@@ -70,7 +73,9 @@ class MapBiomasDiscrepancyDetector:
                     "Expansión Agrícola en Límite de Bosque: Firma fenológica característica de cultivos "
                     f"anuales o pastizal activo detectada dentro de un polígono forestal (NDVI: {ndvi})."
                 )
-                suggested_update = "Actualizar polígono a Mosaico de Usos / Agricultura en la Colección 2026."
+                suggested_update = (
+                    "Actualizar polígono a Mosaico de Usos / Agricultura en la Colección 2026."
+                )
 
         # 2. Validación de Cuerpos de Agua (Clase 33)
         elif mapbiomas_class_id == 33:
@@ -105,22 +110,20 @@ class MapBiomasDiscrepancyDetector:
                 discrepancy_type = "FALLOW_OR_SOIL_DEGRADATION"
                 severity = "MODERADA"
                 confidence = 0.82
-                description = (
-                    f"Barbecho Prolongado o Degradación: Suelo con vegetación nula o rastrojo seco (NDVI: {ndvi})."
-                )
+                description = f"Barbecho Prolongado o Degradación: Suelo con vegetación nula o rastrojo seco (NDVI: {ndvi})."
                 suggested_update = "Confirmar estatus de uso agrícola activo."
 
         return {
             "coordinates": {"latitude": lat, "longitude": lon},
             "mapbiomas_baseline": {
                 "class_id": mapbiomas_class_id,
-                "class_name": MAPBIOMAS_CODE_NAMES.get(mapbiomas_class_id, "Desconocido")
+                "class_name": MAPBIOMAS_CODE_NAMES.get(mapbiomas_class_id, "Desconocido"),
             },
             "sentinel_observations": {
                 "ndvi": ndvi,
                 "evi": evi,
                 "ndwi": ndwi,
-                "sar_backscatter_db": sar_backscatter_db
+                "sar_backscatter_db": sar_backscatter_db,
             },
             "discrepancy_detected": discrepancy_detected,
             "discrepancy_type": discrepancy_type,
@@ -128,9 +131,12 @@ class MapBiomasDiscrepancyDetector:
             "confidence_score": confidence,
             "diagnostic_summary": description,
             "recommended_mapbiomas_update": suggested_update,
-            "ground_truth_status": "ANOMALY_DETECTED" if discrepancy_detected else "VERIFIED_CONCORDANT",
-            "contribution_to_mapbiomas": "Validación de terreno automatizada para el Premio MapBiomas 2026"
+            "ground_truth_status": (
+                "ANOMALY_DETECTED" if discrepancy_detected else "VERIFIED_CONCORDANT"
+            ),
+            "contribution_to_mapbiomas": "Validación de terreno automatizada para el Premio MapBiomas 2026",
         }
+
 
 # Singleton instance
 discrepancy_detector = MapBiomasDiscrepancyDetector()

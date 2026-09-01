@@ -1,0 +1,128 @@
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\app\api-docs\page.tsx
+  15:8  warning  'Link' is defined but never used          @typescript-eslint/no-unused-vars
+  19:3  warning  'Sparkles' is defined but never used      @typescript-eslint/no-unused-vars
+  20:3  warning  'ShieldCheck' is defined but never used   @typescript-eslint/no-unused-vars
+  21:3  warning  'Layers' is defined but never used        @typescript-eslint/no-unused-vars
+  22:3  warning  'Database' is defined but never used      @typescript-eslint/no-unused-vars
+  23:3  warning  'Cpu' is defined but never used           @typescript-eslint/no-unused-vars
+  24:3  warning  'Radio' is defined but never used         @typescript-eslint/no-unused-vars
+  25:3  warning  'ArrowRight' is defined but never used    @typescript-eslint/no-unused-vars
+  26:3  warning  'CheckCircle2' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\app\api\admin\users\route.ts
+   4:27  warning  'req' is defined but never used    @typescript-eslint/no-unused-vars
+  24:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+  56:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\app\api\auth\login\route.ts
+  59:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\app\api\auth\me\route.ts
+  19:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\app\api\auth\register\route.ts
+  45:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\app\api\field-logs\route.ts
+  129:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+  166:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\app\api\municipalities\route.ts
+  23:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\app\api\parcels\route.ts
+  188:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+  234:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\app\auth\register\page.tsx
+   9:10  warning  'UserPlus' is defined but never used           @typescript-eslint/no-unused-vars
+   9:38  warning  'Phone' is defined but never used              @typescript-eslint/no-unused-vars
+  16:17  warning  'setPhone' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  20:9   warning  'router' is assigned a value but never used    @typescript-eslint/no-unused-vars
+  21:11  warning  'login' is assigned a value but never used     @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\app\dashboard\admin\page.tsx
+  10:3   warning  'UserX' is defined but never used             @typescript-eslint/no-unused-vars
+  15:3   warning  'MapPin' is defined but never used            @typescript-eslint/no-unused-vars
+  16:3   warning  'Mail' is defined but never used              @typescript-eslint/no-unused-vars
+  17:3   warning  'Phone' is defined but never used             @typescript-eslint/no-unused-vars
+  18:3   warning  'Radio' is defined but never used             @typescript-eslint/no-unused-vars
+  40:11  warning  'user' is assigned a value but never used     @typescript-eslint/no-unused-vars
+  43:10  warning  'loading' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\app\dashboard\mapa\page.tsx
+  8:23  warning  'Sparkles' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\app\dashboard\recomendaciones\page.tsx
+  26:3  warning  'MapPin' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\app\dashboard\tierras\page.tsx
+  23:3  warning  'Eye' is defined but never used                                                                                  @typescript-eslint/no-unused-vars
+  24:3  warning  'Cpu' is defined but never used                                                                                  @typescript-eslint/no-unused-vars
+  46:6  warning  React Hook useEffect has a missing dependency: 'fetchParcels'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\app\page.tsx
+  15:3  warning  'CheckCircle2' is defined but never used  @typescript-eslint/no-unused-vars
+  25:3  warning  'Zap' is defined but never used           @typescript-eslint/no-unused-vars
+  26:3  warning  'HelpCircle' is defined but never used    @typescript-eslint/no-unused-vars
+  27:3  warning  'ExternalLink' is defined but never used  @typescript-eslint/no-unused-vars
+  28:3  warning  'ChevronRight' is defined but never used  @typescript-eslint/no-unused-vars
+  29:3  warning  'Gauge' is defined but never used         @typescript-eslint/no-unused-vars
+  30:3  warning  'Activity' is defined but never used      @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\components\agronomy\CarbonCreditsCalculator.tsx
+  34:26  warning  'setCreditPriceUsd' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\components\forms\CropModal.tsx
+  16:20  warning  'setWaterReq' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\components\forms\SoilModal.tsx
+  19:19  warning  'setTexture' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\components\gis\LeafletMap.tsx
+   79:10  warning  'drawnPoints' is assigned a value but never used                                                                                        @typescript-eslint/no-unused-vars
+  228:6   warning  React Hook useEffect has missing dependencies: 'activeLayer', 'center', and 'zoom'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\components\gis\LeafletMapInner.tsx
+  321:6  warning  React Hook useEffect has missing dependencies: 'getMuniColor', 'getStateColor', 'mapCenter.lat', and 'mapCenter.lng'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\components\gis\MapBiomasViewer.tsx
+  32:21  warning  'setIsDrawing' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\components\gis\MultiLevelMapViewer.tsx
+   5:33  warning  'StateGeoData' is defined but never used         @typescript-eslint/no-unused-vars
+   5:47  warning  'MAPBIOMAS_CLASSES' is defined but never used    @typescript-eslint/no-unused-vars
+   5:66  warning  'SOIL_PH_RANGES' is defined but never used       @typescript-eslint/no-unused-vars
+   6:41  warning  'MunicipalityGeoData' is defined but never used  @typescript-eslint/no-unused-vars
+  11:3   warning  'MapPin' is defined but never used               @typescript-eslint/no-unused-vars
+  12:3   warning  'Navigation' is defined but never used           @typescript-eslint/no-unused-vars
+  13:3   warning  'Sparkles' is defined but never used             @typescript-eslint/no-unused-vars
+  14:3   warning  'Droplets' is defined but never used             @typescript-eslint/no-unused-vars
+  15:3   warning  'FlaskConical' is defined but never used         @typescript-eslint/no-unused-vars
+  18:3   warning  'RotateCcw' is defined but never used            @typescript-eslint/no-unused-vars
+  20:3   warning  'CheckCircle2' is defined but never used         @typescript-eslint/no-unused-vars
+  66:11  warning  'user' is assigned a value but never used        @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\components\gis\ParcelDiagnosticModal.tsx
+  31:24  warning  'setSelectedCrop' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\components\gis\VenezuelaStateMapViewer.tsx
+  29:3  warning  'Compass' is defined but never used       @typescript-eslint/no-unused-vars
+  31:3  warning  'ExternalLink' is defined but never used  @typescript-eslint/no-unused-vars
+  32:3  warning  'Info' is defined but never used          @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\components\layout\CommandPalette.tsx
+  29:3  warning  'Flame' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\components\layout\SunlightThemeToggle.tsx
+  13:15  warning  'Moon' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\lib\auth\authUtils.ts
+  58:12  warning  'err' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Windows\Documents\fRaNk\Agrotech FrankS\src\lib\prisma.ts
+  324:20  warning  'err' is defined but never used  @typescript-eslint/no-unused-vars
+
+Ô£û 71 problems (0 errors, 71 warnings)
+

@@ -4,15 +4,18 @@ Agente de Inteligencia Artificial contextualizado con telemetría satelital (Map
 clima en tiempo real (NASA POWER) y modelos predictivos de Machine Learning.
 """
 
-import os
 import json
 import logging
-from typing import Dict, Any, List, Optional
+import os
+from typing import Any, Dict, List, Optional
+
 import requests
 
 logger = logging.getLogger(__name__)
 
-GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
+GEMINI_API_URL = (
+    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
+)
 
 SYSTEM_AGRONOMIC_PROMPT = """Eres el Dr. Agrónomo Senior de Agrotech Venezuela, una eminencia en edafología tropical, agricultura de precisión y zonificación agroecológica venezolana (Llanos Occidentales, Sur del Lago de Maracaibo, Valles Centrales, Cordillera Andina y Mesas Orientales).
 
@@ -23,6 +26,7 @@ Reglas clave:
 2. Justifica tus recomendaciones citando el historial de 40 años de MapBiomas (ej. transición de sabana a agricultura), el vigor actual Sentinel-2 (NDVI) y las variables agroclimáticas de NASA POWER.
 3. Sé preciso, profesional, empático y estructurado en tus respuestas con viñetas y tablas si aplica."""
 
+
 class GeminiAgroAdvisor:
     """Orquestador de consultas y prescripciones agronómicas impulsadas por Google Gemini."""
 
@@ -30,9 +34,7 @@ class GeminiAgroAdvisor:
         self.api_key = api_key or os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
 
     def generate_technical_prescription(
-        self,
-        parcel_context: Dict[str, Any],
-        user_query: Optional[str] = None
+        self, parcel_context: Dict[str, Any], user_query: Optional[str] = None
     ) -> Dict[str, Any]:
         """
         Genera una prescripción técnica integral a partir del contexto satelital y predictivo.
@@ -44,19 +46,9 @@ class GeminiAgroAdvisor:
                 headers = {"Content-Type": "application/json"}
                 url = f"{GEMINI_API_URL}?key={self.api_key}"
                 payload = {
-                    "system_instruction": {
-                        "parts": [{"text": SYSTEM_AGRONOMIC_PROMPT}]
-                    },
-                    "contents": [
-                        {
-                            "role": "user",
-                            "parts": [{"text": prompt}]
-                        }
-                    ],
-                    "generationConfig": {
-                        "temperature": 0.35,
-                        "maxOutputTokens": 2048
-                    }
+                    "system_instruction": {"parts": [{"text": SYSTEM_AGRONOMIC_PROMPT}]},
+                    "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+                    "generationConfig": {"temperature": 0.35, "maxOutputTokens": 2048},
                 }
 
                 response = requests.post(url, headers=headers, json=payload, timeout=20)
@@ -67,10 +59,12 @@ class GeminiAgroAdvisor:
                         "source": "GEMINI_2_5_FLASH_LIVE",
                         "status": "SUCCESS",
                         "prescription_markdown": ai_text,
-                        "agronomic_executive_summary": self._extract_executive_summary(ai_text)
+                        "agronomic_executive_summary": self._extract_executive_summary(ai_text),
                     }
                 else:
-                    logger.warning(f"Respuesta no exitosa de Gemini API ({response.status_code}): {response.text}")
+                    logger.warning(
+                        f"Respuesta no exitosa de Gemini API ({response.status_code}): {response.text}"
+                    )
                     return self._generate_calibrated_ai_prescription(parcel_context)
             except Exception as e:
                 logger.error(f"Error llamando a Gemini API ({e}). Activando motor experto local.")
@@ -82,11 +76,11 @@ class GeminiAgroAdvisor:
         self,
         parcel_context: Dict[str, Any],
         conversation_history: List[Dict[str, str]],
-        message: str
+        message: str,
     ) -> Dict[str, Any]:
         """Permite mantener una conversación interactiva sobre la parcela con Gemini."""
         context_str = f"Contexto de la Parcela: {json.dumps(parcel_context, ensure_ascii=False)}"
-        
+
         if self.api_key:
             try:
                 contents = [
@@ -97,7 +91,7 @@ class GeminiAgroAdvisor:
                 payload = {
                     "system_instruction": {"parts": [{"text": SYSTEM_AGRONOMIC_PROMPT}]},
                     "contents": contents,
-                    "generationConfig": {"temperature": 0.4, "maxOutputTokens": 1024}
+                    "generationConfig": {"temperature": 0.4, "maxOutputTokens": 1024},
                 }
                 response = requests.post(url, headers=headers, json=payload, timeout=15)
                 if response.status_code == 200:
@@ -110,7 +104,7 @@ class GeminiAgroAdvisor:
         # Fallback inteligente local
         return {
             "reply": f"Análisis Agronómico para tu parcela: Con un pH de {parcel_context.get('soil', {}).get('ph', 6.2)} y lluvia de {parcel_context.get('climate', {}).get('summary', {}).get('accumulated_rainfall_mm', 1450)} mm, el cultivo recomendado es {parcel_context.get('ml_predictions', {}).get('top_recommended_crop', 'Maíz Blanco')}. Te recomiendo mantener el monitoreo de humedad y aplicar cal agrícola si el pH desciende de 5.8.",
-            "model": "Agrotech-Expert-Fallback"
+            "model": "Agrotech-Expert-Fallback",
         }
 
     def _build_context_prompt(self, ctx: Dict[str, Any], user_query: Optional[str]) -> str:
@@ -157,8 +151,16 @@ Consulta específica del productor: {user_query or 'Generar plan de siembra, cor
 
     def _extract_executive_summary(self, markdown_text: str) -> str:
         """Extrae las primeras 2 frases clave como resumen ejecutivo."""
-        lines = [line.strip() for line in markdown_text.split("\n") if line.strip() and not line.startswith("#")]
-        return " ".join(lines[:2]) if lines else "Diagnóstico agronómico y satelital completado con éxito."
+        lines = [
+            line.strip()
+            for line in markdown_text.split("\n")
+            if line.strip() and not line.startswith("#")
+        ]
+        return (
+            " ".join(lines[:2])
+            if lines
+            else "Diagnóstico agronómico y satelital completado con éxito."
+        )
 
     def _generate_calibrated_ai_prescription(self, ctx: Dict[str, Any]) -> Dict[str, Any]:
         """Genera prescripción agronómica exhaustiva y calibrada en modo offline/fallback."""
@@ -200,5 +202,5 @@ Consulta específica del productor: {user_query or 'Generar plan de siembra, cor
             "source": "AGROTECH_EXPERT_SYSTEM_ENGINE",
             "status": "SUCCESS",
             "prescription_markdown": prescription,
-            "agronomic_executive_summary": f"Diagnóstico agronómico para {top_crop}: pH {ph}, encalado {'requerido (' + str(lime_ton_ha) + ' Ton/ha)' if needs_lime else 'no requerido'}, plan nutricional N-P-K activado."
+            "agronomic_executive_summary": f"Diagnóstico agronómico para {top_crop}: pH {ph}, encalado {'requerido (' + str(lime_ton_ha) + ' Ton/ha)' if needs_lime else 'no requerido'}, plan nutricional N-P-K activado.",
         }

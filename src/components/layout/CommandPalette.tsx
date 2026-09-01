@@ -25,8 +25,7 @@ import {
   BarChart3, 
   ShieldCheck, 
   X, 
-  ArrowRight,
-  Flame
+  ArrowRight
 } from 'lucide-react';
 
 interface PaletteItem {

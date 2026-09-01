@@ -6,8 +6,8 @@ de índices espectrales de vegetación y vigor fotosintético (NDVI, EVI, NDWI).
 """
 
 import logging
-from typing import Dict, Any, List, Optional
 from datetime import datetime, timedelta, timezone
+from typing import Any, Dict, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -16,16 +16,17 @@ SCL_CLASSES = {
     0: "NO_DATA",
     1: "SATURATED_OR_DEFECTIVE",
     2: "DARK_AREA_PIXELS",
-    3: "CLOUD_SHADOWS",           # Enmascarar
-    4: "VEGETATION",              # Válido
-    5: "NOT_VEGETATED_BARE_SOIL", # Válido
-    6: "WATER",                   # Válido
-    7: "UNCLASSIFIED",            # Válido (baja prob)
-    8: "CLOUD_MEDIUM_PROBABILITY",# Enmascarar
+    3: "CLOUD_SHADOWS",  # Enmascarar
+    4: "VEGETATION",  # Válido
+    5: "NOT_VEGETATED_BARE_SOIL",  # Válido
+    6: "WATER",  # Válido
+    7: "UNCLASSIFIED",  # Válido (baja prob)
+    8: "CLOUD_MEDIUM_PROBABILITY",  # Enmascarar
     9: "CLOUD_HIGH_PROBABILITY",  # Enmascarar
-    10: "THIN_CIRRUS",            # Enmascarar
-    11: "SNOW_OR_ICE"             # Enmascarar
+    10: "THIN_CIRRUS",  # Enmascarar
+    11: "SNOW_OR_ICE",  # Enmascarar
 }
+
 
 class SentinelProcessor:
     """Procesador de imágenes Sentinel-2 L2A con algoritmo de máscara de nubes."""
@@ -39,45 +40,42 @@ class SentinelProcessor:
         Excluye sombras de nubes (3), nubes medianas/altas (8, 9) y cirros (10).
         """
         try:
-            import ee
             scl = image.select("SCL")
             # Máscara: conservar clases 4 (vegetación), 5 (suelo desnudo), 6 (agua) y 7 (no clasificado)
             mask = (
-                scl.neq(3)   # No sombra de nubes
+                scl.neq(3)  # No sombra de nubes
                 .And(scl.neq(8))  # No nube media prob
                 .And(scl.neq(9))  # No nube alta prob
-                .And(scl.neq(10)) # No cirros
-                .And(scl.neq(11)) # No nieve
+                .And(scl.neq(10))  # No cirros
+                .And(scl.neq(11))  # No nieve
                 .And(scl.neq(1))  # No saturado
             )
-            return image.updateMask(mask).divide(10000.0) # Escalar a reflectancia superficial 0.0 - 1.0
-        except Exception as e:
-            logger.warning(f"No se pudo aplicar ee.Image mask ({e}).")
+            return image.updateMask(mask).divide(
+                10000.0
+            )  # Escalar a reflectancia superficial 0.0 - 1.0
+        except Exception as e:  # pylint: disable=broad-exception-caught
+            logger.warning("No se pudo aplicar ee.Image mask (%s).", e)
             return image
 
     def compute_indices(self, image: Any) -> Any:
         """Calcula NDVI, EVI y NDWI sobre una imagen corregida por nubosidad."""
         try:
-            import ee
+            pass
             # NDVI: (B8 - B4) / (B8 + B4)
             ndvi = image.normalizedDifference(["B8", "B4"]).rename("NDVI")
-            
+
             # EVI: 2.5 * ((B8 - B4) / (B8 + 6*B4 - 7.5*B2 + 1))
             evi = image.expression(
                 "2.5 * ((NIR - RED) / (NIR + 6 * RED - 7.5 * BLUE + 1.0))",
-                {
-                    "NIR": image.select("B8"),
-                    "RED": image.select("B4"),
-                    "BLUE": image.select("B2")
-                }
+                {"NIR": image.select("B8"), "RED": image.select("B4"), "BLUE": image.select("B2")},
             ).rename("EVI")
 
             # NDWI: (B8 - B11) / (B8 + B11) para estrés hídrico
             ndwi = image.normalizedDifference(["B8", "B11"]).rename("NDWI")
 
             return image.addBands([ndvi, evi, ndwi])
-        except Exception as e:
-            logger.warning(f"Error calculando bandas de índices en EE ({e}).")
+        except Exception as e:  # pylint: disable=broad-exception-caught
+            logger.warning("Error calculando bandas de índices en EE (%s).", e)
             return image
 
     def get_parcel_vegetation_profile(
@@ -85,7 +83,7 @@ class SentinelProcessor:
         lat: float,
         lon: float,
         start_date: Optional[str] = None,
-        end_date: Optional[str] = None
+        end_date: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         Obtiene la serie temporal de NDVI limpio para una coordenada/parcela en Venezuela.
@@ -99,8 +97,9 @@ class SentinelProcessor:
         if self.gee and getattr(self.gee, "is_authenticated", False):
             try:
                 import ee
+
                 point = ee.Geometry.Point([lon, lat])
-                
+
                 # Colección Sentinel-2 Surface Reflectance Harmonized
                 s2_collection = (
                     ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
@@ -113,11 +112,11 @@ class SentinelProcessor:
 
                 # Reducir valor de NDVI más reciente y serie
                 latest_image = s2_collection.sort("system:time_start", False).first()
-                val = latest_image.select(["NDVI", "EVI", "NDWI"]).reduceRegion(
-                    reducer=ee.Reducer.mean(),
-                    geometry=point,
-                    scale=10
-                ).getInfo()
+                val = (
+                    latest_image.select(["NDVI", "EVI", "NDWI"])
+                    .reduceRegion(reducer=ee.Reducer.mean(), geometry=point, scale=10)
+                    .getInfo()
+                )
 
                 return {
                     "source": "SENTINEL_2_L2A_COPERNICUS",
@@ -128,12 +127,14 @@ class SentinelProcessor:
                         "ndvi": round(val.get("NDVI", 0.72), 3),
                         "evi": round(val.get("EVI", 0.54), 3),
                         "ndwi": round(val.get("NDWI", 0.28), 3),
-                        "vegetation_vigor": self._classify_ndvi_vigor(val.get("NDVI", 0.72))
+                        "vegetation_vigor": self._classify_ndvi_vigor(val.get("NDVI", 0.72)),
                     },
-                    "status": "ONLINE_SATELLITE_PROCESSED"
+                    "status": "ONLINE_SATELLITE_PROCESSED",
                 }
-            except Exception as e:
-                logger.error(f"Error procesando Sentinel-2 en GEE ({e}). Generando estimación óptica.")
+            except Exception as e:  # pylint: disable=broad-exception-caught
+                logger.error(
+                    "Error procesando Sentinel-2 en GEE (%s). Generando estimación óptica.", e
+                )
                 return self._generate_simulated_sentinel(lat, lon)
         else:
             return self._generate_simulated_sentinel(lat, lon)
@@ -166,12 +167,12 @@ class SentinelProcessor:
                 "ndvi": base_ndvi,
                 "evi": round(base_ndvi * 0.75, 3),
                 "ndwi": round(base_ndvi * 0.38, 3),
-                "vegetation_vigor": self._classify_ndvi_vigor(base_ndvi)
+                "vegetation_vigor": self._classify_ndvi_vigor(base_ndvi),
             },
             "recent_observations": [
                 {"date": "2026-02-15", "ndvi": round(base_ndvi - 0.05, 3), "cloud_cover_pct": 8.2},
                 {"date": "2026-03-01", "ndvi": round(base_ndvi - 0.02, 3), "cloud_cover_pct": 4.1},
-                {"date": "2026-03-15", "ndvi": base_ndvi, "cloud_cover_pct": 2.5}
+                {"date": "2026-03-15", "ndvi": base_ndvi, "cloud_cover_pct": 2.5},
             ],
-            "status": "CLOUD_FILTERED_SUCCESS"
+            "status": "CLOUD_FILTERED_SUCCESS",
         }

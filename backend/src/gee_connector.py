@@ -5,10 +5,9 @@ Asset Colección 3: projects/mapbiomas-public/assets/venezuela/lulc/collection3/
 Serie histórica: 1985 - 2024
 """
 
-import os
 import logging
-from typing import Dict, Any, List, Optional
-import json
+import os
+from typing import Any, Dict, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -24,18 +23,25 @@ MAPBIOMAS_LEGEND_CODES = {
     15: {"name": "Pastizal / Ganadería", "category": "Antrópica", "color": "#ffd966"},
     18: {"name": "Agricultura / Cultivos", "category": "Antrópica", "color": "#e974ed"},
     19: {"name": "Cultivo Temporal (Maíz, Arroz)", "category": "Antrópica", "color": "#c27ba0"},
-    20: {"name": "Cultivo Perenne (Cacao, Café, Caña)", "category": "Antrópica", "color": "#741b47"},
+    20: {
+        "name": "Cultivo Perenne (Cacao, Café, Caña)",
+        "category": "Antrópica",
+        "color": "#741b47",
+    },
     21: {"name": "Mosaico Agropecuario", "category": "Antrópica", "color": "#ffe082"},
     24: {"name": "Área Urbana e Infraestructura", "category": "Antrópica", "color": "#af2a2a"},
     25: {"name": "Otra Área No Vegetada", "category": "No Vegetada", "color": "#ffaa5f"},
     30: {"name": "Minería", "category": "Antrópica", "color": "#8a2be2"},
-    33: {"name": "Cuerpo de Agua / Río / Lago", "category": "Agua", "color": "#0064ff"}
+    33: {"name": "Cuerpo de Agua / Río / Lago", "category": "Agua", "color": "#0064ff"},
 }
+
 
 class GEEConnector:
     """Gestor de conexión y consultas a Google Earth Engine y MapBiomas Venezuela."""
 
-    def __init__(self, service_account_email: Optional[str] = None, private_key_file: Optional[str] = None):
+    def __init__(
+        self, service_account_email: Optional[str] = None, private_key_file: Optional[str] = None
+    ):
         self.is_authenticated = False
         self.service_account = service_account_email or os.getenv("GEE_SERVICE_ACCOUNT")
         self.key_file = private_key_file or os.getenv("GEE_PRIVATE_KEY_PATH")
@@ -45,6 +51,7 @@ class GEEConnector:
         """Inicializa la sesión con Earth Engine usando cuenta de servicio o autenticación local."""
         try:
             import ee
+
             if self.service_account and self.key_file and os.path.exists(self.key_file):
                 credentials = ee.ServiceAccountCredentials(self.service_account, self.key_file)
                 ee.Initialize(credentials)
@@ -70,16 +77,15 @@ class GEEConnector:
         if self.is_authenticated:
             try:
                 import ee
+
                 point = ee.Geometry.Point([lon, lat])
                 image = ee.Image(MAPBIOMAS_ASSET_COLLECTION_3)
-                
+
                 # Consultar los valores de las bandas de cada año (classification_1985 ... classification_2024)
                 sampled = image.reduceRegion(
-                    reducer=ee.Reducer.first(),
-                    geometry=point,
-                    scale=30
+                    reducer=ee.Reducer.first(), geometry=point, scale=30
                 ).getInfo()
-                
+
                 return self._parse_gee_pixel_data(sampled, lat, lon)
             except Exception as e:
                 logger.error(f"Falla en consulta GEE ({e}). Utilizando simulador estandarizado.")
@@ -87,7 +93,9 @@ class GEEConnector:
         else:
             return self._generate_simulated_pixel_history(lat, lon)
 
-    def _parse_gee_pixel_data(self, sampled_data: Dict[str, Any], lat: float, lon: float) -> Dict[str, Any]:
+    def _parse_gee_pixel_data(
+        self, sampled_data: Dict[str, Any], lat: float, lon: float
+    ) -> Dict[str, Any]:
         """Formatea los datos brutos de GEE en una estructura JSON estándar de Agrotech."""
         annual_series = {}
         transitions = []
@@ -98,25 +106,32 @@ class GEEConnector:
             band_name = f"classification_{yr}"
             class_id = sampled_data.get(band_name)
             if class_id is not None:
-                class_info = MAPBIOMAS_LEGEND_CODES.get(int(class_id), {
-                    "name": "Clase Desconocida", "category": "Otros", "color": "#999999"
-                })
+                class_info = MAPBIOMAS_LEGEND_CODES.get(
+                    int(class_id),
+                    {"name": "Clase Desconocida", "category": "Otros", "color": "#999999"},
+                )
                 annual_series[str(yr)] = {
                     "class_id": int(class_id),
                     "class_name": class_info["name"],
                     "category": class_info["category"],
-                    "color": class_info["color"]
+                    "color": class_info["color"],
                 }
-                
+
                 if last_class_id is not None and last_class_id != int(class_id):
-                    transitions.append({
-                        "year": yr,
-                        "from_class": MAPBIOMAS_LEGEND_CODES.get(last_class_id, {}).get("name", "N/A"),
-                        "to_class": class_info["name"]
-                    })
+                    transitions.append(
+                        {
+                            "year": yr,
+                            "from_class": MAPBIOMAS_LEGEND_CODES.get(last_class_id, {}).get(
+                                "name", "N/A"
+                            ),
+                            "to_class": class_info["name"],
+                        }
+                    )
                 last_class_id = int(class_id)
 
-        latest_class = annual_series.get("2024", annual_series.get(list(annual_series.keys())[-1] if annual_series else "1985"))
+        latest_class = annual_series.get(
+            "2024", annual_series.get(list(annual_series.keys())[-1] if annual_series else "1985")
+        )
 
         return {
             "source": "MAPBIOMAS_VENEZUELA_COLLECTION_3",
@@ -126,7 +141,7 @@ class GEEConnector:
             "latest_coverage_2024": latest_class,
             "annual_series": annual_series,
             "detected_transitions_count": len(transitions),
-            "transitions_log": transitions
+            "transitions_log": transitions,
         }
 
     def _generate_simulated_pixel_history(self, lat: float, lon: float) -> Dict[str, Any]:
@@ -153,19 +168,23 @@ class GEEConnector:
 
         for yr in range(1985, 2025):
             curr_id = initial_class if yr < trans_year else final_class
-            class_info = MAPBIOMAS_LEGEND_CODES.get(curr_id, {"name": "Cultivo", "category": "Antrópica", "color": "#e974ed"})
+            class_info = MAPBIOMAS_LEGEND_CODES.get(
+                curr_id, {"name": "Cultivo", "category": "Antrópica", "color": "#e974ed"}
+            )
             annual_series[str(yr)] = {
                 "class_id": curr_id,
                 "class_name": class_info["name"],
                 "category": class_info["category"],
-                "color": class_info["color"]
+                "color": class_info["color"],
             }
 
-        transitions.append({
-            "year": trans_year,
-            "from_class": MAPBIOMAS_LEGEND_CODES[initial_class]["name"],
-            "to_class": MAPBIOMAS_LEGEND_CODES[final_class]["name"]
-        })
+        transitions.append(
+            {
+                "year": trans_year,
+                "from_class": MAPBIOMAS_LEGEND_CODES[initial_class]["name"],
+                "to_class": MAPBIOMAS_LEGEND_CODES[final_class]["name"],
+            }
+        )
 
         return {
             "source": "MAPBIOMAS_VENEZUELA_COLLECTION_3_SIMULATED",
@@ -175,5 +194,5 @@ class GEEConnector:
             "latest_coverage_2024": annual_series["2024"],
             "annual_series": annual_series,
             "detected_transitions_count": len(transitions),
-            "transitions_log": transitions
+            "transitions_log": transitions,
         }

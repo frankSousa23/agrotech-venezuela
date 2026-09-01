@@ -5,9 +5,10 @@ multidimensionales a partir de fuentes satelitales (MapBiomas, Sentinel-2),
 agroclimáticas (NASA POWER) y fisicoquímicas del suelo.
 """
 
-from typing import Dict, Any, List, Optional
-import numpy as np
 import logging
+from typing import Any, Dict, List
+
+import numpy as np
 
 logger = logging.getLogger(__name__)
 
@@ -19,8 +20,9 @@ TEXTURE_GRANULOMETRY = {
     "franco": {"sand": 40.0, "silt": 40.0, "clay": 20.0},
     "franco-arenoso": {"sand": 65.0, "silt": 25.0, "clay": 10.0},
     "arenoso": {"sand": 85.0, "silt": 10.0, "clay": 5.0},
-    "default": {"sand": 40.0, "silt": 40.0, "clay": 20.0}
+    "default": {"sand": 40.0, "silt": 40.0, "clay": 20.0},
 }
+
 
 class MLFeatureEngine:
     """Motor de ingeniería de características para modelos predictivos agronómicos."""
@@ -41,7 +43,7 @@ class MLFeatureEngine:
         "mapbiomas_forest_history_ratio",
         "mapbiomas_pasture_history_ratio",
         "mapbiomas_transition_risk_score",
-        "soil_compaction_legacy_index"
+        "soil_compaction_legacy_index",
     ]
 
     def build_feature_vector(
@@ -49,7 +51,7 @@ class MLFeatureEngine:
         soil_profile: Dict[str, Any],
         agroclimate: Dict[str, Any],
         sentinel_metrics: Dict[str, Any],
-        mapbiomas_history: Dict[str, Any]
+        mapbiomas_history: Dict[str, Any],
     ) -> Dict[str, Any]:
         """
         Construye el vector estructurado de características a partir de los datos espaciales.
@@ -58,7 +60,7 @@ class MLFeatureEngine:
         ph = float(soil_profile.get("ph", 6.2))
         om = float(soil_profile.get("organic_matter_pct", soil_profile.get("organicMatter", 3.0)))
         texture_str = str(soil_profile.get("texture", "Franco")).lower()
-        
+
         granulo = TEXTURE_GRANULOMETRY.get(texture_str, TEXTURE_GRANULOMETRY["default"])
         for k in TEXTURE_GRANULOMETRY.keys():
             if k in texture_str:
@@ -90,7 +92,9 @@ class MLFeatureEngine:
 
         # 5. Índices de Legado y Transición MapBiomas
         compaction_index = round(min(1.0, pasture_ratio * 1.3), 3)
-        transition_risk = round(min(1.0, agri_ratio * 0.8 + (0.4 if forest_ratio > 0.5 and ph < 5.5 else 0.0)), 3)
+        transition_risk = round(
+            min(1.0, agri_ratio * 0.8 + (0.4 if forest_ratio > 0.5 and ph < 5.5 else 0.0)), 3
+        )
 
         features = {
             "ph": ph,
@@ -108,7 +112,7 @@ class MLFeatureEngine:
             "mapbiomas_forest_history_ratio": forest_ratio,
             "mapbiomas_pasture_history_ratio": pasture_ratio,
             "mapbiomas_transition_risk_score": transition_risk,
-            "soil_compaction_legacy_index": compaction_index
+            "soil_compaction_legacy_index": compaction_index,
         }
 
         feature_array = [features[col] for col in self.FEATURE_NAMES]
@@ -116,7 +120,7 @@ class MLFeatureEngine:
         return {
             "feature_names": self.FEATURE_NAMES,
             "features_dict": features,
-            "feature_vector": feature_array
+            "feature_vector": feature_array,
         }
 
     def normalize_vector(self, vector: List[float]) -> List[float]:
@@ -124,22 +128,22 @@ class MLFeatureEngine:
         v = np.array(vector, dtype=np.float64)
         # Rango esperado para cada feature
         ranges = [
-            (3.5, 9.0),   # ph
-            (0.5, 8.0),   # om
-            (0.0, 100.0), # sand
-            (0.0, 100.0), # silt
-            (0.0, 100.0), # clay
-            (300.0, 3000.0), # rainfall
-            (10.0, 38.0), # temp
-            (50.0, 900.0), # gdd
+            (3.5, 9.0),  # ph
+            (0.5, 8.0),  # om
+            (0.0, 100.0),  # sand
+            (0.0, 100.0),  # silt
+            (0.0, 100.0),  # clay
+            (300.0, 3000.0),  # rainfall
+            (10.0, 38.0),  # temp
+            (50.0, 900.0),  # gdd
             (5.0, 30.0),  # rad
-            (0.0, 1.0),   # ndvi
+            (0.0, 1.0),  # ndvi
             (-0.5, 0.8),  # ndwi
-            (0.0, 1.0),   # agri_ratio
-            (0.0, 1.0),   # forest_ratio
-            (0.0, 1.0),   # pasture_ratio
-            (0.0, 1.0),   # mapbiomas_transition_risk_score
-            (0.0, 1.0)    # soil_compaction_legacy_index
+            (0.0, 1.0),  # agri_ratio
+            (0.0, 1.0),  # forest_ratio
+            (0.0, 1.0),  # pasture_ratio
+            (0.0, 1.0),  # mapbiomas_transition_risk_score
+            (0.0, 1.0),  # soil_compaction_legacy_index
         ]
 
         normalized = []

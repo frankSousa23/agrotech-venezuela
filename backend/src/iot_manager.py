@@ -4,13 +4,15 @@ Centraliza la ingesta de telemetría de nodos de suelo (ESP32 / LoRaWAN / RS485 
 gestión de actuadores hidráulicos y algoritmo de riego predictivo acoplado a NASA POWER.
 """
 
-from typing import Dict, Any, List, Optional
-from datetime import datetime, timezone
-from pydantic import BaseModel, Field
 import logging
 import uuid
+from datetime import datetime, timezone
+from typing import Any, Dict, List, Optional
+
+from pydantic import BaseModel, Field
 
 logger = logging.getLogger(__name__)
+
 
 # Modelos Pydantic para Validación de Telemetría y Comandos IoT
 class IoTNodeRegister(BaseModel):
@@ -21,6 +23,7 @@ class IoTNodeRegister(BaseModel):
     lat: float
     lng: float
     api_secret_key: Optional[str] = None
+
 
 class TelemetryPayload(BaseModel):
     hardware_uid: str
@@ -35,11 +38,13 @@ class TelemetryPayload(BaseModel):
     solar_voltage: Optional[float] = None
     raw_rssi: Optional[int] = None
 
+
 class ActuatorCommand(BaseModel):
     actuator_id: str
     target_state: str  # "ON", "OFF", "AUTO"
     duration_minutes: Optional[int] = 30
     reason: Optional[str] = "Manual override"
+
 
 class IoTManager:
     """Motor de gestión de dispositivos, telemetría y decisiones de riego predictivo."""
@@ -66,7 +71,7 @@ class IoTManager:
                 "battery_level": 94,
                 "solar_voltage": 5.12,
                 "is_online": True,
-                "last_ping_at": datetime.now(timezone.utc).isoformat()
+                "last_ping_at": datetime.now(timezone.utc).isoformat(),
             },
             {
                 "id": "node-turen-02",
@@ -80,7 +85,7 @@ class IoTManager:
                 "battery_level": 88,
                 "solar_voltage": 4.95,
                 "is_online": True,
-                "last_ping_at": datetime.now(timezone.utc).isoformat()
+                "last_ping_at": datetime.now(timezone.utc).isoformat(),
             },
             {
                 "id": "node-turen-valve-01",
@@ -94,8 +99,8 @@ class IoTManager:
                 "battery_level": 100,
                 "solar_voltage": 12.4,
                 "is_online": True,
-                "last_ping_at": datetime.now(timezone.utc).isoformat()
-            }
+                "last_ping_at": datetime.now(timezone.utc).isoformat(),
+            },
         ]
 
         for n in demo_nodes:
@@ -111,14 +116,14 @@ class IoTManager:
             "is_auto_mode": True,
             "flow_rate_lpm": 30.0,
             "total_water_m3": 142.5,
-            "last_activated_at": None
+            "last_activated_at": None,
         }
 
     def register_node(self, payload: IoTNodeRegister) -> Dict[str, Any]:
         """Registra un nuevo dispositivo en el sistema."""
         node_id = f"node-{uuid.uuid4().hex[:8]}"
         secret = payload.api_secret_key or f"sec_{uuid.uuid4().hex[:16]}"
-        
+
         node_record = {
             "id": node_id,
             "parcel_id": payload.parcel_id,
@@ -131,9 +136,9 @@ class IoTManager:
             "battery_level": 100,
             "solar_voltage": 5.0,
             "is_online": True,
-            "last_ping_at": datetime.now(timezone.utc).isoformat()
+            "last_ping_at": datetime.now(timezone.utc).isoformat(),
         }
-        
+
         self.nodes_db[payload.hardware_uid] = node_record
         return node_record
 
@@ -145,10 +150,7 @@ class IoTManager:
         return node.get("api_secret_key") == token
 
     def process_telemetry(
-        self,
-        payload: TelemetryPayload,
-        token: str,
-        forecast_rain_6h_mm: float = 0.0
+        self, payload: TelemetryPayload, token: str, forecast_rain_6h_mm: float = 0.0
     ) -> Dict[str, Any]:
         """
         Procesa la telemetría del nodo, actualiza su estado y calcula la orden de riego.
@@ -158,7 +160,7 @@ class IoTManager:
 
         node = self.nodes_db[payload.hardware_uid]
         now_str = datetime.now(timezone.utc).isoformat()
-        
+
         # Actualizar estado de vida del nodo
         battery_pct = int(min(100, max(0, (payload.battery_voltage - 3.2) / (4.2 - 3.2) * 100)))
         node["battery_level"] = battery_pct
@@ -180,14 +182,13 @@ class IoTManager:
             "potassium_mg_kg": payload.potassium_mg_kg,
             "ec_us_cm": payload.ec_us_cm,
             "raw_rssi": payload.raw_rssi,
-            "recorded_at": now_str
+            "recorded_at": now_str,
         }
         self.telemetry_history.append(telemetry_entry)
 
         # Evaluar decisión de riego predictivo
         decision = self.evaluate_predictive_irrigation(
-            moisture_pct=payload.soil_moisture_pct,
-            forecast_rain_6h_mm=forecast_rain_6h_mm
+            moisture_pct=payload.soil_moisture_pct, forecast_rain_6h_mm=forecast_rain_6h_mm
         )
 
         return {
@@ -195,14 +196,11 @@ class IoTManager:
             "node_id": node["id"],
             "recorded_at": now_str,
             "soil_health_status": self._classify_soil_status(payload.soil_moisture_pct, payload.ph),
-            "predictive_irrigation": decision
+            "predictive_irrigation": decision,
         }
 
     def evaluate_predictive_irrigation(
-        self,
-        moisture_pct: float,
-        forecast_rain_6h_mm: float,
-        critical_threshold: float = 30.0
+        self, moisture_pct: float, forecast_rain_6h_mm: float, critical_threshold: float = 30.0
     ) -> Dict[str, Any]:
         """
         Algoritmo híbrido de riego:
@@ -220,7 +218,7 @@ class IoTManager:
                     "reason": f"Déficit detectado ({moisture_pct}%), pero NASA POWER pronostica {forecast_rain_6h_mm} mm de lluvia en las próximas 6h. Ahorro de combustible/agua activado.",
                     "valve_command": "CLOSED",
                     "pulse_duration_minutes": 0,
-                    "energy_saved": True
+                    "energy_saved": True,
                 }
             else:
                 return {
@@ -228,7 +226,7 @@ class IoTManager:
                     "reason": f"Humedad crítica ({moisture_pct}%) sin lluvia pronosticada ({forecast_rain_6h_mm} mm). Pulso de compensación hídrica requerido.",
                     "valve_command": "OPEN",
                     "pulse_duration_minutes": 35,
-                    "energy_saved": False
+                    "energy_saved": False,
                 }
         else:
             return {
@@ -236,7 +234,7 @@ class IoTManager:
                 "reason": f"Humedad edáfica en rango óptimo ({moisture_pct}%).",
                 "valve_command": "CLOSED",
                 "pulse_duration_minutes": 0,
-                "energy_saved": True
+                "energy_saved": True,
             }
 
     def _classify_soil_status(self, moisture_pct: float, ph: Optional[float]) -> str:
@@ -254,11 +252,10 @@ class IoTManager:
         result = []
         for n in nodes:
             # Obtener última telemetría
-            last_tel = next((t for t in reversed(self.telemetry_history) if t["node_id"] == n["id"]), None)
-            result.append({
-                **n,
-                "latest_telemetry": last_tel
-            })
+            last_tel = next(
+                (t for t in reversed(self.telemetry_history) if t["node_id"] == n["id"]), None
+            )
+            result.append({**n, "latest_telemetry": last_tel})
         return result
 
     def set_actuator_state(self, actuator_id: str, command: ActuatorCommand) -> Dict[str, Any]:
@@ -272,8 +269,9 @@ class IoTManager:
         return {
             "status": "command_acknowledged",
             "actuator": actuator,
-            "command": command.model_dump()
+            "command": command.model_dump(),
         }
+
 
 # Instancia singleton del gestor IoT
 iot_manager = IoTManager()

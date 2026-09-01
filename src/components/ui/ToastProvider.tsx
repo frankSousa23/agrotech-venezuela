@@ -83,7 +83,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
         }}
       >
         {toasts.map((t) => {
-          let bg = 'rgba(15, 23, 42, 0.95)';
+          const bg = 'rgba(15, 23, 42, 0.95)';
           let border = '1px solid rgba(255, 255, 255, 0.15)';
           let icon = <Info size={20} color="#38bdf8" />;
 

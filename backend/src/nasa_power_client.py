@@ -14,8 +14,9 @@ Parámetros consultados:
 """
 
 import logging
-from typing import Dict, Any, Optional
 from datetime import datetime, timedelta, timezone
+from typing import Any, Dict, Optional
+
 import requests
 
 logger = logging.getLogger(__name__)
@@ -30,8 +31,9 @@ DEFAULT_PARAMETERS = [
     "ALLSKY_SFC_SW_DWN",
     "PRECTOTCORR",
     "RH2M",
-    "WS2M"
+    "WS2M",
 ]
+
 
 class NasaPowerClient:
     """Cliente robusto para interactuar con la API Agroclimática de NASA POWER."""
@@ -45,7 +47,7 @@ class NasaPowerClient:
         lon: float,
         start_date: Optional[str] = None,
         end_date: Optional[str] = None,
-        parameters: Optional[list] = None
+        parameters: Optional[list] = None,
     ) -> Dict[str, Any]:
         """
         Consulta las variables meteorológicas diarias de una coordenada específica.
@@ -67,20 +69,18 @@ class NasaPowerClient:
             "latitude": lat,
             "start": start_date,
             "end": end_date,
-            "format": "JSON"
+            "format": "JSON",
         }
 
         try:
-            response = requests.get(
-                NASA_POWER_DAILY_URL,
-                params=query_params,
-                timeout=self.timeout
-            )
+            response = requests.get(NASA_POWER_DAILY_URL, params=query_params, timeout=self.timeout)
             response.raise_for_status()
             data = response.json()
             return self._format_daily_response(data, lat, lon)
-        except Exception as e:
-            logger.warning(f"Error consultando NASA POWER ({e}). Generando fallback agroclimático para ({lat}, {lon}).")
+        except requests.exceptions.RequestException as e:
+            logger.warning(
+                "Error consultando NASA POWER (%s). Generando fallback agroclimático para (%s, %s).", e, lat, lon
+            )
             return self._generate_fallback_climate(lat, lon, start_date, end_date)
 
     def fetch_climatology(self, lat: float, lon: float) -> Dict[str, Any]:
@@ -90,26 +90,26 @@ class NasaPowerClient:
             "community": "AG",
             "longitude": lon,
             "latitude": lat,
-            "format": "JSON"
+            "format": "JSON",
         }
 
         try:
             response = requests.get(
-                NASA_POWER_CLIMATOLOGY_URL,
-                params=query_params,
-                timeout=self.timeout
+                NASA_POWER_CLIMATOLOGY_URL, params=query_params, timeout=self.timeout
             )
             response.raise_for_status()
             data = response.json()
             return data.get("properties", {}).get("parameter", {})
-        except Exception as e:
-            logger.warning(f"Error en climatología NASA POWER ({e}). Retornando valores climatológicos de referencia.")
+        except requests.exceptions.RequestException as e:
+            logger.warning(
+                "Error en climatología NASA POWER (%s). Retornando valores climatológicos de referencia.", e
+            )
             return {
                 "T2M": {"ANN": 26.5},
                 "T2M_MAX": {"ANN": 32.8},
                 "T2M_MIN": {"ANN": 21.2},
                 "PRECTOTCORR": {"ANN": 1450.0},
-                "ALLSKY_SFC_SW_DWN": {"ANN": 18.5}
+                "ALLSKY_SFC_SW_DWN": {"ANN": 18.5},
             }
 
     def calculate_growing_degree_days(
@@ -117,7 +117,7 @@ class NasaPowerClient:
         tmax_dict: Dict[str, float],
         tmin_dict: Dict[str, float],
         base_temp: float = 10.0,
-        upper_threshold: float = 30.0
+        upper_threshold: float = 30.0,
     ) -> float:
         """
         Calcula los Grados Día de Desarrollo (GDD / Grados de Crecimiento) acumulados.
@@ -127,7 +127,7 @@ class NasaPowerClient:
         for date_key in tmax_dict.keys():
             tmax = tmax_dict.get(date_key, 25.0)
             tmin = tmin_dict.get(date_key, 15.0)
-            
+
             # Filtro de valores no válidos de NASA (-999)
             if tmax <= -99 or tmin <= -99:
                 continue
@@ -139,10 +139,12 @@ class NasaPowerClient:
 
         return round(total_gdd, 2)
 
-    def _format_daily_response(self, raw_data: Dict[str, Any], lat: float, lon: float) -> Dict[str, Any]:
+    def _format_daily_response(
+        self, raw_data: Dict[str, Any], lat: float, lon: float
+    ) -> Dict[str, Any]:
         """Procesa y calcula resúmenes estadísticos a partir de la respuesta de NASA POWER."""
         params = raw_data.get("properties", {}).get("parameter", {})
-        
+
         t2m = params.get("T2M", {})
         tmax = params.get("T2M_MAX", {})
         tmin = params.get("T2M_MIN", {})
@@ -174,7 +176,7 @@ class NasaPowerClient:
                 "avg_solar_radiation_mj_m2": avg_radiation,
                 "avg_relative_humidity_pct": avg_humidity,
                 "growing_degree_days_gdd": gdd,
-                "days_analyzed": len(valid_temps)
+                "days_analyzed": len(valid_temps),
             },
             "timeseries": {
                 "dates": list(t2m.keys()),
@@ -183,15 +185,17 @@ class NasaPowerClient:
                 "tmin": tmin,
                 "precipitation": precip,
                 "radiation": radiation,
-                "relative_humidity": humidity
-            }
+                "relative_humidity": humidity,
+            },
         }
 
-    def _generate_fallback_climate(self, lat: float, lon: float, start_date: str, end_date: str) -> Dict[str, Any]:
+    def _generate_fallback_climate(
+        self, lat: float, lon: float, start_date: str, end_date: str
+    ) -> Dict[str, Any]:
         """Genera estimación meteorológica calibrada para Venezuela en caso de desconexión."""
         # Valores zonales según latitud en Venezuela
         base_temp = 27.5 if lat < 10.0 else 26.0
-        if -71.5 < lon < -70.5 and 8.0 < lat < 9.5: # Andes
+        if -71.5 < lon < -70.5 and 8.0 < lat < 9.5:  # Andes
             base_temp = 18.0
 
         return {
@@ -205,11 +209,11 @@ class NasaPowerClient:
                 "avg_solar_radiation_mj_m2": 18.2,
                 "avg_relative_humidity_pct": 78.0,
                 "growing_degree_days_gdd": 380.0,
-                "days_analyzed": 30
+                "days_analyzed": 30,
             },
             "timeseries": {
                 "dates": [start_date, end_date],
                 "temperature": {start_date: base_temp, end_date: base_temp},
-                "precipitation": {start_date: 4.2, end_date: 3.8}
-            }
+                "precipitation": {start_date: 4.2, end_date: 3.8},
+            },
         }

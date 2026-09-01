@@ -3,9 +3,9 @@ Technical Agronomic Report Generator - Agrotech Venezuela (Semana 3 - Día 18)
 Módulo para la compilación y exportación de dictámenes técnicos en Markdown, JSON y GeoJSON.
 """
 
-from typing import Dict, Any, List
-import json
 from datetime import datetime
+from typing import Any, Dict
+
 
 class ReportGenerator:
     """Generador de fichas y reportes técnicos agronómicos descargables."""
@@ -23,12 +23,12 @@ class ReportGenerator:
         mapbiomas: Dict[str, Any],
         ml_preds: Dict[str, Any],
         risks: Dict[str, Any],
-        ai_prescription: str
+        ai_prescription: str,
     ) -> str:
         """Compila un informe técnico exhaustivo en formato Markdown descargable."""
         date_str = datetime.now().strftime("%d/%m/%Y %H:%M")
         top_crop = ml_preds.get("top_recommended_crop", "Maíz Blanco")
-        
+
         report = f"""# 🌾 DICTAMEN TÉCNICO Y PRESCRIPCIÓN AGRONÓMICA DE PRECISIÓN
 **Plataforma Agrotech Venezuela — Gemelo Digital Satelital e Inteligencia Artificial**
 
@@ -92,22 +92,18 @@ class ReportGenerator:
 
     @staticmethod
     def generate_geojson_feature(
-        parcel_name: str,
-        lat: float,
-        lon: float,
-        area_ha: float,
-        metrics: Dict[str, Any]
+        parcel_name: str, lat: float, lon: float, area_ha: float, metrics: Dict[str, Any]
     ) -> Dict[str, Any]:
         """Genera un archivo GeoJSON de la parcela delimitada con sus propiedades agronómicas."""
         # Polígono de 4 vértices aproximado para el área indicada
-        delta = 0.0015 * (area_ha ** 0.5)
+        delta = 0.0015 * (area_ha**0.5)
         coords = [
             [
                 [lon - delta, lat - delta],
                 [lon + delta, lat - delta],
                 [lon + delta, lat + delta],
                 [lon - delta, lat + delta],
-                [lon - delta, lat - delta]
+                [lon - delta, lat - delta],
             ]
         ]
 
@@ -116,17 +112,14 @@ class ReportGenerator:
             "features": [
                 {
                     "type": "Feature",
-                    "geometry": {
-                        "type": "Polygon",
-                        "coordinates": coords
-                    },
+                    "geometry": {"type": "Polygon", "coordinates": coords},
                     "properties": {
                         "name": parcel_name,
                         "area_ha": area_ha,
                         "centroid": {"latitude": lat, "longitude": lon},
                         "created_at": datetime.now().isoformat(),
-                        "metrics": metrics
-                    }
+                        "metrics": metrics,
+                    },
                 }
-            ]
+            ],
         }
