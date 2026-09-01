@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { VENEZUELA_STATES_DATA, StateGeoData, MAPBIOMAS_CLASSES, SOIL_PH_RANGES } from '@/lib/geo/venezuelaData';
 import { VENEZUELA_MUNICIPALITIES_DATA, MunicipalityGeoData, getMunicipalitiesByState } from '@/lib/geo/venezuelaMunicipalities';
 import { calculatePolygonAreaHa, calculatePolygonPerimeterMeters } from '@/lib/geo/spatialUtils';
@@ -18,7 +19,9 @@ import {
   RotateCcw,
   MousePointerClick,
   CheckCircle2,
-  Trash2
+  Trash2,
+  X,
+  ArrowRight
 } from 'lucide-react';
 import type { ActiveLayerType } from './LeafletMapInner';
 
@@ -75,6 +78,23 @@ export default function MultiLevelMapViewer({
   const [parcelName, setParcelName] = useState('Tablón Nuevo — Parcela 1');
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [successRedirectUrl, setSuccessRedirectUrl] = useState<string>('');
+  const [savedParcelInfo, setSavedParcelInfo] = useState<{ name: string; area: number } | null>(null);
+
+  // Tutorial interactivo on-map
+  const [showTutorial, setShowTutorial] = useState(false);
+
+  useEffect(() => {
+    const dismissed = localStorage.getItem('agrotech-map-tutorial-dismissed');
+    if (dismissed !== 'true') {
+      setShowTutorial(true);
+    }
+  }, []);
+
+  const handleDismissTutorial = () => {
+    setShowTutorial(false);
+    localStorage.setItem('agrotech-map-tutorial-dismissed', 'true');
+  };
 
   // Estado seleccionado
   const currentState = useMemo(() => {
@@ -110,12 +130,17 @@ export default function MultiLevelMapViewer({
   const handleAddPoint = useCallback((point: [number, number]) => {
     setDrawnPoints(prev => [...prev, point]);
     setSaveSuccess(false);
+    setSuccessRedirectUrl('');
+    setSavedParcelInfo(null);
   }, []);
 
-  // Limpiar trazado
+  // Limpiar trazado y restaurar estado
   const handleClearDraw = () => {
     setDrawnPoints([]);
     setSaveSuccess(false);
+    setSuccessRedirectUrl('');
+    setSavedParcelInfo(null);
+    setParcelName('Tablón Nuevo — Parcela 1');
     setIsDrawing(false);
   };
 
@@ -131,6 +156,8 @@ export default function MultiLevelMapViewer({
     setDrawnPoints(coords);
     setIsDrawing(false);
     setSaveSuccess(false);
+    setSuccessRedirectUrl('');
+    setSavedParcelInfo(null);
   };
 
   // Cálculo del área y perímetro
@@ -142,10 +169,11 @@ export default function MultiLevelMapViewer({
     return calculatePolygonPerimeterMeters(drawnPoints);
   }, [drawnPoints]);
 
-  // Guardar en la base de datos
+  // Guardar en la base de datos y construir handoff para recomendaciones
   const handleSaveToUserFarm = async () => {
     if (calculatedAreaHa <= 0) return;
     setIsSaving(true);
+    const primaryCrop = currentMunicipality.mainCrops[0] || 'Maíz Blanco';
     const parcelPayload = {
       name: parcelName,
       stateId: selectedStateId,
@@ -153,7 +181,7 @@ export default function MultiLevelMapViewer({
       areaHectares: calculatedAreaHa,
       centerLat: drawnPoints.length > 0 ? drawnPoints[0][0] : currentMunicipality.center[0],
       centerLng: drawnPoints.length > 0 ? drawnPoints[0][1] : currentMunicipality.center[1],
-      currentCrop: currentMunicipality.mainCrops[0] || 'Maíz Blanco',
+      currentCrop: primaryCrop,
       soilTexture: currentMunicipality.soilTexture,
       ph: currentMunicipality.avgPh,
       organicMatter: 3.2
@@ -166,6 +194,11 @@ export default function MultiLevelMapViewer({
         body: JSON.stringify(parcelPayload)
       });
       if (res.ok) {
+        const cropEncoded = encodeURIComponent(primaryCrop);
+        const textureEncoded = encodeURIComponent(currentMunicipality.soilTexture);
+        const redirectUrl = `/dashboard/recomendaciones?state=${selectedStateId}&ph=${currentMunicipality.avgPh}&soilTexture=${textureEncoded}&crop=${cropEncoded}`;
+        setSuccessRedirectUrl(redirectUrl);
+        setSavedParcelInfo({ name: parcelName, area: calculatedAreaHa });
         setSaveSuccess(true);
         if (onSaveParcel) onSaveParcel(parcelPayload);
       }
@@ -360,9 +393,109 @@ export default function MultiLevelMapViewer({
         color: '#fff',
         display: 'flex',
         flexDirection: 'column',
-        gap: '12px',
+        gap: '10px',
         boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.6)'
       }}>
+        {/* Breadcrumb de Progreso Jerárquico */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          background: 'rgba(30, 41, 59, 0.7)',
+          borderRadius: '8px',
+          padding: '6px 10px',
+          fontSize: '0.72rem',
+          border: '1px solid rgba(255, 255, 255, 0.08)'
+        }}>
+          {[
+            { lvl: 1 as MapLevel, label: '1. País', tooltip: 'División Nacional (24 Estados)' },
+            { lvl: 2 as MapLevel, label: '2. Municipio', tooltip: 'Municipios Agrícolas' },
+            { lvl: 3 as MapLevel, label: '3. Parcela', tooltip: 'Delimitación satelital del lote' }
+          ].map((step, idx) => {
+            const isActive = currentLevel === step.lvl;
+            const isDone = currentLevel > step.lvl;
+            return (
+              <div key={step.lvl} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <button
+                  type="button"
+                  onClick={() => { if (isDone) setCurrentLevel(step.lvl); }}
+                  disabled={!isDone && !isActive}
+                  title={step.tooltip}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    color: isActive ? '#38bdf8' : isDone ? '#4ade80' : '#64748b',
+                    fontWeight: isActive ? 700 : 500,
+                    cursor: isDone ? 'pointer' : 'default',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '3px',
+                    padding: 0
+                  }}
+                >
+                  {isDone ? '✓' : isActive ? '●' : '○'} {step.label}
+                </button>
+                {idx < 2 && <span style={{ color: '#475569' }}>→</span>}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Tutorial Banner de Delimitación */}
+        {showTutorial && (
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(2, 132, 199, 0.15) 100%)',
+            border: '1px solid rgba(56, 189, 248, 0.4)',
+            borderRadius: '10px',
+            padding: '10px',
+            fontSize: '0.74rem',
+            color: '#f8fafc',
+            position: 'relative'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 700, color: '#38bdf8' }}>
+                <Sparkles size={14} color="#38bdf8" />
+                <span>Guía Rápida de Delimitación</span>
+              </div>
+              <button
+                onClick={handleDismissTutorial}
+                title="Cerrar guía"
+                style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: 0 }}
+              >
+                <X size={14} />
+              </button>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '3px', color: '#cbd5e1', lineHeight: 1.3 }}>
+              <div><b>① País:</b> Selecciona el estado de tu finca.</div>
+              <div><b>② Municipio:</b> Elige el polo agrícola para centrar el satélite.</div>
+              <div><b>③ Parcela:</b> En Nivel 3, usa <i>📐 Trazar</i> para marcar linderos.</div>
+            </div>
+            <div style={{ marginTop: '8px', display: 'flex', gap: '6px' }}>
+              <button
+                onClick={() => {
+                  if (currentLevel < 3) {
+                    setCurrentLevel(3);
+                  }
+                  handleAutoPresetDraw();
+                }}
+                style={{
+                  flex: 1,
+                  padding: '5px 8px',
+                  background: 'rgba(56, 189, 248, 0.25)',
+                  border: '1px solid #38bdf8',
+                  borderRadius: '6px',
+                  color: '#38bdf8',
+                  fontSize: '0.72rem',
+                  fontWeight: 600,
+                  cursor: 'pointer'
+                }}
+              >
+                🌾 Probar Demo Automático
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Nivel 1: Selección de Estado */}
         {currentLevel === 1 && (
           <div>
@@ -497,7 +630,8 @@ export default function MultiLevelMapViewer({
                     flex: 1,
                     padding: '8px',
                     background: isDrawing ? '#ef4444' : '#22c55e',
-                    border: 'none',
+                    border: isDrawing ? '1px solid #ef4444' : '1px solid #4ade80',
+                    boxShadow: isDrawing ? '0 0 10px rgba(239, 68, 68, 0.5)' : '0 0 12px rgba(74, 222, 128, 0.5)',
                     borderRadius: '6px',
                     color: '#fff',
                     fontWeight: 700,
@@ -506,7 +640,8 @@ export default function MultiLevelMapViewer({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '4px'
+                    gap: '4px',
+                    transition: 'all 0.2s ease'
                   }}
                 >
                   <MousePointerClick size={14} />
@@ -607,9 +742,59 @@ export default function MultiLevelMapViewer({
                     <Save size={14} /> {isSaving ? 'Guardando...' : 'Guardar en Mis Tierras'}
                   </button>
 
+                  {/* Panel de Handoff Post-Guardado */}
                   {saveSuccess && (
-                    <div style={{ color: '#4ade80', fontSize: '0.74rem', marginTop: '6px', textAlign: 'center', fontWeight: 600 }}>
-                      ✓ Guardado exitosamente en tu Cuaderno de Campo.
+                    <div style={{
+                      marginTop: '10px',
+                      padding: '10px',
+                      background: 'rgba(16, 185, 129, 0.18)',
+                      border: '1px solid #10b981',
+                      borderRadius: '8px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '6px'
+                    }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#86efac', fontWeight: 700, fontSize: '0.78rem' }}>
+                        <CheckCircle2 size={16} color="#4ade80" />
+                        <span>¡Parcela guardada con éxito!</span>
+                      </div>
+                      <div style={{ fontSize: '0.72rem', color: '#cbd5e1' }}>
+                        <b>{savedParcelInfo?.name || parcelName}</b> ({savedParcelInfo?.area || calculatedAreaHa} ha) se vinculó a tu finca.
+                      </div>
+                      <div style={{ display: 'flex', gap: '6px', marginTop: '4px' }}>
+                        <Link
+                          href="/dashboard/tierras"
+                          style={{
+                            flex: 1,
+                            textAlign: 'center',
+                            padding: '6px 8px',
+                            background: '#0284c7',
+                            color: '#fff',
+                            borderRadius: '6px',
+                            fontSize: '0.72rem',
+                            fontWeight: 600,
+                            textDecoration: 'none'
+                          }}
+                        >
+                          🚜 Mis Fincas
+                        </Link>
+                        <Link
+                          href={successRedirectUrl || `/dashboard/recomendaciones?state=${selectedStateId}`}
+                          style={{
+                            flex: 1,
+                            textAlign: 'center',
+                            padding: '6px 8px',
+                            background: '#7c3aed',
+                            color: '#fff',
+                            borderRadius: '6px',
+                            fontSize: '0.72rem',
+                            fontWeight: 600,
+                            textDecoration: 'none'
+                          }}
+                        >
+                          ✨ Asesor IA
+                        </Link>
+                      </div>
                     </div>
                   )}
                 </div>

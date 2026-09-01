@@ -11,7 +11,8 @@ function MapaContent() {
   const searchParams = useSearchParams();
   const stateParam = searchParams.get('state') || 'portuguesa';
   const levelParam = parseInt(searchParams.get('level') || '1', 10) as MapLevel;
-  const initialMode = searchParams.get('mode') === 'multilevel' ? 'multilevel' : 'state';
+  const intentParam = searchParams.get('intent');
+  const initialMode = (searchParams.get('mode') === 'multilevel' || intentParam === 'draw') ? 'multilevel' : 'state';
   const [activeMode, setActiveMode] = useState<'state' | 'multilevel'>(initialMode);
 
   return (

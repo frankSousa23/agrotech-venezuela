@@ -29,7 +29,15 @@ import {
   UserPlus
 } from 'lucide-react';
 
-const NAV_GROUPS = [
+interface NavItem {
+  href: string;
+  label: string;
+  icon: React.ComponentType<{ size?: number; className?: string; color?: string }>;
+  badge?: string;
+  highlight?: boolean;
+}
+
+const NAV_GROUPS: { title: string; items: NavItem[] }[] = [
   {
     title: 'Fase 1: Identificación',
     items: [
@@ -54,7 +62,7 @@ const NAV_GROUPS = [
   }
 ];
 
-const ADVANCED_ITEMS = [
+const ADVANCED_ITEMS: NavItem[] = [
   { href: '/dashboard/estadisticas', label: 'Geoestadísticas', icon: BarChart3 },
   { href: '/dashboard/arquitectura', label: 'Arquitectura E2E', icon: Workflow, badge: 'E2E' },
 ];

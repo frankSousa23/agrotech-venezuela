@@ -34,6 +34,8 @@ function RecomendacionesContent() {
   const searchParams = useSearchParams();
   const stateQuery = searchParams.get('state');
   const phQuery = searchParams.get('ph');
+  const textureQuery = searchParams.get('soilTexture');
+  const cropQuery = searchParams.get('crop');
 
   const [recommendations, setRecommendations] = useState<any[]>([]);
   const [parcels, setParcels] = useState<any[]>([]);
@@ -44,7 +46,8 @@ function RecomendacionesContent() {
   const [selectedStateId, setSelectedStateId] = useState<string>(stateQuery || 'portuguesa');
   const [simPh, setSimPh] = useState<number>(phQuery ? parseFloat(phQuery) : 6.4);
   const [simOM, setSimOM] = useState<number>(3.2);
-  const [simTexture, setSimTexture] = useState<string>('Franco-limoso');
+  const [simTexture, setSimTexture] = useState<string>(textureQuery ? decodeURIComponent(textureQuery) : 'Franco-limoso');
+  const [hintCrop, setHintCrop] = useState<string | null>(cropQuery ? decodeURIComponent(cropQuery) : null);
   const [simAreaHa, setSimAreaHa] = useState<number>(10);
   const [simYearsUse, setSimYearsUse] = useState<number>(20);
 
@@ -160,7 +163,7 @@ function RecomendacionesContent() {
           title="Falta Delimitar Parcela"
           description="Para generar recomendaciones agronómicas con Gemini IA y cálculos climáticos, primero necesitamos saber exactamente dónde está tu terreno."
           actionLabel="Dibujar mi Parcela"
-          actionHref="/dashboard/mapa"
+          actionHref="/dashboard/mapa?mode=multilevel&intent=draw"
         />
       </div>
     );

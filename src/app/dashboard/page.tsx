@@ -131,7 +131,7 @@ export default function DashboardOverview() {
             <p className={styles.tipDesc}>
               Haz clic en &quot;Delimitar Parcela&quot; sobre la imagen satelital para trazar linderos y calcular el área en hectáreas.
             </p>
-            <Link href="/dashboard/mapa" className={styles.tipLink}>
+            <Link href="/dashboard/mapa?mode=multilevel&intent=draw" className={styles.tipLink}>
               <span>Probar Trazo</span> <ArrowRight size={14} />
             </Link>
           </div>

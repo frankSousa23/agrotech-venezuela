@@ -116,7 +116,7 @@ export default function BitacoraPage() {
           title="Falta Delimitar Parcela"
           description="Para llevar el cuaderno de campo y bitácora de cosechas, primero necesitamos saber exactamente dónde está tu terreno."
           actionLabel="Dibujar mi Parcela"
-          actionHref="/dashboard/mapa"
+          actionHref="/dashboard/mapa?mode=multilevel&intent=draw"
         />
       </div>
     );

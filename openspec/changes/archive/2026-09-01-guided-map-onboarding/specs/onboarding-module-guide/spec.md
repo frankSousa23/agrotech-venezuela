@@ -1,10 +1,4 @@
-# Capability: Onboarding Module Guide
-
-## Purpose
-
-Guides new and existing users through the 7 primary platform routes with purpose definitions, 3-step action walkthroughs, and direct routing.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: 7-Module Onboarding Guide Cards
 The landing page SHALL render structured onboarding guide cards for all core routes: WebGIS Multi-Scale, Mis Tierras & IoT, Cuaderno de Campo, Simulador & IA, Bonos de Carbono, Geoestadísticas, and API Docs.
@@ -16,6 +10,8 @@ The landing page SHALL render structured onboarding guide cards for all core rou
 #### Scenario: Exploring Future Technological Horizons
 - **WHEN** user scrolls to the future innovation section
 - **THEN** the interface outlines milestones for Hyperspectral imaging, LoRaWAN networks, Computer Vision pest diagnosis, and Blockchain carbon certificates.
+
+## ADDED Requirements
 
 ### Requirement: Intent-Driven Dashboard Step 2 Link
 The dashboard "Delimita tu Parcela" Step 2 card SHALL link to the map with drawing intent pre-set.

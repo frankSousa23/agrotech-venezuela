@@ -1,10 +1,4 @@
-# parcel-boundary-draw Specification
-
-## Purpose
-
-Enables precision drawing of parcel polygons on high-resolution satellite imagery with real-time geodetic metric calculation and database persistence.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Interactive Parcel Boundary Drawing
 The system SHALL provide interactive polygon drawing and vertex editing tools with real-time Shoelace WGS84 area in hectares and Haversine perimeter. After saving, the system SHALL display a success action panel with navigation options to continue to downstream views. Clicking the clear button SHALL reset all drawing state — including the parcel name field — to a clean initial state.
