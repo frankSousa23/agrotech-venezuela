@@ -29,6 +29,7 @@ import {
   Map as MapIcon
 } from 'lucide-react';
 import EmptyStateCard from '@/components/ui/EmptyStateCard';
+import AgroTooltip from '@/components/ui/AgroTooltip';
 
 function RecomendacionesContent() {
   const searchParams = useSearchParams();
@@ -220,7 +221,13 @@ function RecomendacionesContent() {
 
           <div className={styles.controlGroup}>
             <label className={styles.controlLabel}>
-              <span>Acidez del Suelo (pH)</span>
+              <span>
+                Acidez del Suelo (pH)
+                <AgroTooltip 
+                  title="pH Edafológico"
+                  text="pH < 5.5 = Acidez alta (requiere cal). pH 5.8-6.8 = Rango óptimo de disponibilidad de nutrientes."
+                />
+              </span>
               <strong style={{ 
                 color: simPh < 5.5 ? '#ef4444' : simPh <= 6.5 ? '#f59e0b' : '#059669' 
               }}>{simPh.toFixed(1)}</strong>
@@ -239,7 +246,13 @@ function RecomendacionesContent() {
 
           <div className={styles.controlGroup}>
             <label className={styles.controlLabel}>
-              <span>Materia Orgánica (%)</span>
+              <span>
+                Materia Orgánica (%)
+                <AgroTooltip 
+                  title="Materia Orgánica (MO)"
+                  text="Contenido biológico y húmico. Valores > 3% mejoran la retención de agua y carbono."
+                />
+              </span>
               <strong style={{ color: '#8c5836' }}>{simOM.toFixed(1)}%</strong>
             </label>
             <input 
@@ -256,7 +269,13 @@ function RecomendacionesContent() {
 
           <div className={styles.controlGroup}>
             <label className={styles.controlLabel}>
-              <span>Superficie de Parcela</span>
+              <span>
+                Superficie de Parcela
+                <AgroTooltip 
+                  title="Área Gestionada"
+                  text="Superficie total en hectáreas para calcular toneladas de fertilizante y encalado."
+                />
+              </span>
               <strong style={{ color: '#0284c7' }}>{simAreaHa} ha</strong>
             </label>
             <input 
@@ -273,7 +292,13 @@ function RecomendacionesContent() {
 
           <div className={styles.controlGroup}>
             <label className={styles.controlLabel}>
-              <span>Uso Antrópico (MapBiomas)</span>
+              <span>
+                Uso Antrópico (MapBiomas)
+                <AgroTooltip 
+                  title="Historial de Cultivo"
+                  text="Años continuos en agricultura detectados por satélite (1985-2024)."
+                />
+              </span>
               <strong style={{ color: simYearsUse > 20 ? '#ef4444' : simYearsUse > 10 ? '#f59e0b' : '#059669' }}>
                 {simYearsUse} años
               </strong>
@@ -476,8 +501,12 @@ function RecomendacionesContent() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#38bdf8', fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase' }}>
                 <Waves size={16} /> Agroclimatología Predictiva
               </div>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 800, margin: '2px 0 0 0', color: '#f8fafc' }}>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 800, margin: '2px 0 0 0', color: '#f8fafc', display: 'flex', alignItems: 'center' }}>
                 Balance Hídrico & Grados Día de Crecimiento ({suitabilityResults[0]?.cropName || 'Maíz'})
+                <AgroTooltip 
+                  title="Grados Día (GDD) & Fenología"
+                  text="Acumulación diaria de unidades térmicas (Base 10°C) para anticipar fechas de espigamiento y cosecha."
+                />
               </h3>
             </div>
             <span style={{ fontSize: '0.72rem', background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', padding: '3px 10px', borderRadius: '999px', border: '1px solid #38bdf8', fontWeight: 600 }}>

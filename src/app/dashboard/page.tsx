@@ -1,6 +1,11 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import MapBiomasWrapper from '@/components/gis/MapBiomasWrapper';
 import Link from 'next/link';
 import styles from './page.module.css';
+import AgroTooltip from '@/components/ui/AgroTooltip';
+import QuickStartWizard from '@/components/ui/QuickStartWizard';
 import { 
   Compass, 
   MapPin, 
@@ -12,8 +17,28 @@ import {
 } from 'lucide-react';
 
 export default function DashboardOverview() {
+  const [showWizard, setShowWizard] = useState(false);
+
+  useEffect(() => {
+    fetch('/api/parcels')
+      .then(res => res.json())
+      .then(data => {
+        const isDismissed = localStorage.getItem('agrotech-quickstart-dismissed') === 'true';
+        if (Array.isArray(data) && data.length === 0 && !isDismissed) {
+          setShowWizard(true);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <div className={styles.dashboardOverview}>
+      {/* Welcome Quick-Start Wizard Modal */}
+      <QuickStartWizard 
+        isOpen={showWizard} 
+        onClose={() => setShowWizard(false)} 
+      />
+
       {/* Overview Header */}
       <header className={styles.header}>
         <div>
@@ -53,7 +78,13 @@ export default function DashboardOverview() {
             <MapPin size={22} />
           </div>
           <div className={styles.statContent}>
-            <div className={styles.statLabel}>Estados Agro-Mapeados</div>
+            <div className={styles.statLabel}>
+              Estados Agro-Mapeados
+              <AgroTooltip 
+                title="Cobertura Nacional"
+                text="24 entidades federales con análisis edafológico, radar SAR y clima histórico."
+              />
+            </div>
             <div className={styles.statNumber} style={{ color: '#059669' }}>24</div>
             <div className={styles.statMeta}>100% Territorio Continental</div>
           </div>
@@ -64,7 +95,13 @@ export default function DashboardOverview() {
             <FlaskConical size={22} />
           </div>
           <div className={styles.statContent}>
-            <div className={styles.statLabel}>Muestras Edafológicas GPS</div>
+            <div className={styles.statLabel}>
+              Muestras Edafológicas GPS
+              <AgroTooltip 
+                title="Fertilidad del Suelo"
+                text="Muestreos georreferenciados con pH, texturas, fósforo y Materia Orgánica."
+              />
+            </div>
             <div className={styles.statNumber} style={{ color: '#8c5836' }}>1,245</div>
             <div className={styles.statMeta}>Sur del Lago, Llanos, Andes, Oriente</div>
           </div>
@@ -75,7 +112,13 @@ export default function DashboardOverview() {
             <Sprout size={22} />
           </div>
           <div className={styles.statContent}>
-            <div className={styles.statLabel}>Aptitud de Cultivos Evaluados</div>
+            <div className={styles.statLabel}>
+              Aptitud de Cultivos
+              <AgroTooltip 
+                title="Algoritmo AHP"
+                text="Cálculo multicriterio de compatibilidad hídrica, térmica y edafológica."
+              />
+            </div>
             <div className={styles.statNumber} style={{ color: '#0284c7' }}>42</div>
             <div className={styles.statMeta}>Algoritmo Multicriterio AHP Activo</div>
           </div>
@@ -86,7 +129,13 @@ export default function DashboardOverview() {
             <Layers size={22} />
           </div>
           <div className={styles.statContent}>
-            <div className={styles.statLabel}>Serie Histórica Satelital</div>
+            <div className={styles.statLabel}>
+              Serie Histórica Satelital
+              <AgroTooltip 
+                title="MapBiomas Colección 3"
+                text="40 años de trayectoria de uso del suelo para entender la vocación de tu lote."
+              />
+            </div>
             <div className={styles.statNumber} style={{ color: '#7c3aed' }}>40 Años</div>
             <div className={styles.statMeta}>1985 – 2024 (Colección 3)</div>
           </div>
@@ -95,16 +144,27 @@ export default function DashboardOverview() {
 
       {/* Guía de Orientación Rápida */}
       <section className={styles.onboardingSection}>
-        <div className={styles.onboardingHeader}>
-          <div className={styles.onboardingBadge}>
-            <Sparkles size={14} /> Flujo de Trabajo Agro-Territorial
+        <div className={styles.onboardingHeader} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px' }}>
+          <div>
+            <div className={styles.onboardingBadge}>
+              <Sparkles size={14} /> Flujo de Trabajo Agro-Territorial
+            </div>
+            <h2 className={styles.onboardingTitle}>
+              ¿Cómo diagnosticar una parcela y generar su prescripción técnica?
+            </h2>
+            <p className={styles.onboardingSubtitle}>
+              Sigue estos 4 pasos guiados para generar el Gemelo Digital de tu lote agrícola:
+            </p>
           </div>
-          <h2 className={styles.onboardingTitle}>
-            ¿Cómo diagnosticar una parcela y generar su prescripción técnica?
-          </h2>
-          <p className={styles.onboardingSubtitle}>
-            Sigue estos 4 pasos guiados para generar el Gemelo Digital de tu lote agrícola:
-          </p>
+          <button 
+            type="button"
+            onClick={() => setShowWizard(true)}
+            className="btn-secondary"
+            style={{ fontSize: '0.8rem', padding: '8px 14px', borderColor: 'rgba(34, 197, 94, 0.5)', color: '#4ade80', display: 'flex', alignItems: 'center', gap: '6px' }}
+          >
+            <Sparkles size={15} />
+            <span>⚡ Asistente de Inicio (30s)</span>
+          </button>
         </div>
 
         <div className={styles.tipsGrid}>

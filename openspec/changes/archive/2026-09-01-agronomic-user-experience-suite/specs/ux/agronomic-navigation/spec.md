@@ -1,9 +1,4 @@
-# Agronomic Navigation Specification
-
-## Purpose
-Restructures the sidebar navigation to align with standard agronomic workflows (from parcel identification to AI insights) using non-technical terminology.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Agronomic Section Grouping
 The system SHALL organize the main navigation sidebar into logical agricultural phases: Identification, Diagnosis, and Operation.
@@ -17,7 +12,9 @@ The system SHALL use agronomy-focused terminology for navigation items instead o
 
 #### Scenario: Identifying core tools
 - **WHEN** the user looks for the WebGIS tool
-- **THEN** it is labeled as "Mapa Satelital" to be practical for non-technical producers
+- **THEN** it is labeled as "Mapa Satelital" to be immediately recognizable by non-technical producers
+
+## ADDED Requirements
 
 ### Requirement: Intent-Driven Navigation from Mis Tierras
 The "Delimitar Nueva Parcela" action in "Mis Tierras" (`/dashboard/tierras`) SHALL navigate with full drawing intent.

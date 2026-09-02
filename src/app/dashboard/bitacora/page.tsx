@@ -20,6 +20,7 @@ import {
   CheckCircle,
   TrendingUp,
   FileText,
+  Sparkles,
   Map as MapIcon
 } from 'lucide-react';
 
@@ -98,6 +99,21 @@ export default function BitacoraPage() {
     }
   };
 
+  const handleApplyTemplate = (template: {
+    logType: 'SIEMBRA' | 'ENCALADO' | 'FERTILIZACION' | 'RIEGO' | 'COSECHA' | 'OBSERVACION';
+    title: string;
+    description: string;
+    dosage: string;
+    yieldTonHa?: string;
+  }) => {
+    setLogType(template.logType);
+    setTitle(template.title);
+    setDescription(template.description);
+    setDosage(template.dosage);
+    setYieldTonHa(template.yieldTonHa || '');
+    setShowModal(true);
+  };
+
   const getBadgeColor = (type: string) => {
     switch (type) {
       case 'SIEMBRA': return { bg: 'rgba(34, 197, 94, 0.2)', text: '#4ade80' };
@@ -153,6 +169,130 @@ export default function BitacoraPage() {
         >
           <Plus size={18} /> Nueva Labor o Cosecha
         </button>
+      </div>
+
+      {/* Barra de Plantillas Rápidas Fenológicas (1 Clic) */}
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '8px',
+        background: 'rgba(15, 23, 42, 0.7)',
+        backdropFilter: 'blur(12px)',
+        border: '1px solid rgba(56, 189, 248, 0.25)',
+        borderRadius: '12px',
+        padding: '12px 16px',
+        marginBottom: '1rem'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
+          <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#38bdf8', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <Sparkles size={15} /> Plantillas Rápidas de Labores (1 Clic):
+          </div>
+          <div style={{ fontSize: '0.74rem', color: '#94a3b8' }}>
+            Haz clic en cualquier fase para pre-llenar la boleta de campo:
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          <button
+            type="button"
+            onClick={() => handleApplyTemplate({
+              logType: 'SIEMBRA',
+              title: 'Siembra Mecanizada & Fertilización de Fondo',
+              description: 'Siembra a 5.5 semillas/metro lineal con fertilizante NPK 12-24-12 localizado en banda.',
+              dosage: '250 kg/ha NPK 12-24-12 + 20 kg semilla/ha'
+            })}
+            style={{
+              padding: '6px 12px',
+              borderRadius: '8px',
+              border: '1px solid rgba(34, 197, 94, 0.4)',
+              background: 'rgba(34, 197, 94, 0.15)',
+              color: '#4ade80',
+              fontSize: '0.78rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '4px'
+            }}
+          >
+            🌱 1. Siembra & Fondo
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleApplyTemplate({
+              logType: 'ENCALADO',
+              title: 'Enmienda de Suelo con Cal Dolomítica',
+              description: 'Aplicación al voleo e incorporación con rastra para neutralizar acidez e incorporar Ca/Mg.',
+              dosage: '1,500 kg/ha Cal Dolomítica (CaCO3 + MgCO3)'
+            })}
+            style={{
+              padding: '6px 12px',
+              borderRadius: '8px',
+              border: '1px solid rgba(234, 179, 8, 0.4)',
+              background: 'rgba(234, 179, 8, 0.15)',
+              color: '#facc15',
+              fontSize: '0.78rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '4px'
+            }}
+          >
+            🧪 2. Encalado Pre-Siembra
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleApplyTemplate({
+              logType: 'FERTILIZACION',
+              title: 'Reabono Nitrogenado (Urea al estadio V6)',
+              description: 'Fertilización de cobertera con Urea perlada al 46% N en condición de suelo húmedo.',
+              dosage: '150 kg/ha Urea 46% N'
+            })}
+            style={{
+              padding: '6px 12px',
+              borderRadius: '8px',
+              border: '1px solid rgba(56, 189, 248, 0.4)',
+              background: 'rgba(56, 189, 248, 0.15)',
+              color: '#38bdf8',
+              fontSize: '0.78rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '4px'
+            }}
+          >
+            ⚡ 3. Reabono Urea V6
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleApplyTemplate({
+              logType: 'COSECHA',
+              title: 'Cosecha Mecanizada & Pesaje en Tolva',
+              description: 'Trilla mecanizada al 14% de humedad de grano y transporte a silo de acopio.',
+              dosage: 'Humedad Grano 14.2%',
+              yieldTonHa: '6.5'
+            })}
+            style={{
+              padding: '6px 12px',
+              borderRadius: '8px',
+              border: '1px solid rgba(168, 85, 247, 0.4)',
+              background: 'rgba(168, 85, 247, 0.15)',
+              color: '#c084fc',
+              fontSize: '0.78rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '4px'
+            }}
+          >
+            🌾 4. Cosecha & Rendimiento
+          </button>
+        </div>
       </div>
 
       {/* Listado de Entradas de la Bitácora */}

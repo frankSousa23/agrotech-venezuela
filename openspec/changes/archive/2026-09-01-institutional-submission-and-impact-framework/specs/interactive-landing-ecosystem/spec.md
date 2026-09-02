@@ -1,10 +1,4 @@
-# Capability: Interactive Landing Ecosystem
-
-## Purpose
-
-Presents an elevated, interactive landing page on the root route (`/`) showcasing the full-stack space-earth architecture, multi-region satellite demos, and role-based onboarding.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Elevated Landing Page Hero & Regional Simulator
 The root landing page SHALL render a hero section with mission statements, live statistics, and an interactive 4-region digital twin switcher (Turén, Sur del Lago, Andes, Amazonas).
@@ -16,6 +10,8 @@ The root landing page SHALL render a hero section with mission statements, live 
 #### Scenario: Navigating to Authentication and Quick Access
 - **WHEN** user clicks on the Login / Sandbox button in the navbar or hero CTAs
 - **THEN** the system navigates to `/auth/login` with access to the role switcher (Farmer, Agronomist, Admin, Guest).
+
+## ADDED Requirements
 
 ### Requirement: Institutional Postulation & Impact Showcase on Landing
 The landing page SHALL render a dedicated section featuring the project's institutional dossier link, TRL 7 verification, and SDG/ODS impact matrix.

@@ -1,10 +1,4 @@
-# Capability: Onboarding Module Guide
-
-## Purpose
-
-Guides new and existing users through the 7 primary platform routes with purpose definitions, 3-step action walkthroughs, and direct routing.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: 7-Module Onboarding Guide Cards
 The landing page SHALL render structured onboarding guide cards for all core routes: WebGIS Multi-Scale, Mis Tierras & IoT, Cuaderno de Campo, Simulador & IA, Bonos de Carbono, Geoestadísticas, and API Docs.
@@ -23,6 +17,8 @@ The dashboard "Delimita tu Parcela" Step 2 card SHALL link to the map with drawi
 #### Scenario: Clicking Step 2 from dashboard
 - **WHEN** the user clicks "Probar Trazo" on the dashboard Step 2 guide card
 - **THEN** the browser navigates to `/dashboard/mapa?mode=multilevel&intent=draw` so the map opens directly in Multi-Scale mode ready for parcel drawing
+
+## ADDED Requirements
 
 ### Requirement: Quick-Start Entry from Dashboard Guide
 The dashboard onboarding header SHALL include an explicit trigger button to re-open the Quick-Start Wizard at any time.

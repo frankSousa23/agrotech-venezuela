@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo } from 'react';
+import Link from 'next/link';
 import styles from './page.module.css';
 import CropModal from '@/components/forms/CropModal';
 import { 
@@ -10,7 +11,9 @@ import {
   Upload, 
   Droplets, 
   FlaskConical, 
-  Leaf
+  Leaf,
+  Sparkles,
+  ArrowRight
 } from 'lucide-react';
 
 export default function CultivosPage() {
@@ -228,6 +231,34 @@ export default function CultivosPage() {
                       }}
                     />
                   </div>
+                </div>
+
+                {/* Acción Directa: Simular en Asesor IA */}
+                <div style={{ marginTop: '12px', paddingTop: '10px', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
+                  <Link
+                    href={`/dashboard/recomendaciones?crop=${encodeURIComponent(crop.name)}&ph=${crop.idealPhMin || 6.2}`}
+                    style={{
+                      width: '100%',
+                      padding: '8px 12px',
+                      background: 'rgba(34, 197, 94, 0.15)',
+                      border: '1px solid rgba(34, 197, 94, 0.4)',
+                      borderRadius: '8px',
+                      color: '#4ade80',
+                      fontSize: '0.8rem',
+                      fontWeight: 600,
+                      textDecoration: 'none',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '6px',
+                      boxSizing: 'border-box'
+                    }}
+                    title={`Simular requerimientos edáficos para ${crop.name}`}
+                  >
+                    <Sparkles size={14} />
+                    <span>🌾 Simular {crop.name} en Mi Finca</span>
+                    <ArrowRight size={14} />
+                  </Link>
                 </div>
               </div>
             ))

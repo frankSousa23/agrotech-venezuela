@@ -116,12 +116,18 @@ export default function Home() {
             <Link href="/dashboard/estadisticas" className={styles.navLink}>
               📊 Geoestadísticas
             </Link>
+            <Link href="/dashboard/postulacion" className={styles.navLink} style={{ color: '#4ade80', fontWeight: 700 }}>
+              🏛️ Postulación TRL 7
+            </Link>
             <Link href="/api-docs" className={styles.navLink}>
               <FileCode2 size={16} /> API Docs
             </Link>
           </nav>
 
           <div className={styles.navActions} style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <Link href="/dashboard/postulacion" className="btn-secondary" style={{ padding: '0.55rem 1.1rem', fontSize: '0.85rem', borderColor: 'rgba(34, 197, 94, 0.4)', color: '#4ade80' }}>
+              <span>🏛️</span> Ficha Técnica
+            </Link>
             <Link href="/auth/login" className="btn-secondary" style={{ padding: '0.55rem 1.1rem', fontSize: '0.85rem' }}>
               <span>🚀</span> Iniciar Sesión / Demo
             </Link>
@@ -140,7 +146,7 @@ export default function Home() {
           <div className={styles.heroContent}>
             <div className={styles.awardBadge}>
               <Sparkles size={16} className={styles.awardIcon} />
-              <span>Premio MapBiomas Venezuela 2026 • Innovación Tecnológica & Ciencia Abierta</span>
+              <span>Iniciativa Agrotech Venezuela • Inteligencia Territorial & Ciencia Abierta (TRL 7)</span>
             </div>
 
             <h1 className={styles.heroTitle}>
@@ -157,11 +163,15 @@ export default function Home() {
                 <span>Explorar Visor WebGIS</span>
                 <ArrowRight size={18} />
               </Link>
-              <Link href="/auth/login" className="btn-secondary" style={{ padding: '0.9rem 2rem', fontSize: '1rem' }}>
-                <UserCheck size={20} style={{ color: '#38bdf8' }} />
-                <span>Selector de Roles & Demo</span>
+              <Link href="/dashboard/postulacion" className="btn-secondary" style={{ padding: '0.9rem 1.8rem', fontSize: '1rem', borderColor: 'rgba(34, 197, 94, 0.5)', color: '#4ade80' }}>
+                <span>🏛️</span>
+                <span>Ficha de Postulación</span>
               </Link>
-              <Link href="/dashboard/tierras" className="btn-accent" style={{ padding: '0.9rem 2rem', fontSize: '1rem' }}>
+              <Link href="/auth/login" className="btn-secondary" style={{ padding: '0.9rem 1.8rem', fontSize: '1rem' }}>
+                <UserCheck size={20} style={{ color: '#38bdf8' }} />
+                <span>Selector de Roles</span>
+              </Link>
+              <Link href="/dashboard/tierras" className="btn-accent" style={{ padding: '0.9rem 1.8rem', fontSize: '1rem' }}>
                 <Tractor size={20} />
                 <span>Mis Tierras & IoT</span>
               </Link>
@@ -536,6 +546,49 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Matriz de Impacto Social, Económico y ODS */}
+        <section className={styles.futureSection} style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+          <div className={styles.sectionHeader}>
+            <span className="badge-pill badge-emerald">IMPACTO & SOSTENIBILIDAD</span>
+            <h2>Alineación con Objetivos de Desarrollo Sostenible (ODS)</h2>
+            <p>Métricas de rentabilidad para el productor y mitigación climática en el campo venezolano.</p>
+          </div>
+
+          <div className={styles.futureGrid}>
+            <div className={`${styles.futureCard} glass-panel`} style={{ borderLeft: '4px solid #ef4444' }}>
+              <div className={styles.futureBadge}>ODS 1 • Fin de la Pobreza</div>
+              <h4>Barrera \$0 en Diagnóstico</h4>
+              <p>Democratización del acceso a diagnóstico edafoclimático para pequeños productores sin costo de laboratorio tradicional (\$150).</p>
+            </div>
+
+            <div className={`${styles.futureCard} glass-panel`} style={{ borderLeft: '4px solid #f59e0b' }}>
+              <div className={styles.futureBadge}>ODS 2 • Hambre Cero</div>
+              <h4>+75% Rendimiento en Granos</h4>
+              <p>Incremento del rendimiento del maíz de 3.5 t/ha a 6.2+ t/ha mediante corrección de acidez y nutrición balanceada NPK.</p>
+            </div>
+
+            <div className={`${styles.futureCard} glass-panel`} style={{ borderLeft: '4px solid #10b981' }}>
+              <div className={styles.futureBadge}>ODS 12 • Producción Responsable</div>
+              <h4>-40% Pérdida de Fertilizantes</h4>
+              <p>Neutralización del aluminio intercambiable (Al³⁺) para evitar el desperdicio masivo de insumos y contaminación de cuencas.</p>
+            </div>
+
+            <div className={`${styles.futureCard} glass-panel`} style={{ borderLeft: '4px solid #0284c7' }}>
+              <div className={styles.futureBadge}>ODS 13 • Acción por el Clima</div>
+              <h4>3.85 tCO₂e/ha/año Secuestradas</h4>
+              <p>Monitoreo satelital y certificación de carbono bajo metodologías IPCC Tier 2 / Verra VCS en sistemas agroforestales.</p>
+            </div>
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
+            <Link href="/dashboard/postulacion" className="btn-secondary" style={{ padding: '0.8rem 2rem', fontSize: '0.9rem', borderColor: 'rgba(56, 189, 248, 0.4)', color: '#38bdf8', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+              <span>🏛️</span>
+              <span>Consultar Ficha Técnica de Postulación Completa</span>
+              <ArrowRight size={16} />
+            </Link>
+          </div>
+        </section>
+
         {/* Future Technological Horizons Section */}
         <section className={styles.futureSection}>
           <div className={styles.sectionHeader}>
@@ -580,6 +633,9 @@ export default function Home() {
               <Link href="/dashboard/mapa" className="btn-accent" style={{ padding: '0.9rem 2.2rem', fontSize: '1rem' }}>
                 <span>🌱</span> Probar Visor Satelital WebGIS
               </Link>
+              <Link href="/dashboard/postulacion" className="btn-secondary" style={{ padding: '0.9rem 2rem', fontSize: '1rem', borderColor: 'rgba(34, 197, 94, 0.4)', color: '#4ade80' }}>
+                <span>🏛️</span> Ficha de Postulación TRL 7
+              </Link>
               <Link href="/auth/login" className="btn-secondary" style={{ padding: '0.9rem 2rem', fontSize: '1rem' }}>
                 <span>🚀</span> Iniciar Sesión / Demo Rápida
               </Link>
@@ -598,7 +654,7 @@ export default function Home() {
               <span style={{ fontSize: '1.1rem' }}>Agrotech Venezuela</span>
             </div>
             <p className={styles.footerDesc}>
-              Plataforma desarrollada para el <b>Premio a la Innovación Tecnológica con Datos de MapBiomas Venezuela</b>. Ciencia abierta, rigor geoespacial y soberanía productiva.
+              Plataforma tecnológica de vanguardia para la <b>Inteligencia Agro-Territorial con Datos de MapBiomas Venezuela</b>. Ciencia abierta, rigor geoespacial y soberanía productiva.
             </p>
           </div>
 
@@ -610,6 +666,7 @@ export default function Home() {
                 <li><Link href="/dashboard/tierras">Mis Tierras & IoT ESP32</Link></li>
                 <li><Link href="/dashboard/bitacora">Cuaderno de Campo Digital</Link></li>
                 <li><Link href="/dashboard/recomendaciones">Simulador Edafológico & IA</Link></li>
+                <li><Link href="/dashboard/postulacion">Ficha de Postulación & TRL 7</Link></li>
                 <li><Link href="/dashboard/estadisticas">Geoestadísticas Territoriales</Link></li>
               </ul>
             </div>

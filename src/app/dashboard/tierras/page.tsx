@@ -83,7 +83,7 @@ export default function TierrasPage() {
           </p>
         </div>
 
-        <Link href="/dashboard/mapa" className={styles.newParcelBtn}>
+        <Link href="/dashboard/mapa?mode=multilevel&intent=draw" className={styles.newParcelBtn}>
           <Plus size={18} /> Delimitar Nueva Parcela en WebGIS
         </Link>
       </div>
@@ -128,7 +128,7 @@ export default function TierrasPage() {
             title="Aún no tienes parcelas delimitadas"
             description="Tus lotes georreferenciados aparecerán aquí con su telemetría edafoclimática y acceso directo a Gemelos Digitales de Gemini AI."
             actionLabel="Abrir WebGIS & Delimitar Mi Primer Lote"
-            actionHref="/dashboard/mapa"
+            actionHref="/dashboard/mapa?mode=multilevel&intent=draw"
           />
         ) : (
           <div className={styles.parcelsGrid}>

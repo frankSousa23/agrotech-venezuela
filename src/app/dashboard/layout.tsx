@@ -26,6 +26,7 @@ import {
   LogIn,
   FileCode2,
   Workflow,
+  Building2,
   UserPlus
 } from 'lucide-react';
 
@@ -63,6 +64,7 @@ const NAV_GROUPS: { title: string; items: NavItem[] }[] = [
 ];
 
 const ADVANCED_ITEMS: NavItem[] = [
+  { href: '/dashboard/postulacion', label: 'Ficha de Postulación', icon: Building2, badge: 'TRL 7' },
   { href: '/dashboard/estadisticas', label: 'Geoestadísticas', icon: BarChart3 },
   { href: '/dashboard/arquitectura', label: 'Arquitectura E2E', icon: Workflow, badge: 'E2E' },
 ];

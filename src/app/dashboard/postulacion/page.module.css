@@ -1,0 +1,306 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 3rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.badgeRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.trlBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  color: #4ade80;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 9999px;
+}
+
+.title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  margin: 0;
+  line-height: 1.5;
+  max-width: 900px;
+}
+
+.heroCard {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.85) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 16px;
+  padding: 1.6rem;
+  box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.kpiBox {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kpiLabel {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.kpiValue {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #38bdf8;
+}
+
+.kpiMeta {
+  font-size: 0.72rem;
+  color: #cbd5e1;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 8px;
+}
+
+.sectionTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #f8fafc;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.tourGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.2rem;
+}
+
+.tourCard {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.tourCard:hover {
+  transform: translateY(-2px);
+  border-color: rgba(34, 197, 94, 0.5);
+}
+
+.tourStepBadge {
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.tourCardTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.tourCardDesc {
+  font-size: 0.82rem;
+  color: #cbd5e1;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.tourCardAction {
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.scienceGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.scienceCard {
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.scienceTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #4ade80;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+}
+
+.scienceFormula {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-family: monospace;
+  font-size: 0.76rem;
+  color: #facc15;
+  margin: 4px 0;
+}
+
+.scienceDesc {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.impactGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.impactCard {
+  background: rgba(15, 23, 42, 0.7);
+  border-radius: 12px;
+  padding: 1.2rem;
+  border-left: 4px solid #16a34a;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.impactOds {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #4ade80;
+  text-transform: uppercase;
+}
+
+.impactTitle {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.impactDesc {
+  font-size: 0.78rem;
+  color: #cbd5e1;
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* Light / Sunlight Mode overrides */
+:global([data-theme="light"]) .title {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .heroCard,
+:global([data-theme="light"]) .tourCard,
+:global([data-theme="light"]) .kpiBox,
+:global([data-theme="light"]) .scienceCard,
+:global([data-theme="light"]) .impactCard {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+:global([data-theme="light"]) .tourCardTitle,
+:global([data-theme="light"]) .sectionTitle,
+:global([data-theme="light"]) .impactTitle {
+  color: #0f172a;
+}
+
+:global([data-theme="light"]) .subtitle,
+:global([data-theme="light"]) .tourCardDesc,
+:global([data-theme="light"]) .scienceDesc,
+:global([data-theme="light"]) .impactDesc {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .scienceFormula {
+  background: #f1f5f9;
+  color: #b45309;
+}
+
+:global([data-theme="sunlight"]) .heroCard,
+:global([data-theme="sunlight"]) .tourCard,
+:global([data-theme="sunlight"]) .kpiBox,
+:global([data-theme="sunlight"]) .scienceCard,
+:global([data-theme="sunlight"]) .impactCard {
+  background: #000000;
+  border: 2px solid #ffd700;
+  color: #ffffff;
+}
+
+:global([data-theme="sunlight"]) .title,
+:global([data-theme="sunlight"]) .sectionTitle,
+:global([data-theme="sunlight"]) .tourCardTitle {
+  color: #ffd700;
+}
