@@ -24,6 +24,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import type { ActiveLayerType } from './LeafletMapInner';
+import MapLayerLegendOverlay from './MapLayerLegendOverlay';
 
 // Importación dinámica de Leaflet con SSR deshabilitado para Next.js App Router
 const LeafletMapInner = dynamic(() => import('./LeafletMapInner'), {
@@ -218,6 +219,13 @@ export default function MultiLevelMapViewer({
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: '640px', borderRadius: '16px', overflow: 'hidden', background: '#0b1329', border: '1px solid rgba(255,255,255,0.1)' }}>
+      <style>{`
+        @keyframes pulseDraw {
+          0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+          70% { box-shadow: 0 0 0 12px rgba(74, 222, 128, 0); }
+          100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+        }
+      `}</style>
       {/* 🧭 Barra Superior de Migas de Pan (Breadcrumb Navigation & Capas) */}
       <div style={{
         position: 'absolute',
@@ -631,7 +639,8 @@ export default function MultiLevelMapViewer({
                     padding: '8px',
                     background: isDrawing ? '#ef4444' : '#22c55e',
                     border: isDrawing ? '1px solid #ef4444' : '1px solid #4ade80',
-                    boxShadow: isDrawing ? '0 0 10px rgba(239, 68, 68, 0.5)' : '0 0 12px rgba(74, 222, 128, 0.5)',
+                    boxShadow: isDrawing ? '0 0 10px rgba(239, 68, 68, 0.5)' : (currentLevel === 3 ? 'none' : '0 0 12px rgba(74, 222, 128, 0.5)'),
+                    animation: (!isDrawing && currentLevel === 3) ? 'pulseDraw 2s infinite' : 'none',
                     borderRadius: '6px',
                     color: '#fff',
                     fontWeight: 700,
@@ -819,6 +828,9 @@ export default function MultiLevelMapViewer({
           onSelectMunicipality={handleSelectMunicipality}
           showSoilPoints={true}
         />
+        
+        {/* 🏷️ Leyenda Dinámica Flotante según Capa Activa */}
+        <MapLayerLegendOverlay activeLayer={activeLayer as any} />
         
         {/* Atribución Obligatoria MapBiomas (Premio 2026) */}
         <div style={{

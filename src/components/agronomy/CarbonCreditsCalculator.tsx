@@ -13,6 +13,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { Leaf } from 'lucide-react';
+import Tooltip from '@/components/layout/Tooltip';
 
 interface CarbonCreditsCalculatorProps {
   initialAreaHa?: number;
@@ -108,7 +109,11 @@ export default function CarbonCreditsCalculator({
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px' }}>
         {/* Superficie */}
         <div style={{ background: 'rgba(30, 41, 59, 0.6)', padding: '10px 12px', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-          <label style={{ fontSize: '0.74rem', color: '#94a3b8', display: 'block', marginBottom: '4px' }}>Superficie (ha):</label>
+          <label style={{ fontSize: '0.74rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '4px' }}>
+            <Tooltip content="El área en hectáreas de la parcela delimitada. Se usa para multiplicar el total de toneladas de carbono secuestradas.">
+              Superficie (ha):
+            </Tooltip>
+          </label>
           <input
             type="number"
             min="1"
@@ -130,7 +135,11 @@ export default function CarbonCreditsCalculator({
 
         {/* Materia Orgánica */}
         <div style={{ background: 'rgba(30, 41, 59, 0.6)', padding: '10px 12px', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-          <label style={{ fontSize: '0.74rem', color: '#94a3b8', display: 'block', marginBottom: '4px' }}>Materia Orgánica (%):</label>
+          <label style={{ fontSize: '0.74rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '4px' }}>
+            <Tooltip content="Materia orgánica actual del suelo. Influye directamente en la base de carbono capturado (SOC). Un mayor % significa suelo más rico y sano.">
+              Materia Orgánica (%):
+            </Tooltip>
+          </label>
           <input
             type="number"
             step="0.1"
@@ -153,7 +162,11 @@ export default function CarbonCreditsCalculator({
 
         {/* Manejo Agronómico */}
         <div style={{ background: 'rgba(30, 41, 59, 0.6)', padding: '10px 12px', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-          <label style={{ fontSize: '0.74rem', color: '#94a3b8', display: 'block', marginBottom: '4px' }}>Manejo del Suelo:</label>
+          <label style={{ fontSize: '0.74rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '4px' }}>
+            <Tooltip content="El manejo regenerativo o agroforestal aumenta significativamente el secuestro anual de CO2 en comparación con la labranza convencional.">
+              Manejo del Suelo:
+            </Tooltip>
+          </label>
           <select
             value={managementType}
             onChange={(e) => setManagementType(e.target.value as any)}
@@ -176,7 +189,11 @@ export default function CarbonCreditsCalculator({
 
         {/* Historial MapBiomas */}
         <div style={{ background: 'rgba(30, 41, 59, 0.6)', padding: '10px 12px', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-          <label style={{ fontSize: '0.74rem', color: '#94a3b8', display: 'block', marginBottom: '4px' }}>Transición Histórica (MapBiomas):</label>
+          <label style={{ fontSize: '0.74rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '4px' }}>
+            <Tooltip content="Extraído automáticamente de MapBiomas 1985-2024. Los créditos penalizan áreas deforestadas recientemente y bonifican la recuperación de pasturas degradadas.">
+              Transición Histórica (MapBiomas):
+            </Tooltip>
+          </label>
           <select
             value={mapbiomasTransition}
             onChange={(e) => setMapbiomasTransition(e.target.value)}

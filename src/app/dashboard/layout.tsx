@@ -8,6 +8,7 @@ import { useAuth } from '@/lib/auth/authContext';
 import ConnectivityStatusBadge from '@/components/layout/ConnectivityStatusBadge';
 import CommandPalette from '@/components/layout/CommandPalette';
 import SunlightThemeToggle from '@/components/layout/SunlightThemeToggle';
+import HelpModal from '@/components/layout/HelpModal';
 import { 
   LayoutDashboard, 
   Map as MapIcon, 
@@ -75,6 +76,11 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
   const { user, logout, isAuthenticated } = useAuth();
   const isGuest = user?.isGuest || user?.status === 'GUEST';
 
+  const handleLogout = () => {
+    logout();
+    window.location.href = '/auth/login';
+  };
+
   return (
     <div className={styles.dashboardContainer}>
       {/* Mobile Top Header */}
@@ -85,23 +91,21 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
         </Link>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <SunlightThemeToggle />
-          {isAuthenticated && (
-            <button 
-              onClick={logout}
-              title="Cerrar Sesión"
-              style={{ 
-                background: 'transparent', 
-                border: 'none', 
-                color: '#ef4444', 
-                cursor: 'pointer', 
-                padding: '4px',
-                display: 'flex',
-                alignItems: 'center'
-              }}
-            >
-              <LogOut size={20} />
-            </button>
-          )}
+          <button 
+            onClick={handleLogout}
+            title="Cerrar Sesión"
+            style={{ 
+              background: 'transparent', 
+              border: 'none', 
+              color: '#ef4444', 
+              cursor: 'pointer', 
+              padding: '4px',
+              display: 'flex',
+              alignItems: 'center'
+            }}
+          >
+            <LogOut size={20} />
+          </button>
           <button 
             id="btn_toggle_mobile_menu"
             className={styles.menuToggle} 
@@ -208,10 +212,30 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
             <div className={styles.statusItem}>
               <Radio size={12} className={styles.statusIcon} />
               <span>MapBiomas Col. 3</span>
+              <HelpModal 
+                title="Integración MapBiomas" 
+                content={
+                  <div>
+                    <p>Agrotech Venezuela integra espacialmente los datos históricos (1985-2024) de la iniciativa <strong>MapBiomas Venezuela</strong>.</p>
+                    <p>Esto permite a la IA y a la Calculadora de Carbono saber si el suelo fue bosque, pastura o si tiene vocación agrícola, ayudándote a mejorar la toma de decisiones sin necesidad de salir del sistema.</p>
+                  </div>
+                } 
+                iconOnly 
+              />
             </div>
             <div className={styles.statusItem}>
               <ShieldCheck size={12} className={styles.statusIcon} />
               <span>NASA POWER V2.0</span>
+              <HelpModal 
+                title="Clima NASA POWER" 
+                content={
+                  <div>
+                    <p>Los datos agroclimáticos se obtienen en tiempo real del proyecto <strong>NASA POWER</strong>.</p>
+                    <p>El sistema cruza esta información con los modelos predictivos para calcular el balance hídrico y las fechas óptimas de siembra de tu finca.</p>
+                  </div>
+                } 
+                iconOnly 
+              />
             </div>
           </div>
           <div style={{ marginTop: '8px', display: 'flex', justifyContent: 'center' }}>
@@ -295,6 +319,31 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
             <Home size={18} className={styles.navIcon} />
             <span className={styles.navLabel}>Volver a Portada</span>
           </Link>
+
+          {/* Botón de Cerrar Sesión (Final del Sidebar) */}
+          <button 
+            onClick={handleLogout}
+            className={styles.navItem}
+            style={{ 
+              marginTop: '1.2rem',
+              background: 'rgba(239, 68, 68, 0.1)', 
+              border: '1px solid rgba(239, 68, 68, 0.2)', 
+              color: '#f87171', 
+              cursor: 'pointer',
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+              fontWeight: 600,
+              padding: '10px 16px',
+              borderRadius: '8px',
+              textAlign: 'left',
+              boxSizing: 'border-box'
+            }}
+          >
+            <LogOut size={18} className={styles.navIcon} />
+            <span className={styles.navLabel}>Cerrar Sesión</span>
+          </button>
         </nav>
 
         {/* User Footer in Sidebar */}
@@ -356,28 +405,26 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
               </div>
             )}
             <SunlightThemeToggle />
-            {isAuthenticated && (
-              <button 
-                onClick={logout}
-                title="Cerrar Sesión"
-                style={{ 
-                  background: 'rgba(239, 68, 68, 0.1)', 
-                  border: '1px solid rgba(239, 68, 68, 0.2)', 
-                  color: '#f87171', 
-                  cursor: 'pointer', 
-                  padding: '6px 12px',
-                  borderRadius: '6px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  fontSize: '0.85rem',
-                  fontWeight: 500
-                }}
-              >
-                <LogOut size={16} />
-                <span>Salir</span>
-              </button>
-            )}
+            <button 
+              onClick={handleLogout}
+              title="Cerrar Sesión"
+              style={{ 
+                background: 'rgba(239, 68, 68, 0.1)', 
+                border: '1px solid rgba(239, 68, 68, 0.2)', 
+                color: '#f87171', 
+                cursor: 'pointer', 
+                padding: '6px 12px',
+                borderRadius: '6px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontSize: '0.85rem',
+                fontWeight: 500
+              }}
+            >
+              <LogOut size={16} />
+              <span>Salir</span>
+            </button>
           </div>
         </div>
 
