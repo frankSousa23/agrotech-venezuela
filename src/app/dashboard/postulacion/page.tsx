@@ -37,10 +37,13 @@ export default function PostulacionPage() {
             <ShieldCheck size={14} /> Nivel de Madurez TRL 7 (Sistema Validado en Entorno Real)
           </span>
           <span className="badge-pill badge-emerald">
-            <CheckCircle2 size={13} /> 89 Tests Automatizados Pasando (Jest / Pytest)
+            <CheckCircle2 size={13} /> 140 Tests Automatizados Pasando (89 Jest + 51 Pytest)
           </span>
           <span className="badge-pill badge-cyan">
             <Globe size={13} /> 24 Estados & 335 Municipios Activos
+          </span>
+          <span className="badge-pill badge-cyan" style={{ border: '1px solid rgba(56, 189, 248, 0.4)', color: '#38bdf8' }}>
+            <Compass size={13} /> Tour Demo 4 Pasos Disponible
           </span>
         </div>
 
@@ -116,8 +119,8 @@ export default function PostulacionPage() {
           <h2 className={styles.sectionTitle}>
             <Compass size={22} color="#38bdf8" /> Guía de Evaluación en 5 Minutos para el Jurado
           </h2>
-          <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
-            Ruta paso a paso para auditar la plataforma en vivo:
+          <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
+            Ruta paso a paso para auditar la plataforma en vivo (o pulsa <b>🎬 Tour Demo</b> en la barra superior para el recorrido interactivo guiado):
           </span>
         </div>
 

@@ -101,6 +101,23 @@ graph TD
 ### 8. Sistema de Temas & Modo Pleno Sol
 - Modos Claro, Oscuro y **Pleno Sol (Alto Contraste)** diseñados para operaciones de campo bajo alta luminosidad, cumpliendo con estándares WCAG AAA.
 
+### 9. Modo Demostración / Tour Guiado de 4 Pasos (`DemoTourModal`)
+- Acceso directo mediante el botón **`🎬 Tour Demo`** en la cabecera superior y barra móvil del Dashboard.
+- Recorrido interactivo guiado para comités técnicos, jurados y evaluadores que sintetiza los 4 pilares:
+  1. *Cartografía Nacional & Edafología MapBiomas*.
+  2. *Micro-Parcelas & Radar SAR Sentinel-1 Banda C All-Weather*.
+  3. *Prescripción con Gemini AI & Suelos*.
+  4. *Madurez TRL 7, MRV de Carbono & APIs OpenAPI*.
+
+### 10. Navegación Universal de Retorno & Ergonomía de Roles
+- Componente inteligente `BackButton` a prueba de fallos integrado en vistas standalone (`/api-docs`, `/auth/login`, `/auth/register`, `/dashboard/postulacion`, `/dashboard/arquitectura`) y en la barra móvil.
+- Retorno multinivel en el WebGIS (`← Volver a [Estado]` y `← Volver a Venezuela`).
+- Selector ágil de roles (1-Click Switcher: `FARMER`, `AGRONOMIST`, `ADMIN`, `GUEST`) para auditoría de permisos.
+
+### 11. Integración E2E Parcela ➔ Prescripción IA Directa
+- Botón **`✨ Prescripción IA`** en cada tarjeta de lote en `/dashboard/tierras`.
+- Transferencia fluida de parámetros geodésicos (`stateId`, `crop`, `parcelName`) hacia `/dashboard/recomendaciones`, activando la insignia de vinculación de parcela e inicializando el motor agronómico sin recaptura manual.
+
 ---
 
 ## 🚀 Despliegue y Ejecución Local
@@ -136,6 +153,20 @@ py -m streamlit run streamlit_app.py --server.headless true
 # Acceder a http://localhost:8501
 ```
 
+### 4. Despliegue Productivo con Docker & Google AI Studio
+El servicio web en `docker-compose.yml` está configurado con aislamiento de perfiles (`profiles: ["prod", "production"]`) para permitir ejecutar la base de datos y microservicios en Docker sin interferir con el puerto local 3000:
+
+```bash
+# Desarrollo local (inicia BD 5444, API 8000 y Streamlit 8501 en Docker; Web local con Turbopack)
+docker compose up -d
+npm run dev
+
+# Despliegue de producción completo en un solo comando
+docker compose --profile prod up -d --build
+```
+
+Consulte la plantilla documentada [`.env.production.example`](.env.production.example) para configurar llaves de Google Gemini en Google AI Studio, tokens JWT y credenciales seguras de PostgreSQL en servidores VPS o Cloud.
+
 ---
 
 ## 🧪 Validación y Pruebas Automatizadas (140 Tests)
@@ -149,7 +180,7 @@ npm test
 # 2. Verificación Estática TypeScript (0 errores obligatorios)
 npx tsc --noEmit
 
-# 3. Compilación de Producción (Next.js 16 Turbopack)
+# 3. Compilación de Producción (Next.js 16 Turbopack — 26 rutas limpias)
 npm run build
 
 # 4. Pruebas Backend Espacial, ML, IA y Carga (Pytest — 51 tests)

@@ -57,7 +57,7 @@ npm test
 # 2. Verificación de Tipos TypeScript (0 errores obligatorios)
 npx tsc --noEmit
 
-# 3. Compilación de Producción Next.js 16 Turbopack (25 rutas limpias)
+# 3. Compilación de Producción Next.js 16 Turbopack (26 rutas limpias)
 npm run build
 
 # 4. Pruebas de Backend Espacial, ML, IA y Carga (Pytest — 51 tests)

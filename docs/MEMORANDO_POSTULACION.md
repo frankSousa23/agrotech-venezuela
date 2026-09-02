@@ -29,10 +29,11 @@ TRL 1-3: Investigación Básica / Formulación de Hipótesis (Completado)
 TRL 4-5: Validación en Laboratorio / Prototipos Iniciales (Completado)
 TRL 6:   Demostración en Entorno Relevante (Completado)
 TRL 7:   DEMOSTRACIÓN DE SISTEMA OPERACIONAL INTEGRADO EN ENTORNO REAL (ESTADO ACTUAL)
-         • Plataforma WebGIS interactiva en Next.js 16 App Router con Turbopack.
-         • Backend espacial de microservicios en FastAPI y Python 3.13.
-         • Cobertura territorial completa para los 24 estados y más de 335 municipios.
-         • Suite de 89 pruebas unitarias e integrales automatizadas en Jest y Pytest.
+         • Plataforma WebGIS interactiva en Next.js 16 App Router con Turbopack (26 rutas limpias).
+         • Backend espacial de microservicios en FastAPI y Python 3.13 con 39 endpoints OpenAPI.
+         • Cobertura territorial completa para los 24 estados y 335 municipios venezolanos.
+         • Suite de 140 pruebas automatizadas (89 Jest Frontend/WebGIS + 51 Pytest Backend/ML/IA).
+         • Tour Demostrativo interactivo guiado en 4 pasos para auditoría técnica inmediata.
          • Resiliencia offline-first con SQLite WAL e IndexedDB para zonas rurales.
 ```
 

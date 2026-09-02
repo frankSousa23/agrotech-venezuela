@@ -84,16 +84,19 @@ Agrotech Venezuela es la primera plataforma integral que **elimina la fricción 
    - *Acción*: Pulsar el botón **"Generar Dictamen Técnico Completo"** y consultar al chat de Gemini.
    - *Narrativa*: "El agente Google Gemini genera una prescripción técnica estructurada recomendando fertilizantes disponibles en el mercado nacional y permitiendo descargar el Gemelo Digital en GeoJSON para maquinaria agrícola con piloto automático."
 
+💡 *Modalidad Express para Evaluadores*: El jurado puede pulsar directamente el botón **`🎬 Tour Demo`** en la barra superior del Dashboard para iniciar un recorrido interactivo guiado de 4 pasos que sintetiza la totalidad de la plataforma.
+
 ---
 
 ## 🛠️ 6. Stack Tecnológico de Nivel Empresarial
 
-- **Frontend WebGIS**: Next.js 16 (App Router con Turbopack), React 19, Leaflet, CSS Glassmorphism.
-- **Visualizador Interactivo**: Streamlit, Folium, Plotly Express.
+- **Frontend WebGIS**: Next.js 16 (App Router con Turbopack, 26 rutas limpias), React 19, Leaflet nativo, CSS Glassmorphism, PWA con cola de mutaciones IndexedDB.
+- **Visualizador Interactivo**: Streamlit 1.62, Folium, Plotly Express.
 - **Backend & ML**: Python 3.13, FastAPI, Scikit-Learn, NumPy, Google Earth Engine API, NASA POWER Client.
-- **Inteligencia Artificial**: Google Gemini API (`gemini-2.5-flash`).
-- **Base de Datos & Caché**: PostgreSQL 15 (Docker), Prisma ORM, SQLite WAL Mode.
-- **Calidad de Código**: 33 pruebas Pytest + 30 pruebas Jest (100% aprobadas), CI/CD con GitHub Actions.
+- **Inteligencia Artificial**: Google Gemini API (`gemini-1.5-flash` / `gemini-2.0-flash`) con memoria territorial y fallback edafológico determinista.
+- **Base de Datos & Caché**: PostgreSQL 15 (Docker), Prisma ORM, SQLite WAL Mode con hashing geodésico a 4 decimales.
+- **Calidad de Código**: **140 pruebas automatizadas (89 Jest Frontend/WebGIS + 51 Pytest Backend/ML/IA, 100% aprobadas)**, 0 errores TypeScript, CI/CD con GitHub Actions.
+- **Despliegue Productivo**: Aislamiento de puertos en Docker con perfiles (`profiles: ["prod", "production"]`) y plantilla exhaustiva `.env.production.example`.
 
 ---
 
