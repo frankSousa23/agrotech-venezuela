@@ -28,6 +28,12 @@ interface VenezuelaStateMapInnerProps {
   onSelectState: (stateId: string) => void;
 }
 
+// Límites geográficos oficiales de Venezuela WGS84 para confinamiento estricto
+const VENEZUELA_BOUNDS: L.LatLngBoundsLiteral = [
+  [0.6, -73.4],  // Suroeste (Amazonas / Frontera Colombia-Brasil)
+  [12.5, -59.8]  // Noreste (Fachada Atlántica / Paria / Delta)
+];
+
 // Función auxiliar para calcular colores según la capa activa
 function getStatePolygonStyle(
   state: StateGeoData, 
@@ -104,7 +110,10 @@ export default function VenezuelaStateMapInner({
   }, [selectedStateId, selectedState]);
 
   const mapZoom = useMemo(() => {
-    if (!selectedStateId || selectedStateId === 'all') return 6;
+    if (!selectedStateId || selectedStateId === 'all') {
+      if (typeof window !== 'undefined' && window.innerWidth < 640) return 5;
+      return 6;
+    }
     return 8;
   }, [selectedStateId]);
 
@@ -129,6 +138,9 @@ export default function VenezuelaStateMapInner({
     const map = L.map(containerRef.current, {
       center: mapCenter,
       zoom: mapZoom,
+      minZoom: 4.8,
+      maxBounds: VENEZUELA_BOUNDS,
+      maxBoundsViscosity: 1.0,
       zoomControl: true,
       scrollWheelZoom: true
     });

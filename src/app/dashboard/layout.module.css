@@ -310,6 +310,29 @@
   flex-direction: column;
 }
 
+/* Desktop Utility Bar */
+.desktopUtilityBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 8px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.stickyLogoutContainer {
+  margin-top: auto;
+  position: sticky;
+  bottom: 0;
+  background: var(--surface);
+  padding-top: 0.5rem;
+  z-index: 10;
+}
+
 .contentWrapper {
   max-width: 1440px;
   width: 100%;
@@ -328,6 +351,10 @@
 }
 
 @media (max-width: 768px) {
+  .desktopUtilityBar {
+    display: none !important;
+  }
+
   .mobileBar {
     display: flex;
   }

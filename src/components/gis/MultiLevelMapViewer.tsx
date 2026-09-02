@@ -21,7 +21,8 @@ import {
   CheckCircle2,
   Trash2,
   X,
-  ArrowRight
+  ArrowRight,
+  ArrowLeft
 } from 'lucide-react';
 import type { ActiveLayerType } from './LeafletMapInner';
 import MapLayerLegendOverlay from './MapLayerLegendOverlay';
@@ -210,11 +211,12 @@ export default function MultiLevelMapViewer({
     }
   };
 
-  // Coordenadas y Zoom según nivel
+  // Coordenadas y Zoom según nivel con adaptación para pantallas móviles
   const mapCenter = useMemo(() => {
-    if (currentLevel === 1) return { lat: 8.0, lng: -66.0, zoom: 6 };
-    if (currentLevel === 2) return { lat: currentState.center[0], lng: currentState.center[1], zoom: 9 };
-    return { lat: currentMunicipality.center[0], lng: currentMunicipality.center[1], zoom: 14 };
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+    if (currentLevel === 1) return { lat: 8.0, lng: -66.0, zoom: isMobile ? 5 : 6 };
+    if (currentLevel === 2) return { lat: currentState.center[0], lng: currentState.center[1], zoom: isMobile ? 8 : 9 };
+    return { lat: currentMunicipality.center[0], lng: currentMunicipality.center[1], zoom: isMobile ? 13 : 14 };
   }, [currentLevel, currentState, currentMunicipality]);
 
   return (
@@ -246,8 +248,33 @@ export default function MultiLevelMapViewer({
         gap: '8px',
         boxShadow: '0 8px 30px rgba(0,0,0,0.4)'
       }}>
-        {/* Breadcrumb */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem' }}>
+        {/* Breadcrumb & Retorno Rápido */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', flexWrap: 'wrap' }}>
+          {currentLevel > 1 && (
+            <button
+              id="btn_map_level_back"
+              onClick={() => setCurrentLevel(currentLevel === 3 ? 2 : 1)}
+              style={{
+                background: 'rgba(56, 189, 248, 0.2)',
+                border: '1px solid rgba(56, 189, 248, 0.5)',
+                color: '#38bdf8',
+                padding: '4px 10px',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                fontWeight: 700,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                transition: 'all 0.2s',
+                boxShadow: '0 2px 8px rgba(2, 132, 199, 0.25)'
+              }}
+              title={currentLevel === 3 ? `Volver a ${currentState.name}` : 'Volver al Mapa Nacional'}
+            >
+              <ArrowLeft size={14} />
+              <span>{currentLevel === 3 ? `Volver a ${currentState.name}` : 'Volver a Venezuela'}</span>
+            </button>
+          )}
+
           <button 
             id="btn_breadcrumb_national"
             onClick={() => setCurrentLevel(1)}

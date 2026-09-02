@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/authContext';
+import BackButton from '@/components/ui/BackButton';
 import styles from './page.module.css';
 import { Lock, Mail, ArrowRight, ShieldCheck, Sparkles, Loader2 } from 'lucide-react';
 
@@ -82,6 +83,9 @@ export default function LoginPage() {
   return (
     <div className={styles.authContainer}>
       <div className={styles.authCard}>
+        <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '0.8rem' }}>
+          <BackButton fallbackHref="/" label="Volver a Portada" />
+        </div>
         <div className={styles.authHeader}>
           <div className={styles.logoBadge}>🌾🛰️</div>
           <h1 className={styles.authTitle}>Agrotech Venezuela</h1>

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/authContext';
+import BackButton from '@/components/ui/BackButton';
 import styles from '../login/page.module.css';
 import { VENEZUELA_STATES_DATA } from '@/lib/geo/venezuelaData';
 import { UserPlus, Mail, Lock, User, Phone, MapPin, ArrowRight } from 'lucide-react';
@@ -70,6 +71,9 @@ export default function RegisterPage() {
   return (
     <div className={styles.authContainer}>
       <div className={styles.authCard}>
+        <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '0.8rem' }}>
+          <BackButton fallbackHref="/auth/login" label="Volver a Iniciar Sesión" />
+        </div>
         <div className={styles.authHeader}>
           <div className={styles.logoBadge}>🌱🚜</div>
           <h1 className={styles.authTitle}>Registro de Productor</h1>

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import BackButton from '@/components/ui/BackButton';
 import styles from './page.module.css';
 import { 
   Building2, 
@@ -25,6 +26,10 @@ import {
 export default function PostulacionPage() {
   return (
     <div className={styles.container}>
+      <div style={{ marginBottom: '1rem' }}>
+        <BackButton fallbackHref="/dashboard" label="Volver al Dashboard" />
+      </div>
+
       {/* Header */}
       <header className={styles.header}>
         <div className={styles.badgeRow}>

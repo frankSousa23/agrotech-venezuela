@@ -33,10 +33,11 @@ import AgroTooltip from '@/components/ui/AgroTooltip';
 
 function RecomendacionesContent() {
   const searchParams = useSearchParams();
-  const stateQuery = searchParams.get('state');
+  const stateQuery = searchParams.get('state') || searchParams.get('stateId');
   const phQuery = searchParams.get('ph');
   const textureQuery = searchParams.get('soilTexture');
   const cropQuery = searchParams.get('crop');
+  const parcelNameQuery = searchParams.get('parcelName');
 
   const [recommendations, setRecommendations] = useState<any[]>([]);
   const [parcels, setParcels] = useState<any[]>([]);
@@ -182,6 +183,22 @@ function RecomendacionesContent() {
           <p className={styles.subtitle}>
             Cálculo de compatibilidad botánica, dosificación de encalado (CaCO₃), fertilización N-P-K y dictamen de Gemini AI.
           </p>
+          {parcelNameQuery && (
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              marginTop: '10px',
+              padding: '6px 14px',
+              background: 'rgba(56, 189, 248, 0.15)',
+              border: '1px solid rgba(56, 189, 248, 0.4)',
+              borderRadius: '20px',
+              fontSize: '0.85rem',
+              color: '#38bdf8'
+            }}>
+              <Sparkles size={14} color="#38bdf8" /> Vinculado a parcela: <b>{decodeURIComponent(parcelNameQuery)}</b>
+            </div>
+          )}
         </div>
       </header>
 

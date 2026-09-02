@@ -60,8 +60,9 @@ services:
     networks:
       - agrotech-network
 
-  # 4. Plataforma WebGIS Principal Next.js 16
+  # 4. Plataforma WebGIS Principal Next.js 16 (Perfil de Producción)
   agrotech-web:
+    profiles: ["prod", "production"]
     build:
       context: .
       dockerfile: Dockerfile

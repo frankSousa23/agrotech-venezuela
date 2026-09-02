@@ -168,6 +168,15 @@ export default function TierrasPage() {
                   </button>
 
                   <Link 
+                    href={`/dashboard/recomendaciones?stateId=${p.stateId}&crop=${encodeURIComponent(p.currentCrop || 'Maíz Blanco')}&parcelName=${encodeURIComponent(p.name)}`}
+                    className={styles.actionBtn}
+                    style={{ background: 'rgba(56, 189, 248, 0.15)', border: '1px solid rgba(56, 189, 248, 0.4)', color: '#38bdf8', flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}
+                    title="Obtener prescripción agronómica detallada con Gemini AI"
+                  >
+                    <Sparkles size={14} /> Prescripción IA
+                  </Link>
+
+                  <Link 
                     href={`/dashboard/mapa?state=${p.stateId}&level=3`} 
                     className={styles.actionBtn}
                     style={{ flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}

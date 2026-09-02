@@ -5,10 +5,13 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './layout.module.css';
 import { useAuth } from '@/lib/auth/authContext';
+import { DEMO_USERS } from '@/lib/auth/authUtils';
 import ConnectivityStatusBadge from '@/components/layout/ConnectivityStatusBadge';
 import CommandPalette from '@/components/layout/CommandPalette';
 import SunlightThemeToggle from '@/components/layout/SunlightThemeToggle';
 import HelpModal from '@/components/layout/HelpModal';
+import BackButton from '@/components/ui/BackButton';
+import DemoTourModal from '@/components/layout/DemoTourModal';
 import { 
   LayoutDashboard, 
   Map as MapIcon, 
@@ -73,7 +76,7 @@ const ADVANCED_ITEMS: NavItem[] = [
 function DashboardContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { user, logout, isAuthenticated } = useAuth();
+  const { user, login, logout, isAuthenticated } = useAuth();
   const isGuest = user?.isGuest || user?.status === 'GUEST';
 
   const handleLogout = () => {
@@ -81,30 +84,48 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
     window.location.href = '/auth/login';
   };
 
+  const handleSwitchRole = (targetRole: 'FARMER' | 'AGRONOMIST' | 'ADMIN') => {
+    const target = DEMO_USERS.find(u => u.role === targetRole);
+    if (target) {
+      login(`demo_token_${target.id}`, target);
+    }
+  };
+
   return (
     <div className={styles.dashboardContainer}>
       {/* Mobile Top Header */}
       <div className={styles.mobileBar}>
-        <Link href="/" className={styles.mobileLogo}>
-          <div className={styles.logoBadge}>🌱</div>
-          <span>Agrotech</span>
-        </Link>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {pathname !== '/dashboard' && (
+            <BackButton fallbackHref="/dashboard" label="" style={{ minHeight: '32px', padding: '4px 8px' }} />
+          )}
+          <Link href="/" className={styles.mobileLogo}>
+            <div className={styles.logoBadge}>🌱</div>
+            <span>Agrotech</span>
+          </Link>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <DemoTourModal />
           <SunlightThemeToggle />
           <button 
             onClick={handleLogout}
             title="Cerrar Sesión"
             style={{ 
-              background: 'transparent', 
-              border: 'none', 
+              background: 'rgba(239, 68, 68, 0.1)', 
+              border: '1px solid rgba(239, 68, 68, 0.3)', 
               color: '#ef4444', 
               cursor: 'pointer', 
-              padding: '4px',
+              padding: '4px 8px',
+              borderRadius: '6px',
               display: 'flex',
-              alignItems: 'center'
+              alignItems: 'center',
+              gap: '4px',
+              fontSize: '0.78rem',
+              fontWeight: 600
             }}
           >
-            <LogOut size={20} />
+            <LogOut size={16} />
+            <span>Salir</span>
           </button>
           <button 
             id="btn_toggle_mobile_menu"
@@ -127,8 +148,8 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
 
       {/* Sidebar Navigation */}
       <aside className={`${styles.sidebar} ${mobileOpen ? styles.sidebarOpen : ''}`}>
-        <div className={styles.brandArea}>
-          <Link href="/" className={styles.logo}>
+        <div className={styles.brandArea} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Link href="/" className={styles.logo} onClick={() => setMobileOpen(false)}>
             <div className={styles.logoIconContainer}>
               <Sprout size={24} className={styles.logoSprout} />
             </div>
@@ -137,69 +158,160 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
               <div className={styles.brandSubtitle}>VENEZUELA • MAPBIOMAS</div>
             </div>
           </Link>
+          {mobileOpen && (
+            <button
+              onClick={() => setMobileOpen(false)}
+              aria-label="Cerrar menú"
+              style={{
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                color: '#94a3b8',
+                cursor: 'pointer',
+                padding: '6px',
+                borderRadius: '6px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <X size={18} />
+            </button>
+          )}
         </div>
 
-        {/* User Session Pill */}
+        {/* User Session Pill & Role Indicator */}
         <div style={{
-          margin: '0 1rem 0.8rem 1rem',
-          padding: '8px 12px',
+          padding: '10px 12px',
           background: isGuest ? 'rgba(234, 179, 8, 0.15)' : 'rgba(30, 41, 59, 0.7)',
           borderRadius: '10px',
           border: isGuest ? '1px solid rgba(234, 179, 8, 0.35)' : '1px solid rgba(255, 255, 255, 0.1)',
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between'
+          flexDirection: 'column',
+          gap: '8px'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <div style={{
-              width: 32,
-              height: 32,
-              borderRadius: '8px',
-              background: isGuest ? 'rgba(234, 179, 8, 0.25)' : 'rgba(34, 197, 94, 0.2)',
-              color: isGuest ? '#facc15' : '#22c55e',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: 700,
-              fontSize: '0.85rem'
-            }}>
-              {isGuest ? '🚀' : (user?.name ? user.name[0].toUpperCase() : 'P')}
-            </div>
-            <div style={{ overflow: 'hidden' }}>
-              <div style={{ fontSize: '0.82rem', fontWeight: 600, color: '#f8fafc', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
-                {user?.name || 'Productor Invitado'}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{
+                width: 32,
+                height: 32,
+                borderRadius: '8px',
+                background: isGuest ? 'rgba(234, 179, 8, 0.25)' : 'rgba(34, 197, 94, 0.2)',
+                color: isGuest ? '#facc15' : '#22c55e',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 700,
+                fontSize: '0.85rem'
+              }}>
+                {isGuest ? '🚀' : (user?.name ? user.name[0].toUpperCase() : 'P')}
               </div>
-              <div style={{ fontSize: '0.7rem', color: isGuest ? '#fde047' : '#94a3b8' }}>
-                {isGuest ? 'Modo Sandbox (Efímero)' : (user?.role === 'ADMIN' ? '🛡️ Administrador' : user?.role === 'AGRONOMIST' ? '🌱 Ing. Agrónomo' : '🌾 Productor Agrícola')}
+              <div style={{ overflow: 'hidden' }}>
+                <div style={{ fontSize: '0.82rem', fontWeight: 600, color: '#f8fafc', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
+                  {user?.name || 'Productor Invitado'}
+                </div>
+                <div style={{ fontSize: '0.7rem', color: isGuest ? '#fde047' : '#94a3b8' }}>
+                  {isGuest ? 'Modo Sandbox (Efímero)' : (user?.role === 'ADMIN' ? '🛡️ Administrador' : user?.role === 'AGRONOMIST' ? '🌱 Ing. Agrónomo' : '🌾 Productor Agrícola')}
+                </div>
               </div>
             </div>
+
+            {isAuthenticated ? (
+              <button 
+                onClick={handleLogout}
+                title="Cerrar Sesión"
+                style={{ 
+                  background: 'rgba(239, 68, 68, 0.15)', 
+                  border: '1px solid rgba(239, 68, 68, 0.3)', 
+                  color: '#ef4444', 
+                  cursor: 'pointer', 
+                  padding: '4px 6px',
+                  borderRadius: '4px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  fontSize: '0.72rem',
+                  gap: '2px'
+                }}
+              >
+                <LogOut size={13} />
+              </button>
+            ) : (
+              <Link 
+                href="/auth/login"
+                title="Iniciar Sesión"
+                style={{ color: '#4ade80', display: 'flex', alignItems: 'center' }}
+              >
+                <LogIn size={16} />
+              </Link>
+            )}
           </div>
 
-          {isAuthenticated ? (
-            <button 
-              onClick={logout}
-              title="Cerrar Sesión"
-              style={{ 
-                background: 'transparent', 
-                border: 'none', 
-                color: '#ef4444', 
-                cursor: 'pointer', 
-                padding: 4,
-                display: 'flex',
-                alignItems: 'center'
+          {/* Selector Rápido de Roles (1-Click Switcher para Pruebas) */}
+          <div style={{
+            display: 'flex',
+            gap: '4px',
+            padding: '4px',
+            background: 'rgba(15, 23, 42, 0.6)',
+            borderRadius: '6px',
+            border: '1px solid rgba(255, 255, 255, 0.06)'
+          }}>
+            <button
+              type="button"
+              onClick={() => handleSwitchRole('FARMER')}
+              title="Cambiar a Productor"
+              style={{
+                flex: 1,
+                padding: '3px 2px',
+                borderRadius: '4px',
+                border: user?.role === 'FARMER' && !isGuest ? '1px solid #16a34a' : 'none',
+                background: user?.role === 'FARMER' && !isGuest ? 'rgba(34, 197, 94, 0.25)' : 'transparent',
+                color: user?.role === 'FARMER' && !isGuest ? '#86efac' : '#94a3b8',
+                fontSize: '0.68rem',
+                cursor: 'pointer',
+                fontWeight: 600,
+                textAlign: 'center'
               }}
             >
-              <LogOut size={16} />
+              🚜 Prod
             </button>
-          ) : (
-            <Link 
-              href="/auth/login"
-              title="Iniciar Sesión"
-              style={{ color: '#4ade80', display: 'flex', alignItems: 'center' }}
+            <button
+              type="button"
+              onClick={() => handleSwitchRole('AGRONOMIST')}
+              title="Cambiar a Ingeniero Agrónomo"
+              style={{
+                flex: 1,
+                padding: '3px 2px',
+                borderRadius: '4px',
+                border: user?.role === 'AGRONOMIST' ? '1px solid #3b82f6' : 'none',
+                background: user?.role === 'AGRONOMIST' ? 'rgba(59, 130, 246, 0.25)' : 'transparent',
+                color: user?.role === 'AGRONOMIST' ? '#93c5fd' : '#94a3b8',
+                fontSize: '0.68rem',
+                cursor: 'pointer',
+                fontWeight: 600,
+                textAlign: 'center'
+              }}
             >
-              <LogIn size={16} />
-            </Link>
-          )}
+              🌱 Agrón
+            </button>
+            <button
+              type="button"
+              onClick={() => handleSwitchRole('ADMIN')}
+              title="Cambiar a Administrador"
+              style={{
+                flex: 1,
+                padding: '3px 2px',
+                borderRadius: '4px',
+                border: user?.role === 'ADMIN' ? '1px solid #38bdf8' : 'none',
+                background: user?.role === 'ADMIN' ? 'rgba(56, 189, 248, 0.25)' : 'transparent',
+                color: user?.role === 'ADMIN' ? '#7dd3fc' : '#94a3b8',
+                fontSize: '0.68rem',
+                cursor: 'pointer',
+                fontWeight: 600,
+                textAlign: 'center'
+              }}
+            >
+              🛡️ Admin
+            </button>
+          </div>
         </div>
 
         {/* Live Status & Connectivity Indicator */}
@@ -320,30 +432,31 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
             <span className={styles.navLabel}>Volver a Portada</span>
           </Link>
 
-          {/* Botón de Cerrar Sesión (Final del Sidebar) */}
-          <button 
-            onClick={handleLogout}
-            className={styles.navItem}
-            style={{ 
-              marginTop: '1.2rem',
-              background: 'rgba(239, 68, 68, 0.1)', 
-              border: '1px solid rgba(239, 68, 68, 0.2)', 
-              color: '#f87171', 
-              cursor: 'pointer',
-              width: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-              fontWeight: 600,
-              padding: '10px 16px',
-              borderRadius: '8px',
-              textAlign: 'left',
-              boxSizing: 'border-box'
-            }}
-          >
-            <LogOut size={18} className={styles.navIcon} />
-            <span className={styles.navLabel}>Cerrar Sesión</span>
-          </button>
+          {/* Botón de Cerrar Sesión Sticky (Final del Sidebar) */}
+          <div className={styles.stickyLogoutContainer}>
+            <button 
+              onClick={handleLogout}
+              className={styles.navItem}
+              style={{ 
+                background: 'rgba(239, 68, 68, 0.1)', 
+                border: '1px solid rgba(239, 68, 68, 0.2)', 
+                color: '#f87171', 
+                cursor: 'pointer',
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                fontWeight: 600,
+                padding: '10px 16px',
+                borderRadius: '8px',
+                textAlign: 'left',
+                boxSizing: 'border-box'
+              }}
+            >
+              <LogOut size={18} className={styles.navIcon} />
+              <span className={styles.navLabel}>Cerrar Sesión</span>
+            </button>
+          </div>
         </nav>
 
         {/* User Footer in Sidebar */}
@@ -357,20 +470,14 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
       
       {/* Main Content Area */}
       <main className={styles.mainContent}>
-        {/* Top Floating Utility Bar (Desktop) */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '12px 24px',
-          background: 'rgba(15, 23, 42, 0.65)',
-          backdropFilter: 'blur(12px)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-          marginBottom: '8px',
-          gap: '12px',
-          flexWrap: 'wrap'
-        }}>
-          <CommandPalette />
+        {/* Top Floating Utility Bar (Desktop - Se oculta en móviles automáticamente) */}
+        <div className={styles.desktopUtilityBar}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            {pathname !== '/dashboard' && (
+              <BackButton fallbackHref="/dashboard" label="Atrás" />
+            )}
+            <CommandPalette />
+          </div>
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             {isGuest && (
@@ -404,6 +511,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
                 </Link>
               </div>
             )}
+            <DemoTourModal />
             <SunlightThemeToggle />
             <button 
               onClick={handleLogout}

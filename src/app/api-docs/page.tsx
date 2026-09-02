@@ -13,6 +13,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import BackButton from '@/components/ui/BackButton';
 import { 
   FileCode2, 
   ExternalLink, 
@@ -62,6 +63,11 @@ export default function ApiDocsPage() {
 
   return (
     <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      {/* Barra de Retorno al Dashboard */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <BackButton fallbackHref="/dashboard" label="Volver al Dashboard" />
+      </div>
+
       {/* Cabecera Principal */}
       <div style={{
         display: 'flex',

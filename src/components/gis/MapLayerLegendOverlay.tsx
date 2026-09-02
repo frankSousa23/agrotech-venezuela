@@ -10,7 +10,7 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { ActiveMapLayer } from './VenezuelaStateMapInner';
 import { Layers, ChevronDown, ChevronUp, Info } from 'lucide-react';
 
@@ -20,6 +20,13 @@ interface MapLayerLegendOverlayProps {
 
 export default function MapLayerLegendOverlay({ activeLayer }: MapLayerLegendOverlayProps) {
   const [isExpanded, setIsExpanded] = useState(true);
+
+  // En pantallas móviles (< 768px), iniciar colapsado como píldora táctil para no tapar el mapa
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      setIsExpanded(false);
+    }
+  }, []);
 
   if (activeLayer === 'satellite' || activeLayer === 'dark') {
     return (
@@ -38,7 +45,8 @@ export default function MapLayerLegendOverlay({ activeLayer }: MapLayerLegendOve
         pointerEvents: 'auto',
         display: 'flex',
         alignItems: 'center',
-        gap: '6px'
+        gap: '6px',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.35)'
       }}>
         <Info size={12} color="#38bdf8" /> Capa: Satélite Esri HD (Resolución Espacial Submétrica)
       </div>
@@ -55,11 +63,11 @@ export default function MapLayerLegendOverlay({ activeLayer }: MapLayerLegendOve
       backdropFilter: 'blur(14px)',
       border: '1px solid rgba(255, 255, 255, 0.18)',
       borderRadius: '12px',
-      padding: isExpanded ? '10px 14px' : '6px 10px',
+      padding: isExpanded ? '10px 14px' : '6px 12px',
       color: '#fff',
       boxShadow: '0 6px 20px rgba(0,0,0,0.45)',
       fontSize: '0.75rem',
-      maxWidth: '280px',
+      maxWidth: isExpanded ? '280px' : 'fit-content',
       pointerEvents: 'auto',
       transition: 'all 0.25s ease'
     }}>

@@ -1,10 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { useAuth } from '@/lib/auth/authContext';
 import styles from './page.module.css';
 import { 
   ShieldCheck, 
+  ShieldAlert,
   Users, 
   UserCheck, 
   UserX, 
@@ -14,9 +16,9 @@ import {
   RefreshCw, 
   MapPin, 
   Mail, 
-  Phone,
-  Radio,
-  Server
+  Phone, 
+  Radio, 
+  Server 
 } from 'lucide-react';
 
 interface AdminUser {
@@ -87,6 +89,60 @@ export default function AdminPage() {
   };
 
   const pendingUsers = users.filter(u => u.status === 'PENDING');
+
+  // Guarda de rol estricta: Solo usuarios con rol 'ADMIN' pueden acceder
+  if (user && user.role !== 'ADMIN') {
+    return (
+      <div style={{
+        maxWidth: '620px',
+        margin: '3rem auto',
+        padding: '2.5rem 2rem',
+        background: 'rgba(15, 23, 42, 0.85)',
+        backdropFilter: 'blur(16px)',
+        border: '1px solid rgba(239, 68, 68, 0.3)',
+        borderRadius: '16px',
+        textAlign: 'center',
+        boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
+      }}>
+        <div style={{
+          width: 56,
+          height: 56,
+          borderRadius: '50%',
+          background: 'rgba(239, 68, 68, 0.15)',
+          color: '#ef4444',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          margin: '0 auto 1.25rem'
+        }}>
+          <ShieldAlert size={32} />
+        </div>
+        <h2 style={{ color: '#f8fafc', fontSize: '1.4rem', fontWeight: 700, margin: '0 0 0.5rem' }}>
+          Acceso Restringido a Administradores
+        </h2>
+        <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: 1.5, margin: '0 0 1.5rem' }}>
+          Esta vista está reservada exclusivamente para el rol <b>ADMIN</b>. Tu sesión actual ({user.name}) tiene asignado el rol <b>{user.role}</b>.
+        </p>
+        <Link
+          href="/dashboard"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            background: '#0284c7',
+            color: '#fff',
+            padding: '10px 20px',
+            borderRadius: '8px',
+            textDecoration: 'none',
+            fontWeight: 600,
+            fontSize: '0.9rem'
+          }}
+        >
+          Volver al Resumen General
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.adminContainer}>
