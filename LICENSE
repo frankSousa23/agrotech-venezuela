@@ -35,5 +35,11 @@ published under the **Creative Commons Attribution 4.0 International License (CC
   Wataniba y la Red Amazónica de Información Socioambiental Georreferenciada (RAISG).
 - **Official Portal**: https://venezuela.mapbiomas.org / https://plataforma.venezuela.mapbiomas.org
 
+### Uso e Integración de Datos (MapBiomas) en Agrotech
+Agrotech Venezuela no redistribuye ni modifica los datos originales de MapBiomas. El sistema **integra y consulta espacialmente** esta información geoespacial a través de algoritmos (como WebGIS Multi-Escala y Machine Learning) para:
+1. Identificar históricamente la vocación y el uso del suelo (LULC) en micro-parcelas agrícolas.
+2. Analizar tendencias de deforestación vs. expansión agrícola.
+3. Prescribir recomendaciones agronómicas precisas, cálculos de biomasa, secuestro de carbono (SOC) y viabilidad de cultivos con el objetivo fundamental de **mejorar los rendimientos de las siembras, optimizar recursos e impulsar prácticas agrícolas sostenibles y regenerativas en Venezuela**.
+
 All scientific credits, original rasters, and classification methodologies of MapBiomas
 belong to their respective authors and institutions under the CC BY 4.0 license.

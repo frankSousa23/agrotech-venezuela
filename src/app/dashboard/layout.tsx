@@ -85,6 +85,23 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
         </Link>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <SunlightThemeToggle />
+          {isAuthenticated && (
+            <button 
+              onClick={logout}
+              title="Cerrar Sesión"
+              style={{ 
+                background: 'transparent', 
+                border: 'none', 
+                color: '#ef4444', 
+                cursor: 'pointer', 
+                padding: '4px',
+                display: 'flex',
+                alignItems: 'center'
+              }}
+            >
+              <LogOut size={20} />
+            </button>
+          )}
           <button 
             id="btn_toggle_mobile_menu"
             className={styles.menuToggle} 
@@ -339,6 +356,28 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
               </div>
             )}
             <SunlightThemeToggle />
+            {isAuthenticated && (
+              <button 
+                onClick={logout}
+                title="Cerrar Sesión"
+                style={{ 
+                  background: 'rgba(239, 68, 68, 0.1)', 
+                  border: '1px solid rgba(239, 68, 68, 0.2)', 
+                  color: '#f87171', 
+                  cursor: 'pointer', 
+                  padding: '6px 12px',
+                  borderRadius: '6px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '0.85rem',
+                  fontWeight: 500
+                }}
+              >
+                <LogOut size={16} />
+                <span>Salir</span>
+              </button>
+            )}
           </div>
         </div>
 

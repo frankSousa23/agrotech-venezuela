@@ -162,3 +162,6 @@ cd backend && py -m pytest tests
 
 - **Código Fuente**: Licencia **MIT** (Copyright © 2026 Frank Sousa - Agrotech Venezuela).
 - **Datos de Cobertura y Uso del Suelo**: Referencian y construyen sobre la iniciativa **MapBiomas Venezuela** (Provita, LSIGMA USB, Wataniba y RAISG), disponible bajo licencia **Creative Commons Atribución 4.0 Internacional (CC BY 4.0)**.
+
+**Uso de MapBiomas en el Proyecto:** 
+Agrotech Venezuela integra los datos de cobertura vegetal de MapBiomas para comprender la evolución histórica del suelo (1985-2024). Esta información se procesa junto con datos climáticos (NASA POWER), radar SAR (Sentinel-1) y modelos de IA para generar **prescripciones agronómicas de alta precisión**. El objetivo de esta integración es ayudar al productor a elegir el cultivo adecuado, evaluar el secuestro de carbono y aplicar prácticas regenerativas, con el fin último de **mejorar la productividad de las siembras y garantizar la sostenibilidad agrícola**.
