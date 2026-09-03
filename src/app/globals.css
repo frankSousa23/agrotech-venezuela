@@ -117,9 +117,14 @@
 }
 
 /* 📱 Ergonomía Táctil en Dispositivos Móviles (< 640px) */
+/* 📱 Ergonomía Táctil en Dispositivos Móviles (< 640px) */
 @media (max-width: 640px) {
-  button, 
   .btn-primary,
+  .btn-secondary,
+  .btn-accent,
+  .actionBtn,
+  button[type="submit"],
+  button.btnAction,
   select,
   input[type="text"],
   input[type="number"],

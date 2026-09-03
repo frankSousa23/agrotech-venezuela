@@ -100,7 +100,7 @@ const TOUR_STEPS: TourStep[] = [
   }
 ];
 
-export default function DemoTourModal() {
+export default function DemoTourModal({ iconOnly = false }: { iconOnly?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -143,11 +143,12 @@ export default function DemoTourModal() {
           background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(56, 189, 248, 0.15) 100%)',
           border: '1px solid rgba(34, 197, 94, 0.4)',
           color: '#4ade80',
-          padding: '6px 12px',
+          padding: iconOnly ? '6px 8px' : '6px 12px',
           borderRadius: '8px',
           cursor: 'pointer',
           display: 'inline-flex',
           alignItems: 'center',
+          justifyContent: 'center',
           gap: '6px',
           fontSize: '0.8rem',
           fontWeight: 600,
@@ -157,7 +158,7 @@ export default function DemoTourModal() {
         aria-label="Abrir Tour Demostrativo"
       >
         <Compass size={15} color="#4ade80" />
-        <span>Tour Demo</span>
+        {!iconOnly && <span>Tour Demo</span>}
       </button>
 
       {isOpen && (

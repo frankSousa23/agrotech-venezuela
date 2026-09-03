@@ -105,8 +105,8 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
             <span>Agrotech</span>
           </Link>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <DemoTourModal />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <DemoTourModal iconOnly />
           <SunlightThemeToggle />
           <button 
             onClick={handleLogout}
@@ -116,17 +116,17 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
               border: '1px solid rgba(239, 68, 68, 0.3)', 
               color: '#ef4444', 
               cursor: 'pointer', 
-              padding: '4px 8px',
+              padding: '6px',
               borderRadius: '6px',
               display: 'flex',
               alignItems: 'center',
-              gap: '4px',
-              fontSize: '0.78rem',
-              fontWeight: 600
+              justifyContent: 'center',
+              width: '32px',
+              height: '32px'
             }}
+            aria-label="Cerrar Sesión"
           >
             <LogOut size={16} />
-            <span>Salir</span>
           </button>
           <button 
             id="btn_toggle_mobile_menu"

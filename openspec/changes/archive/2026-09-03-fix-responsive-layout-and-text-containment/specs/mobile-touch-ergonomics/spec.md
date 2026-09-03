@@ -1,10 +1,4 @@
-# mobile-touch-ergonomics Specification
-
-## Purpose
-
-Optimizes mobile and tablet touch ergonomics to ensure buttons, layer toggles, and form controls are easily pressable under outdoor field conditions.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Minimum 44px Touch Target Height
 The system SHALL provide primary action buttons, secondary CTAs, select menus, and form inputs with a minimum computed touch target of 44px on viewport widths below 640px, while strictly excluding inline micro-buttons, tooltip triggers, table mini-actions, and compact filter pills from vertical stretching.
@@ -31,10 +25,3 @@ The dashboard layout SHALL adapt cleanly across viewports, hiding redundant desk
 #### Scenario: Landing Page Header Mobile Containment
 - **WHEN** user loads the landing page on a mobile viewport narrower than 768px
 - **THEN** navigation links collapse behind the mobile drawer and action buttons display a single primary call-to-action without multi-line button text wrapping.
-
-### Requirement: Persistent and Sticky Logout Access
-The dashboard sidebar SHALL provide a sticky or consistently positioned Logout action reachable at all times across mobile and desktop viewport sizes.
-
-#### Scenario: Logout from Mobile Drawer
-- **WHEN** user opens the mobile navigation drawer
-- **THEN** the "Cerrar Sesión" button is visible and actionable without clipping or overflow.

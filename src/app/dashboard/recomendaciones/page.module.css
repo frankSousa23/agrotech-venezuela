@@ -212,8 +212,14 @@
 
 .cropsResultsGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 640px) {
+  .cropsResultsGrid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .cropResultCard {
@@ -230,12 +236,14 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 8px;
 }
 
 .cropName {
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--primary-dark);
+  overflow-wrap: break-word;
 }
 
 :global([data-theme="dark"]) .cropName {
@@ -254,6 +262,8 @@
   border-radius: var(--border-radius-full);
   font-size: 0.72rem;
   font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .cropYieldRow {

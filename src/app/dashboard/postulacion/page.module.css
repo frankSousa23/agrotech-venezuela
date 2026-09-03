@@ -205,11 +205,16 @@
   background: rgba(15, 23, 42, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 6px;
-  padding: 6px 10px;
+  padding: 8px 12px;
   font-family: monospace;
   font-size: 0.76rem;
   color: #facc15;
   margin: 4px 0;
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
 }
 
 .scienceDesc {

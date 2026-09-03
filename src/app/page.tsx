@@ -127,14 +127,14 @@ export default function Home() {
             </Link>
           </nav>
 
-          <div className={styles.navActions} style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-            <Link href="/dashboard/postulacion" className="btn-secondary" style={{ padding: '0.55rem 1.1rem', fontSize: '0.85rem', borderColor: 'rgba(34, 197, 94, 0.4)', color: '#4ade80' }}>
+          <div className={styles.navActions}>
+            <Link href="/dashboard/postulacion" className={`btn-secondary ${styles.navActionSecondary}`} style={{ padding: '0.55rem 1.1rem', fontSize: '0.85rem', borderColor: 'rgba(34, 197, 94, 0.4)', color: '#4ade80' }}>
               <span>🏛️</span> Ficha Técnica
             </Link>
-            <Link href="/auth/login" className="btn-secondary" style={{ padding: '0.55rem 1.1rem', fontSize: '0.85rem' }}>
+            <Link href="/auth/login" className={`btn-secondary ${styles.navActionSecondary}`} style={{ padding: '0.55rem 1.1rem', fontSize: '0.85rem' }}>
               <span>🚀</span> Iniciar Sesión / Demo
             </Link>
-            <Link href="/dashboard/mapa" className="btn-accent" style={{ padding: '0.55rem 1.1rem', fontSize: '0.85rem' }}>
+            <Link href="/dashboard/mapa" className="btn-accent" style={{ padding: '0.55rem 1.1rem', fontSize: '0.85rem', whiteSpace: 'nowrap' }}>
               <span>🗺️</span> Iniciar WebGIS
             </Link>
           </div>
