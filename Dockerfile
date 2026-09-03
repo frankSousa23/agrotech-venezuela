@@ -19,6 +19,7 @@ COPY . .
 
 # Environment variables must be present at build time
 # (We use build args in a real scenario, but for now we just build)
+ENV NEXT_OUTPUT_STANDALONE=true
 RUN npm run build
 
 # Production image, copy all the files and run next
