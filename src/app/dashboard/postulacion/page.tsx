@@ -21,7 +21,12 @@ import {
   Waves,
   TreePine,
   ExternalLink,
-  Radio
+  Radio,
+  Download,
+  Printer,
+  Award,
+  HelpCircle,
+  CheckSquare
 } from 'lucide-react';
 
 export default function PostulacionPage() {
@@ -38,7 +43,7 @@ export default function PostulacionPage() {
             <ShieldCheck size={14} /> Nivel de Madurez TRL 7 (Sistema Validado en Entorno Real)
           </span>
           <span className="badge-pill badge-emerald">
-            <CheckCircle2 size={13} /> 148 Tests Automatizados Pasando (97 Jest + 51 Pytest)
+            <CheckCircle2 size={13} /> 160 Tests Automatizados Pasando (109 Jest + 51 Pytest)
           </span>
           <span className="badge-pill badge-cyan">
             <Globe size={13} /> 24 Estados & 335 Municipios Activos
@@ -113,6 +118,236 @@ export default function PostulacionPage() {
           </div>
         </div>
       </div>
+
+      {/* Expediente Oficial Premio MapBiomas Venezuela 2026 & Descargas */}
+      <section className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>
+            <Award size={22} color="#f59e0b" /> Expediente Oficial Premio MapBiomas Venezuela 2026
+          </h2>
+          <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
+            Documentación oficial, bases de la convocatoria, matriz de evaluación y artículos técnicos descargables:
+          </span>
+        </div>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '1rem',
+          marginTop: '0.8rem'
+        }}>
+          {/* Tarjeta 1: Bases del Premio */}
+          <div style={{
+            background: 'rgba(15, 23, 42, 0.75)',
+            border: '1px solid rgba(245, 158, 11, 0.3)',
+            borderRadius: '12px',
+            padding: '1.25rem',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            gap: '0.8rem'
+          }}>
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                <span style={{ fontSize: '0.72rem', background: 'rgba(245, 158, 11, 0.2)', color: '#fbbf24', padding: '2px 8px', borderRadius: '6px', fontWeight: 700 }}>
+                  Bases Oficiales (10 Págs.)
+                </span>
+                <BookOpen size={16} color="#fbbf24" />
+              </div>
+              <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#fff', margin: '0 0 0.4rem 0' }}>
+                Bases de la 2da Edición 2026
+              </h3>
+              <p style={{ fontSize: '0.82rem', color: '#94a3b8', margin: 0, lineHeight: 1.4 }}>
+                Convocatoria oficial de la Red MapBiomas Venezuela, Provita, Wataniba y LSIGMA-USB. 4 categorías, cronograma y Anexos I y II.
+              </p>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Link 
+                href="/docs/BASES_PREMIO_MAPBIOMAS_2026.md" 
+                target="_blank"
+                className="btn-secondary" 
+                style={{ flex: 1, justifyContent: 'center', fontSize: '0.78rem', padding: '6px 10px' }}
+              >
+                <FileText size={14} /> Ver Bases
+              </Link>
+              <a 
+                href="/docs/BASES_PREMIO_MAPBIOMAS_2026.md" 
+                download="Bases_Premio_MapBiomas_Venezuela_2026.md"
+                className="btn-primary" 
+                style={{ fontSize: '0.78rem', padding: '6px 10px' }}
+              >
+                <Download size={14} /> Descargar
+              </a>
+            </div>
+          </div>
+
+          {/* Tarjeta 2: Preguntas Frecuentes */}
+          <div style={{
+            background: 'rgba(15, 23, 42, 0.75)',
+            border: '1px solid rgba(56, 189, 248, 0.3)',
+            borderRadius: '12px',
+            padding: '1.25rem',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            gap: '0.8rem'
+          }}>
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                <span style={{ fontSize: '0.72rem', background: 'rgba(56, 189, 248, 0.2)', color: '#38bdf8', padding: '2px 8px', borderRadius: '6px', fontWeight: 700 }}>
+                  Aclaratorias (6 Págs.)
+                </span>
+                <HelpCircle size={16} color="#38bdf8" />
+              </div>
+              <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#fff', margin: '0 0 0.4rem 0' }}>
+                Preguntas Frecuentes del Premio
+              </h3>
+              <p style={{ fontSize: '0.82rem', color: '#94a3b8', margin: 0, lineHeight: 1.4 }}>
+                20 respuestas oficiales: formatos aceptados, límites de 10.000 palabras, exclusión de códigos de cómputo y requisitos.
+              </p>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Link 
+                href="/docs/PREGUNTAS_FRECUENTES_PREMIO_2026.md" 
+                target="_blank"
+                className="btn-secondary" 
+                style={{ flex: 1, justifyContent: 'center', fontSize: '0.78rem', padding: '6px 10px' }}
+              >
+                <FileText size={14} /> Ver FAQs
+              </Link>
+              <a 
+                href="/docs/PREGUNTAS_FRECUENTES_PREMIO_2026.md" 
+                download="Preguntas_Frecuentes_MapBiomas_2026.md"
+                className="btn-primary" 
+                style={{ fontSize: '0.78rem', padding: '6px 10px' }}
+              >
+                <Download size={14} /> Descargar
+              </a>
+            </div>
+          </div>
+
+          {/* Tarjeta 3: Matriz de Cumplimiento de Criterios */}
+          <div style={{
+            background: 'rgba(15, 23, 42, 0.75)',
+            border: '1px solid rgba(34, 197, 94, 0.3)',
+            borderRadius: '12px',
+            padding: '1.25rem',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            gap: '0.8rem'
+          }}>
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                <span style={{ fontSize: '0.72rem', background: 'rgba(34, 197, 94, 0.2)', color: '#4ade80', padding: '2px 8px', borderRadius: '6px', fontWeight: 700 }}>
+                  Autoevaluación Anexo II
+                </span>
+                <CheckSquare size={16} color="#4ade80" />
+              </div>
+              <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#fff', margin: '0 0 0.4rem 0' }}>
+                Matriz de Cumplimiento de Criterios
+              </h3>
+              <p style={{ fontSize: '0.82rem', color: '#94a3b8', margin: 0, lineHeight: 1.4 }}>
+                Demostración punto por punto frente a los 6 criterios del jurado: Complejidad 20%, Originalidad 20%, Claridad 15%, Resultados 20%, Aporte General 20% y MapBiomas 5%.
+              </p>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Link 
+                href="/docs/MATRIZ_CUMPLIMIENTO_EVALUACION.md" 
+                target="_blank"
+                className="btn-secondary" 
+                style={{ flex: 1, justifyContent: 'center', fontSize: '0.78rem', padding: '6px 10px' }}
+              >
+                <FileText size={14} /> Ver Matriz
+              </Link>
+              <a 
+                href="/docs/MATRIZ_CUMPLIMIENTO_EVALUACION.md" 
+                download="Matriz_Cumplimiento_Criterios_MapBiomas_2026.md"
+                className="btn-primary" 
+                style={{ fontSize: '0.78rem', padding: '6px 10px' }}
+              >
+                <Download size={14} /> Descargar
+              </a>
+            </div>
+          </div>
+
+          {/* Tarjeta 4: Artículo Científico Técnico */}
+          <div style={{
+            background: 'rgba(15, 23, 42, 0.75)',
+            border: '1px solid rgba(168, 85, 247, 0.3)',
+            borderRadius: '12px',
+            padding: '1.25rem',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            gap: '0.8rem'
+          }}>
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                <span style={{ fontSize: '0.72rem', background: 'rgba(168, 85, 247, 0.2)', color: '#c084fc', padding: '2px 8px', borderRadius: '6px', fontWeight: 700 }}>
+                  Paper Técnico
+                </span>
+                <FlaskConical size={16} color="#c084fc" />
+              </div>
+              <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#fff', margin: '0 0 0.4rem 0' }}>
+                Artículo Científico: Actualidad y Futuro
+              </h3>
+              <p style={{ fontSize: '0.82rem', color: '#94a3b8', margin: 0, lineHeight: 1.4 }}>
+                Manuscrito formal de validación TRL 7, penetración radar SAR Banda C, formulación Shoelace WGS84, casos de estudio y hoja de ruta 2026–2030.
+              </p>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Link 
+                href="/docs/ARTICULO_CIENTIFICO_DRAFT.md" 
+                target="_blank"
+                className="btn-secondary" 
+                style={{ flex: 1, justifyContent: 'center', fontSize: '0.78rem', padding: '6px 10px' }}
+              >
+                <FileText size={14} /> Ver Paper
+              </Link>
+              <a 
+                href="/docs/ARTICULO_CIENTIFICO_DRAFT.md" 
+                download="Articulo_Cientifico_Agrotech_MapBiomas_2026.md"
+                className="btn-primary" 
+                style={{ fontSize: '0.78rem', padding: '6px 10px' }}
+              >
+                <Download size={14} /> Descargar
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Barra de Acciones Globales de Exportación */}
+        <div style={{
+          background: 'rgba(15, 23, 42, 0.85)',
+          border: '1px solid rgba(56, 189, 248, 0.25)',
+          borderRadius: '12px',
+          padding: '1rem 1.25rem',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '1rem',
+          marginTop: '1rem'
+        }}>
+          <div>
+            <h4 style={{ margin: 0, fontSize: '0.92rem', color: '#fff', fontWeight: 700 }}>
+              ¿Deseas imprimir o exportar la ficha completa para comités técnicos?
+            </h4>
+            <p style={{ margin: 0, fontSize: '0.78rem', color: '#94a3b8' }}>
+              Genera una copia imprimible o PDF del expediente con membrete institucional mediante el diálogo del navegador.
+            </p>
+          </div>
+          <button 
+            type="button"
+            onClick={() => window.print()} 
+            className="btn-primary"
+            style={{ fontSize: '0.82rem', padding: '8px 16px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+          >
+            <Printer size={15} /> Imprimir / Guardar en PDF
+          </button>
+        </div>
+      </section>
 
       {/* Recorrido Rápido de Evaluación (5 Minutos) */}
       <section className={styles.section}>

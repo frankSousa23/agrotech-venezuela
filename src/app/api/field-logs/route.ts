@@ -17,6 +17,7 @@
  */
 
 import { NextResponse } from 'next/server';
+import { extractUserFromRequest } from '@/lib/auth/authUtils';
 
 export interface InMemFieldLog {
   id: string;
@@ -104,22 +105,37 @@ export const IN_MEMORY_LOGS: InMemFieldLog[] = [
   }
 ];
 
+// Almacén aislado de labores por sesión de invitado (multi-guest isolation)
+export const GUEST_LOGS_MAP = new Map<string, InMemFieldLog[]>();
+
+export function getOrCreateGuestLogs(guestId: string): InMemFieldLog[] {
+  if (!GUEST_LOGS_MAP.has(guestId)) {
+    const cleanLogs: InMemFieldLog[] = IN_MEMORY_LOGS.slice(0, 3).map((l, idx) => ({
+      ...l,
+      id: `log-guest-${guestId.replace('usr-guest-', '')}-${idx + 1}`,
+      userId: guestId,
+      parcelId: idx === 2 ? `parc-guest-${guestId.replace('usr-guest-', '')}-2` : `parc-guest-${guestId.replace('usr-guest-', '')}-1`
+    }));
+    GUEST_LOGS_MAP.set(guestId, cleanLogs);
+  }
+  return GUEST_LOGS_MAP.get(guestId)!;
+}
+
 export async function GET(req: Request) {
   try {
+    const session = extractUserFromRequest(req);
     const { searchParams } = new URL(req.url);
-    const userId = searchParams.get('userId') || 'usr-farmer-01';
+    const requestedUserId = session ? session.id : (searchParams.get('userId') || 'usr-farmer-01');
     const parcelId = searchParams.get('parcelId');
+    const isGuest = session 
+      ? (session.isGuest || session.status === 'GUEST' || session.id.startsWith('usr-guest')) 
+      : requestedUserId.startsWith('usr-guest');
 
-    let logs = IN_MEMORY_LOGS.filter(l => l.userId === userId);
-
-    // Si es un invitado recién llegado sin logs propios, entregarle copia de muestra
-    if (logs.length === 0 && userId.startsWith('usr-guest')) {
-      const demoLogs: InMemFieldLog[] = IN_MEMORY_LOGS.slice(0, 3).map((l, idx) => ({
-        ...l,
-        id: `log-guest-${userId.replace('usr-guest-', '')}-${idx + 1}`,
-        userId: userId
-      }));
-      logs = demoLogs;
+    let logs: InMemFieldLog[];
+    if (isGuest) {
+      logs = getOrCreateGuestLogs(requestedUserId);
+    } else {
+      logs = IN_MEMORY_LOGS.filter(l => l.userId === requestedUserId);
     }
 
     if (parcelId) {
@@ -133,10 +149,11 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
+    const session = extractUserFromRequest(req);
     const body = await req.json();
     const {
       parcelId = 'parc-001',
-      userId = 'usr-farmer-01',
+      userId,
       logType = 'OBSERVACION',
       title,
       description,
@@ -149,10 +166,15 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Título y descripción requeridos' }, { status: 400 });
     }
 
+    const effectiveUserId = session ? session.id : (userId || 'usr-farmer-01');
+    const isGuest = session 
+      ? (session.isGuest || session.status === 'GUEST' || session.id.startsWith('usr-guest')) 
+      : effectiveUserId.startsWith('usr-guest');
+
     const newLog: InMemFieldLog = {
-      id: `log-${Date.now()}`,
+      id: `log-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
       parcelId,
-      userId,
+      userId: effectiveUserId,
       logType,
       title,
       description,
@@ -161,9 +183,50 @@ export async function POST(req: Request) {
       date
     };
 
+    if (isGuest) {
+      const guestLogs = getOrCreateGuestLogs(effectiveUserId);
+      guestLogs.unshift(newLog);
+      return NextResponse.json({ success: true, log: newLog }, { status: 201 });
+    }
+
     IN_MEMORY_LOGS.unshift(newLog);
     return NextResponse.json({ success: true, log: newLog }, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: 'Error al registrar entrada en el cuaderno de campo' }, { status: 500 });
+  }
+}
+
+export async function DELETE(req: Request) {
+  try {
+    const session = extractUserFromRequest(req);
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get('id');
+    if (!id) {
+      return NextResponse.json({ error: 'ID de registro requerido' }, { status: 400 });
+    }
+
+    const effectiveUserId = session ? session.id : (searchParams.get('userId') || 'usr-farmer-01');
+    const isGuest = session 
+      ? (session.isGuest || session.status === 'GUEST' || session.id.startsWith('usr-guest')) 
+      : effectiveUserId.startsWith('usr-guest');
+
+    if (isGuest) {
+      const guestLogs = getOrCreateGuestLogs(effectiveUserId);
+      const idx = guestLogs.findIndex(l => l.id === id);
+      if (idx !== -1) {
+        guestLogs.splice(idx, 1);
+        return NextResponse.json({ success: true, message: 'Registro eliminado exitosamente' });
+      }
+      return NextResponse.json({ error: 'Registro no encontrado' }, { status: 404 });
+    }
+
+    const idx = IN_MEMORY_LOGS.findIndex(l => l.id === id && l.userId === effectiveUserId);
+    if (idx !== -1) {
+      IN_MEMORY_LOGS.splice(idx, 1);
+      return NextResponse.json({ success: true, message: 'Registro eliminado exitosamente' });
+    }
+    return NextResponse.json({ error: 'Registro no encontrado' }, { status: 404 });
+  } catch (error) {
+    return NextResponse.json({ error: 'Error al eliminar registro de bitácora' }, { status: 500 });
   }
 }

@@ -47,25 +47,44 @@ export default function AdminPage() {
 
   const fetchUsers = () => {
     setLoading(true);
-    fetch('/api/admin/users')
-      .then(res => res.json())
+    const token = typeof window !== 'undefined' ? localStorage.getItem('agrotech_token') : null;
+    fetch('/api/admin/users', {
+      headers: {
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+      }
+    })
+      .then(res => {
+        if (!res.ok) throw new Error('No autorizado');
+        return res.json();
+      })
       .then(data => {
         setUsers(data.users || []);
         setStats(data.stats || { total: 0, pending: 0, approved: 0, rejected: 0 });
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch(() => {
+        setUsers([]);
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
-    fetchUsers();
-  }, []);
+    if (user?.role === 'ADMIN') {
+      fetchUsers();
+    } else {
+      setLoading(false);
+    }
+  }, [user]);
 
   const handleUpdateStatus = async (userId: string, newStatus: 'APPROVED' | 'REJECTED') => {
     try {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('agrotech_token') : null;
       const res = await fetch('/api/admin/users', {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+        },
         body: JSON.stringify({ userId, newStatus })
       });
       const data = await res.json();

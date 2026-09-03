@@ -19,6 +19,7 @@
  */
 
 import { NextResponse } from 'next/server';
+import { extractUserFromRequest } from '@/lib/auth/authUtils';
 
 export interface InMemParcel {
   id: string;
@@ -166,24 +167,48 @@ export const IN_MEMORY_PARCELS: InMemParcel[] = [
   }
 ];
 
+// Almacén aislado por sesión de invitado (multi-guest isolation)
+export const GUEST_PARCELS_MAP = new Map<string, InMemParcel[]>();
+
+export function getOrCreateGuestParcels(guestId: string): InMemParcel[] {
+  if (!GUEST_PARCELS_MAP.has(guestId)) {
+    // Inicializar siempre con réplica de datos de muestra prístina
+    const cleanSamples: InMemParcel[] = [
+      {
+        ...IN_MEMORY_PARCELS[0],
+        id: `parc-guest-${guestId.replace('usr-guest-', '')}-1`,
+        userId: guestId,
+        name: "Finca Demostración — Tablón Turén (Maíz)"
+      },
+      {
+        ...IN_MEMORY_PARCELS[1],
+        id: `parc-guest-${guestId.replace('usr-guest-', '')}-2`,
+        userId: guestId,
+        name: "Lote Demostración — Arroz Calabozo"
+      }
+    ];
+    GUEST_PARCELS_MAP.set(guestId, cleanSamples);
+  }
+  return GUEST_PARCELS_MAP.get(guestId)!;
+}
+
 export async function GET(req: Request) {
   try {
+    const session = extractUserFromRequest(req);
     const { searchParams } = new URL(req.url);
-    const userId = searchParams.get('userId') || 'usr-farmer-01';
+    const requestedUserId = session ? session.id : (searchParams.get('userId') || 'usr-farmer-01');
+    const isGuest = session 
+      ? (session.isGuest || session.status === 'GUEST' || session.id.startsWith('usr-guest')) 
+      : requestedUserId.startsWith('usr-guest');
 
-    let parcels = IN_MEMORY_PARCELS.filter(p => p.userId === userId);
-
-    // Si es un usuario invitado recién ingresado sin parcelas creadas aún, clonar datos de muestra
-    if (parcels.length === 0 && userId.startsWith('usr-guest')) {
-      const demoSamples: InMemParcel[] = IN_MEMORY_PARCELS.slice(0, 2).map((p, idx) => ({
-        ...p,
-        id: `parc-guest-${userId.replace('usr-guest-', '')}-${idx + 1}`,
-        userId: userId,
-        name: idx === 0 ? "Finca Demostración — Tablón Turén" : "Lote Demostración — Arroz Calabozo"
-      }));
-      parcels = demoSamples;
+    // Aislamiento estricto: los usuarios invitados solo acceden a su partición efímera
+    if (isGuest) {
+      const parcels = getOrCreateGuestParcels(requestedUserId);
+      return NextResponse.json(parcels);
     }
 
+    // Para productores autenticados registrados
+    const parcels = IN_MEMORY_PARCELS.filter(p => p.userId === requestedUserId);
     return NextResponse.json(parcels);
   } catch (error) {
     return NextResponse.json({ error: 'Error al consultar parcelas' }, { status: 500 });
@@ -192,9 +217,10 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
+    const session = extractUserFromRequest(req);
     const body = await req.json();
     const {
-      userId = 'usr-farmer-01',
+      userId,
       name,
       stateId = 'portuguesa',
       municipalityId = 'turen',
@@ -212,9 +238,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'El nombre de la parcela es obligatorio' }, { status: 400 });
     }
 
+    const effectiveUserId = session ? session.id : (userId || 'usr-farmer-01');
+    const isGuest = session 
+      ? (session.isGuest || session.status === 'GUEST' || session.id.startsWith('usr-guest')) 
+      : effectiveUserId.startsWith('usr-guest');
+
     const newParcel: InMemParcel = {
-      id: `parc-${Date.now()}`,
-      userId,
+      id: `parc-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+      userId: effectiveUserId,
       name,
       stateId,
       municipalityId,
@@ -229,9 +260,50 @@ export async function POST(req: Request) {
       createdAt: new Date().toISOString()
     };
 
+    if (isGuest) {
+      const guestList = getOrCreateGuestParcels(effectiveUserId);
+      guestList.unshift(newParcel);
+      return NextResponse.json({ success: true, parcel: newParcel }, { status: 201 });
+    }
+
     IN_MEMORY_PARCELS.unshift(newParcel);
     return NextResponse.json({ success: true, parcel: newParcel }, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: 'Error al guardar la parcela' }, { status: 500 });
+  }
+}
+
+export async function DELETE(req: Request) {
+  try {
+    const session = extractUserFromRequest(req);
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get('id');
+    if (!id) {
+      return NextResponse.json({ error: 'ID de parcela requerido' }, { status: 400 });
+    }
+
+    const effectiveUserId = session ? session.id : (searchParams.get('userId') || 'usr-farmer-01');
+    const isGuest = session 
+      ? (session.isGuest || session.status === 'GUEST' || session.id.startsWith('usr-guest')) 
+      : effectiveUserId.startsWith('usr-guest');
+
+    if (isGuest) {
+      const guestList = getOrCreateGuestParcels(effectiveUserId);
+      const idx = guestList.findIndex(p => p.id === id);
+      if (idx !== -1) {
+        guestList.splice(idx, 1);
+        return NextResponse.json({ success: true, message: 'Parcela eliminada exitosamente' });
+      }
+      return NextResponse.json({ error: 'Parcela no encontrada' }, { status: 404 });
+    }
+
+    const idx = IN_MEMORY_PARCELS.findIndex(p => p.id === id && p.userId === effectiveUserId);
+    if (idx !== -1) {
+      IN_MEMORY_PARCELS.splice(idx, 1);
+      return NextResponse.json({ success: true, message: 'Parcela eliminada exitosamente' });
+    }
+    return NextResponse.json({ error: 'Parcela no encontrada' }, { status: 404 });
+  } catch (error) {
+    return NextResponse.json({ error: 'Error al eliminar la parcela' }, { status: 500 });
   }
 }

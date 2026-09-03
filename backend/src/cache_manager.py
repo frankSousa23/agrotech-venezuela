@@ -24,11 +24,25 @@ class CacheManager:
         self._init_database()
 
     def _get_connection(self) -> sqlite3.Connection:
-        """Crea conexión con soporte WAL (Write-Ahead Logging) para alta concurrencia."""
-        conn = sqlite3.connect(self.db_path)
-        conn.execute("PRAGMA journal_mode = WAL")
-        conn.execute("PRAGMA synchronous = NORMAL")
-        return conn
+        """Crea conexión con soporte WAL (Write-Ahead Logging) para alta concurrencia con auto-recuperación."""
+        try:
+            conn = sqlite3.connect(self.db_path)
+            conn.execute("PRAGMA journal_mode = WAL")
+            conn.execute("PRAGMA synchronous = NORMAL")
+            return conn
+        except sqlite3.DatabaseError:
+            # En caso de imagen corrupta por apagado abrupto, recuperar automáticamente
+            for suffix in ["", "-wal", "-shm"]:
+                p = f"{self.db_path}{suffix}"
+                if os.path.exists(p):
+                    try:
+                        os.remove(p)
+                    except OSError:
+                        pass
+            conn = sqlite3.connect(self.db_path)
+            conn.execute("PRAGMA journal_mode = WAL")
+            conn.execute("PRAGMA synchronous = NORMAL")
+            return conn
 
     def _init_database(self):
         """Inicializa las tablas y los índices espaciales."""

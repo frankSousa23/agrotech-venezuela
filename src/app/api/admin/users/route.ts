@@ -1,8 +1,17 @@
 import { NextResponse } from 'next/server';
-import { DEMO_USERS } from '@/lib/auth/authUtils';
+import { DEMO_USERS, extractUserFromRequest } from '@/lib/auth/authUtils';
 
 export async function GET(req: Request) {
   try {
+    const session = extractUserFromRequest(req);
+    if (!session) {
+      return NextResponse.json({ error: 'No autorizado. Se requiere token de sesión.' }, { status: 401 });
+    }
+
+    if (session.role !== 'ADMIN') {
+      return NextResponse.json({ error: 'Acceso denegado. Se requiere rol de Administrador.' }, { status: 403 });
+    }
+
     const users = DEMO_USERS.map(u => ({
       id: u.id,
       email: u.email,
@@ -28,6 +37,15 @@ export async function GET(req: Request) {
 
 export async function PATCH(req: Request) {
   try {
+    const session = extractUserFromRequest(req);
+    if (!session) {
+      return NextResponse.json({ error: 'No autorizado. Se requiere token de sesión.' }, { status: 401 });
+    }
+
+    if (session.role !== 'ADMIN') {
+      return NextResponse.json({ error: 'Acceso denegado. Se requiere rol de Administrador.' }, { status: 403 });
+    }
+
     const body = await req.json();
     const { userId, newStatus } = body;
 

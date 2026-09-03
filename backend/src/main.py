@@ -72,10 +72,23 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# CORS para integración con Next.js y apps móviles
+import os
+
+# CORS con lista blanca de orígenes confiables (Next.js, Streamlit, local y producción)
+raw_allowed_origins = os.getenv("ALLOWED_ORIGINS", "")
+custom_origins = [o.strip() for o in raw_allowed_origins.split(",") if o.strip()]
+trusted_origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:8501",
+    "http://127.0.0.1:8501",
+    "https://agrotech.ve",
+    "http://localhost",
+] + custom_origins
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=trusted_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
