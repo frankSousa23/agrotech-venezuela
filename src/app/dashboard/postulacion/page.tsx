@@ -38,7 +38,7 @@ export default function PostulacionPage() {
             <ShieldCheck size={14} /> Nivel de Madurez TRL 7 (Sistema Validado en Entorno Real)
           </span>
           <span className="badge-pill badge-emerald">
-            <CheckCircle2 size={13} /> 144 Tests Automatizados Pasando (93 Jest + 51 Pytest)
+            <CheckCircle2 size={13} /> 148 Tests Automatizados Pasando (97 Jest + 51 Pytest)
           </span>
           <span className="badge-pill badge-cyan">
             <Globe size={13} /> 24 Estados & 335 Municipios Activos
