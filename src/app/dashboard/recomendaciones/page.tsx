@@ -26,10 +26,13 @@ import {
   MapPin,
   Clock,
   Waves,
-  Map as MapIcon
+  Map as MapIcon,
+  Volume2,
+  VolumeX
 } from 'lucide-react';
 import EmptyStateCard from '@/components/ui/EmptyStateCard';
 import AgroTooltip from '@/components/ui/AgroTooltip';
+import { useVoiceAssistant } from '@/lib/hooks/useVoiceAssistant';
 
 function RecomendacionesContent() {
   const searchParams = useSearchParams();
@@ -56,6 +59,7 @@ function RecomendacionesContent() {
   // Gemini Live Advisor en simulador
   const [aiAdvice, setAiAdvice] = useState<string | null>(null);
   const [isLoadingAi, setIsLoadingAi] = useState<boolean>(false);
+  const { isSpeaking, speak, stopSpeaking } = useVoiceAssistant();
 
   // Al cambiar de estado, sincronizar con los valores edafológicos promedio del estado
   const handleStateChange = (stateId: string) => {
@@ -491,9 +495,33 @@ function RecomendacionesContent() {
 
           {aiAdvice && (
             <div className={styles.aiResponseBox}>
-              <div className={styles.aiResponseHeader}>
-                <Sparkles size={16} color="#7c3aed" />
-                <strong>Dictamen Técnico de Gemini:</strong>
+              <div className={styles.aiResponseHeader} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <Sparkles size={16} color="#7c3aed" />
+                  <strong>Dictamen Técnico de Gemini:</strong>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => isSpeaking ? stopSpeaking() : speak(aiAdvice)}
+                  style={{
+                    background: isSpeaking ? 'rgba(239, 68, 68, 0.2)' : 'rgba(124, 58, 237, 0.2)',
+                    border: isSpeaking ? '1px solid #ef4444' : '1px solid rgba(124, 58, 237, 0.4)',
+                    color: isSpeaking ? '#f87171' : '#c084fc',
+                    padding: '4px 10px',
+                    borderRadius: '6px',
+                    fontSize: '0.78rem',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    fontWeight: 600
+                  }}
+                  title={isSpeaking ? 'Detener lectura' : 'Escuchar dictamen en voz alta'}
+                  aria-label="Escuchar dictamen en voz alta"
+                >
+                  {isSpeaking ? <VolumeX size={14} /> : <Volume2 size={14} />}
+                  <span>{isSpeaking ? 'Detener' : 'Escuchar en Voz'}</span>
+                </button>
               </div>
               <p className={styles.aiResponseText}>{aiAdvice}</p>
             </div>

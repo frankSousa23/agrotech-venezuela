@@ -6,6 +6,7 @@ import styles from './QuickStartWizard.module.css';
 import { VENEZUELA_STATES_DATA } from '@/lib/geo/venezuelaData';
 import { getMunicipalitiesByState } from '@/lib/geo/venezuelaMunicipalities';
 import { useAuth } from '@/lib/auth/authContext';
+import { useUIMode } from '@/lib/context/UIModeContext';
 import { 
   Sparkles, 
   X, 
@@ -40,6 +41,7 @@ export default function QuickStartWizard({
   onParcelCreated
 }: QuickStartWizardProps) {
   const { user } = useAuth();
+  const { isFarmerMode } = useUIMode();
   const [selectedStateId, setSelectedStateId] = useState<string>('portuguesa');
   const [selectedMunicipalityId, setSelectedMunicipalityId] = useState<string>('turen');
   const [selectedCrop, setSelectedCrop] = useState<string>(COMMON_CROPS[0]);
@@ -116,11 +118,15 @@ export default function QuickStartWizard({
         <div className={styles.header}>
           <div>
             <div className={styles.badge}>
-              <Sparkles size={13} /> Asistente de Inicio Rápido (30s)
+              <Sparkles size={13} /> {isFarmerMode ? 'Asistente de Inicio Fácil (30s)' : 'Asistente de Inicio Rápido (30s)'}
             </div>
-            <h2 className={styles.title}>¡Bienvenido, Colega Agrónomo!</h2>
+            <h2 className={styles.title}>
+              {isFarmerMode ? '¡Bienvenido, Amigo Productor!' : '¡Bienvenido, Colega Agrónomo!'}
+            </h2>
             <p className={styles.subtitle}>
-              Configuremos tu primera unidad de producción para activar de inmediato el radar satelital y el asesor de fertilización.
+              {isFarmerMode 
+                ? 'Vamos a anotar tu conuco o finca en 30 segundos para ver tu tierra en la foto satélite y saber cuánto abono necesitas.'
+                : 'Configuremos tu primera unidad de producción para activar de inmediato el radar satelital y el asesor de fertilización.'}
             </p>
           </div>
           <button className={styles.closeBtn} onClick={handleDismiss} title="Cerrar">
@@ -131,20 +137,24 @@ export default function QuickStartWizard({
         {!createdParcel ? (
           <form onSubmit={handleSubmit} className={styles.formGrid}>
             <div className={styles.fieldGroup}>
-              <label className={styles.label}>Nombre de tu Finca / Lote</label>
+              <label className={styles.label}>
+                {isFarmerMode ? 'Nombre de tu Finca o Conuco' : 'Nombre de tu Finca / Lote'}
+              </label>
               <input
                 type="text"
                 className={styles.input}
                 value={farmName}
                 onChange={e => setFarmName(e.target.value)}
-                placeholder="Ej. Tablón 1 — Hacienda Santa María"
+                placeholder={isFarmerMode ? 'Ej. Mi Conuco La Esperanza o Potrero 1' : 'Ej. Tablón 1 — Hacienda Santa María'}
                 required
               />
             </div>
 
             <div className={styles.row2}>
               <div className={styles.fieldGroup}>
-                <label className={styles.label}>Estado Agrícola</label>
+                <label className={styles.label}>
+                  {isFarmerMode ? 'Estado de Venezuela' : 'Estado Agrícola'}
+                </label>
                 <select
                   className={styles.select}
                   value={selectedStateId}
@@ -157,7 +167,9 @@ export default function QuickStartWizard({
               </div>
 
               <div className={styles.fieldGroup}>
-                <label className={styles.label}>Municipio / Polo</label>
+                <label className={styles.label}>
+                  {isFarmerMode ? 'Municipio o Pueblo' : 'Municipio / Polo'}
+                </label>
                 <select
                   className={styles.select}
                   value={selectedMunicipalityId}
@@ -172,7 +184,9 @@ export default function QuickStartWizard({
 
             <div className={styles.row2}>
               <div className={styles.fieldGroup}>
-                <label className={styles.label}>Cultivo Principal</label>
+                <label className={styles.label}>
+                  {isFarmerMode ? '¿Qué vas a sembrar?' : 'Cultivo Principal'}
+                </label>
                 <select
                   className={styles.select}
                   value={selectedCrop}
@@ -185,7 +199,9 @@ export default function QuickStartWizard({
               </div>
 
               <div className={styles.fieldGroup}>
-                <label className={styles.label}>Superficie (ha)</label>
+                <label className={styles.label}>
+                  {isFarmerMode ? 'Superficie aprox. (hectáreas)' : 'Superficie (ha)'}
+                </label>
                 <input
                   type="number"
                   step="0.1"
@@ -201,11 +217,15 @@ export default function QuickStartWizard({
             <div className={styles.actions}>
               <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
                 <Tractor size={18} />
-                <span>{isSubmitting ? 'Creando Parcela...' : '🚀 Crear Mi Finca en 1 Clic'}</span>
+                <span>
+                  {isSubmitting 
+                    ? 'Guardando Finca...' 
+                    : (isFarmerMode ? '🌱 Guardar mi Finca y Ver mi Tierra' : '🚀 Crear Mi Finca en 1 Clic')}
+                </span>
               </button>
 
               <button type="button" className={styles.skipBtn} onClick={handleDismiss}>
-                Explorar el sistema manualmente por mi cuenta
+                {isFarmerMode ? 'Cerrar y ver la pantalla principal' : 'Explorar el sistema manualmente por mi cuenta'}
               </button>
             </div>
           </form>

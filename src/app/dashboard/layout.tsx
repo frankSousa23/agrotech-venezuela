@@ -9,9 +9,12 @@ import { DEMO_USERS } from '@/lib/auth/authUtils';
 import ConnectivityStatusBadge from '@/components/layout/ConnectivityStatusBadge';
 import CommandPalette from '@/components/layout/CommandPalette';
 import SunlightThemeToggle from '@/components/layout/SunlightThemeToggle';
+import FarmerModeToggle from '@/components/layout/FarmerModeToggle';
+import { useUIMode } from '@/lib/context/UIModeContext';
 import HelpModal from '@/components/layout/HelpModal';
 import BackButton from '@/components/ui/BackButton';
 import DemoTourModal from '@/components/layout/DemoTourModal';
+import IntentionsModal from '@/components/layout/IntentionsModal';
 import { 
   LayoutDashboard, 
   Map as MapIcon, 
@@ -77,6 +80,7 @@ const ADVANCED_ITEMS: NavItem[] = [
 function DashboardContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [intentionsOpen, setIntentionsOpen] = useState(false);
   const { user, login, logout, isAuthenticated } = useAuth();
   const isGuest = user?.isGuest || user?.status === 'GUEST';
 
@@ -94,6 +98,12 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
 
   return (
     <div className={styles.dashboardContainer}>
+      {/* Visual Intentions Modal ("¿Qué necesitas hacer hoy?") */}
+      <IntentionsModal 
+        isOpen={intentionsOpen} 
+        onClose={() => setIntentionsOpen(false)} 
+      />
+
       {/* Mobile Top Header */}
       <div className={styles.mobileBar}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -106,6 +116,27 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
           </Link>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <button
+            type="button"
+            onClick={() => setIntentionsOpen(true)}
+            style={{
+              background: 'rgba(34, 197, 94, 0.15)',
+              border: '1px solid rgba(34, 197, 94, 0.4)',
+              color: '#4ade80',
+              width: '32px',
+              height: '32px',
+              borderRadius: '6px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer'
+            }}
+            title="¿Qué necesitas hacer hoy?"
+            aria-label="¿Qué necesitas hacer hoy?"
+          >
+            <Sparkles size={16} />
+          </button>
+          <FarmerModeToggle iconOnly />
           <DemoTourModal iconOnly />
           <SunlightThemeToggle />
           <button 
@@ -478,6 +509,29 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
               <BackButton fallbackHref="/dashboard" label="Atrás" />
             )}
             <CommandPalette />
+            <button
+              type="button"
+              onClick={() => setIntentionsOpen(true)}
+              style={{
+                background: 'rgba(34, 197, 94, 0.15)',
+                border: '1px solid rgba(74, 222, 128, 0.4)',
+                color: '#4ade80',
+                padding: '6px 12px',
+                borderRadius: '8px',
+                fontSize: '0.8rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                transition: 'all 0.2s ease'
+              }}
+              title="Guía de 6 tareas principales para el productor"
+              aria-label="Abrir guía de qué necesitas hacer hoy"
+            >
+              <Sparkles size={14} />
+              <span>¿Qué necesitas hacer?</span>
+            </button>
           </div>
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -512,6 +566,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
                 </Link>
               </div>
             )}
+            <FarmerModeToggle />
             <DemoTourModal />
             <SunlightThemeToggle />
             <button 

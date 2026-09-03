@@ -6,6 +6,9 @@ import Link from 'next/link';
 import styles from './page.module.css';
 import AgroTooltip from '@/components/ui/AgroTooltip';
 import QuickStartWizard from '@/components/ui/QuickStartWizard';
+import FarmerHomeDoors from '@/components/agronomy/FarmerHomeDoors';
+import IntentionsModal from '@/components/layout/IntentionsModal';
+import { useUIMode } from '@/lib/context/UIModeContext';
 import { 
   Compass, 
   MapPin, 
@@ -18,14 +21,20 @@ import {
 
 export default function DashboardOverview() {
   const [showWizard, setShowWizard] = useState(false);
+  const [showIntentions, setShowIntentions] = useState(false);
+  const [parcelsCount, setParcelsCount] = useState(1);
+  const { isFarmerMode } = useUIMode();
 
   useEffect(() => {
     fetch('/api/parcels')
       .then(res => res.json())
       .then(data => {
         const isDismissed = localStorage.getItem('agrotech-quickstart-dismissed') === 'true';
-        if (Array.isArray(data) && data.length === 0 && !isDismissed) {
-          setShowWizard(true);
+        if (Array.isArray(data)) {
+          setParcelsCount(data.length);
+          if (data.length === 0 && !isDismissed) {
+            setShowWizard(true);
+          }
         }
       })
       .catch(() => {});
@@ -39,25 +48,48 @@ export default function DashboardOverview() {
         onClose={() => setShowWizard(false)} 
       />
 
-      {/* Overview Header */}
-      <header className={styles.header}>
-        <div>
-          <div className={styles.topBadgeRow}>
-            <span className="badge-pill badge-emerald">
-              <span className={styles.pulseDot}></span> MapBiomas Colección 3 Activa
-            </span>
-            <span className="badge-pill badge-cyan">NASA POWER Agro-Climatología</span>
-          </div>
-          <h1 className={styles.title}>Panel de Inteligencia Agro-Territorial</h1>
-          <p className={styles.subtitle}>
-            Monitoreo agronómico integral, cruzamiento edafológico multitemporal y prescripción regenerativa para Venezuela.
-          </p>
-        </div>
-        <div className={styles.headerActions} style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-          <Link href="/dashboard/mapa" className="btn-primary">
-            <Compass size={18} />
-            <span>Visor WebGIS (3 Niveles)</span>
-          </Link>
+      {/* Intentions Guide Modal ("¿Qué necesitas hacer hoy?") */}
+      <IntentionsModal
+        isOpen={showIntentions}
+        onClose={() => setShowIntentions(false)}
+      />
+
+      {isFarmerMode ? (
+        <FarmerHomeDoors 
+          onOpenIntentions={() => setShowIntentions(true)} 
+          parcelsCount={parcelsCount}
+        />
+      ) : (
+        <>
+          {/* Overview Header */}
+          <header className={styles.header}>
+            <div>
+              <div className={styles.topBadgeRow}>
+                <span className="badge-pill badge-emerald">
+                  <span className={styles.pulseDot}></span> MapBiomas Colección 3 Activa
+                </span>
+                <span className="badge-pill badge-cyan">NASA POWER Agro-Climatología</span>
+              </div>
+              <h1 className={styles.title}>Panel de Inteligencia Agro-Territorial</h1>
+              <p className={styles.subtitle}>
+                Monitoreo agronómico integral, cruzamiento edafológico multitemporal y prescripción regenerativa para Venezuela.
+              </p>
+            </div>
+            <div className={styles.headerActions} style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <button
+                type="button"
+                onClick={() => setShowIntentions(true)}
+                className="btn-secondary"
+                style={{ borderColor: 'rgba(74, 222, 128, 0.5)', color: '#4ade80', display: 'flex', alignItems: 'center', gap: '6px' }}
+                aria-label="¿Qué necesitas hacer hoy?"
+              >
+                <Sparkles size={16} />
+                <span>¿Qué necesitas hacer?</span>
+              </button>
+              <Link href="/dashboard/mapa" className="btn-primary">
+                <Compass size={18} />
+                <span>Visor WebGIS (3 Niveles)</span>
+              </Link>
           <Link href="/dashboard/tierras" className="btn-secondary" style={{ borderColor: 'rgba(34, 197, 94, 0.4)', color: '#4ade80' }}>
             <span>🚜</span> Mis Tierras
           </Link>
@@ -243,6 +275,8 @@ export default function DashboardOverview() {
           <MapBiomasWrapper />
         </div>
       </section>
+        </>
+      )}
     </div>
   );
 }
