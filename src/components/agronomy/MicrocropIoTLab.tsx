@@ -77,6 +77,7 @@ export default function MicrocropIoTLab() {
   // Estado del Simulador
   const [moisturePct, setMoisturePct] = useState<number>(29.5);
   const [soilTempC, setSoilTempC] = useState<number>(27.2);
+  const [phValue, setPhValue] = useState<number>(6.3);
   const [rainForecastMm, setRainForecastMm] = useState<number>(0.0);
   const [valveState, setValveState] = useState<'CLOSED' | 'OPEN'>('CLOSED');
   const [autoMode, setAutoMode] = useState<boolean>(true);
@@ -84,10 +85,19 @@ export default function MicrocropIoTLab() {
   const [energySavedKWh, setEnergySavedKWh] = useState<number>(0.28);
   const [copiedCode, setCopiedCode] = useState<boolean>(false);
 
-  // Mini-Calculadora ADC
   const [adcAir, setAdcAir] = useState<number>(3200);
   const [adcWater, setAdcWater] = useState<number>(1350);
   const [adcCurrent, setAdcCurrent] = useState<number>(2650);
+
+  // Estado de Transmisión E2E hacia FastAPI
+  const [isTransmitting, setIsTransmitting] = useState<boolean>(false);
+  const [transmissionResult, setTransmissionResult] = useState<{
+    source: string;
+    latency_ms: number;
+    valve_action: string;
+    reason: string;
+    timestamp: string;
+  } | null>(null);
 
   // Evaluación automática de riego predictivo
   const isDeficient = moisturePct < activePreset.criticalThreshold;
@@ -135,6 +145,51 @@ export default function MicrocropIoTLab() {
 
   const handleToggleRainForecast = () => {
     setRainForecastMm(prev => prev > 0 ? 0.0 : 14.2);
+  };
+
+  const handleTransmitTelemetry = async () => {
+    setIsTransmitting(true);
+    try {
+      const res = await fetch('/api/iot/telemetry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          hardware_uid: 'esp32_microcrop_lab_01',
+          soil_moisture_pct: moisturePct,
+          soil_temp_c: soilTempC,
+          ph: phValue,
+          forecast_rain_6h_mm: rainForecastMm,
+          critical_threshold: activePreset.criticalThreshold,
+          crop_name: activePreset.name
+        })
+      });
+
+      const result = await res.json();
+      if (result.success && result.data) {
+        setTransmissionResult({
+          source: result.source,
+          latency_ms: result.latency_ms || 12,
+          valve_action: result.data.valve_action,
+          reason: result.data.reason,
+          timestamp: new Date().toLocaleTimeString()
+        });
+
+        if (result.data.valve_action) {
+          setValveState(result.data.valve_action);
+        }
+      }
+    } catch {
+      // Fallback en caso de desconexión absoluta
+      setTransmissionResult({
+        source: 'OFFLINE_CACHE',
+        latency_ms: 0,
+        valve_action: isDeficient && !isRainImminent ? 'OPEN' : 'CLOSED',
+        reason: 'Telemetría resuelta en caché offline del navegador.',
+        timestamp: new Date().toLocaleTimeString()
+      });
+    } finally {
+      setIsTransmitting(false);
+    }
   };
 
   const handleCopyCode = () => {
@@ -569,6 +624,53 @@ void loop() {
               <CloudRain size={16} color="#38bdf8" />
               {rainForecastMm > 0 ? 'Desactivar Lluvia Satelital' : 'Simular Lluvia NASA (14 mm)'}
             </button>
+
+            {/* Transmisión E2E hacia FastAPI */}
+            <button
+              onClick={handleTransmitTelemetry}
+              disabled={isTransmitting}
+              className={`${styles.btnAction} ${styles.btnPrimary}`}
+              style={{ 
+                width: '100%', 
+                marginTop: '10px', 
+                background: 'linear-gradient(135deg, #0284c7 0%, #16a34a 100%)',
+                boxShadow: '0 0 14px rgba(2, 132, 199, 0.4)'
+              }}
+            >
+              <Radio size={16} />
+              {isTransmitting ? 'Transmitiendo Telemetría...' : '📡 Transmitir a Servidor FastAPI'}
+            </button>
+
+            {/* Recibo de Telemetría E2E */}
+            {transmissionResult && (
+              <div style={{
+                marginTop: '10px',
+                padding: '10px 12px',
+                borderRadius: '8px',
+                background: 'rgba(15, 23, 42, 0.85)',
+                border: `1px solid ${transmissionResult.source === 'FASTAPI_LIVE' ? 'rgba(34, 197, 94, 0.4)' : 'rgba(245, 158, 11, 0.4)'}`,
+                fontSize: '0.78rem'
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', alignItems: 'center' }}>
+                  <span style={{ 
+                    color: transmissionResult.source === 'FASTAPI_LIVE' ? '#4ade80' : '#f59e0b', 
+                    fontWeight: 700,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '5px'
+                  }}>
+                    ● {transmissionResult.source === 'FASTAPI_LIVE' ? 'FastAPI Conectado (P. 8000)' : 'Modo Fallback Resiliente'}
+                  </span>
+                  <span style={{ color: '#94a3b8', fontSize: '0.72rem' }}>⏱️ {transmissionResult.latency_ms} ms</span>
+                </div>
+                <div style={{ color: '#f8fafc', marginBottom: '2px' }}>
+                  <b>Orden Actuador:</b> <span style={{ color: transmissionResult.valve_action === 'OPEN' ? '#38bdf8' : '#cbd5e1', fontWeight: 700 }}>{transmissionResult.valve_action}</span>
+                </div>
+                <div style={{ color: '#94a3b8', fontSize: '0.72rem', lineHeight: '1.3' }}>
+                  {transmissionResult.reason}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

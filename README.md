@@ -8,7 +8,7 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.62-FF4B4B.svg)](https://streamlit.io/)
 [![Python 3.13](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
 [![PostgreSQL 15](https://img.shields.io/badge/PostgreSQL-15-336791.svg)](https://www.postgresql.org/)
-[![Tests: 144 Passing](https://img.shields.io/badge/Tests-144%20Passing-brightgreen.svg)]()
+[![Tests: 148 Passing](https://img.shields.io/badge/Tests-148%20Passing-brightgreen.svg)]()
 
 Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LULC) de **MapBiomas Venezuela** (1985–2024), **Sentinel-1 SAR Radar**, **Sentinel-2 L2A (Copernicus)** y **NASA POWER**, Agrotech transforma la observación satelital en **decisiones agronómicas precisas, prescriptivas y de acción directa** para productores, agrónomos e investigadores agrícolas.
 
@@ -161,38 +161,41 @@ py -m streamlit run streamlit_app.py --server.headless true
 # Acceder a http://localhost:8501
 ```
 
-### 4. Despliegue Productivo con Docker & Google AI Studio
+### 4. Despliegue Productivo con Docker & Servidores Cloud / VPS
 El servicio web en `docker-compose.yml` está configurado con aislamiento de perfiles (`profiles: ["prod", "production"]`) para permitir ejecutar la base de datos y microservicios en Docker sin interferir con el puerto local 3000:
 
 ```bash
 # Desarrollo local (inicia BD 5444, API 8000 y Streamlit 8501 en Docker; Web local con Turbopack)
-docker compose up -d
+npm run services:up
 npm run dev
 
 # Despliegue de producción completo en un solo comando
 docker compose --profile prod up -d --build
 ```
 
-Consulte la plantilla documentada [`.env.production.example`](.env.production.example) para configurar llaves de Google Gemini en Google AI Studio, tokens JWT y credenciales seguras de PostgreSQL en servidores VPS o Cloud.
+Consulte la plantilla documentada [`.env.production.example`](.env.production.example) para configurar llaves de Google Gemini API, tokens JWT y credenciales seguras de PostgreSQL en servidores VPS o Cloud.
 
 ---
 
-## 🧪 Validación y Pruebas Automatizadas (144 Tests)
+## 🧪 Validación y Pruebas Automatizadas (148 Tests)
 
 Antes de cualquier commit a la rama `main`, se ejecutan y validan ambas suites de testing:
 
 ```bash
-# 1. Pruebas Frontend: WebGIS, SAR Radar, GDD, Auth, Diary, Spatial, Routing, Search & IoT (Jest — 93 tests)
+# 1. Pruebas Frontend: WebGIS, SAR Radar, GDD, Auth, Diary, Spatial, Routing, Search & IoT (Jest — 97 tests)
 npm test
 
 # 2. Verificación Estática TypeScript (0 errores obligatorios)
-npx tsc --noEmit
+npm run typecheck
 
-# 3. Compilación de Producción (Next.js 16 Turbopack — 27 rutas limpias)
+# 3. Compilación de Producción (Next.js 16 Turbopack — 28 rutas limpias)
 npm run build
 
 # 4. Pruebas Backend Espacial, ML, IA y Carga (Pytest — 51 tests)
-cd backend && py -m pytest tests
+npm run test:backend
+
+# 5. Suite Unificada Automatizada Completa (148 tests)
+npm run test:all
 ```
 
 ---

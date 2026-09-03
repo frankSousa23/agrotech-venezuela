@@ -51,17 +51,20 @@ Este documento define los estándares arquitectónicos, convenciones de código 
 Antes de realizar cualquier commit a la rama `main`, se **deben** ejecutar y pasar ambas suites de pruebas automatizadas:
 
 ```bash
-# 1. Pruebas de Frontend WebGIS, SAR Radar, GDD, Auth, Diary, Spatial, Routing, Search & IoT (Jest — 93 tests)
+# 1. Pruebas de Frontend WebGIS, SAR Radar, GDD, Auth, Diary, Spatial, Routing, Search & IoT (Jest — 97 tests)
 npm test
 
 # 2. Verificación de Tipos TypeScript (0 errores obligatorios)
-npx tsc --noEmit
+npm run typecheck
 
-# 3. Compilación de Producción Next.js 16 Turbopack (27 rutas limpias)
+# 3. Compilación de Producción Next.js 16 Turbopack (28 rutas limpias)
 npm run build
 
 # 4. Pruebas de Backend Espacial, ML, IA y Carga (Pytest — 51 tests)
-cd backend && py -m pytest tests
+npm run test:backend
+
+# 5. Suite Unificada Automatizada Completa (148 tests)
+npm run test:all
 ```
 
 ---

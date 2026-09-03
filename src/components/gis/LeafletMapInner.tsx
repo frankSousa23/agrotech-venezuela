@@ -5,7 +5,7 @@
  * 
  * Componente cliente nativo puro (L.map con useRef):
  * - Cero dependencias de react-leaflet para 100% de compatibilidad con
- *   React 19, Turbopack, iframes de Google AI Studio y Cloud Run.
+ *   React 19, Turbopack, iframes, entornos sandboxed y contenedores Cloud / VPS.
  * - Jerarquía Geoespacial Multi-Escala: Nivel 1 Nacional, Nivel 2 Municipal, Nivel 3 Parcela.
  * - Capas: Satélite Esri HD, Semáforo de pH, Lluvias NASA, MapBiomas LULC.
  * - Trazado interactivo de polígonos de parcela con fórmula Shoelace WGS84.

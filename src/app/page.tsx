@@ -113,6 +113,9 @@ export default function Home() {
             <Link href="/dashboard/recomendaciones" className={styles.navLink}>
               🧪 Prescripción IA
             </Link>
+            <Link href="/dashboard/iot" className={styles.navLink} style={{ color: '#38bdf8' }}>
+              🔬 Lab IoT
+            </Link>
             <Link href="/dashboard/estadisticas" className={styles.navLink}>
               📊 Geoestadísticas
             </Link>
@@ -485,6 +488,30 @@ export default function Home() {
               </div>
               <Link href="/api-docs" className={styles.moduleActionBtn}>
                 Consultar API Docs <ArrowRight size={16} />
+              </Link>
+            </div>
+
+            {/* 8. Laboratorio Agro-IoT & Micro-Cultivo */}
+            <div className={`${styles.moduleCard} glass-panel`}>
+              <div className={styles.moduleCardHeader}>
+                <div className={styles.moduleIconBox} style={{ background: 'rgba(2, 132, 199, 0.15)', color: '#38bdf8' }}>
+                  <Radio size={26} />
+                </div>
+                <div>
+                  <span className={styles.moduleBadge}>Hardware In-Situ & Riego</span>
+                  <h3>8. Laboratorio Agro-IoT & Micro-Cultivo</h3>
+                </div>
+              </div>
+              <p className={styles.modulePurpose}>
+                <b>¿Para qué sirve?</b> Simulación interactiva con corte transversal SVG animado, telemetría ESP32 multivariable y supresión de riego predictivo acoplada a NASA POWER.
+              </p>
+              <div className={styles.moduleSteps}>
+                <div className={styles.stepItem}><span className={styles.stepNum}>1</span> Experimenta con 3 presets botánicos (Tomate, Maíz, Café).</div>
+                <div className={styles.stepItem}><span className={styles.stepNum}>2</span> Simula déficit hídrico y supresión inteligente ante lluvia.</div>
+                <div className={styles.stepItem}><span className={styles.stepNum}>3</span> Consulta el firmware Arduino C++ y esquemas de pines ESP32.</div>
+              </div>
+              <Link href="/dashboard/iot" className={styles.moduleActionBtn}>
+                Explorar Lab IoT <ArrowRight size={16} />
               </Link>
             </div>
 

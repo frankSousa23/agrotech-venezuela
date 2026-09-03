@@ -1,0 +1,24 @@
+{
+  "name": "Agrotech Venezuela — Inteligencia Geoespacial & Agronomía",
+  "short_name": "Agrotech VE",
+  "description": "Plataforma WebGIS multi-escala, Radar SAR sin nubes, telemetría IoT y prescripción agronómica con IA.",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#0b1329",
+  "theme_color": "#22c55e",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "128x128",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

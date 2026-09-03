@@ -1,10 +1,4 @@
-# native-leaflet-map-engine Specification
-
-## Purpose
-
-Replaces `react-leaflet` wrapper components with pure native Leaflet (`L.map`) attached directly to HTML DOM container elements using React `useRef`.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Native DOM Map Mount
 The system SHALL initialize Leaflet map instances using `L.map(containerRef.current)` inside a `useEffect` hook without depending on `react-leaflet` Context.

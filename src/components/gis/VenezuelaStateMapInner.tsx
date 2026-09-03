@@ -5,7 +5,7 @@
  * 
  * Componente cliente nativo de Leaflet puro (L.map con useRef):
  * - Cero dependencias de contexto react-leaflet para 100% de resiliencia en
- *   entornos sandboxed, iframes (Google AI Studio / Cloud Run) y React 19.
+ *   entornos sandboxed, iframes, despliegues Cloud Run / VPS y React 19.
  * - Renderiza los 24 estados federales con polígonos vectoriales y tooltips.
  * - Soporte para capas temáticas: División Territorial, Satélite Esri HD,
  *   Semáforo de pH del suelo, Precipitación NASA, MapBiomas y Radar SAR.
