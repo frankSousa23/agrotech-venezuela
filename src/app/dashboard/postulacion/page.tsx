@@ -20,7 +20,8 @@ import {
   Globe,
   Waves,
   TreePine,
-  ExternalLink
+  ExternalLink,
+  Radio
 } from 'lucide-react';
 
 export default function PostulacionPage() {
@@ -37,13 +38,13 @@ export default function PostulacionPage() {
             <ShieldCheck size={14} /> Nivel de Madurez TRL 7 (Sistema Validado en Entorno Real)
           </span>
           <span className="badge-pill badge-emerald">
-            <CheckCircle2 size={13} /> 140 Tests Automatizados Pasando (89 Jest + 51 Pytest)
+            <CheckCircle2 size={13} /> 144 Tests Automatizados Pasando (93 Jest + 51 Pytest)
           </span>
           <span className="badge-pill badge-cyan">
             <Globe size={13} /> 24 Estados & 335 Municipios Activos
           </span>
           <span className="badge-pill badge-cyan" style={{ border: '1px solid rgba(56, 189, 248, 0.4)', color: '#38bdf8' }}>
-            <Compass size={13} /> Tour Demo 4 Pasos Disponible
+            <Compass size={13} /> Tour Demo 5 Pasos Disponible
           </span>
         </div>
 
@@ -172,8 +173,23 @@ export default function PostulacionPage() {
 
           <div className={styles.tourCard}>
             <div>
-              <span className={styles.tourStepBadge}>Paso 4 (3:00 - 4:00)</span>
-              <h3 className={styles.tourCardTitle}>4. Cuaderno de Campo & Fenología</h3>
+              <span className={styles.tourStepBadge}>Paso 4 (3:00 - 3:45)</span>
+              <h3 className={styles.tourCardTitle}>4. Laboratorio Agro-IoT & ESP32</h3>
+              <p className={styles.tourCardDesc}>
+                Simula micro-riego con corte transversal SVG animado, telemetría NPK y supresión de bombeo ante lluvia satelital NASA POWER.
+              </p>
+            </div>
+            <div className={styles.tourCardAction}>
+              <Link href="/dashboard/iot" className="btn-primary" style={{ width: '100%', justifyContent: 'center', fontSize: '0.78rem' }}>
+                Explorar Lab IoT <ArrowRight size={13} />
+              </Link>
+            </div>
+          </div>
+
+          <div className={styles.tourCard}>
+            <div>
+              <span className={styles.tourStepBadge}>Paso 5 (3:45 - 4:30)</span>
+              <h3 className={styles.tourCardTitle}>5. Cuaderno de Campo & Fenología</h3>
               <p className={styles.tourCardDesc}>
                 Prueba las plantillas fenológicas (Siembra, Encalado, Reabono V6, Cosecha) y el cálculo de Grados Día de Crecimiento (GDD).
               </p>
@@ -187,8 +203,8 @@ export default function PostulacionPage() {
 
           <div className={styles.tourCard}>
             <div>
-              <span className={styles.tourStepBadge}>Paso 5 (4:00 - 5:00)</span>
-              <h3 className={styles.tourCardTitle}>5. Arquitectura Abierta & APIs</h3>
+              <span className={styles.tourStepBadge}>Paso 6 (4:30 - 5:00)</span>
+              <h3 className={styles.tourCardTitle}>6. Arquitectura Abierta & APIs</h3>
               <p className={styles.tourCardDesc}>
                 Audita la documentación interactiva OpenAPI 3.0 en `/api-docs` y la descarga de parcelas en GeoJSON para maquinaria.
               </p>

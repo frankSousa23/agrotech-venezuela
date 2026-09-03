@@ -8,7 +8,7 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.62-FF4B4B.svg)](https://streamlit.io/)
 [![Python 3.13](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
 [![PostgreSQL 15](https://img.shields.io/badge/PostgreSQL-15-336791.svg)](https://www.postgresql.org/)
-[![Tests: 140 Passing](https://img.shields.io/badge/Tests-140%20Passing-brightgreen.svg)]()
+[![Tests: 144 Passing](https://img.shields.io/badge/Tests-144%20Passing-brightgreen.svg)]()
 
 Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LULC) de **MapBiomas Venezuela** (1985–2024), **Sentinel-1 SAR Radar**, **Sentinel-2 L2A (Copernicus)** y **NASA POWER**, Agrotech transforma la observación satelital en **decisiones agronómicas precisas, prescriptivas y de acción directa** para productores, agrónomos e investigadores agrícolas.
 
@@ -101,13 +101,14 @@ graph TD
 ### 8. Sistema de Temas & Modo Pleno Sol
 - Modos Claro, Oscuro y **Pleno Sol (Alto Contraste)** diseñados para operaciones de campo bajo alta luminosidad, cumpliendo con estándares WCAG AAA.
 
-### 9. Modo Demostración / Tour Guiado de 4 Pasos (`DemoTourModal`)
+### 9. Modo Demostración / Tour Guiado de 5 Pasos (`DemoTourModal`)
 - Acceso directo mediante el botón **`🎬 Tour Demo`** en la cabecera superior y barra móvil del Dashboard.
-- Recorrido interactivo guiado para comités técnicos, jurados y evaluadores que sintetiza los 4 pilares:
+- Recorrido interactivo guiado para comités técnicos, jurados y evaluadores que sintetiza los 5 pilares:
   1. *Cartografía Nacional & Edafología MapBiomas*.
   2. *Micro-Parcelas & Radar SAR Sentinel-1 Banda C All-Weather*.
   3. *Prescripción con Gemini AI & Suelos*.
-  4. *Madurez TRL 7, MRV de Carbono & APIs OpenAPI*.
+  4. *Laboratorio Agro-IoT de Micro-Cultivo & Riego Predictivo*.
+  5. *Madurez TRL 7, MRV de Carbono & APIs OpenAPI*.
 
 ### 10. Navegación Universal de Retorno & Ergonomía de Roles
 - Componente inteligente `BackButton` a prueba de fallos integrado en vistas standalone (`/api-docs`, `/auth/login`, `/auth/register`, `/dashboard/postulacion`, `/dashboard/arquitectura`) y en la barra móvil.
@@ -117,6 +118,13 @@ graph TD
 ### 11. Integración E2E Parcela ➔ Prescripción IA Directa
 - Botón **`✨ Prescripción IA`** en cada tarjeta de lote en `/dashboard/tierras`.
 - Transferencia fluida de parámetros geodésicos (`stateId`, `crop`, `parcelName`) hacia `/dashboard/recomendaciones`, activando la insignia de vinculación de parcela e inicializando el motor agronómico sin recaptura manual.
+
+### 12. Laboratorio Agro-IoT de Micro-Cultivo & Riego Predictivo In-Situ
+- Entorno didáctico interactivo (`/dashboard/iot`) para experimentar con sensores edáficos en bancales y mesas de cultivo antes de su despliegue a escala de lote.
+- Corte transversal vivo en SVG con animación de micro-goteo, dinámica radicular e hidratación del suelo según % VWC.
+- 3 Presets agronómicos (Tomate Cherry/Hortalizas, Maíz Dulce, Vivero Café/Cacao).
+- Algoritmo de supresión inteligente de riego ante alertas de lluvia de NASA POWER, cuantificando ahorro hídrico (L) y energético (kWh) en tiempo real.
+- Guía de hardware completa (ESP32 DevKit v1, relé 5V, electroválvula 12V y sensor capacitivo v1.2 por < $35 USD) con código Arduino C++ listo para flashear y calculadora de calibración ADC.
 
 ---
 
@@ -169,18 +177,18 @@ Consulte la plantilla documentada [`.env.production.example`](.env.production.ex
 
 ---
 
-## 🧪 Validación y Pruebas Automatizadas (140 Tests)
+## 🧪 Validación y Pruebas Automatizadas (144 Tests)
 
 Antes de cualquier commit a la rama `main`, se ejecutan y validan ambas suites de testing:
 
 ```bash
-# 1. Pruebas Frontend: WebGIS, SAR Radar, GDD, Auth, Diary, Spatial, Routing & Search (Jest — 89 tests)
+# 1. Pruebas Frontend: WebGIS, SAR Radar, GDD, Auth, Diary, Spatial, Routing, Search & IoT (Jest — 93 tests)
 npm test
 
 # 2. Verificación Estática TypeScript (0 errores obligatorios)
 npx tsc --noEmit
 
-# 3. Compilación de Producción (Next.js 16 Turbopack — 26 rutas limpias)
+# 3. Compilación de Producción (Next.js 16 Turbopack — 27 rutas limpias)
 npm run build
 
 # 4. Pruebas Backend Espacial, ML, IA y Carga (Pytest — 51 tests)

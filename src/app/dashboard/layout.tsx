@@ -63,6 +63,7 @@ const NAV_GROUPS: { title: string; items: NavItem[] }[] = [
     items: [
       { href: '/dashboard/recomendaciones', label: 'Asesor IA', icon: Sparkles, highlight: true },
       { href: '/dashboard/bitacora', label: 'Cuaderno de Campo', icon: BookOpen },
+      { href: '/dashboard/iot', label: 'Laboratorio IoT', icon: Radio, badge: 'LAB' },
     ]
   }
 ];

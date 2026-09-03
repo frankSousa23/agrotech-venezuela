@@ -21,7 +21,8 @@ import {
   Sparkles,
   Map,
   Eye,
-  Cpu
+  Cpu,
+  Radio
 } from 'lucide-react';
 
 export default function TierrasPage() {
@@ -196,6 +197,41 @@ export default function TierrasPage() {
             ))}
           </div>
         )}
+      </div>
+
+      {/* Banner de acceso al Laboratorio Agro-IoT Didáctico */}
+      <div style={{
+        marginTop: '1.5rem',
+        background: 'rgba(15, 23, 42, 0.85)',
+        border: '1px solid rgba(56, 189, 248, 0.3)',
+        borderRadius: '14px',
+        padding: '1rem 1.25rem',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        gap: '1rem'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ background: 'rgba(56, 189, 248, 0.15)', padding: '10px', borderRadius: '10px' }}>
+            <Radio size={24} color="#38bdf8" />
+          </div>
+          <div>
+            <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#f8fafc' }}>
+              ¿Deseas experimentar con sensores de suelo y riego en un cultivo pequeño?
+            </div>
+            <div style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
+              Abre el nuevo Laboratorio Agro-IoT de Micro-Cultivo con animaciones en vivo, presets de hortalizas y esquemas ESP32.
+            </div>
+          </div>
+        </div>
+        <Link
+          href="/dashboard/iot"
+          className="btn-primary"
+          style={{ fontSize: '0.82rem', padding: '8px 16px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+        >
+          <Radio size={14} /> Abrir Laboratorio IoT →
+        </Link>
       </div>
 
       {/* Panel de Gemelo Digital IoT In-Situ */}

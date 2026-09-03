@@ -29,11 +29,11 @@ TRL 1-3: Investigación Básica / Formulación de Hipótesis (Completado)
 TRL 4-5: Validación en Laboratorio / Prototipos Iniciales (Completado)
 TRL 6:   Demostración en Entorno Relevante (Completado)
 TRL 7:   DEMOSTRACIÓN DE SISTEMA OPERACIONAL INTEGRADO EN ENTORNO REAL (ESTADO ACTUAL)
-         • Plataforma WebGIS interactiva en Next.js 16 App Router con Turbopack (26 rutas limpias).
+         • Plataforma WebGIS interactiva en Next.js 16 App Router con Turbopack (27 rutas limpias).
          • Backend espacial de microservicios en FastAPI y Python 3.13 con 39 endpoints OpenAPI.
          • Cobertura territorial completa para los 24 estados y 335 municipios venezolanos.
-         • Suite de 140 pruebas automatizadas (89 Jest Frontend/WebGIS + 51 Pytest Backend/ML/IA).
-         • Tour Demostrativo interactivo guiado en 4 pasos para auditoría técnica inmediata.
+         • Suite de 144 pruebas automatizadas (93 Jest Frontend/WebGIS + 51 Pytest Backend/ML/IA).
+         • Tour Demostrativo interactivo guiado en 5 pasos para auditoría técnica inmediata.
          • Resiliencia offline-first con SQLite WAL e IndexedDB para zonas rurales.
 ```
 
@@ -48,7 +48,7 @@ TRL 7:   DEMOSTRACIÓN DE SISTEMA OPERACIONAL INTEGRADO EN ENTORNO REAL (ESTADO 
 │  • Copernicus Sentinel-2 L2A (10m, bandas ópticas con máscara SCL)     │
 │  • Copernicus Sentinel-1 SAR Banda C (Retrodispersión VV/VH radar)     │
 │  • NASA POWER API (Radiación Solar MJ/m², Temp Diaria, Precipitación)  │
-│  • Red de Nodos IoT In-Situ (Sensores de Humedad y Temperatura 0-30cm) │
+│  • Red de Nodos IoT In-Situ (ESP32, Sondas VWC y Lab de Micro-Cultivo) │
 └───────────────────────────────────┬────────────────────────────────────┘
                                     │
                                     ▼

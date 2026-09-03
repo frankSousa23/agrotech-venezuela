@@ -12,7 +12,8 @@ import {
   Sparkles, 
   Award,
   ExternalLink,
-  CheckCircle2
+  CheckCircle2,
+  Cpu
 } from 'lucide-react';
 
 interface TourStep {
@@ -29,7 +30,7 @@ interface TourStep {
 const TOUR_STEPS: TourStep[] = [
   {
     title: "Cartografía Nacional & Edafología MapBiomas",
-    badge: "Paso 1 de 4 • WebGIS",
+    badge: "Paso 1 de 5 • WebGIS",
     badgeColor: "#38bdf8",
     icon: Map,
     description: "Cobertura territorial en 24 estados y 335 municipios con GeoJSON WGS84 confinado a Venezuela, series históricas 1985–2024 y mapas edafológicos de pH y textura de suelos.",
@@ -43,7 +44,7 @@ const TOUR_STEPS: TourStep[] = [
   },
   {
     title: "Micro-Parcelas & Radar SAR Sentinel-1 Banda C",
-    badge: "Paso 2 de 4 • Teledetección",
+    badge: "Paso 2 de 5 • Teledetección",
     badgeColor: "#4ade80",
     icon: Radio,
     description: "Delimitador satelital de alta precisión con cálculo geodésico Shoelace en hectáreas y penetración de nubes tropicales vía radar SAR retrodispersión dual VV/VH.",
@@ -57,7 +58,7 @@ const TOUR_STEPS: TourStep[] = [
   },
   {
     title: "Prescripción Asistida por Gemini AI & Suelos",
-    badge: "Paso 3 de 4 • Inteligencia Artificial",
+    badge: "Paso 3 de 5 • Inteligencia Artificial",
     badgeColor: "#a855f7",
     icon: Sparkles,
     description: "Asesor agronómico interactivo con memoria territorial que dosifica encalado con carbonato de calcio (CaCO₃), planes N-P-K y recomendaciones de manejo por cultivo.",
@@ -70,8 +71,22 @@ const TOUR_STEPS: TourStep[] = [
     actionHref: "/dashboard/recomendaciones"
   },
   {
+    title: "Laboratorio Agro-IoT de Micro-Cultivo & Riego",
+    badge: "Paso 4 de 5 • Hardware In-Situ",
+    badgeColor: "#0284c7",
+    icon: Cpu,
+    description: "Banco de pruebas interactivo con corte transversal animado en SVG, telemetría ESP32 multivariable y motor de supresión de riego predictivo acoplado a NASA POWER.",
+    highlights: [
+      "Simulación de micro-goteo y ahorro dinámico de agua (L) y energía (kWh).",
+      "3 Presets de cultivo didáctico: Tomate Cherry, Maíz Dulce y Café/Cacao.",
+      "Diagramas de conexiones ESP32, código Arduino C++ y calibración ADC."
+    ],
+    actionLabel: "Explorar Laboratorio IoT",
+    actionHref: "/dashboard/iot"
+  },
+  {
     title: "Madurez TRL 7, MRV de Carbono & APIs OpenAPI",
-    badge: "Paso 4 de 4 • Certificación",
+    badge: "Paso 5 de 5 • Certificación",
     badgeColor: "#f59e0b",
     icon: Award,
     description: "Plataforma validada en entorno operativo real (TRL 7), con cuantificación de secuestro de carbono orgánico (SOC) bajo IPCC Tier 2 y catálogo de 39 APIs REST.",

@@ -40,6 +40,7 @@ describe('🔍 Command Palette & Omnibox Search Engine', () => {
     { title: 'Mis Tierras & Fincas', subtitle: 'Gestión de lotes delimitados y diagnósticos satelitales' },
     { title: 'Cuaderno de Campo Digital', subtitle: 'Bitácora cronológica de siembras, encalados y fertilización' },
     { title: 'Simulador Edafológico & Asesor Gemini AI', subtitle: 'Prescripción NPK, curvas de encalado y dictamen IA' },
+    { title: '🔬 Laboratorio Agro-IoT & Micro-Cultivo', subtitle: 'Simulador de riego predictivo, ESP32 y sensores in-situ' },
     { title: 'Calculadora de Créditos de Carbono MRV', subtitle: 'Cuantificación SOC y valoración económica IPCC Tier 2' },
     { title: 'Geoestadísticas Agroclimáticas', subtitle: 'Series temporales multianuales de lluvia y temperatura' },
     { title: 'Panel de Administración', subtitle: 'Aprobación de productores y auditoría de seguridad' },
@@ -78,6 +79,10 @@ describe('🔍 Command Palette & Omnibox Search Engine', () => {
     const resWebGIS = searchItems('sentinel', toolsCatalog);
     expect(resWebGIS.length).toBe(1);
     expect(resWebGIS[0].title).toContain('Visor WebGIS');
+
+    const resIoT = searchItems('iot', toolsCatalog);
+    expect(resIoT.length).toBe(1);
+    expect(resIoT[0].title).toContain('Laboratorio Agro-IoT');
   });
 
   test('debe retornar resultados por cultivo agronómico asociado a los estados', () => {

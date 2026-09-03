@@ -1,10 +1,4 @@
-# guided-demo-tour Specification
-
-## Purpose
-
-Provides an interactive 5-step walkthrough modal to guide judges, evaluators, and stakeholders through the key technical pillars of the Agrotech Venezuela platform, including in-situ Agro-IoT simulation.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Interactive Demo Tour Walkthrough
 The platform SHALL provide a dedicated "Modo Demostración / Tour Guiado" button in the dashboard utility bar that triggers an interactive step-by-step modal presenting the 5 system pillars:

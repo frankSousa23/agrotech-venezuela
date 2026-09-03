@@ -82,6 +82,7 @@ const SYSTEM_DIAGRAMS: DiagramDef[] = [
 
     subgraph CLIENTE["🌐 Capa de Presentación & Clientes"]
         WEBGIS["🛰️ WebGIS Next.js 16 App Router\\nPuerto 3000 | Turbopack | Leaflet"]:::frontend
+        IOT_LAB["🔬 Lab Agro-IoT Micro-Cultivo\\nESP32 Sim & Riego Predictivo"]:::frontend
         STREAMLIT["📊 Streamlit Prescripción VRA\\nPuerto 8501 | Folium | Plotly"]:::frontend
     end
 
@@ -104,6 +105,7 @@ const SYSTEM_DIAGRAMS: DiagramDef[] = [
 
     %% Relaciones y Flujos
     WEBGIS <-->|REST API / GeoJSON| FASTAPI
+    IOT_LAB -->|Telemetría Suelo & Válvula| FASTAPI
     WEBGIS <-->|Prisma ORM CRUD| POSTGRES
     STREAMLIT <-->|API Prescripciones| FASTAPI
     

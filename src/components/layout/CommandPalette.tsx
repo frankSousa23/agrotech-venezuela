@@ -25,7 +25,8 @@ import {
   BarChart3, 
   ShieldCheck, 
   X, 
-  ArrowRight
+  ArrowRight,
+  Radio
 } from 'lucide-react';
 
 interface PaletteItem {
@@ -75,6 +76,7 @@ export default function CommandPalette() {
       { id: 'tool-tierras', category: 'Herramientas', title: '🚜 Mis Tierras & Fincas', subtitle: 'Gestión de lotes delimitados y diagnósticos satelitales', icon: <Tractor size={16} color="#22c55e" />, url: '/dashboard/tierras' },
       { id: 'tool-bitacora', category: 'Herramientas', title: '📖 Cuaderno de Campo Digital', subtitle: 'Bitácora cronológica de siembras, encalados y fertilización', icon: <BookOpen size={16} color="#f59e0b" />, url: '/dashboard/bitacora' },
       { id: 'tool-simulador', category: 'Herramientas', title: '✨ Simulador Edafológico & Asesor Gemini AI', subtitle: 'Prescripción NPK, curvas de encalado y dictamen IA', icon: <Sparkles size={16} color="#a855f7" />, url: '/dashboard/recomendaciones' },
+      { id: 'tool-iot', category: 'Herramientas', title: '🔬 Laboratorio Agro-IoT & Micro-Cultivo', subtitle: 'Simulador de riego predictivo, ESP32 y sensores in-situ', icon: <Radio size={16} color="#38bdf8" />, url: '/dashboard/iot' },
       { id: 'tool-carbon', category: 'Herramientas', title: '🌱 Calculadora de Créditos de Carbono MRV', subtitle: 'Cuantificación SOC y valoración económica IPCC Tier 2', icon: <Sprout size={16} color="#10b981" />, url: '/dashboard/recomendaciones' },
       { id: 'tool-stats', category: 'Herramientas', title: '📊 Geoestadísticas Agroclimáticas', subtitle: 'Series temporales multianuales de lluvia y temperatura', icon: <BarChart3 size={16} color="#0284c7" />, url: '/dashboard/estadisticas' },
       { id: 'tool-admin', category: 'Herramientas', title: '🛡️ Panel de Administración', subtitle: 'Aprobación de productores y auditoría de seguridad', icon: <ShieldCheck size={16} color="#e11d48" />, url: '/dashboard/admin' },
