@@ -1,6 +1,30 @@
 {
   "name": "agrotech-venezuela",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Plataforma Integral de Inteligencia Edafo-Climática, Visión Satelital WebGIS 3 Niveles, Radar SAR Sentinel-1, Machine Learning Agronómico, Accesibilidad Rural Dual-Mode y Asesoría Gemini AI",
+  "author": "Frank Sousa",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/frankSousa23/agrotech-venezuela.git"
+  },
+  "keywords": [
+    "agrotech",
+    "webgis",
+    "mapbiomas",
+    "sentinel-1",
+    "sentinel-2",
+    "copernicus",
+    "sar-radar",
+    "gemini-ai",
+    "iot",
+    "esp32",
+    "precision-agriculture",
+    "venezuela",
+    "nextjs",
+    "fastapi",
+    "streamlit"
+  ],
   "private": true,
   "scripts": {
     "dev": "next dev -p 3000 -H 0.0.0.0",
@@ -11,9 +35,9 @@
     "typecheck": "tsc --noEmit",
     "test": "jest",
     "test:frontend": "jest",
-    "test:backend": "cd backend && py -m pytest tests",
-    "test:all": "jest && cd backend && py -m pytest tests",
-    "clean": "pwsh -Command \"Remove-Item -Recurse -Force .next -ErrorAction SilentlyContinue\"",
+    "test:backend": "node scripts/run-backend-tests.js",
+    "test:all": "jest && node scripts/run-backend-tests.js",
+    "clean": "node -e \"fs.rmSync('.next', { recursive: true, force: true })\"",
     "postinstall": "prisma generate",
     "lint": "eslint"
   },

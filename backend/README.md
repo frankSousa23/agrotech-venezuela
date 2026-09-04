@@ -67,16 +67,27 @@ graph TD
 
 ```bash
 # 1. Instalar requerimientos
+# En Windows:
 py -m pip install -r requirements.txt
+# En Linux / macOS:
+python3 -m pip install -r requirements.txt
 
 # 2. Iniciar servidor FastAPI (Puerto 8000)
+# En Windows:
 py -m uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
+# En Linux / macOS:
+python3 -m uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
 
 # 3. Iniciar Dashboard de Prescripción Streamlit (Puerto 8501)
+# En Windows:
 py -m streamlit run streamlit_app.py
+# En Linux / macOS:
+python3 -m streamlit run streamlit_app.py
 
 # 4. Correr todas las pruebas con Pytest (51 tests)
-py -m pytest tests
+# Desde la raíz del proyecto (multiplataforma):
+npm run test:backend
+# O directamente en backend/ (Windows: py -m pytest tests | Linux/macOS: python3 -m pytest tests)
 ```
 
 - **Swagger UI**: [http://localhost:8000/docs](http://localhost:8000/docs)

@@ -180,15 +180,28 @@ npm run dev
 ### 2. Iniciar Backend Espacial & ML (FastAPI) — Opcional
 ```bash
 cd backend
+
+# En Windows:
 py -m pip install -r requirements.txt
 py -m uvicorn src.main:app --port 8000 --reload
+
+# En Linux / macOS:
+python3 -m pip install -r requirements.txt
+python3 -m uvicorn src.main:app --port 8000 --reload
+
 # Documentación interactiva en http://localhost:8000/docs
 ```
 
 ### 3. Iniciar Dashboard de Prescripción (Streamlit) — Opcional
 ```bash
 cd backend
+
+# En Windows:
 py -m streamlit run streamlit_app.py --server.headless true
+
+# En Linux / macOS:
+python3 -m streamlit run streamlit_app.py --server.headless true
+
 # Acceder a http://localhost:8501
 ```
 
