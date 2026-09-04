@@ -32,7 +32,7 @@ jobs:
       - name: TypeScript Type Check
         run: npx tsc --noEmit
 
-      - name: Run Jest Test Suite (12 suites / 42 tests)
+      - name: Run Jest Test Suite (22 suites / 128 tests)
         run: npm test
 
       - name: Build Next.js Production App
@@ -57,7 +57,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run Pytest Suite (39 tests)
+      - name: Run Pytest Suite (51 tests)
         working-directory: ./backend
         run: python -m pytest tests
 

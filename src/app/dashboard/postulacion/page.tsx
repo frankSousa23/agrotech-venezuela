@@ -43,7 +43,7 @@ export default function PostulacionPage() {
             <ShieldCheck size={14} /> Nivel de Madurez TRL 7 (Sistema Validado en Entorno Real)
           </span>
           <span className="badge-pill badge-emerald">
-            <CheckCircle2 size={13} /> 160 Tests Automatizados Pasando (109 Jest + 51 Pytest)
+            <CheckCircle2 size={13} /> 179 Tests Automatizados Pasando (128 Jest + 51 Pytest)
           </span>
           <span className="badge-pill badge-cyan">
             <Globe size={13} /> 24 Estados & 335 Municipios Activos
@@ -168,15 +168,15 @@ export default function PostulacionPage() {
                 className="btn-secondary" 
                 style={{ flex: 1, justifyContent: 'center', fontSize: '0.78rem', padding: '6px 10px' }}
               >
-                <FileText size={14} /> Ver Bases
+                <FileText size={14} /> Ver MD
               </Link>
               <a 
-                href="/docs/BASES_PREMIO_MAPBIOMAS_2026.md" 
-                download="Bases_Premio_MapBiomas_Venezuela_2026.md"
+                href="/docs/Bases_Premio_MapBiomas_Venezuela_2026.pdf" 
+                download="Bases_Premio_MapBiomas_Venezuela_2026.pdf"
                 className="btn-primary" 
-                style={{ fontSize: '0.78rem', padding: '6px 10px' }}
+                style={{ fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
               >
-                <Download size={14} /> Descargar
+                <Download size={14} /> PDF
               </a>
             </div>
           </div>
@@ -213,15 +213,15 @@ export default function PostulacionPage() {
                 className="btn-secondary" 
                 style={{ flex: 1, justifyContent: 'center', fontSize: '0.78rem', padding: '6px 10px' }}
               >
-                <FileText size={14} /> Ver FAQs
+                <FileText size={14} /> Ver MD
               </Link>
               <a 
-                href="/docs/PREGUNTAS_FRECUENTES_PREMIO_2026.md" 
-                download="Preguntas_Frecuentes_MapBiomas_2026.md"
+                href="/docs/Preguntas_Frecuentes_Premio_MapBiomas_2026.pdf" 
+                download="Preguntas_Frecuentes_Premio_MapBiomas_2026.pdf"
                 className="btn-primary" 
-                style={{ fontSize: '0.78rem', padding: '6px 10px' }}
+                style={{ fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
               >
-                <Download size={14} /> Descargar
+                <Download size={14} /> PDF
               </a>
             </div>
           </div>
@@ -261,12 +261,12 @@ export default function PostulacionPage() {
                 <FileText size={14} /> Ver Matriz
               </Link>
               <a 
-                href="/docs/MATRIZ_CUMPLIMIENTO_EVALUACION.md" 
-                download="Matriz_Cumplimiento_Criterios_MapBiomas_2026.md"
+                href="/docs/Guia_Postulacion_MapBiomas_2026.pdf" 
+                download="Guia_Postulacion_MapBiomas_2026.pdf"
                 className="btn-primary" 
-                style={{ fontSize: '0.78rem', padding: '6px 10px' }}
+                style={{ fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
               >
-                <Download size={14} /> Descargar
+                <Download size={14} /> Guía PDF
               </a>
             </div>
           </div>
@@ -306,12 +306,12 @@ export default function PostulacionPage() {
                 <FileText size={14} /> Ver Paper
               </Link>
               <a 
-                href="/docs/ARTICULO_CIENTIFICO_DRAFT.md" 
-                download="Articulo_Cientifico_Agrotech_MapBiomas_2026.md"
+                href="/docs/Articulo_Cientifico_Agrotech_MapBiomas_2026.pdf" 
+                download="Articulo_Cientifico_Agrotech_MapBiomas_2026.pdf"
                 className="btn-primary" 
-                style={{ fontSize: '0.78rem', padding: '6px 10px' }}
+                style={{ fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
               >
-                <Download size={14} /> Descargar
+                <Download size={14} /> PDF Oficial
               </a>
             </div>
           </div>
@@ -335,17 +335,27 @@ export default function PostulacionPage() {
               ¿Deseas imprimir o exportar la ficha completa para comités técnicos?
             </h4>
             <p style={{ margin: 0, fontSize: '0.78rem', color: '#94a3b8' }}>
-              Genera una copia imprimible o PDF del expediente con membrete institucional mediante el diálogo del navegador.
+              Descarga el formulario oficial de postulación o genera una copia impresa/PDF del expediente institucional.
             </p>
           </div>
-          <button 
-            type="button"
-            onClick={() => window.print()} 
-            className="btn-primary"
-            style={{ fontSize: '0.82rem', padding: '8px 16px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
-          >
-            <Printer size={15} /> Imprimir / Guardar en PDF
-          </button>
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+            <a 
+              href="/docs/Formulario_Postulacion_MapBiomas_2026.pdf" 
+              download="Formulario_Postulacion_MapBiomas_2026.pdf"
+              className="btn-secondary"
+              style={{ fontSize: '0.82rem', padding: '8px 14px', display: 'inline-flex', alignItems: 'center', gap: '6px', borderColor: 'rgba(56, 189, 248, 0.4)', color: '#38bdf8' }}
+            >
+              <Download size={15} /> Formulario Oficial PDF
+            </a>
+            <button 
+              type="button"
+              onClick={() => window.print()} 
+              className="btn-primary"
+              style={{ fontSize: '0.82rem', padding: '8px 16px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+            >
+              <Printer size={15} /> Imprimir / Guardar en PDF
+            </button>
+          </div>
         </div>
       </section>
 

@@ -1,6 +1,6 @@
 # Agrotech Venezuela 🌾🛰️
 
-**Plataforma Integral de Inteligencia Edafo-Climática, Visión Satelital Multi-Escala (WebGIS 3 Niveles), Radar SAR Sentinel-1 Sin Nubes, Balance Hídrico & Grados Día (GDD), Cuantificación de Créditos de Carbono MRV, Machine Learning Agronómico y Asesoría Gemini AI.**
+**Plataforma Integral de Inteligencia Edafo-Climática, Visión Satelital Multi-Escala (WebGIS 3 Niveles), Radar SAR Sentinel-1 Sin Nubes, Balance Hídrico & Grados Día (GDD), Cuantificación de Créditos de Carbono MRV, Machine Learning Agronómico, Accesibilidad Rural Dual-Mode UI y Asesoría Gemini AI.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Next.js 16](https://img.shields.io/badge/Next.js-16%20(Turbopack)-black.svg)](https://nextjs.org/)
@@ -8,7 +8,7 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.62-FF4B4B.svg)](https://streamlit.io/)
 [![Python 3.13](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
 [![PostgreSQL 15](https://img.shields.io/badge/PostgreSQL-15-336791.svg)](https://www.postgresql.org/)
-[![Tests: 148 Passing](https://img.shields.io/badge/Tests-148%20Passing-brightgreen.svg)]()
+[![Tests: 179 Passing](https://img.shields.io/badge/Tests-179%20Passing-brightgreen.svg)]()
 
 Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LULC) de **MapBiomas Venezuela** (1985–2024), **Sentinel-1 SAR Radar**, **Sentinel-2 L2A (Copernicus)** y **NASA POWER**, Agrotech transforma la observación satelital en **decisiones agronómicas precisas, prescriptivas y de acción directa** para productores, agrónomos e investigadores agrícolas.
 
@@ -23,11 +23,13 @@ Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LUL
 | **Modelado Agroclimático** | Climatología general estática. | **Grados Día de Desarrollo ($GDD_{10}^{30}$) & Balance Hídrico ($P - ET_c$)**: Predicción fenológica de fechas de floración y madurez fisiológica. |
 | **Certificación de Carbono** | No disponible. | **Calculadora de Créditos de Carbono & MRV**: Cuantificación de SOC (tC/ha), secuestro anual de $\text{tCO}_2\text{e}$ y valoración económica en USD (IPCC Tier 2 / Verra). |
 | **Resiliencia Rural & PWA** | Dependencia 100% de internet estable. | **Indicador Visual de Conectividad & Sincronización**, caché geodésico SQLite WAL (< 5ms) y cola de mutaciones offline en IndexedDB. |
+| **Accesibilidad Campesina** | Enfoque macroscópico sin adaptación rural. | **Dual-Mode UI**: *Modo Productor Fácil* con 4 Puertas táctiles, glosario coloquial (*Tierra Mansa / Brava*), dictado por voz y reaseguro de datos vs *Modo Técnico*. |
 | **Modelado de Cosecha** | No disponible. | **Machine Learning Predictivo**: Estimación de rendimiento en **Ton/ha** para 8 cadenas productivas estratégicas. |
 | **Prescripción Agronómica** | No prescriptivo. | **Calculadora de Encalado ($CaCO_3$) y Plan Nutricional $N-P-K$** adaptado a insumos venezolanos. |
 | **Espacio del Productor** | No disponible. | **Mis Tierras & Cuaderno de Campo Digital**: Registro cronológico de labores, encalados, fertilizaciones y cosechas reales. |
-| **Control de Acceso** | Acceso público general. | **Modo Invitado (1-Click Sandbox)**, Registro con aprobación administrativa y **Panel de Control (`/dashboard/admin`)**. |
+| **Control de Acceso** | Acceso público general. | **Modo Invitado (1-Click Sandbox Multi-Sesión)**, Registro con aprobación administrativa y **Panel de Control (`/dashboard/admin`)**. |
 | **Inteligencia Artificial** | No disponible. | **Agente Google Gemini AI**: Diagnósticos técnicos estructurados y chat agronómico contextual de 40 años. |
+| **Expediente de Premiación** | No disponible. | **Centro Oficial de Postulación MapBiomas 2026 (`/dashboard/postulacion`)**: TRL 7, 5 PDFs oficiales (Bases, Guía, FAQs, Formulario y Paper Científico). |
 
 ---
 
@@ -60,7 +62,7 @@ graph TD
   MRV --> Response
   Gemini --> Response
   
-  Web --> Prisma[Prisma ORM & PostgreSQL 15]
+  Web --> Prisma[Prisma ORM & PostgreSQL 15 / Memoria Turnkey]
 ```
 
 ---
@@ -126,27 +128,56 @@ graph TD
 - Algoritmo de supresión inteligente de riego ante alertas de lluvia de NASA POWER, cuantificando ahorro hídrico (L) y energético (kWh) en tiempo real.
 - Guía de hardware completa (ESP32 DevKit v1, relé 5V, electroválvula 12V y sensor capacitivo v1.2 por < $35 USD) con código Arduino C++ listo para flashear y calculadora de calibración ADC.
 
+### 13. Experiencia Productor Sin Barreras (Dual-Mode UI)
+- Selector de modo accesible en cabecera (`Modo Productor Fácil` vs `Modo Técnico`).
+- Panel de 4 Puertas Campesinas en el inicio con botones de alto contraste, tipografía agrandada y reaseguro de persistencia (*"Tranquilo, tu finca está guardada en este teléfono"*).
+- Glosario edafológico y técnico coloquial adaptado a la terminología rural venezolana (*Tierra Mansa* vs *Tierra Brava*, *Ojos Satelitales SAR*, *Medida Shoelace*).
+
+### 14. Navegador de Intenciones Agrícolas & Dictado por Voz Nativo
+- Modal interactivo con 6 tarjetas de acción directa: *1. Saber cómo está mi tierra*, *2. Ver si va a llover o secar*, *3. Medir mi parcela*, *4. Elegir qué sembrar*, *5. Anotar lo que hice hoy*, *6. Hablar con el asistente*.
+- Asistente de voz nativo en el navegador mediante **Web Speech API** (`es-VE`) para dictar consultas y escuchar recomendaciones agronómicas sin necesidad de teclado.
+
+### 15. Centro Oficial de Postulación & Expediente Científico MapBiomas 2026 (`/dashboard/postulacion`)
+- Dossier institucional con madurez tecnológica **TRL 7 (Sistema Validado en Entorno Real)**.
+- Descarga directa en **PDF y Markdown** de los 5 documentos oficiales del premio:
+  - *Bases Oficiales del Premio (10 págs.)*
+  - *Preguntas Frecuentes del Jurado (6 págs.)*
+  - *Guía de Postulación Oficial*
+  - *Formulario de Postulación Oficial*
+  - *Artículo Científico y Manuscrito Técnico: Validación TRL 7, Shoelace WGS84, Radar SAR y Hoja de Ruta 2026–2030*
+- Matriz de cumplimiento cruzada frente a los 6 criterios de evaluación del jurado (Complejidad 20%, Originalidad 20%, Claridad 15%, Resultados 20%, Aporte General 20% y MapBiomas 5%).
+
+### 16. Modo Invitado Sandbox Multi-Sesión Aislado (1-Click Guest)
+- Acceso instantáneo sin formularios ni contraseñas para jurados, docentes y evaluadores.
+- Aislamiento completo de parcelas y cuaderno de campo por sesión efímera, permitiendo que múltiples usuarios prueben la plataforma simultáneamente sin sobreescribir datos ajenos.
+
 ---
 
-## 🚀 Despliegue y Ejecución Local
+## 🚀 Despliegue y Ejecución Local Turnkey (Cero Fricción)
+
+> [!TIP]
+> **Modo Evaluación Inmediato**: Quien clone el repositorio **no necesita configurar credenciales ni levantar PostgreSQL** para probar la totalidad de la plataforma. El sistema detecta la ausencia de base de datos y activa automáticamente el proxy en memoria con suelos venezolanos, series satelitales simuladas y dictámenes agronómicos expertos locales.
 
 ### Prerrequisitos
 - Node.js 20+ o 22+
-- Python 3.13+
-- PostgreSQL 15 (o Docker)
+- Python 3.13+ (Opcional para FastAPI y Streamlit)
+- PostgreSQL 15 o Docker (Opcional)
 
 ### 1. Iniciar Plataforma WebGIS (Next.js 16)
 ```bash
-# Instalar dependencias y generar cliente Prisma
+# Clonar el repositorio
+git clone https://github.com/frankSousa23/agrotech-venezuela.git
+cd agrotech-venezuela
+
+# Instalar dependencias (Prisma Client se genera automáticamente en postinstall)
 npm install
-npx prisma generate
 
 # Iniciar servidor de desarrollo con Turbopack
 npm run dev
-# Acceder a http://localhost:3000
+# Acceder de inmediato a http://localhost:3000
 ```
 
-### 2. Iniciar Backend Espacial & ML (FastAPI)
+### 2. Iniciar Backend Espacial & ML (FastAPI) — Opcional
 ```bash
 cd backend
 py -m pip install -r requirements.txt
@@ -154,7 +185,7 @@ py -m uvicorn src.main:app --port 8000 --reload
 # Documentación interactiva en http://localhost:8000/docs
 ```
 
-### 3. Iniciar Dashboard de Prescripción (Streamlit)
+### 3. Iniciar Dashboard de Prescripción (Streamlit) — Opcional
 ```bash
 cd backend
 py -m streamlit run streamlit_app.py --server.headless true
@@ -177,12 +208,12 @@ Consulte la plantilla documentada [`.env.production.example`](.env.production.ex
 
 ---
 
-## 🧪 Validación y Pruebas Automatizadas (148 Tests)
+## 🧪 Validación y Pruebas Automatizadas (179 Tests)
 
 Antes de cualquier commit a la rama `main`, se ejecutan y validan ambas suites de testing:
 
 ```bash
-# 1. Pruebas Frontend: WebGIS, SAR Radar, GDD, Auth, Diary, Spatial, Routing, Search & IoT (Jest — 97 tests)
+# 1. Pruebas Frontend: WebGIS, SAR Radar, GDD, Auth, Diary, Spatial, Routing, Search, IoT & Farmer UX (Jest — 128 tests)
 npm test
 
 # 2. Verificación Estática TypeScript (0 errores obligatorios)
@@ -194,7 +225,7 @@ npm run build
 # 4. Pruebas Backend Espacial, ML, IA y Carga (Pytest — 51 tests)
 npm run test:backend
 
-# 5. Suite Unificada Automatizada Completa (148 tests)
+# 5. Suite Unificada Automatizada Completa (179 tests)
 npm run test:all
 ```
 

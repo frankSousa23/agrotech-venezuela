@@ -90,13 +90,13 @@ Agrotech Venezuela es la primera plataforma integral que **elimina la fricción 
 
 ## 🛠️ 6. Stack Tecnológico de Nivel Empresarial
 
-- **Frontend WebGIS**: Next.js 16 (App Router con Turbopack, 28 rutas limpias), React 19, Leaflet nativo, CSS Glassmorphism, PWA con cola de mutaciones IndexedDB.
+- **Frontend WebGIS**: Next.js 16 (App Router con Turbopack, 28 rutas limpias), React 19, Leaflet nativo, CSS Glassmorphism, PWA con cola de mutaciones IndexedDB y arquitectura **Dual-Mode UI** (*Modo Productor Fácil* con 4 Puertas táctiles, Navegador de Intenciones y dictado por voz Web Speech API vs *Modo Técnico*).
 - **Visualizador Interactivo**: Streamlit 1.62, Folium, Plotly Express.
 - **Backend & ML**: Python 3.13, FastAPI, Scikit-Learn, NumPy, Google Earth Engine API, NASA POWER Client.
 - **Agro-IoT & Hardware In-Situ**: Microcontrolador ESP32 DevKit v1, corte transversal animado en SVG, telemetría edáfica multivariable (VWC, Temp, NPK, pH) y supresión predictiva de riego acoplada a NASA POWER.
-- **Inteligencia Artificial**: Google Gemini API (`gemini-1.5-flash` / `gemini-2.0-flash`) con memoria territorial y fallback edafológico determinista.
-- **Base de Datos & Caché**: PostgreSQL 15 (Docker), Prisma ORM, SQLite WAL Mode con hashing geodésico a 4 decimales.
-- **Calidad de Código**: **148 pruebas automatizadas (97 Jest Frontend/WebGIS + 51 Pytest Backend/ML/IA, 100% aprobadas)**, 0 errores TypeScript, CI/CD con GitHub Actions.
+- **Inteligencia Artificial**: Google Gemini API (`gemini-2.5-flash`) con memoria territorial y fallback edafológico determinista.
+- **Base de Datos & Caché**: PostgreSQL 15 (Docker), Prisma ORM con fallback transparente en memoria para evaluación turnkey, SQLite WAL Mode con hashing geodésico a 4 decimales.
+- **Calidad de Código**: **179 pruebas automatizadas (128 Jest Frontend/WebGIS/IoT/Farmer + 51 Pytest Backend/ML/IA, 100% aprobadas)**, 0 errores TypeScript, CI/CD con GitHub Actions.
 - **Despliegue Productivo**: Aislamiento de puertos en Docker con perfiles (`profiles: ["prod", "production"]`) y plantilla exhaustiva `.env.production.example`.
 
 ---

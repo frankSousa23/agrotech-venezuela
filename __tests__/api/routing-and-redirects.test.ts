@@ -79,5 +79,21 @@ describe('🔀 Next.js 16 Routing, Aliases & Redirects Configuration', () => {
     expect(authRoles).toContain('ADMIN');
     expect(authRoles).toContain('GUEST');
   });
+
+  test('debe configurar cabeceras defensivas de seguridad y permitir micrófono en origen propio', async () => {
+    expect(typeof nextConfig.headers).toBe('function');
+    if (nextConfig.headers) {
+      const headersConfig = await nextConfig.headers();
+      expect(Array.isArray(headersConfig)).toBe(true);
+      const rootHeader = headersConfig.find(h => h.source === '/:path*');
+      expect(rootHeader).toBeDefined();
+
+      const permPolicy = rootHeader?.headers.find(h => h.key === 'Permissions-Policy');
+      expect(permPolicy).toBeDefined();
+      expect(permPolicy?.value).toContain('microphone=(self)');
+      expect(permPolicy?.value).toContain('geolocation=(self)');
+      expect(permPolicy?.value).toContain('camera=()');
+    }
+  });
 });
 

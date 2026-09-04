@@ -151,7 +151,12 @@ describe('Security Hardening, Guest Sandbox Isolation & Award Dossier Suite', ()
       'BASES_PREMIO_MAPBIOMAS_2026.md',
       'PREGUNTAS_FRECUENTES_PREMIO_2026.md',
       'MATRIZ_CUMPLIMIENTO_EVALUACION.md',
-      'ARTICULO_CIENTIFICO_DRAFT.md'
+      'ARTICULO_CIENTIFICO_DRAFT.md',
+      'Bases_Premio_MapBiomas_Venezuela_2026.pdf',
+      'Preguntas_Frecuentes_Premio_MapBiomas_2026.pdf',
+      'Guia_Postulacion_MapBiomas_2026.pdf',
+      'Formulario_Postulacion_MapBiomas_2026.pdf',
+      'Articulo_Cientifico_Agrotech_MapBiomas_2026.pdf'
     ];
 
     expectedFiles.forEach(fileName => {

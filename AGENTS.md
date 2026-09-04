@@ -11,7 +11,7 @@ Este documento define los estándares arquitectónicos, convenciones de código 
    - Tecnologías: Next.js 16, React 19, Leaflet Nativo (L.map) + useRef, CSS Modules Glassmorphism, Prisma ORM.
    - Puerto por defecto: `3000` (`npm run dev`).
    - Componentes interactivos de Leaflet **deben** renderizarse con dynamic import (`ssr: false`) usando el motor Leaflet puro (`L.map`) y ciclo de vida controlado por `useRef` (No usar react-leaflet).
-   - Resiliencia PWA: Indicador de conectividad reactivo (`src/components/layout/ConnectivityStatusBadge.tsx`) y cola de mutaciones en IndexedDB.
+   - Resiliencia PWA & Accesibilidad Rural: Indicador de conectividad reactivo (`src/components/layout/ConnectivityStatusBadge.tsx`), cola de mutaciones en IndexedDB, y arquitectura **Dual-Mode UI** (`UIModeContext` y `FarmerModeToggle`) con *Modo Productor Fácil* (4 Puertas táctiles, glosario de campo y dictado por voz nativo Web Speech API) y *Modo Técnico* para ingenieros y científicos.
 
 2. **Backend Espacial, ML & Gemini AI (FastAPI)**:
    - Directorio: `backend/src/`
@@ -27,6 +27,7 @@ Este documento define los estándares arquitectónicos, convenciones de código 
 4. **Base de Datos & Caché**:
    - PostgreSQL 15 en Docker (Puerto `5444`).
    - SQLite en modo WAL (`backend/src/cache_manager.py`) con hashing geodésico a 4 decimales (~11m de resolución) para latencias < 25ms y funcionamiento rural offline.
+   - Fallback en memoria en Next.js (`src/lib/prisma.ts`) para funcionamiento turnkey inmediato sin base de datos externa.
 
 ---
 
@@ -51,7 +52,7 @@ Este documento define los estándares arquitectónicos, convenciones de código 
 Antes de realizar cualquier commit a la rama `main`, se **deben** ejecutar y pasar ambas suites de pruebas automatizadas:
 
 ```bash
-# 1. Pruebas de Frontend WebGIS, SAR Radar, GDD, Auth, Security, Diary, Spatial, Routing, Search & IoT (Jest — 109 tests)
+# 1. Pruebas de Frontend WebGIS, SAR Radar, GDD, Auth, Security, Diary, Spatial, Routing, Search, IoT & Farmer UX (Jest — 128 tests)
 npm test
 
 # 2. Verificación de Tipos TypeScript (0 errores obligatorios)
@@ -63,7 +64,7 @@ npm run build
 # 4. Pruebas de Backend Espacial, ML, IA y Carga (Pytest — 51 tests)
 npm run test:backend
 
-# 5. Suite Unificada Automatizada Completa (160 tests)
+# 5. Suite Unificada Automatizada Completa (179 tests)
 npm run test:all
 ```
 

@@ -14,6 +14,7 @@
     "test:backend": "cd backend && py -m pytest tests",
     "test:all": "jest && cd backend && py -m pytest tests",
     "clean": "pwsh -Command \"Remove-Item -Recurse -Force .next -ErrorAction SilentlyContinue\"",
+    "postinstall": "prisma generate",
     "lint": "eslint"
   },
   "dependencies": {
