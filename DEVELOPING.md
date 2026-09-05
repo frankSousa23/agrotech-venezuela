@@ -137,12 +137,12 @@ cp .env.production.example .env.production
 
 ---
 
-## 🧪 4. Suite Completa de Pruebas y Verificación (182 Tests)
+## 🧪 4. Suite Completa de Pruebas y Verificación (197 Tests)
 
 El proyecto cuenta con una cobertura exhaustiva de pruebas unitarias, de integración, geoespaciales y de accesibilidad. Antes de realizar cualquier pull request o commit a `main`, se debe verificar la suite completa:
 
 ```bash
-# 1. Pruebas Frontend Jest (130 tests: WebGIS, SAR Radar, GDD, Auth, UX Rural, IoT, Intentions):
+# 1. Pruebas Frontend Jest (145 tests: WebGIS, SAR Radar, GDD, Auth, UX Rural, IoT, Intentions, Vernacular Voice Parser, Machinery Exporter):
 npm test
 
 # 2. Verificación Estática TypeScript (0 errores obligatorios):
@@ -154,7 +154,7 @@ npm run build
 # 4. Pruebas Backend Pytest (52 tests: FastAPI, ML Cosecha, GDD, Shoelace, Caché):
 npm run test:backend
 
-# 5. Suite Automatizada Unificada (182 de 182 tests aprobados):
+# 5. Suite Automatizada Unificada (197 de 197 tests aprobados):
 npm run test:all
 ```
 
@@ -168,6 +168,9 @@ npm run test:all
 4. **Ciclo de Vida Leaflet Nativo**: Todos los mapas interactivos se inicializan con dynamic import (`ssr: false`), motor Leaflet puro (`L.map`) y ciclo de vida controlado por `useRef` para evitar memory leaks (prohibido el uso de `react-leaflet`).
 5. **Máscara de Nubes Sentinel-2**: Uso estricto de la banda SCL (Scene Classification Layer) excluyendo sombras (3), nubes medias/altas (8, 9) y cirros (10).
 6. **Grados Día (GDD)**: Base térmica $10.0^\circ\text{C}$ con techo $30.0^\circ\text{C}$ y balance hídrico $P - ET_c$ (`src/lib/geo/hydroThermalEngine.ts`).
+7. **Calibración Edafológica Regional**: Modelo Kamprath modificado ($1.5 \times \text{Al}^{3+} \times 100 / \text{PRNT}$) para sabanas orientales ácidas, balance Ca:Mg (3:1 a 4:1) para Sur del Lago con cal dolomítica, y Yeso Agrícola ($CaSO_4 \cdot 2H_2O$) a 2.5 t/ha para suelos salino-sódicos alcalinos en Quíbor/Lara ($pH \ge 7.4$).
+8. **Parser Vernacular Campesino**: Normalización offline e insensible a acentos de unidades tradicionales venezolanas (1 saco = 50 kg, 1 tambor = 200 L, 1 caneca = 20 L, 1 tablón = 1.0 ha) acoplado a la Bitácora de Campo.
+9. **Prescripciones Tri-Modales para Maquinaria y Drones**: Paquetes ESRI Shapefile con atributos VRA (`RATE_LIME`, `RATE_NPK`, `AREA_HA` en UTM 19N WGS84) para tractores GPS, misiones de vuelo KML para drones agrícolas y fichas de cabina analógica de 1 página.
 
 ---
 

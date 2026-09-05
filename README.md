@@ -8,7 +8,7 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.62-FF4B4B.svg)](https://streamlit.io/)
 [![Python 3.13](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
 [![PostgreSQL 15](https://img.shields.io/badge/PostgreSQL-15-336791.svg)](https://www.postgresql.org/)
-[![Tests: 182 Passing](https://img.shields.io/badge/Tests-182%20Passing-brightgreen.svg)]()
+[![Tests: 197 Passing](https://img.shields.io/badge/Tests-197%20Passing-brightgreen.svg)]()
 [![TRL: 7](https://img.shields.io/badge/TRL-7%20(Validado%20en%20Campo)-orange.svg)]()
 
 Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LULC) de **MapBiomas Venezuela** (1985–2024), **Sentinel-1 SAR Radar**, **Sentinel-2 L2A (Copernicus)** y **NASA POWER**, Agrotech transforma la teledetección espacial en **decisiones agronómicas prescriptivas y de acción directa** para productores, extensionistas agrícolas e investigadores.
@@ -42,6 +42,9 @@ Para evaluadores, jurados de premiación e inversores, la plataforma cuenta con 
 | **Accesibilidad Campesina** | Interfaz analítica compleja. | **Dual-Mode UI**: *Modo Productor Fácil* (4 Puertas de acción, glosario coloquial, dictado por voz) vs *Modo Técnico* para especialistas. |
 | **Modelado de Cosecha** | No disponible. | **Machine Learning Agronómico**: Proyección de rendimiento en **Ton/ha** para 8 cadenas agrícolas estratégicas venezolanas. |
 | **Prescripción de Campo** | No prescriptivo. | **Calculadora de Encalado ($CaCO_3$) y Plan Nutricional $N-P-K$** adaptado a los insumos comerciales del país. |
+| **Calibración Regional** | No disponible. | **Modelos Edafológicos Geo-Diferenciados**: Kamprath $Al^{3+}$ en sabanas orientales, balance Ca:Mg en Sur del Lago y Yeso Agrícola ($CaSO_4 \cdot 2H_2O$) en Quíbor/Lara. |
+| **Normalización Campesina** | No disponible. | **Parser Vernacular por Voz**: Mapeo offline de medidas tradicionales (saco = 50kg, tambor = 200L, caneca = 20L, tablón = 1.0ha) directo a la Bitácora. |
+| **Maquinaria & Drones** | No disponible. | **Suite Tri-Modal VRA**: Shapefiles ESRI UTM 19N para tractores GPS, misiones de vuelo KML para drones y fichas analógicas de cabina (1 pág). |
 | **Gestión del Productor** | No disponible. | **Mis Tierras & Cuaderno de Campo Digital**: Registro cronológico de siembras, encalados, fertilizaciones y cosechas reales. |
 | **Inteligencia Artificial** | No disponible. | **Agente Google Gemini AI**: Diagnósticos edafológicos y chat agronómico contextualizado con 40 años de datos históricos. |
 
@@ -126,19 +129,19 @@ En lugar de una lista plana de módulos dispersos, la plataforma estructura sus 
 
 ---
 
-## 🧪 Validación y Calidad Técnica (182 Tests Aprobados)
+## 🧪 Validación y Calidad Técnica (197 Tests Aprobados)
 
 El proyecto mantiene una suite rigurosa de pruebas automatizadas que se ejecuta antes de cualquier integración a la rama principal:
 
 | Suite de Validación | Comando | Métricas Verificadas | Estado |
 | :--- | :--- | :--- | :---: |
-| **Pruebas Frontend Jest** | `npm test` | **130 tests aprobados** (WebGIS, Radar SAR, GDD, Auth, PWA, IoT, UX Rural) | ✅ 100% |
+| **Pruebas Frontend Jest** | `npm test` | **145 tests aprobados** (24 suites: WebGIS, Radar SAR, GDD, Auth, PWA, IoT, UX Rural, Vernacular Parser, Machinery) | ✅ 100% |
 | **Verificación TypeScript** | `npm run typecheck` | **0 errores** de compilación estricta | ✅ 100% |
 | **Compilación Turbopack** | `npm run build` | **28 rutas de producción limpias** en Next.js 16 | ✅ 100% |
 | **Pruebas Backend Pytest** | `npm run test:backend` | **52 tests aprobados** (FastAPI, ML Cosecha, Algoritmos Geoespaciales) | ✅ 100% |
-| **Suite Automatizada Completa** | `npm run test:all` | **182 de 182 pruebas en verde** | ✅ 100% |
+| **Suite Automatizada Completa** | `npm run test:all` | **197 de 197 pruebas en verde** | ✅ 100% |
 
-> Para consultar la guía de ejecución paso a paso de cada suite, consulta [DEVELOPING.md](DEVELOPING.md#4-suite-completa-de-pruebas-y-verificación-182-tests).
+> Para consultar la guía de ejecución paso a paso de cada suite, consulta [DEVELOPING.md](DEVELOPING.md#4-suite-completa-de-pruebas-y-verificación-197-tests).
 
 ---
 

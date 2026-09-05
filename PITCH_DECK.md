@@ -82,7 +82,7 @@ Agrotech Venezuela es la primera plataforma integral que **elimina la fricción 
 
 3. **Minuto 3 — IA Generativa y Exportación Oficial**:
    - *Acción*: Pulsar el botón **"Generar Dictamen Técnico Completo"** y consultar al chat de Gemini.
-   - *Narrativa*: "El agente Google Gemini genera una prescripción técnica estructurada recomendando fertilizantes disponibles en el mercado nacional y permitiendo descargar el Gemelo Digital en GeoJSON para maquinaria agrícola con piloto automático."
+   - *Narrativa*: "El agente Google Gemini genera una prescripción técnica estructurada recomendando fertilizantes disponibles en el mercado nacional y permitiendo exportar prescripciones tri-modales (Shapefiles VRA para consolas GPS John Deere/Trimble, KML para drones agrícolas y fichas analógicas de cabina)."
 
 💡 *Modalidad Express para Evaluadores*: El jurado puede pulsar directamente el botón **`🎬 Tour Demo`** en la barra superior del Dashboard para iniciar un recorrido interactivo guiado de 5 pasos que sintetiza la totalidad de la plataforma (incluyendo el Laboratorio Agro-IoT in-situ).
 
@@ -96,7 +96,7 @@ Agrotech Venezuela es la primera plataforma integral que **elimina la fricción 
 - **Agro-IoT & Hardware In-Situ**: Microcontrolador ESP32 DevKit v1, corte transversal animado en SVG, telemetría edáfica multivariable (VWC, Temp, NPK, pH) y supresión predictiva de riego acoplada a NASA POWER.
 - **Inteligencia Artificial**: Google Gemini API (`gemini-2.5-flash`) con memoria territorial y fallback edafológico determinista.
 - **Base de Datos & Caché**: PostgreSQL 15 (Docker), Prisma ORM con fallback transparente en memoria para evaluación turnkey, SQLite WAL Mode con hashing geodésico a 4 decimales.
-- **Calidad de Código**: **182 pruebas automatizadas (130 Jest Frontend/WebGIS/IoT/Farmer + 52 Pytest Backend/ML/IA, 100% aprobadas)**, 0 errores TypeScript, CI/CD con GitHub Actions.
+- **Calidad de Código**: **197 pruebas automatizadas (145 Jest Frontend/WebGIS/IoT/Farmer/Vernacular/Machinery + 52 Pytest Backend/ML/IA, 100% aprobadas)**, 0 errores TypeScript, CI/CD con GitHub Actions.
 - **Despliegue Productivo**: Aislamiento de puertos en Docker con perfiles (`profiles: ["prod", "production"]`) y plantilla exhaustiva `.env.production.example`.
 
 ---

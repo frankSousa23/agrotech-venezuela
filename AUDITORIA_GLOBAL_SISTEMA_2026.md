@@ -17,9 +17,9 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
                       MATRIZ DE SALUD DEL SISTEMA (100% OPERATIVO)
 ========================================================================================
  [✓] Verificación Estática TypeScript:    0 Errores (Modo Estricto / npx tsc --noEmit)
- [✓] Frontend & WebGIS Suite (Jest):      130 Tests Pasando (22 Test Suites, 2.78s)
- [✓] Backend Espacial & ML (Pytest):      52 Tests Pasando (12 Módulos, 14.56s)
- [✓] Suite Unificada Completa:            182 Tests Automatizados (100% Passing)
+ [✓] Frontend & WebGIS Suite (Jest):      145 Tests Pasando (24 Test Suites, 2.87s)
+ [✓] Backend Espacial & ML (Pytest):      52 Tests Pasando (12 Módulos, 13.64s)
+ [✓] Suite Unificada Completa:            197 Tests Automatizados (100% Passing)
  [✓] Next.js App Router (Turbopack):      28 Rutas Compiladas Limpiamente (0 Fallos)
  [✓] Endpoints de Backend (FastAPI):      39 Endpoints OpenAPI 3.0 (/docs interactivo)
  [✓] Cobertura Geográfica Territorial:    24 Estados + 335 Municipios Venezolanos
@@ -62,7 +62,7 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
   - `README.md` estructurado exclusivamente como escaparate de impacto agrícola, innovación satelital, arquitectura visual y modelo socioeconómico para evaluadores e inversores.
   - `DEVELOPING.md` como guía exhaustiva de ingeniería que aísla los requerimientos técnicos de instalación, microservicios Docker, pipelines de testing y convenciones geoespaciales.
 - **Ficha Técnica & Expediente de Postulación (`/dashboard/postulacion`)**:
-  - Badge oficial actualizado y sincronizado a **182 Tests Automatizados Pasando (130 Jest + 52 Pytest)**.
+  - Badge oficial actualizado y sincronizado a **197 Tests Automatizados Pasando (145 Jest + 52 Pytest)**.
   - Tour Demostrativo interactivo de 5 pasos para evaluadores técnicos del jurado.
   - Descarga y visualización de memorandos técnicos enlazados a `docs/MEMORANDO_POSTULACION.md` y `public/docs/MEMORANDO_POSTULACION.md`.
   - Integridad de los 10 documentos públicos requeridos para el Premio MapBiomas Venezuela 2026.
@@ -71,7 +71,7 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 
 ## 📊 3. Desglose Detallado de Pruebas Automatizadas
 
-### A. Frontend & WebGIS Suite (Jest — 130 Tests en 22 Suites)
+### A. Frontend & WebGIS Suite (Jest — 145 Tests en 24 Suites)
 1. `__tests__/api/auth.test.ts` — Autenticación JWT, registro, login y validación de credenciales.
 2. `__tests__/api/theme-and-contrast.test.ts` — Modos de visualización (Oscuro, Claro, Pleno Sol).
 3. `__tests__/api/native-gis-lifecycle.test.ts` — Ciclo de vida de Leaflet nativo con `useRef` y destrucción segura de mapas.
@@ -88,12 +88,14 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 14. `__tests__/api/import-export.test.ts` — Importación y exportación de polígonos GeoJSON para maquinaria con GPS.
 15. `__tests__/api/relations.test.ts` — Relaciones agronómicas entre suelos, clima y cultivos.
 16. `__tests__/api/soils.test.ts` — Parámetros edáficos venezolanos (pH, CIC, texturas, saturación de bases).
-17. `__tests__/api/recomendaciones.test.ts` — Motor AHP de aptitud y prescripción de enmiendas calizas.
+17. `__tests__/api/recomendaciones.test.ts` — Motor AHP de aptitud, calibración edafológica regional (Kamprath Al³⁺, Ca:Mg, Yeso) y enmiendas.
 18. `__tests__/api/crops.test.ts` — Catálogo de 42 cultivos tropicales y las 8 cadenas estratégicas.
 19. `__tests__/api/iot-telemetry-route.test.ts` — Endpoint de ingesta de telemetría de campo (`/api/iot/telemetry`).
 20. `__tests__/api/guest-concurrency.test.ts` — Pruebas de concurrencia y no-colisión de usuarios de prueba.
 21. `__tests__/api/security-and-dossier.test.ts` — Hardening RBAC, expediente oficial y memorando de postulación.
 22. `__tests__/api/workflow.test.ts` — Flujo integral de usuario (desde login hasta delimitación y reporte).
+23. `__tests__/api/vernacular-parser.test.ts` — Parser de voz campesina, normalización tradicional métrica e intenciones dialectales (10 tests).
+24. `__tests__/api/machinery-exporter.test.ts` — Generador tri-modal de prescripciones VRA para tractores GPS, drones y cabina analógica (3 tests).
 
 ### B. Backend Espacial & ML Suite (Pytest — 52 Tests en 12 Módulos)
 1. `tests/test_api_endpoints.py` (7 tests) — Endpoints REST principales de FastAPI.
@@ -154,7 +156,7 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 
 El ecosistema **Agrotech Venezuela** se encuentra en estado **100% verde, integrado y verificado**, cumpliendo con los más exigentes estándares de la industria del software geoespacial y agronómico:
 
-1. **Cero regresiones**: 182 de 182 tests automatizados pasando sin advertencias.
+1. **Cero regresiones**: 197 de 197 tests automatizados pasando sin advertencias.
 2. **Cero errores de compilación**: Modo estricto de TypeScript superado al 100%.
 3. **Producción lista para despliegue**: 28 rutas estáticas y dinámicas optimizadas mediante Next.js 16 Turbopack.
 4. **Sincronización institucional absoluta**: Toda la documentación pública (`README.md`, `DEVELOPING.md`, `MEMORANDO_POSTULACION.md`) refleja fielmente las capacidades técnicas y operacionales del sistema.
