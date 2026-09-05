@@ -32,7 +32,7 @@ TRL 7:   DEMOSTRACIÓN DE SISTEMA OPERACIONAL INTEGRADO EN ENTORNO REAL (ESTADO 
          • Plataforma WebGIS interactiva en Next.js 16 App Router con Turbopack (28 rutas limpias).
          • Backend espacial de microservicios en FastAPI y Python 3.13 con 39 endpoints OpenAPI.
          • Cobertura territorial completa para los 24 estados y 335 municipios venezolanos.
-         • Suite de 160 pruebas automatizadas (109 Jest Frontend/WebGIS + 51 Pytest Backend/ML/IA).
+         • Suite de 182 pruebas automatizadas (130 Jest Frontend/WebGIS + 52 Pytest Backend/ML/IA).
          • Tour Demostrativo interactivo guiado en 5 pasos para auditoría técnica inmediata.
          • Resiliencia offline-first con SQLite WAL e IndexedDB para zonas rurales.
 ```

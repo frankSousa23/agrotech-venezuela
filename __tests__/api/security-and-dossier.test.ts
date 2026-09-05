@@ -165,6 +165,11 @@ describe('Security Hardening, Guest Sandbox Isolation & Award Dossier Suite', ()
         expect(fs.existsSync(filePath)).toBe(true);
         const stats = fs.statSync(filePath);
         expect(stats.size).toBeGreaterThan(1000); // Al menos 1 KB de contenido técnico
+        if (fileName === 'MEMORANDO_POSTULACION.md') {
+          const content = fs.readFileSync(filePath, 'utf8');
+          expect(content).toContain('182 pruebas automatizadas');
+          expect(content).toContain('28 rutas limpias');
+        }
       });
     });
   });
