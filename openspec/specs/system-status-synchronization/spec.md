@@ -7,15 +7,15 @@ Ensures consistent, synchronized project metrics and capabilities across all doc
 ## Requirements
 
 ### Requirement: Cross-System Metric Accuracy
-The system and project documentation SHALL consistently reflect the verified quality metrics: 182 automated tests passing (130 Jest + 52 Pytest), 28 clean Next.js 16 routes, and 0 TypeScript compilation errors across all public-facing and in-app technical materials (`README.md`, `DEVELOPING.md`, `AGENTS.md`, `PITCH_DECK.md`, `.github/workflows/ci.yml`, and `/dashboard/postulacion`).
+The system and project documentation SHALL consistently reflect the verified quality metrics: 197 automated tests passing (145 Jest + 52 Pytest across 24 test suites and 12 backend modules), 28 clean Next.js 16 routes, and 0 TypeScript compilation errors across all public-facing and in-app technical materials (`README.md`, `DEVELOPING.md`, `AGENTS.md`, `PITCH_DECK.md`, `.github/workflows/ci.yml`, and `/dashboard/postulacion`).
 
 #### Scenario: Inspecting Project Verification Badges
 - **WHEN** an evaluator reviews the README, DEVELOPING.md, Pitch Deck, or `/dashboard/postulacion`
-- **THEN** all badges and text blocks show identical, verified test metrics (182 tests passing: 130 Jest + 52 Pytest, 28 routes, 0 TypeScript errors).
+- **THEN** all badges and text blocks show identical, verified test metrics (197 tests passing: 145 Jest + 52 Pytest, 28 routes, 0 TypeScript errors).
 
 #### Scenario: Running Continuous Integration on GitHub Actions
 - **WHEN** CI runs on pushes to `main`
-- **THEN** the workflow execution titles and steps reflect 22 Jest test suites (130 tests) and 52 Pytest tests without outdated label numbers.
+- **THEN** the workflow execution titles and steps reflect 24 Jest test suites (145 tests) and 52 Pytest tests without outdated label numbers.
 
 ### Requirement: Complete Module Representation
 The project overview (`README.md` and `PITCH_DECK.md`) SHALL document all core operational capabilities organized under a 3-pillar farmer narrative, isolating technical environment setup into `DEVELOPING.md` and articulating every capability via the formula *Technical Feature + Agricultural Problem Solved = Tangible Field Benefit*.
