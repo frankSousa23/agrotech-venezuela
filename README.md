@@ -1,6 +1,6 @@
 # Agrotech Venezuela 🌾🛰️
 
-**Plataforma Integral de Inteligencia Edafo-Climática, Visión Satelital Multi-Escala (WebGIS 3 Niveles), Radar SAR Sentinel-1 Sin Nubes, Balance Hídrico & Grados Día (GDD), Cuantificación de Créditos de Carbono MRV, Machine Learning Agronómico, Accesibilidad Rural Dual-Mode UI y Asesoría Gemini AI.**
+**Plataforma Integral de Inteligencia Edafo-Climática, Visión Satelital Multi-Escala, Radar SAR Sentinel-1 Sin Nubes, Balance Hídrico & Grados Día (GDD), Cuantificación de Créditos de Carbono MRV, Machine Learning Agronómico, Accesibilidad Rural Dual-Mode UI y Asesoría Gemini AI.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Next.js 16](https://img.shields.io/badge/Next.js-16%20(Turbopack)-black.svg)](https://nextjs.org/)
@@ -8,9 +8,25 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.62-FF4B4B.svg)](https://streamlit.io/)
 [![Python 3.13](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
 [![PostgreSQL 15](https://img.shields.io/badge/PostgreSQL-15-336791.svg)](https://www.postgresql.org/)
-[![Tests: 179 Passing](https://img.shields.io/badge/Tests-179%20Passing-brightgreen.svg)]()
+[![Tests: 182 Passing](https://img.shields.io/badge/Tests-182%20Passing-brightgreen.svg)]()
+[![TRL: 7](https://img.shields.io/badge/TRL-7%20(Validado%20en%20Campo)-orange.svg)]()
 
-Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LULC) de **MapBiomas Venezuela** (1985–2024), **Sentinel-1 SAR Radar**, **Sentinel-2 L2A (Copernicus)** y **NASA POWER**, Agrotech transforma la observación satelital en **decisiones agronómicas precisas, prescriptivas y de acción directa** para productores, agrónomos e investigadores agrícolas.
+Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LULC) de **MapBiomas Venezuela** (1985–2024), **Sentinel-1 SAR Radar**, **Sentinel-2 L2A (Copernicus)** y **NASA POWER**, Agrotech transforma la teledetección espacial en **decisiones agronómicas prescriptivas y de acción directa** para productores, extensionistas agrícolas e investigadores.
+
+---
+
+> 🛠️ **¿Eres desarrollador, ingeniero de software o auditor de código?**  
+> Para consultar los diagramas de arquitectura de microservicios con mapeo de puertos, instrucciones de despliegue local en menos de 2 minutos (Turnkey Zero-Config), perfiles Docker y comandos de testing automatizado, visita la **[Guía de Arquitectura, Desarrollo y Despliegue (DEVELOPING.md)](DEVELOPING.md)**.
+
+---
+
+## ⚡ Acceso Inmediato y Modo Evaluación (1-Click Demo)
+
+Para evaluadores, jurados de premiación e inversores, la plataforma cuenta con mecanismos de exploración inmediata sin barreras de entrada:
+
+- **Modo Invitado (1-Click Sandbox)**: Acceso instantáneo en un clic a la experiencia completa sin necesidad de registrarse ni ingresar contraseñas. Cada sesión cuenta con almacenamiento efímero aislado para probar parcelas y bitácora sin interferir con otros usuarios.
+- **Tour Demostrativo Guiado (`🎬 Tour Demo`)**: Recorrido de 5 paradas estratégicas accesible desde la cabecera principal y la barra móvil, diseñado para sintetizar los hitos del ecosistema en menos de 3 minutos.
+- **Centro Oficial de Postulación (`/dashboard/postulacion`)**: Dossier institucional de madurez tecnológica **TRL 7**, descarga directa de los 5 PDFs oficiales del premio y artículo científico de validación en campo.
 
 ---
 
@@ -18,229 +34,111 @@ Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LUL
 
 | Dimensión | MapBiomas Venezuela (Observacional) | Agrotech Venezuela (Prescriptivo y Acción) |
 | :--- | :--- | :--- |
-| **Jerarquía Cartográfica** | Nivel Macro-Nacional. | **WebGIS Multi-Escala de 3 Niveles**: Nacional (24 Estados) ➔ Municipal (335 Municipios / Polos Agrícolas) ➔ Micro-Parcela Sentinel-2 / Sentinel-1 SAR. |
-| **Penetración de Nubes** | Obstruido en temporada lluviosa (óptico). | **Radar Sentinel-1 SAR (Banda C - 5.4 GHz)**: Retrodispersión $\gamma^\circ_{\text{VV}}/\gamma^\circ_{\text{VH}}$ para monitoreo de humedad de suelo y anegamiento 100% all-weather. |
-| **Modelado Agroclimático** | Climatología general estática. | **Grados Día de Desarrollo ($GDD_{10}^{30}$) & Balance Hídrico ($P - ET_c$)**: Predicción fenológica de fechas de floración y madurez fisiológica. |
-| **Certificación de Carbono** | No disponible. | **Calculadora de Créditos de Carbono & MRV**: Cuantificación de SOC (tC/ha), secuestro anual de $\text{tCO}_2\text{e}$ y valoración económica en USD (IPCC Tier 2 / Verra). |
-| **Resiliencia Rural & PWA** | Dependencia 100% de internet estable. | **Indicador Visual de Conectividad & Sincronización**, caché geodésico SQLite WAL (< 5ms) y cola de mutaciones offline en IndexedDB. |
-| **Accesibilidad Campesina** | Enfoque macroscópico sin adaptación rural. | **Dual-Mode UI**: *Modo Productor Fácil* con 4 Puertas táctiles, glosario coloquial (*Tierra Mansa / Brava*), dictado por voz y reaseguro de datos vs *Modo Técnico*. |
-| **Modelado de Cosecha** | No disponible. | **Machine Learning Predictivo**: Estimación de rendimiento en **Ton/ha** para 8 cadenas productivas estratégicas. |
-| **Prescripción Agronómica** | No prescriptivo. | **Calculadora de Encalado ($CaCO_3$) y Plan Nutricional $N-P-K$** adaptado a insumos venezolanos. |
-| **Espacio del Productor** | No disponible. | **Mis Tierras & Cuaderno de Campo Digital**: Registro cronológico de labores, encalados, fertilizaciones y cosechas reales. |
-| **Control de Acceso** | Acceso público general. | **Modo Invitado (1-Click Sandbox Multi-Sesión)**, Registro con aprobación administrativa y **Panel de Control (`/dashboard/admin`)**. |
-| **Inteligencia Artificial** | No disponible. | **Agente Google Gemini AI**: Diagnósticos técnicos estructurados y chat agronómico contextual de 40 años. |
-| **Expediente de Premiación** | No disponible. | **Centro Oficial de Postulación MapBiomas 2026 (`/dashboard/postulacion`)**: TRL 7, 5 PDFs oficiales (Bases, Guía, FAQs, Formulario y Paper Científico). |
+| **Jerarquía Cartográfica** | Nivel Macro-Nacional estático. | **WebGIS Multi-Escala de 3 Niveles**: Nacional (24 Estados) ➔ Municipal (335 Polos Agrícolas) ➔ Micro-Parcela Sentinel-2 / Sentinel-1 SAR. |
+| **Penetración de Nubes** | Obstruido en temporada de lluvias (satélites ópticos). | **Radar Sentinel-1 SAR (Banda C - 5.4 GHz)**: Monitoreo de humedad edáfica y anegamiento all-weather sin interferencia de nubes. |
+| **Modelado Agroclimático** | Climatología general histórica. | **Grados Día de Desarrollo ($GDD_{10}^{30}$) & Balance Hídrico ($P - ET_c$)**: Predicción fenológica de fechas de floración y madurez fisiológica. |
+| **Certificación de Carbono** | No disponible. | **Calculadora MRV de Créditos de Carbono**: Stock de SOC (tC/ha), secuestro anual ($\text{tCO}_2\text{e}/\text{ha}$) y valoración económica en USD (IPCC Tier 2 / Verra). |
+| **Resiliencia Rural & PWA** | Dependencia de internet continuo. | **Modo Finca Offline**: PWA con almacenamiento IndexedDB local, sincronización reactiva y reaseguro de persistencia en el teléfono. |
+| **Accesibilidad Campesina** | Interfaz analítica compleja. | **Dual-Mode UI**: *Modo Productor Fácil* (4 Puertas de acción, glosario coloquial, dictado por voz) vs *Modo Técnico* para especialistas. |
+| **Modelado de Cosecha** | No disponible. | **Machine Learning Agronómico**: Proyección de rendimiento en **Ton/ha** para 8 cadenas agrícolas estratégicas venezolanas. |
+| **Prescripción de Campo** | No prescriptivo. | **Calculadora de Encalado ($CaCO_3$) y Plan Nutricional $N-P-K$** adaptado a los insumos comerciales del país. |
+| **Gestión del Productor** | No disponible. | **Mis Tierras & Cuaderno de Campo Digital**: Registro cronológico de siembras, encalados, fertilizaciones y cosechas reales. |
+| **Inteligencia Artificial** | No disponible. | **Agente Google Gemini AI**: Diagnósticos edafológicos y chat agronómico contextualizado con 40 años de datos históricos. |
 
 ---
 
-## 🏗️ Arquitectura del Ecosistema
+## 🎯 De la Característica Técnica al Beneficio Tangible
 
-```mermaid
-graph TD
-  User[Productor / Agrónomo / Admin / Invitado] --> Web[Next.js 16 WebGIS & PWA - Puerto 3000]
-  User --> Dash[Streamlit Prescription Dashboard - Puerto 8501]
-  
-  Web --> FastApi[FastAPI Spatial & ML Backend - Puerto 8000]
-  Dash --> FastApi
-  
-  FastApi --> Cache{Caché Espacial SQLite WAL}
-  Cache -->|Hit < 5ms| Response[JSON Payload Estandarizado]
-  Cache -->|Miss| Ingestion[Pipelines Satelitales]
-  
-  Ingestion --> GEE[MapBiomas Col 3 1985-2024]
-  Ingestion --> S2[Sentinel-2 SCL 10m NDVI/EVI/NDWI]
-  Ingestion --> S1[Sentinel-1 SAR Radar C-Band All-Weather]
-  Ingestion --> NASA[NASA POWER Agroclimatología Diaria]
-  
-  Ingestion --> ML[Predictor de Rendimiento en Ton/ha]
-  Ingestion --> GDD[Motor Hidro-Térmico & Fenología GDD]
-  Ingestion --> MRV[Cuantificador de Carbono SOC & Créditos MRV]
-  Ingestion --> Gemini[Agente Google Gemini AI]
-  
-  ML --> Response
-  GDD --> Response
-  MRV --> Response
-  Gemini --> Response
-  
-  Web --> Prisma[Prisma ORM & PostgreSQL 15 / Memoria Turnkey]
+Aplicamos de forma estricta la fórmula de valor agronómico:  
+$$\mathbf{Característica\ Técnica} + \mathbf{Problema\ del\ Campo\ Resuelto} = \mathbf{Beneficio\ Tangible\ para\ la\ Cosecha}$$
+
+| Capacidad Técnica | Problema Agrícola Real | Beneficio Tangible / Impacto Directo |
+| :--- | :--- | :--- |
+| **Radar SAR Sentinel-1 (Banda C - 5.4 GHz)** | En el invierno lluvioso (mayo-noviembre), las nubes densas bloquean los satélites ópticos tradicionales durante semanas críticas. | **Monitoreo Ininterrumpido de Cultivos y Anegamiento**: Detecta a tiempo la saturación hídrica a través de las nubes, salvando la cosecha antes de que el exceso de agua pudra las raíces. |
+| **Grados Día ($GDD_{10}^{30}$) & Balance Hídrico** | Los agricultores suelen sembrar y fertilizar guiándose por fechas fijas de calendario o intuición empírica, fallando ante variaciones climáticas. | **Certeza Fenológica de Cosecha**: Modela el crecimiento térmico real según temperatura y lluvia de NASA POWER, indicando el momento exacto para fertilizar y entrar a cosechar con grano maduro. |
+| **Dual-Mode UI (4 Puertas Campesinas)** | La mayoría de las aplicaciones AgTech son diseñadas para pantallas grandes y con lenguaje inaccesible para campesinos de campo. | **Inclusión Digital Inmediata**: Reduce la curva de aprendizaje a cero mediante 4 botones táctiles gigantes en lenguaje cotidiano, operable bajo pleno sol y con una sola mano. |
+| **Modo Finca Offline & PWA Resiliente** | La señal celular 3G/4G es casi nula o intermitente en la gran mayoría de las parcelas y potreros rurales de Venezuela. | **Cero Pérdida de Datos en Lote**: Toda la información de parcelas y labores se guarda segura en el móvil y se sincroniza automáticamente al llegar al pueblo o recuperar cobertura. |
+| **Calculadora MRV de Créditos de Carbono** | Los agricultores que aplican siembra directa o coberturas no tienen forma de cuantificar ni monetizar su aporte ecológico. | **Monetización de Prácticas Regenerativas**: Traduce la conservación del suelo en toneladas de $\text{CO}_2$ secuestradas, permitiendo certificar y negociar bonos de carbono bajo metodologías IPCC / Verra. |
+| **Delimitador de Parcela Shoelace WGS84** | Medir fincas con topógrafos o GPS diferenciales es costoso y lento para pequeños y medianos productores. | **Catastro Autónomo Instantáneo**: Permite trazar el polígono del lote en segundos sobre la imagen satelital y obtener el área exacta en hectáreas con corrección de curvatura terrestre. |
+| **Machine Learning de Cosecha (8 Cadenas)** | La incertidumbre sobre cuántos kilos rendirá el lote complica negociar compras de insumos, créditos bancarios y fletes. | **Previsibilidad Financiera**: Proyecta el rendimiento en Ton/ha cruzando suelo, clima y manejo, permitiendo al productor pactar precios de venta y planificar fletes con anticipación. |
+| **Dictado por Voz Nativo (Web Speech API)** | Campesinos con manos sucias de tierra o poca destreza para escribir en teclados táctiles evitan registrar sus tareas. | **Bitácora por Voz Sin Teclado**: Permite registrar labores hablando naturalmente en español venezolano (*"Hoy apliqué urea al lote 2"*), transcribiéndose automáticamente a la bitácora. |
+
+---
+
+## 🌾 El Viaje del Productor: Los 3 Pilares del Ecosistema
+
+En lugar de una lista plana de módulos dispersos, la plataforma estructura sus capacidades siguiendo la secuencia natural de adopción y toma de decisiones del agricultor:
+
+```
+                      EL VIAJE INTEGRAL DEL PRODUCTOR AGRÍCOLA
+                      
+     ┌────────────────────────┐    ┌────────────────────────┐    ┌────────────────────────┐
+     │        PILAR I         │    │        PILAR II        │    │       PILAR III        │
+     │  Accesibilidad Rural   │───▶│ Inteligencia Agronómica│───▶│ Sostenibilidad y Éxito │
+     │ (Cero Barrera Entrada) │    │(Decisión y Diagnóstico)│    │(Rendimiento y Retorno) │
+     └────────────────────────┘    └────────────────────────┘    └────────────────────────┘
+      • Dual-Mode UI (4 Puertas)    • WebGIS Multi-Escala         • MRV Créditos Carbono
+      • Modo Offline + IndexedDB    • Radar SAR All-Weather       • Plan Encalado & N-P-K
+      • Dictado por Voz Campesino   • Grados Día (GDD) & Clima    • Riego Agro-IoT Ahorro
+      • Omnibox & Guest Sandbox     • ML Cosecha (8 Cadenas)      • Expediente TRL 7 Premio
 ```
 
 ---
 
-## 🗺️ Módulos Principales del Sistema
+### 🚪 Pilar I: Accesibilidad y Adopción Rural (Cero Barrera de Entrada)
+*¿Cómo logra un agricultor de campo sin internet estable ni destreza tecnológica adoptar esta herramienta?*
 
-### 1. Visor WebGIS Multi-Escala & Radar SAR (`/dashboard/mapa`)
-- **Nivel 1 (Nacional)**: Los 24 estados georreferenciados con selector de capas en vivo (**MapBiomas 2024 LULC**, **Semáforo de pH del Suelo**, **Lluvia NASA POWER**, **Radar SAR Sentinel-1**, **Satélite Esri HD**), leyendas dinámicas flotantes y sincronización de redimensionamiento (`map.invalidateSize()`).
-- **Nivel 2 (Municipal)**: Transición fluida a polos productivos agrícolas (Turén, Santa Rosalía, Calabozo, Colón, Pedraza, Quíbor, etc.) con polígonos vectoriales GeoJSON, centros de acopio y pH promedio.
-- **Nivel 3 (Micro-Parcela)**: Imagen satelital con herramienta vectorial interactiva de delimitación y cálculo esferoidal de hectáreas (**Shoelace geodésico proyectado sobre WGS84**).
-
-### 2. Balance Hídrico & Grados Día de Crecimiento ($GDD_{10}^{30}$)
-- Cálculo diario de acumulación térmica ajustado a cultivos tropicales (Maíz, Arroz, Caña de Azúcar, Café, Cacao).
-- Predicción cronológica de estadios fenológicos: Emergencia ($V_E$), Diferenciación ($V_6-V_8$), Floración/Antesis ($R_1$), Llenado de Grano ($R_3-R_4$) y Madurez Fisiológica/Cosecha ($R_6$).
-- Curva mensual de balance hídrico (Precipitación efectiva vs Evapotranspiración $ET_c$).
-
-### 3. Calculadora de Créditos de Carbono & MRV
-- Cuantificación de Stock de Carbono Orgánico en Suelo ($SOC = \text{OM\%} \times 0.58 \times \rho_b \times \text{profundidad}$).
-- Evaluación de secuestro anual ($\text{tCO}_2\text{e}/\text{ha}/\text{año}$) bajo Siembra Directa + Coberturas vs Sistemas Agroforestales vs Labranza Convencional.
-- Estimación económica en USD de bonos de carbono para el productor agrícola (Metodología IPCC Tier 2 / Verra VCS).
-
-### 4. Indicador de Conectividad & Sincronización en Tiempo Real
-- Píldora persistente en cabecera con monitoreo de red (`En Línea 🟢`, `Modo Finca Offline 🟠`, `Sincronizando 🔄`).
-- Contador de registros agronómicos pendientes en IndexedDB y botón de sincronización forzada al recuperar señal en campo.
-
-### 5. Espacio del Productor: "Mis Tierras" y "Cuaderno de Campo Digital"
-- **Mis Tierras (`/dashboard/tierras`)**: Gestión de parcelas delimitadas, cultivo actual, textura edafológica y acceso a diagnósticos con Gemini AI.
-- **Cuaderno de Campo (`/dashboard/bitacora`)**: Registro cronológico de labores (Siembra, Encalado dolomítico, Fertilización NPK/Urea, Riego, Cosecha) y comparación de rendimientos reales (**Ton/ha**).
-
-### 6. Simulador Edafológico & Asesor Gemini AI (`/dashboard/recomendaciones`)
-- Sliders reactivos de pH, Materia Orgánica y Textura del Suelo.
-- Generación de dictamen agronómico con Gemini AI y exportación de Gemelo Digital en GeoJSON.
-
-### 7. Omnibox (Command Palette) & Navegación Global
-- Búsqueda interactiva (Ctrl+K) de estados, municipios y herramientas del sistema.
-- Redirección automática y enfoque profundo en el WebGIS usando parámetros de URL (`?state=Zulia`).
-
-### 8. Sistema de Temas & Modo Pleno Sol
-- Modos Claro, Oscuro y **Pleno Sol (Alto Contraste)** diseñados para operaciones de campo bajo alta luminosidad, cumpliendo con estándares WCAG AAA.
-
-### 9. Modo Demostración / Tour Guiado de 5 Pasos (`DemoTourModal`)
-- Acceso directo mediante el botón **`🎬 Tour Demo`** en la cabecera superior y barra móvil del Dashboard.
-- Recorrido interactivo guiado para comités técnicos, jurados y evaluadores que sintetiza los 5 pilares:
-  1. *Cartografía Nacional & Edafología MapBiomas*.
-  2. *Micro-Parcelas & Radar SAR Sentinel-1 Banda C All-Weather*.
-  3. *Prescripción con Gemini AI & Suelos*.
-  4. *Laboratorio Agro-IoT de Micro-Cultivo & Riego Predictivo*.
-  5. *Madurez TRL 7, MRV de Carbono & APIs OpenAPI*.
-
-### 10. Navegación Universal de Retorno & Ergonomía de Roles
-- Componente inteligente `BackButton` a prueba de fallos integrado en vistas standalone (`/api-docs`, `/auth/login`, `/auth/register`, `/dashboard/postulacion`, `/dashboard/arquitectura`) y en la barra móvil.
-- Retorno multinivel en el WebGIS (`← Volver a [Estado]` y `← Volver a Venezuela`).
-- Selector ágil de roles (1-Click Switcher: `FARMER`, `AGRONOMIST`, `ADMIN`, `GUEST`) para auditoría de permisos.
-
-### 11. Integración E2E Parcela ➔ Prescripción IA Directa
-- Botón **`✨ Prescripción IA`** en cada tarjeta de lote en `/dashboard/tierras`.
-- Transferencia fluida de parámetros geodésicos (`stateId`, `crop`, `parcelName`) hacia `/dashboard/recomendaciones`, activando la insignia de vinculación de parcela e inicializando el motor agronómico sin recaptura manual.
-
-### 12. Laboratorio Agro-IoT de Micro-Cultivo & Riego Predictivo In-Situ
-- Entorno didáctico interactivo (`/dashboard/iot`) para experimentar con sensores edáficos en bancales y mesas de cultivo antes de su despliegue a escala de lote.
-- Corte transversal vivo en SVG con animación de micro-goteo, dinámica radicular e hidratación del suelo según % VWC.
-- 3 Presets agronómicos (Tomate Cherry/Hortalizas, Maíz Dulce, Vivero Café/Cacao).
-- Algoritmo de supresión inteligente de riego ante alertas de lluvia de NASA POWER, cuantificando ahorro hídrico (L) y energético (kWh) en tiempo real.
-- Guía de hardware completa (ESP32 DevKit v1, relé 5V, electroválvula 12V y sensor capacitivo v1.2 por < $35 USD) con código Arduino C++ listo para flashear y calculadora de calibración ADC.
-
-### 13. Experiencia Productor Sin Barreras (Dual-Mode UI)
-- Selector de modo accesible en cabecera (`Modo Productor Fácil` vs `Modo Técnico`).
-- Panel de 4 Puertas Campesinas en el inicio con botones de alto contraste, tipografía agrandada y reaseguro de persistencia (*"Tranquilo, tu finca está guardada en este teléfono"*).
-- Glosario edafológico y técnico coloquial adaptado a la terminología rural venezolana (*Tierra Mansa* vs *Tierra Brava*, *Ojos Satelitales SAR*, *Medida Shoelace*).
-
-### 14. Navegador de Intenciones Agrícolas & Dictado por Voz Nativo
-- Modal interactivo con 6 tarjetas de acción directa: *1. Saber cómo está mi tierra*, *2. Ver si va a llover o secar*, *3. Medir mi parcela*, *4. Elegir qué sembrar*, *5. Anotar lo que hice hoy*, *6. Hablar con el asistente*.
-- Asistente de voz nativo en el navegador mediante **Web Speech API** (`es-VE`) para dictar consultas y escuchar recomendaciones agronómicas sin necesidad de teclado.
-
-### 15. Centro Oficial de Postulación & Expediente Científico MapBiomas 2026 (`/dashboard/postulacion`)
-- Dossier institucional con madurez tecnológica **TRL 7 (Sistema Validado en Entorno Real)**.
-- Descarga directa en **PDF y Markdown** de los 5 documentos oficiales del premio:
-  - *Bases Oficiales del Premio (10 págs.)*
-  - *Preguntas Frecuentes del Jurado (6 págs.)*
-  - *Guía de Postulación Oficial*
-  - *Formulario de Postulación Oficial*
-  - *Artículo Científico y Manuscrito Técnico: Validación TRL 7, Shoelace WGS84, Radar SAR y Hoja de Ruta 2026–2030*
-- Matriz de cumplimiento cruzada frente a los 6 criterios de evaluación del jurado (Complejidad 20%, Originalidad 20%, Claridad 15%, Resultados 20%, Aporte General 20% y MapBiomas 5%).
-
-### 16. Modo Invitado Sandbox Multi-Sesión Aislado (1-Click Guest)
-- Acceso instantáneo sin formularios ni contraseñas para jurados, docentes y evaluadores.
-- Aislamiento completo de parcelas y cuaderno de campo por sesión efímera, permitiendo que múltiples usuarios prueben la plataforma simultáneamente sin sobreescribir datos ajenos.
+1. **Interfaz Dual-Mode (Modo Productor Fácil vs Modo Técnico)**: Switch persistente en la cabecera que transforma el sistema entre un panel ultra-simplificado para el campesino y una consola avanzada con capas GIS completas para ingenieros y científicos.
+2. **Las 4 Puertas Campesinas**: Acceso táctil directo a intenciones clave:
+   - 🌾 *Saber cómo está mi tierra* (`/dashboard?tab=tierras`)
+   - 🛰️ *Ver si va a llover o secar* (`/dashboard?tab=clima`)
+   - 📐 *Medir mi parcela* (`/dashboard?tab=tierras&action=draw`)
+   - 📝 *Anotar lo que hice hoy* (`/dashboard?tab=bitacora`)
+3. **Modo Finca Offline & Reaseguro Psicológico**: Almacenamiento local en IndexedDB con un mensaje de certeza al productor: *"🔒 Tranquilo, tu finca está guardada en este teléfono y sincronizará en cuanto tengas señal"*.
+4. **Navegador de Intenciones & Dictado por Voz Nativo**: Modal con 6 tarjetas de acción guiada y reconocimiento de voz mediante **Web Speech API (`es-VE`)** para operar sin necesidad de teclear.
+5. **Glosario Edáfico Cultural**: Traducción de términos científicos al vocabulario del campo venezolano (*Tierra Mansa* vs *Tierra Brava*, *Ojos Satelitales Radar SAR*, *Medida Shoelace*).
+6. **Omnibox Global (Ctrl+K) & Modo Pleno Sol**: Buscador universal tipo Spotlight para saltar entre estados, municipios y herramientas en 1 segundo, junto con un tema de ultra-alto contraste optimizado para pantallas bajo radiación solar intensa (WCAG AAA).
 
 ---
 
-## 🚀 Despliegue y Ejecución Local Turnkey (Cero Fricción)
+### 🛰️ Pilar II: Inteligencia Agronómica y Observación Satelital Sin Nubes
+*¿Qué información crítica e inédita recibe el productor para tomar decisiones agronómicas preventivas?*
 
-> [!TIP]
-> **Modo Evaluación Inmediato**: Quien clone el repositorio **no necesita configurar credenciales ni levantar PostgreSQL** para probar la totalidad de la plataforma. El sistema detecta la ausencia de base de datos y activa automáticamente el proxy en memoria con suelos venezolanos, series satelitales simuladas y dictámenes agronómicos expertos locales.
-
-### Prerrequisitos
-- Node.js 20+ o 22+
-- Python 3.13+ (Opcional para FastAPI y Streamlit)
-- PostgreSQL 15 o Docker (Opcional)
-
-### 1. Iniciar Plataforma WebGIS (Next.js 16)
-```bash
-# Clonar el repositorio
-git clone https://github.com/frankSousa23/agrotech-venezuela.git
-cd agrotech-venezuela
-
-# Instalar dependencias (Prisma Client se genera automáticamente en postinstall)
-npm install
-
-# Iniciar servidor de desarrollo con Turbopack
-npm run dev
-# Acceder de inmediato a http://localhost:3000
-```
-
-### 2. Iniciar Backend Espacial & ML (FastAPI) — Opcional
-```bash
-cd backend
-
-# En Windows:
-py -m pip install -r requirements.txt
-py -m uvicorn src.main:app --port 8000 --reload
-
-# En Linux / macOS:
-python3 -m pip install -r requirements.txt
-python3 -m uvicorn src.main:app --port 8000 --reload
-
-# Documentación interactiva en http://localhost:8000/docs
-```
-
-### 3. Iniciar Dashboard de Prescripción (Streamlit) — Opcional
-```bash
-cd backend
-
-# En Windows:
-py -m streamlit run streamlit_app.py --server.headless true
-
-# En Linux / macOS:
-python3 -m streamlit run streamlit_app.py --server.headless true
-
-# Acceder a http://localhost:8501
-```
-
-### 4. Despliegue Productivo con Docker & Servidores Cloud / VPS
-El servicio web en `docker-compose.yml` está configurado con aislamiento de perfiles (`profiles: ["prod", "production"]`) para permitir ejecutar la base de datos y microservicios en Docker sin interferir con el puerto local 3000:
-
-```bash
-# Desarrollo local (inicia BD 5444, API 8000 y Streamlit 8501 en Docker; Web local con Turbopack)
-npm run services:up
-npm run dev
-
-# Despliegue de producción completo en un solo comando
-docker compose --profile prod up -d --build
-```
-
-Consulte la plantilla documentada [`.env.production.example`](.env.production.example) para configurar llaves de Google Gemini API, tokens JWT y credenciales seguras de PostgreSQL en servidores VPS o Cloud.
+7. **Visor WebGIS Multi-Escala de 3 Niveles (`/dashboard/mapa`)**:
+   - **Nivel 1 (Nacional)**: Cobertura de los 24 estados venezolanos con semáforo de pH edáfico, precipitación acumulada y capas satelitales en vivo.
+   - **Nivel 2 (Municipal)**: Zoom automático a 335 municipios y polos agrícolas clave (Turén, Calabozo, Colón, Pedraza, Quíbor) con centros de acopio y pH zonal.
+   - **Nivel 3 (Micro-Parcela)**: Delimitación de lotes con cálculo esferoidal de hectáreas mediante **Shoelace geodésico proyectado sobre WGS84**.
+8. **Radar SAR Sentinel-1 Banda C (5.4 GHz) All-Weather**: Monitoreo de retrodispersión dual ($\gamma^\circ_{\text{VV}}/\gamma^\circ_{\text{VH}}$) capaz de atravesar nubes densas y determinar el índice de saturación de humedad en suelo sin depender de días despejados.
+9. **Motor Hidro-Térmico (GDD & Balance Hídrico)**: Predicción cronológica de estadios fenológicos ($V_E$, $V_6-V_8$, $R_1$, $R_3-R_4$, $R_6$) cruzando grados día acumulados ($10.0^\circ\text{C}$ a $30.0^\circ\text{C}$) con balance hídrico mensual ($P - ET_c$) de NASA POWER.
+10. **Machine Learning de Rendimiento Agronómico**: Modelos de regresión calibrados para predecir el rendimiento comercial en **Ton/ha** para 8 cadenas estratégicas: Maíz Blanco, Arroz, Cacao Criollo, Café Arábica, Caña de Azúcar, Plátano, Soya y Tomate Cherry / Hortalizas Protegidas.
+11. **Simulador Edafológico & Asesor Gemini AI (`/dashboard/recomendaciones`)**: Ajuste interactivo de pH, materia orgánica y textura, generando dictámenes agronómicos con IA contextualizados a 40 años de transiciones MapBiomas.
+12. **Espacio del Productor: "Mis Tierras" y "Cuaderno de Campo Digital"**: Catálogo de parcelas delimitadas y bitácora cronológica de labores (siembra, encalado, fertilización, riego y cosecha real) para contrastar el pronóstico con la cosecha real.
 
 ---
 
-## 🧪 Validación y Pruebas Automatizadas (179 Tests)
+### 📈 Pilar III: Sostenibilidad, Retorno Económico y Madurez Institucional
+*¿Cómo se traduce la tecnología en mayores ingresos para el productor y respaldo formal para el proyecto?*
 
-Antes de cualquier commit a la rama `main`, se ejecutan y validan ambas suites de testing:
+13. **Calculadora MRV de Créditos de Carbono (`CarbonCreditsCalculator`)**: Cuantificación de Stock de Carbono Orgánico en Suelo ($SOC$) y secuestro anual ($\text{tCO}_2\text{e}/\text{ha}/\text{año}$) bajo manejo regenerativo (Siembra Directa + Coberturas vs Agroforestería) con valoración económica en USD (IPCC Tier 2 / Verra VCS).
+14. **Calculadora de Encalado ($CaCO_3$) y Plan Nutricional $N-P-K$**: Cálculo estequiométrico de enmiendas calcáreas según saturación de aluminio y curvas de fertilización ajustadas a los fertilizantes disponibles en Venezuela.
+15. **Laboratorio Agro-IoT de Micro-Cultivo & Riego Predictivo (`/dashboard/iot`)**: Banco interactivo de experimentación con sensores de humedad edáfica (% VWC), esquemas de hardware económicos (< $35 USD) y algoritmo de supresión de riego sincronizado con NASA POWER para ahorro hídrico y energético.
+16. **Centro Oficial de Postulación MapBiomas 2026 (`/dashboard/postulacion`)**: Expediente integral con madurez tecnológica **TRL 7 (Sistema Validado en Entorno Real)**, matriz de cumplimiento ante el jurado calificador y descarga directa de los 5 documentos oficiales en PDF y Markdown.
 
-```bash
-# 1. Pruebas Frontend: WebGIS, SAR Radar, GDD, Auth, Diary, Spatial, Routing, Search, IoT & Farmer UX (Jest — 128 tests)
-npm test
+---
 
-# 2. Verificación Estática TypeScript (0 errores obligatorios)
-npm run typecheck
+## 🧪 Validación y Calidad Técnica (182 Tests Aprobados)
 
-# 3. Compilación de Producción (Next.js 16 Turbopack — 28 rutas limpias)
-npm run build
+El proyecto mantiene una suite rigurosa de pruebas automatizadas que se ejecuta antes de cualquier integración a la rama principal:
 
-# 4. Pruebas Backend Espacial, ML, IA y Carga (Pytest — 51 tests)
-npm run test:backend
+| Suite de Validación | Comando | Métricas Verificadas | Estado |
+| :--- | :--- | :--- | :---: |
+| **Pruebas Frontend Jest** | `npm test` | **130 tests aprobados** (WebGIS, Radar SAR, GDD, Auth, PWA, IoT, UX Rural) | ✅ 100% |
+| **Verificación TypeScript** | `npm run typecheck` | **0 errores** de compilación estricta | ✅ 100% |
+| **Compilación Turbopack** | `npm run build` | **28 rutas de producción limpias** en Next.js 16 | ✅ 100% |
+| **Pruebas Backend Pytest** | `npm run test:backend` | **52 tests aprobados** (FastAPI, ML Cosecha, Algoritmos Geoespaciales) | ✅ 100% |
+| **Suite Automatizada Completa** | `npm run test:all` | **182 de 182 pruebas en verde** | ✅ 100% |
 
-# 5. Suite Unificada Automatizada Completa (179 tests)
-npm run test:all
-```
+> Para consultar la guía de ejecución paso a paso de cada suite, consulta [DEVELOPING.md](DEVELOPING.md#4-suite-completa-de-pruebas-y-verificación-182-tests).
 
 ---
 
@@ -249,5 +147,5 @@ npm run test:all
 - **Código Fuente**: Licencia **MIT** (Copyright © 2026 Frank Sousa - Agrotech Venezuela).
 - **Datos de Cobertura y Uso del Suelo**: Referencian y construyen sobre la iniciativa **MapBiomas Venezuela** (Provita, LSIGMA USB, Wataniba y RAISG), disponible bajo licencia **Creative Commons Atribución 4.0 Internacional (CC BY 4.0)**.
 
-**Uso de MapBiomas en el Proyecto:** 
-Agrotech Venezuela integra los datos de cobertura vegetal de MapBiomas para comprender la evolución histórica del suelo (1985-2024). Esta información se procesa junto con datos climáticos (NASA POWER), radar SAR (Sentinel-1) y modelos de IA para generar **prescripciones agronómicas de alta precisión**. El objetivo de esta integración es ayudar al productor a elegir el cultivo adecuado, evaluar el secuestro de carbono y aplicar prácticas regenerativas, con el fin último de **mejorar la productividad de las siembras y garantizar la sostenibilidad agrícola**.
+**Uso de MapBiomas en el Proyecto:**  
+Agrotech Venezuela integra los datos de cobertura vegetal de MapBiomas para comprender la evolución histórica del suelo (1985–2024). Esta información se procesa junto con datos climáticos (NASA POWER), radar SAR (Sentinel-1) y modelos de IA para generar **prescripciones agronómicas de alta precisión**. El objetivo de esta integración es ayudar al productor a elegir el cultivo adecuado, evaluar el secuestro de carbono y aplicar prácticas regenerativas, con el fin último de **mejorar la productividad de las siembras y garantizar la sostenibilidad agrícola**.

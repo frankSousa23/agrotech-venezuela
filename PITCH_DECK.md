@@ -96,7 +96,7 @@ Agrotech Venezuela es la primera plataforma integral que **elimina la fricción 
 - **Agro-IoT & Hardware In-Situ**: Microcontrolador ESP32 DevKit v1, corte transversal animado en SVG, telemetría edáfica multivariable (VWC, Temp, NPK, pH) y supresión predictiva de riego acoplada a NASA POWER.
 - **Inteligencia Artificial**: Google Gemini API (`gemini-2.5-flash`) con memoria territorial y fallback edafológico determinista.
 - **Base de Datos & Caché**: PostgreSQL 15 (Docker), Prisma ORM con fallback transparente en memoria para evaluación turnkey, SQLite WAL Mode con hashing geodésico a 4 decimales.
-- **Calidad de Código**: **179 pruebas automatizadas (128 Jest Frontend/WebGIS/IoT/Farmer + 51 Pytest Backend/ML/IA, 100% aprobadas)**, 0 errores TypeScript, CI/CD con GitHub Actions.
+- **Calidad de Código**: **182 pruebas automatizadas (130 Jest Frontend/WebGIS/IoT/Farmer + 52 Pytest Backend/ML/IA, 100% aprobadas)**, 0 errores TypeScript, CI/CD con GitHub Actions.
 - **Despliegue Productivo**: Aislamiento de puertos en Docker con perfiles (`profiles: ["prod", "production"]`) y plantilla exhaustiva `.env.production.example`.
 
 ---
