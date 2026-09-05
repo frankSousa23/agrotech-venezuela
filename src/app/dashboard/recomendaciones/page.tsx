@@ -109,9 +109,10 @@ function RecomendacionesContent() {
       simOM, 
       simAreaHa, 
       suitabilityResults[0]?.cropName,
-      simYearsUse
+      simYearsUse,
+      { lat: centerLat, lng: centerLng, stateId: selectedState.id }
     );
-  }, [simPh, simOM, simAreaHa, suitabilityResults, simYearsUse]);
+  }, [simPh, simOM, simAreaHa, suitabilityResults, simYearsUse, centerLat, centerLng, selectedState.id]);
 
   const handleRequestGeminiAdvice = async () => {
     setIsLoadingAi(true);
@@ -427,7 +428,21 @@ function RecomendacionesContent() {
             <div className={styles.prescriptionTitle}>
               <FlaskConical size={16} /> Prescripción de Enmiendas
             </div>
-            {amendmentPlan.needsLiming ? (
+            {amendmentPlan.amendmentCategory === 'GYPSUM' ? (
+              <div className={styles.limingBox} style={{ borderLeft: '4px solid #38bdf8', background: 'rgba(56, 189, 248, 0.08)' }}>
+                <p className={styles.limingDose} style={{ color: '#38bdf8' }}>
+                  <strong>Corrección con Yeso Agrícola:</strong> {amendmentPlan.gypsumTonsPerHa} Ton/ha
+                </p>
+                <p className={styles.limingTotal}>
+                  Total finca ({simAreaHa} ha): <strong>{amendmentPlan.totalGypsumTons} Toneladas</strong> de {amendmentPlan.gypsumType}.
+                </p>
+                {amendmentPlan.regionalSoilNotes && (
+                  <p style={{ fontSize: '0.8rem', color: '#bae6fd', marginTop: '6px' }}>
+                    {amendmentPlan.regionalSoilNotes}
+                  </p>
+                )}
+              </div>
+            ) : amendmentPlan.needsLiming ? (
               <div className={styles.limingBox}>
                 <p className={styles.limingDose}>
                   <strong>Encalado Requerido:</strong> {amendmentPlan.limeTonsPerHa} Ton/ha
@@ -435,11 +450,16 @@ function RecomendacionesContent() {
                 <p className={styles.limingTotal}>
                   Total finca ({simAreaHa} ha): <strong>{amendmentPlan.totalLimeTons} Toneladas</strong> de {amendmentPlan.limeType}.
                 </p>
+                {amendmentPlan.regionalSoilNotes && (
+                  <p style={{ fontSize: '0.8rem', color: '#a7f3d0', marginTop: '6px' }}>
+                    {amendmentPlan.regionalSoilNotes}
+                  </p>
+                )}
               </div>
             ) : (
               <div className={styles.optimalLiming}>
                 <CheckCircle2 size={16} color="#059669" />
-                <span>pH en rango óptimo. No requiere cal agrícola.</span>
+                <span>pH en rango óptimo. No requiere enmienda correctiva.</span>
               </div>
             )}
 

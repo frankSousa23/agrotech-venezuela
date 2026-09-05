@@ -38,11 +38,24 @@ export interface CropSuitabilityResult {
   orinocoCompliant?: boolean;
 }
 
+export interface RegionalEdaphicContext {
+  lat?: number;
+  lng?: number;
+  stateId?: string;
+  exchangeableAlMe?: number;
+}
+
 export interface SoilAmendmentRecommendation {
   needsLiming: boolean;
   limeTonsPerHa: number;
   totalLimeTons: number;
   limeType: string;
+  pedologicalZone: 'LLANOS_SABANA' | 'SUR_DEL_LAGO' | 'QUIBOR_SEMIARID' | 'GENERAL_TROPICAL';
+  amendmentCategory: 'LIME' | 'GYPSUM' | 'BALANCED_MAINTENANCE' | 'NONE';
+  gypsumTonsPerHa?: number;
+  totalGypsumTons?: number;
+  gypsumType?: string;
+  regionalSoilNotes?: string;
   organicMatterNeededTonsHa: number;
   fertilizerPlan: {
     nitrogenKgHa: number;
@@ -443,26 +456,91 @@ export function evaluateCropSuitability(
 }
 
 /**
- * Calculadora de Prescripción y Enmiendas Edafológicas con Memoria Territorial
+ * Calculadora de Prescripción y Enmiendas Edafológicas con Memoria Territorial y Calibración Regional
  */
 export function calculateSoilAmendments(
   ph: number,
   organicMatter: number,
   areaHectares: number,
   targetCropName: string = 'Maíz',
-  anthropicYears: number = 0
+  anthropicYears: number = 0,
+  regionalContext?: RegionalEdaphicContext
 ): SoilAmendmentRecommendation {
-  const needsLiming = ph < 5.8;
+  let pedologicalZone: 'LLANOS_SABANA' | 'SUR_DEL_LAGO' | 'QUIBOR_SEMIARID' | 'GENERAL_TROPICAL' = 'GENERAL_TROPICAL';
+  let amendmentCategory: 'LIME' | 'GYPSUM' | 'BALANCED_MAINTENANCE' | 'NONE' = 'NONE';
+  let regionalSoilNotes = '';
+  let gypsumTonsPerHa = 0;
+  let gypsumType = 'No requerido';
+
+  const lat = regionalContext?.lat;
+  const lng = regionalContext?.lng;
+  const stateId = regionalContext?.stateId?.toLowerCase() || '';
+
+  // 1. Detección de Valle de Quíbor / Lara / Falcón (Suelos Áridos / Sódicos / Calcáreos)
+  const isLaraSemiarid = stateId === 'lara' || stateId === 'falcon' || 
+    (lat !== undefined && lng !== undefined && lat >= 9.6 && lat <= 11.2 && lng >= -70.8 && lng <= -69.1);
+
+  // 2. Detección de Sur del Lago (Zulia, Mérida bajo, Trujillo bajo)
+  const isSurDelLago = stateId === 'zulia' || stateId === 'merida' || stateId === 'trujillo' ||
+    (lat !== undefined && lng !== undefined && lat >= 8.4 && lat <= 9.8 && lng >= -72.6 && lng <= -70.9);
+
+  // 3. Detección de Llanos y Sabanas Orientales (Monagas, Anzoátegui, Guárico, Bolívar, Cojedes, Barinas)
+  const isLlanosSabana = stateId === 'monagas' || stateId === 'anzoategui' || stateId === 'guarico' || 
+    stateId === 'bolivar' || stateId === 'cojedes' || stateId === 'barinas' || stateId === 'portuguesa' ||
+    (lat !== undefined && lng !== undefined && lat >= 7.5 && lat <= 10.2 && lng >= -67.5 && lng <= -62.0);
+
+  let needsLiming = false;
   let limeTonsPerHa = 0;
   let limeType = 'No requerida';
 
-  if (needsLiming) {
-    const deltaPh = 6.2 - ph;
-    limeTonsPerHa = Math.round((deltaPh * 1.8) * 10) / 10;
-    limeType = ph < 5.0 ? 'Cal Dolomítica (CaCO3 + MgCO3 al 85% PRNT)' : 'Carbonato de Calcio Agrícola';
+  if (isLaraSemiarid && ph >= 7.4) {
+    pedologicalZone = 'QUIBOR_SEMIARID';
+    needsLiming = false;
+    amendmentCategory = 'GYPSUM';
+    limeType = 'Prohibida (Suelo Alcalino/Sódico)';
+    gypsumTonsPerHa = Math.round(Math.max(1.2, (ph - 7.0) * 2.2) * 10) / 10;
+    gypsumType = 'Yeso Agrícola (Sulfato de Calcio Dihidratado al 85%)';
+    regionalSoilNotes = '⚠️ PROHIBIDO APLICAR CAL: El suelo en Valle de Quíbor/Lara presenta pH alcalino o condición sódica. La cal causará bloqueo severo de fósforo y micronutrientes. Se prescribe Yeso Agrícola para desalitrar y desplazar el sodio intercambiable (Na+).';
+  } else if (isSurDelLago) {
+    pedologicalZone = 'SUR_DEL_LAGO';
+    if (ph < 5.8) {
+      needsLiming = true;
+      amendmentCategory = 'LIME';
+      const deltaPh = 6.0 - ph;
+      limeTonsPerHa = Math.round((deltaPh * 1.5) * 10) / 10;
+      limeType = 'Cal Dolomítica Especial (Garantía MgO > 15%)';
+      regionalSoilNotes = 'ℹ️ Cuenca Sur del Lago: Suelos aluviales con alta lixiviación de magnesio por régimen pluvial (>2000 mm). Se prescribe Cal Dolomítica con garantía de MgO > 15% para equilibrar la relación Ca:Mg.';
+    } else {
+      amendmentCategory = 'BALANCED_MAINTENANCE';
+    }
+  } else if (isLlanosSabana) {
+    pedologicalZone = 'LLANOS_SABANA';
+    if (ph < 5.8) {
+      needsLiming = true;
+      amendmentCategory = 'LIME';
+      // Regla de Kamprath: Neutralización de Al3+ intercambiable tóxico
+      const alTox = regionalContext?.exchangeableAlMe ?? Math.max(0.6, (5.6 - ph) * 1.35);
+      limeTonsPerHa = Math.min(3.0, Math.round((alTox * 1.5) * 10) / 10);
+      limeType = 'Cal Dolomítica (CaCO3 + MgCO3 al 85% PRNT) para neutralización de Al³⁺';
+      regionalSoilNotes = '🧪 Sabanas Orientales / Llanos: Neutralización de aluminio intercambiable (Al³⁺ tóxico) bajo protocolo Kamprath. Dosis calibrada para evitar bloqueo de micronutrientes (Zn, Mn, B).';
+    } else {
+      amendmentCategory = 'BALANCED_MAINTENANCE';
+    }
+  } else {
+    pedologicalZone = 'GENERAL_TROPICAL';
+    if (ph < 5.8) {
+      needsLiming = true;
+      amendmentCategory = 'LIME';
+      const deltaPh = 6.2 - ph;
+      limeTonsPerHa = Math.round((deltaPh * 1.8) * 10) / 10;
+      limeType = ph < 5.0 ? 'Cal Dolomítica (CaCO3 + MgCO3 al 85% PRNT)' : 'Carbonato de Calcio Agrícola';
+    } else {
+      amendmentCategory = 'BALANCED_MAINTENANCE';
+    }
   }
 
   const totalLimeTons = Math.round(limeTonsPerHa * areaHectares * 10) / 10;
+  const totalGypsumTons = Math.round(gypsumTonsPerHa * areaHectares * 10) / 10;
 
   // Enmienda de Materia Orgánica ajustada por trayectoria histórica
   let organicMatterNeededTonsHa = 0;
@@ -500,6 +578,12 @@ export function calculateSoilAmendments(
   if (needsLiming) {
     technicalNotes.push(`Aplicar ${limeTonsPerHa} Ton/ha de ${limeType} 30 a 45 días antes de la siembra con pase de rastra.`);
   }
+  if (gypsumTonsPerHa > 0) {
+    technicalNotes.push(`Aplicar ${gypsumTonsPerHa} Ton/ha de ${gypsumType} antes de las labores de riego para desplazar el sodio.`);
+  }
+  if (regionalSoilNotes) {
+    technicalNotes.push(regionalSoilNotes);
+  }
   if (organicMatterNeededTonsHa > 0) {
     technicalNotes.push(`Incorporar ${organicMatterNeededTonsHa} Ton/ha de compost maduro o gallinaza descompuesta para recuperar la microfauna edáfica.`);
   }
@@ -513,6 +597,12 @@ export function calculateSoilAmendments(
     limeTonsPerHa,
     totalLimeTons,
     limeType,
+    pedologicalZone,
+    amendmentCategory,
+    gypsumTonsPerHa: gypsumTonsPerHa > 0 ? gypsumTonsPerHa : undefined,
+    totalGypsumTons: totalGypsumTons > 0 ? totalGypsumTons : undefined,
+    gypsumType: gypsumTonsPerHa > 0 ? gypsumType : undefined,
+    regionalSoilNotes: regionalSoilNotes || undefined,
     organicMatterNeededTonsHa: Math.round(organicMatterNeededTonsHa * 10) / 10,
     fertilizerPlan: {
       nitrogenKgHa: n,
@@ -536,10 +626,11 @@ export function calculatePointSuitability(lat: number, lng: number, ph: number, 
   const state = detectStateFromCoords(lat, lng);
   const results = evaluateCropSuitability(ph, organicMatter, state.soilTextureDominant, state.annualRainfallMm, { lat, lng });
   const topResult = results[0] || { suitabilityScore: 75, cropName: 'Maíz Blanco' };
-  const amendments = calculateSoilAmendments(ph, organicMatter, 1.0, topResult.cropName);
+  const amendments = calculateSoilAmendments(ph, organicMatter, 1.0, topResult.cropName, 0, { lat, lng, stateId: state.id });
   
   const limitingFactors: string[] = [];
   if (ph < 5.5) limitingFactors.push('Acidez del suelo (pH < 5.5)');
+  if (ph >= 7.5) limitingFactors.push('Alcalinidad/Sodicidad del suelo (pH >= 7.5)');
   if (organicMatter < 2.5) limitingFactors.push('Baja materia orgánica');
 
   return {
@@ -547,8 +638,12 @@ export function calculatePointSuitability(lat: number, lng: number, ph: number, 
     recommendedCrops: results.map(r => r.cropName),
     topCrop: topResult.cropName,
     limingDoseTonHa: amendments.limeTonsPerHa,
-    recommendationText: amendments.needsLiming ? `Aplicar ${amendments.limeTonsPerHa} Ton/ha de ${amendments.limeType}` : 'Suelo en rango óptimo',
-    limitingFactors
+    recommendationText: amendments.needsLiming 
+      ? `Aplicar ${amendments.limeTonsPerHa} Ton/ha de ${amendments.limeType}` 
+      : (amendments.gypsumTonsPerHa ? `Aplicar ${amendments.gypsumTonsPerHa} Ton/ha de ${amendments.gypsumType}` : 'Suelo en rango óptimo'),
+    limitingFactors,
+    pedologicalZone: amendments.pedologicalZone,
+    amendmentCategory: amendments.amendmentCategory
   };
 }
 

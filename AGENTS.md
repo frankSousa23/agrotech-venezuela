@@ -44,6 +44,9 @@ Este documento define los estándares arquitectónicos, convenciones de código 
 - **Grados Día de Crecimiento (GDD)**: Base térmica $10.0^\circ\text{C}$ con umbral superior $30.0^\circ\text{C}$ y balance hídrico mensual $P - ET_c$ (`src/lib/geo/hydroThermalEngine.ts`).
 - **Cuantificación de Carbono Orgánico (SOC) y MRV**: Stock de carbono en 0-30cm y secuestro anual ($\text{tCO}_2\text{e}/\text{ha}/\text{año}$) bajo manejo regenerativo según metodología IPCC Tier 2 / Verra VCS (`src/components/agronomy/CarbonCreditsCalculator.tsx`).
 - **Máscara de Nubes Sentinel-2 L2A**: Utilizar la banda SCL (Scene Classification Layer) excluyendo sombras (3), nubes medias/altas (8, 9) y cirros (10).
+- **Calibración Edafológica Regional**: Modelo Kamprath modificado ($1.5 \times \text{Al}^{3+} \times 100 / \text{PRNT}$) para sabanas orientales ácidas, balance Ca:Mg (3:1 a 4:1) para Sur del Lago con cal dolomítica, y Yeso Agrícola ($CaSO_4 \cdot 2H_2O$) a 2.5 t/ha para suelos salino-sódicos alcalinos en Quíbor/Lara ($pH \ge 7.4$).
+- **Parser Vernacular Campesino**: Normalización offline e insensible a acentos de unidades tradicionales venezolanas (1 saco = 50 kg, 1 tambor = 200 L, 1 caneca = 20 L, 1 tablón = 1.0 ha) acoplado a la Bitácora de Campo.
+- **Prescripciones Tri-Modales para Maquinaria**: Paquetes ESRI Shapefile con atributos VRA (`RATE_LIME`, `RATE_NPK`, `AREA_HA` en UTM 19N WGS84) para tractores GPS, misiones de vuelo KML para drones agrícolas y fichas de cabina analógica de 1 página.
 
 ---
 
@@ -52,7 +55,7 @@ Este documento define los estándares arquitectónicos, convenciones de código 
 Antes de realizar cualquier commit a la rama `main`, se **deben** ejecutar y pasar ambas suites de pruebas automatizadas:
 
 ```bash
-# 1. Pruebas de Frontend WebGIS, SAR Radar, GDD, Auth, Security, Diary, Spatial, Routing, Search, IoT & Farmer UX (Jest — 130 tests)
+# 1. Pruebas de Frontend WebGIS, SAR Radar, GDD, Auth, Security, Diary, Spatial, Routing, Search, IoT, Vernacular & Machinery (Jest — 145 tests)
 npm test
 
 # 2. Verificación de Tipos TypeScript (0 errores obligatorios)
@@ -64,7 +67,7 @@ npm run build
 # 4. Pruebas de Backend Espacial, ML, IA y Carga (Pytest — 52 tests)
 npm run test:backend
 
-# 5. Suite Unificada Automatizada Completa (182 tests)
+# 5. Suite Unificada Automatizada Completa (197 tests)
 npm run test:all
 ```
 

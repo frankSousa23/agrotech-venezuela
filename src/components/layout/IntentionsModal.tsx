@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './IntentionsModal.module.css';
 import { useVoiceAssistant } from '@/lib/hooks/useVoiceAssistant';
+import { parseVernacularSpeech } from '@/lib/farmer/vernacularParser';
 import { 
   X, 
   Sparkles, 
@@ -11,7 +12,8 @@ import {
   MicOff, 
   CheckCircle2, 
   ArrowRight,
-  ShieldCheck
+  ShieldCheck,
+  BookOpen
 } from 'lucide-react';
 
 interface IntentionsModalProps {
@@ -89,6 +91,11 @@ export default function IntentionsModal({ isOpen, onClose }: IntentionsModalProp
     startListening, 
     stopListening 
   } = useVoiceAssistant();
+
+  const parsedVoice = useMemo(() => {
+    if (!transcript || transcript.trim().length < 3) return null;
+    return parseVernacularSpeech(transcript);
+  }, [transcript]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -210,6 +217,56 @@ export default function IntentionsModal({ isOpen, onClose }: IntentionsModalProp
             </button>
           )}
         </div>
+
+        {/* Tarjeta de Interpretación de Voz Campesina (Offline-First) */}
+        {parsedVoice && (
+          <div style={{
+            background: 'rgba(15, 23, 42, 0.85)',
+            border: '1px solid rgba(56, 189, 248, 0.35)',
+            borderRadius: '10px',
+            padding: '10px 14px',
+            marginBottom: '1rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '10px'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontSize: '1.2rem' }}>🌱</span>
+              <div>
+                <div style={{ fontSize: '0.84rem', fontWeight: 700, color: '#38bdf8' }}>
+                  Labor Reconocida: {parsedVoice.actionLabel}
+                </div>
+                <div style={{ fontSize: '0.78rem', color: '#cbd5e1' }}>
+                  {parsedVoice.summary}
+                </div>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                onClose();
+                router.push('/dashboard/bitacora');
+              }}
+              style={{
+                background: 'rgba(16, 185, 129, 0.15)',
+                border: '1px solid rgba(16, 185, 129, 0.4)',
+                color: '#34d399',
+                padding: '5px 10px',
+                borderRadius: '6px',
+                fontSize: '0.78rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px'
+              }}
+            >
+              <BookOpen size={13} /> Guardar en Bitácora
+            </button>
+          </div>
+        )}
 
         {/* Cuadrícula de 6 Intenciones Visuales */}
         <div className={styles.cardsGrid}>

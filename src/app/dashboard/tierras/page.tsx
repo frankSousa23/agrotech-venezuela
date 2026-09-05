@@ -11,6 +11,7 @@ import { VENEZUELA_STATES_DATA } from '@/lib/geo/venezuelaData';
 import ShimmerSkeleton from '@/components/ui/ShimmerSkeleton';
 import EmptyStateCard from '@/components/ui/EmptyStateCard';
 import IoTDigitalTwinPanel from '@/components/agronomy/IoTDigitalTwinPanel';
+import MachineryExportModal from '@/components/agronomy/MachineryExportModal';
 import { 
   Tractor, 
   Plus, 
@@ -30,6 +31,7 @@ export default function TierrasPage() {
   const [parcels, setParcels] = useState<InMemParcel[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedParcelForModal, setSelectedParcelForModal] = useState<ParcelGeometry | null>(null);
+  const [selectedParcelForMachinery, setSelectedParcelForMachinery] = useState<InMemParcel | null>(null);
 
   const fetchParcels = () => {
     setLoading(true);
@@ -185,6 +187,15 @@ export default function TierrasPage() {
                     <Map size={14} /> Ver en WebGIS
                   </Link>
 
+                  <button 
+                    onClick={() => setSelectedParcelForMachinery(p)}
+                    className={styles.actionBtn}
+                    style={{ background: 'rgba(234, 179, 8, 0.15)', border: '1px solid rgba(234, 179, 8, 0.4)', color: '#facc15', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px', cursor: 'pointer' }}
+                    title="Exportar archivo VRA para tractor GPS, dron o ficha analógica"
+                  >
+                    <Tractor size={14} /> Maquinaria & Dron
+                  </button>
+
                   <Link 
                     href={`/dashboard/bitacora?parcelId=${p.id}`} 
                     className={styles.actionBtn}
@@ -242,6 +253,14 @@ export default function TierrasPage() {
         <ParcelDiagnosticModal
           parcel={selectedParcelForModal}
           onClose={() => setSelectedParcelForModal(null)}
+        />
+      )}
+
+      {/* Modal de Exportación para Maquinaria y Drones */}
+      {selectedParcelForMachinery && (
+        <MachineryExportModal
+          parcel={selectedParcelForMachinery}
+          onClose={() => setSelectedParcelForMachinery(null)}
         />
       )}
     </div>

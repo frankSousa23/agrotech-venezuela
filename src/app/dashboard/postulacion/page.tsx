@@ -43,7 +43,7 @@ export default function PostulacionPage() {
             <ShieldCheck size={14} /> Nivel de Madurez TRL 7 (Sistema Validado en Entorno Real)
           </span>
           <span className="badge-pill badge-emerald">
-            <CheckCircle2 size={13} /> 182 Tests Automatizados Pasando (130 Jest + 52 Pytest)
+            <CheckCircle2 size={13} /> 197 Tests Automatizados Pasando (145 Jest + 52 Pytest)
           </span>
           <span className="badge-pill badge-cyan">
             <Globe size={13} /> 24 Estados & 335 Municipios Activos
@@ -520,6 +520,30 @@ export default function PostulacionPage() {
             </div>
             <p className={styles.scienceDesc}>
               Cuantificación de stock y secuestro anual (tCO₂e/ha/año) para certificación bajo estándares Verra VCS / IPCC.
+            </p>
+          </div>
+
+          <div className={styles.scienceCard}>
+            <h3 className={styles.scienceTitle}>
+              <FlaskConical size={16} /> Calibración Edafológica Regional
+            </h3>
+            <div className={styles.scienceFormula}>
+              Kamprath Al³⁺ | Ca:Mg 3:1 | Yeso CaSO₄·2H₂O
+            </div>
+            <p className={styles.scienceDesc}>
+              Modelos geo-diferenciados: Neutralización de Al³⁺ en sabanas orientales, magnesio en Sur del Lago y yeso agrícola en Aridisoles de Quíbor/Lara.
+            </p>
+          </div>
+
+          <div className={styles.scienceCard}>
+            <h3 className={styles.scienceTitle}>
+              <Cpu size={16} /> Prescripción VRA Maquinaria & Drones
+            </h3>
+            <div className={styles.scienceFormula}>
+              ESRI VRA Shapefile | KML Dron | Ficha Cabina
+            </div>
+            <p className={styles.scienceDesc}>
+              Exportación universal tri-modal: consolas GPS de tractor (John Deere/Trimble), planes de vuelo para drones y cartilla de ajuste analógico.
             </p>
           </div>
         </div>

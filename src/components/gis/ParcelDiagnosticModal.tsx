@@ -69,7 +69,8 @@ export default function ParcelDiagnosticModal({ parcel, onClose }: ParcelDiagnos
     organicMatter, 
     parcel.areaHectares, 
     selectedCrop,
-    trajectory.yearsInAnthropicUse
+    trajectory.yearsInAnthropicUse,
+    { lat: centroidLat, lng: centroidLng, stateId: state?.id }
   );
 
   // Inicializar el saludo de Gemini con Memoria Territorial
@@ -426,24 +427,30 @@ export default function ParcelDiagnosticModal({ parcel, onClose }: ParcelDiagnos
           {/* TAB 3: PRESCRIPCIONES & ENMIENDAS */}
           {activeTab === 'prescriptions' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              {/* Alerta de Corrección de Suelos / Encalado */}
+              {/* Alerta de Corrección de Suelos / Encalado o Yeso */}
               <div className={styles.prescriptionHero}>
-                <div className={styles.limeAlert}>
+                <div className={styles.limeAlert} style={{
+                  borderLeft: amendments.amendmentCategory === 'GYPSUM' ? '4px solid #38bdf8' : '4px solid #10b981'
+                }}>
                   <div>
-                    <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#a7f3d0', textTransform: 'uppercase' }}>
-                      Requerimiento de Encalado ({amendments.limeType})
+                    <span style={{ fontSize: '0.75rem', fontWeight: 700, color: amendments.amendmentCategory === 'GYPSUM' ? '#38bdf8' : '#a7f3d0', textTransform: 'uppercase' }}>
+                      {amendments.amendmentCategory === 'GYPSUM' 
+                        ? `Corrección con Yeso Agrícola (${amendments.gypsumType})`
+                        : `Requerimiento de Encalado (${amendments.limeType})`}
                     </span>
                     <p style={{ margin: '4px 0 0 0', fontSize: '0.85rem', color: '#f0fdf4' }}>
-                      {amendments.needsLiming 
-                        ? `El suelo presenta un pH de ${avgPh}. Se requiere encalado previo para neutralizar aluminio tóxico y liberar fósforo.`
-                        : `El suelo se encuentra en rango de pH óptimo (${avgPh}). No requiere cal.`}
+                      {amendments.regionalSoilNotes || (amendments.needsLiming 
+                        ? `El suelo presenta un pH de ${avgPh}. Se requiere encalado previo para neutralizar acidez y liberar fósforo.`
+                        : `El suelo se encuentra en rango de pH óptimo (${avgPh}).`)}
                     </p>
                   </div>
                   <div style={{ textAlign: 'right' }}>
-                    <div className={styles.limeNumber}>
-                      {amendments.totalLimeTons} <span style={{ fontSize: '1rem', fontWeight: 500 }}>Ton Totales</span>
+                    <div className={styles.limeNumber} style={{ color: amendments.amendmentCategory === 'GYPSUM' ? '#38bdf8' : '#34d399' }}>
+                      {amendments.amendmentCategory === 'GYPSUM' ? amendments.totalGypsumTons : amendments.totalLimeTons} <span style={{ fontSize: '1rem', fontWeight: 500 }}>Ton Totales</span>
                     </div>
-                    <span style={{ fontSize: '0.75rem', color: '#9ca3af' }}>({amendments.limeTonsPerHa} Ton/ha)</span>
+                    <span style={{ fontSize: '0.75rem', color: '#9ca3af' }}>
+                      ({amendments.amendmentCategory === 'GYPSUM' ? amendments.gypsumTonsPerHa : amendments.limeTonsPerHa} Ton/ha)
+                    </span>
                   </div>
                 </div>
               </div>

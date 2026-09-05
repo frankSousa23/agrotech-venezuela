@@ -32,7 +32,7 @@ TRL 7:   DEMOSTRACIÓN DE SISTEMA OPERACIONAL INTEGRADO EN ENTORNO REAL (ESTADO 
          • Plataforma WebGIS interactiva en Next.js 16 App Router con Turbopack (28 rutas limpias).
          • Backend espacial de microservicios en FastAPI y Python 3.13 con 39 endpoints OpenAPI.
          • Cobertura territorial completa para los 24 estados y 335 municipios venezolanos.
-         • Suite de 182 pruebas automatizadas (130 Jest Frontend/WebGIS + 52 Pytest Backend/ML/IA).
+         • Suite de 197 pruebas automatizadas (145 Jest Frontend/WebGIS + 52 Pytest Backend/ML/IA).
          • Tour Demostrativo interactivo guiado en 5 pasos para auditoría técnica inmediata.
          • Resiliencia offline-first con SQLite WAL e IndexedDB para zonas rurales.
 ```
@@ -111,6 +111,20 @@ $$\text{SOC}_{\text{stock}} (\text{tC/ha}) = \text{SOC}_{\text{conc}} (\%) \time
 
 $$\text{Secuestro Anual} (\text{tCO}_2\text{e/ha/año}) = \Delta \text{SOC} \times \frac{44}{12} \times \text{Factor de Manejo Regenerativo}$$
 
+### 4.5 Calibración Edafológica Regional de Enmiendas
+El motor de prescripción química geo-diferenciada aplica modelos pedológicos adaptados a las tres grandes problemáticas del suelo venezolano:
+1. **Sabanas Orientales y Llanos Ácidos (Monagas, Anzoátegui, Guárico, Portuguesa)**: Neutralización de saturación de aluminio tóxico mediante el modelo Kamprath modificado:
+   $$\text{Dosis Cal (t/ha)} = 1.5 \times \text{Al}^{3+} (\text{cmol}_c/\text{kg}) \times \frac{100}{\text{PRNT}}$$
+2. **Sur del Lago de Maracaibo (Zulia) y Suelos Lacustres**: Corrección de desbalances Ca:Mg (relación óptima 3:1 a 4:1) prescribiendo Cal Dolomítica rica en magnesio soluble.
+3. **Depresión de Quíbor / Lara y Valles Semiáridos (Falcón)**: En suelos alcalinos/salino-sódicos ($pH \ge 7.4$), contraindica estrictamente el carbonato de calcio y prescribe **Yeso Agrícola ($CaSO_4 \cdot 2H_2O$)** a 2.5 t/ha para desplazar el sodio intercambiable sin alcalinizar la solución.
+
+### 4.6 Parser Vernacular Rural y Prescripciones VRA para Maquinaria
+1. **Procesamiento de Voz Vernacular Campesina**: Mapeo determinista e insensible a diacríticos de medidas tradicionales a unidades internacionales (1 saco = 50 kg, 1 tambor = 200 L, 1 caneca = 20 L, 1 tablón = 1.0 ha) y clasificación de intenciones directas a la bitácora.
+2. **Suite de Prescripción Universal Tri-Modal**:
+   - Consolas GPS de Maquinaria Agrícola: Paquetes ESRI Shapefile con atributos VRA (`RATE_LIME`, `RATE_NPK`, `AREA_HA` en UTM 19N WGS84).
+   - Drones de Pulverización: Planes de vuelo en KML georreferenciado con perímetros y puntos de recarga.
+   - Ficha de Cabina Analógica de 1 Página: Matriz de marchas mecánicas (L2/L3), RPM de motor y apertura de compuerta para tractores sin electrónica.
+
 ---
 
 ## 📊 5. Matriz de Impacto Social, Económico y Ambiental (ODS)
@@ -130,8 +144,9 @@ $$\text{Secuestro Anual} (\text{tCO}_2\text{e/ha/año}) = \Delta \text{SOC} \tim
 1. **Operación Offline-First (Resiliencia PWA)**:
    - Sincronización automática de mutaciones de campo en cola `IndexedDB`.
    - Caché geodésica local SQLite con latencias inferiores a 5 ms.
-2. **Interoperabilidad de Datos para Maquinaria**:
-   - Descarga de fichas parcelarias y prescripciones en **GeoJSON estándar**, exportable a computadoras de siembra y pulverización con piloto automático (John Deere, Case IH, Trimble).
+   - Reconocimiento y normalización vernacular por voz 100% offline.
+2. **Interoperabilidad Universal para Maquinaria y Drones**:
+   - Descarga de fichas parcelarias y prescripciones en **GeoJSON estándar**, **ESRI Shapefile VRA** para consolas de tractor (John Deere, Case IH, Trimble), **KML de vuelo para drones agrícolas** y **fichas de cabina analógica** imprimibles en 1 página.
 3. **Ergonomía de Trabajo Bajo Luz Solar**:
    - Tema visual *"Pleno Sol"* diseñado para legibilidad inmediata en campo bajo radiación solar intensa.
 
