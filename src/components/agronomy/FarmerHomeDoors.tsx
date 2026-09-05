@@ -32,7 +32,7 @@ export default function FarmerHomeDoors({ onOpenIntentions, parcelsCount = 1 }: 
     if (isSpeaking) {
       stopSpeaking();
     } else {
-      const summary = `Hola ${user?.name || 'productor'}. Bienvenido a tu panel sencillo de Agrotech Venezuela. Aquí tienes cuatro tareas principales: revisar tu tierra, consultar si va a llover, ver cuánta cal o abono necesita tu cultivo con el médico del suelo, y anotar tus tareas de hoy en tu cuaderno de campo. Todo se guarda seguro en tu teléfono.`;
+      const summary = `Hola ${user?.name || 'productor'}. Bienvenido a tu panel sencillo de Agrotech Venezuela. Aquí tienes tus cuatro puertas campesinas: saber cómo está tu tierra, ver si va a llover o secar, medir tu parcela, y anotar lo que hiciste hoy. Tranquilo, tu finca está guardada en este teléfono de forma segura.`;
       speak(summary);
     }
   };
@@ -91,56 +91,8 @@ export default function FarmerHomeDoors({ onOpenIntentions, parcelsCount = 1 }: 
 
       {/* Las 4 Grandes Puertas de Acción del Campo */}
       <div className={styles.doorsGrid}>
-        {/* Puerta 1: Mi Tierra */}
-        <Link href="/dashboard/tierras" className={styles.doorCard} aria-label="Puerta 1: Mi Tierra y Fincas">
-          <div>
-            <div className={styles.doorHeader}>
-              <div className={styles.doorIcon} style={{ background: 'rgba(34, 197, 94, 0.15)', color: '#22c55e' }}>
-                🌾
-              </div>
-              <div>
-                <span className={styles.doorBadge} style={{ background: 'rgba(34, 197, 94, 0.2)', color: '#4ade80' }}>
-                  Tarea 1
-                </span>
-                <h2 className={styles.doorTitle}>Mi Tierra y Finca</h2>
-              </div>
-            </div>
-            <p className={styles.doorDesc} style={{ marginTop: '0.75rem' }}>
-              Ver la foto satelital de tu potrero, delimitar tus linderos caminando o tocando la pantalla, y saber exactamente cuántas hectáreas tienes.
-            </p>
-          </div>
-          <div className={styles.doorActionRow}>
-            <span>Ver mi lote ({parcelsCount} registrada{parcelsCount === 1 ? '' : 's'})</span>
-            <ArrowRight size={16} />
-          </div>
-        </Link>
-
-        {/* Puerta 2: El Clima y Lluvia */}
-        <Link href="/dashboard/estadisticas?intent=weather" className={styles.doorCard} aria-label="Puerta 2: El Clima y la Lluvia">
-          <div>
-            <div className={styles.doorHeader}>
-              <div className={styles.doorIcon} style={{ background: 'rgba(2, 132, 199, 0.15)', color: '#38bdf8' }}>
-                🌧️
-              </div>
-              <div>
-                <span className={styles.doorBadge} style={{ background: 'rgba(2, 132, 199, 0.2)', color: '#38bdf8' }}>
-                  Tarea 2
-                </span>
-                <h2 className={styles.doorTitle}>El Clima y la Lluvia</h2>
-              </div>
-            </div>
-            <p className={styles.doorDesc} style={{ marginTop: '0.75rem' }}>
-              Pronóstico del tiempo satelital NASA POWER para saber si lloverá en los próximos días y si la tierra tiene humedad suficiente para la siembra.
-            </p>
-          </div>
-          <div className={styles.doorActionRow} style={{ color: '#38bdf8' }}>
-            <span>Consultar pronóstico de lluvia</span>
-            <ArrowRight size={16} />
-          </div>
-        </Link>
-
-        {/* Puerta 3: El Médico del Suelo */}
-        <Link href="/dashboard/recomendaciones?intent=soil" className={styles.doorCard} aria-label="Puerta 3: El Médico del Suelo">
+        {/* Puerta 1: Saber cómo está mi tierra */}
+        <Link href="/dashboard/recomendaciones?intent=soil" className={styles.doorCard} aria-label="Puerta 1: Saber cómo está mi tierra">
           <div>
             <div className={styles.doorHeader}>
               <div className={styles.doorIcon} style={{ background: 'rgba(234, 179, 8, 0.15)', color: '#facc15' }}>
@@ -148,13 +100,13 @@ export default function FarmerHomeDoors({ onOpenIntentions, parcelsCount = 1 }: 
               </div>
               <div>
                 <span className={styles.doorBadge} style={{ background: 'rgba(234, 179, 8, 0.2)', color: '#facc15' }}>
-                  Tarea 3
+                  Puerta 1
                 </span>
-                <h2 className={styles.doorTitle}>El Médico del Suelo</h2>
+                <h2 className={styles.doorTitle}>Saber cómo está mi tierra</h2>
               </div>
             </div>
             <p className={styles.doorDesc} style={{ marginTop: '0.75rem' }}>
-              Diagnóstico en 3 pasos: descubre si tu tierra está brava (ácida) y cuántos sacos de cal y abono (fórmula completa) debes aplicar.
+              Diagnóstico en 3 pasos: descubre si tu tierra está dulce o brava (ácida) y cuántos sacos de cal y abono necesita tu siembra.
             </p>
           </div>
           <div className={styles.doorActionRow} style={{ color: '#facc15' }}>
@@ -163,8 +115,56 @@ export default function FarmerHomeDoors({ onOpenIntentions, parcelsCount = 1 }: 
           </div>
         </Link>
 
-        {/* Puerta 4: Cuaderno de Campo */}
-        <Link href="/dashboard/bitacora?intent=new" className={styles.doorCard} aria-label="Puerta 4: Cuaderno de Campo y Tareas">
+        {/* Puerta 2: Ver si va a llover o secar */}
+        <Link href="/dashboard/estadisticas?intent=weather" className={styles.doorCard} aria-label="Puerta 2: Ver si va a llover o secar">
+          <div>
+            <div className={styles.doorHeader}>
+              <div className={styles.doorIcon} style={{ background: 'rgba(2, 132, 199, 0.15)', color: '#38bdf8' }}>
+                🌧️
+              </div>
+              <div>
+                <span className={styles.doorBadge} style={{ background: 'rgba(2, 132, 199, 0.2)', color: '#38bdf8' }}>
+                  Puerta 2
+                </span>
+                <h2 className={styles.doorTitle}>Ver si va a llover o secar</h2>
+              </div>
+            </div>
+            <p className={styles.doorDesc} style={{ marginTop: '0.75rem' }}>
+              Pronóstico del tiempo satelital NASA POWER y radar SAR para saber si lloverá en los próximos días y si la tierra tiene humedad.
+            </p>
+          </div>
+          <div className={styles.doorActionRow} style={{ color: '#38bdf8' }}>
+            <span>Consultar pronóstico del tiempo</span>
+            <ArrowRight size={16} />
+          </div>
+        </Link>
+
+        {/* Puerta 3: Medir mi parcela */}
+        <Link href="/dashboard/tierras" className={styles.doorCard} aria-label="Puerta 3: Medir mi parcela">
+          <div>
+            <div className={styles.doorHeader}>
+              <div className={styles.doorIcon} style={{ background: 'rgba(34, 197, 94, 0.15)', color: '#22c55e' }}>
+                🌾
+              </div>
+              <div>
+                <span className={styles.doorBadge} style={{ background: 'rgba(34, 197, 94, 0.2)', color: '#4ade80' }}>
+                  Puerta 3
+                </span>
+                <h2 className={styles.doorTitle}>Medir mi parcela</h2>
+              </div>
+            </div>
+            <p className={styles.doorDesc} style={{ marginTop: '0.75rem' }}>
+              Ver la foto satelital de tu potrero, delimitar tus linderos caminando o tocando la pantalla, y saber exactamente cuántas hectáreas tienes.
+            </p>
+          </div>
+          <div className={styles.doorActionRow}>
+            <span>Ver mi parcela ({parcelsCount} registrada{parcelsCount === 1 ? '' : 's'})</span>
+            <ArrowRight size={16} />
+          </div>
+        </Link>
+
+        {/* Puerta 4: Anotar lo que hice hoy */}
+        <Link href="/dashboard/bitacora?intent=new" className={styles.doorCard} aria-label="Puerta 4: Anotar lo que hice hoy">
           <div>
             <div className={styles.doorHeader}>
               <div className={styles.doorIcon} style={{ background: 'rgba(249, 115, 22, 0.15)', color: '#fb923c' }}>
@@ -172,9 +172,9 @@ export default function FarmerHomeDoors({ onOpenIntentions, parcelsCount = 1 }: 
               </div>
               <div>
                 <span className={styles.doorBadge} style={{ background: 'rgba(249, 115, 22, 0.2)', color: '#fb923c' }}>
-                  Tarea 4
+                  Puerta 4
                 </span>
-                <h2 className={styles.doorTitle}>Mi Cuaderno de Tareas</h2>
+                <h2 className={styles.doorTitle}>Anotar lo que hice hoy</h2>
               </div>
             </div>
             <p className={styles.doorDesc} style={{ marginTop: '0.75rem' }}>
@@ -192,7 +192,7 @@ export default function FarmerHomeDoors({ onOpenIntentions, parcelsCount = 1 }: 
       <div className={styles.reassuranceBanner}>
         <ShieldCheck size={22} color="#4ade80" style={{ flexShrink: 0 }} />
         <div>
-          <b>🔒 Seguridad Garantizada:</b> Toda la información de tu finca se guarda de forma segura. No tengas miedo de hacer clic o explorar: no puedes dañar ni borrar nada por accidente.
+          <b>🔒 Tranquilo, tu finca está guardada en este teléfono:</b> Toda la información de tus potreros se guarda de forma local y segura incluso sin internet. No tengas miedo de hacer clic o explorar: no puedes dañar ni borrar nada por accidente.
         </div>
       </div>
 
@@ -229,6 +229,13 @@ export default function FarmerHomeDoors({ onOpenIntentions, parcelsCount = 1 }: 
             <div className={styles.glossaryTerm}>🟣 Medida Exacta (Shoelace)</div>
             <p className={styles.glossaryExplanation}>
               Fórmula matemática que calcula el tamaño exacto de tu potrero en hectáreas sin errores de cinta métrica.
+            </p>
+          </div>
+
+          <div className={styles.glossaryItem} style={{ borderLeftColor: '#f97316' }}>
+            <div className={styles.glossaryTerm}>🟠 Humedad en punto (Retrodispersión de Banda C)</div>
+            <p className={styles.glossaryExplanation}>
+              Microondas del radar espacial que traspasan la nubosidad para medir si el suelo retiene el agua justa para la siembra o si está seco o anegado.
             </p>
           </div>
         </div>

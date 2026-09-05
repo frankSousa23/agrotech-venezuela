@@ -35,7 +35,7 @@ export interface CropData {
   id: string;
   name: string;
   scientificName: string;
-  category: 'Cereal' | 'Leguminosa' | 'Tubérculo' | 'Frutal' | 'Estimulante' | 'Industrial' | 'Forraje';
+  category: 'Cereal' | 'Leguminosa' | 'Tubérculo' | 'Frutal' | 'Estimulante' | 'Industrial' | 'Forraje' | 'Hortaliza';
   idealPhMin: number;
   idealPhMax: number;
   minOrganicMatterPct: number;
@@ -554,6 +554,24 @@ export const VENEZUELA_CROPS: CropData[] = [
     growingSeasonDays: 365,
     fertilizerRequirementKgHa: { n: 100, p2o5: 40, k2o: 50 },
     recommendedCommercialFormula: "Urea 46% + Roca Fosfórica Riecito"
+  },
+  {
+    id: "tomate_hortalizas",
+    name: "Tomate Cherry & Hortalizas",
+    scientificName: "Solanum lycopersicum var. cerasiforme",
+    category: "Hortaliza",
+    idealPhMin: 6.0,
+    idealPhMax: 7.0,
+    minOrganicMatterPct: 2.5,
+    annualRainfallMinMm: 600,
+    annualRainfallMaxMm: 1200,
+    idealTempMinC: 18,
+    idealTempMaxC: 28,
+    potentialYieldKgHa: 45000,
+    optimalSoilTextures: ["Franco", "Franco-arenoso", "Franco-limoso"],
+    growingSeasonDays: 90,
+    fertilizerRequirementKgHa: { n: 120, p2o5: 80, k2o: 140 },
+    recommendedCommercialFormula: "Fertirriego NPK 15-5-30 + Nitrato de Calcio"
   }
 ];
 

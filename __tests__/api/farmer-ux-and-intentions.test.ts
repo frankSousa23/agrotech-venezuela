@@ -101,10 +101,10 @@ describe('🌾 Zero-Barrier Farmer UX & Intentions System', () => {
 
   describe('3. Las 4 Grandes Puertas de Acción Campesina', () => {
     const DOORS = [
-      { id: 'door-1', name: 'Mi Tierra y Finca', url: '/dashboard/tierras' },
-      { id: 'door-2', name: 'El Clima y la Lluvia', url: '/dashboard/estadisticas?intent=weather' },
-      { id: 'door-3', name: 'El Médico del Suelo', url: '/dashboard/recomendaciones?intent=soil' },
-      { id: 'door-4', name: 'Mi Cuaderno de Tareas', url: '/dashboard/bitacora?intent=new' }
+      { id: 'door-1', name: 'Saber cómo está mi tierra', url: '/dashboard/recomendaciones?intent=soil' },
+      { id: 'door-2', name: 'Ver si va a llover o secar', url: '/dashboard/estadisticas?intent=weather' },
+      { id: 'door-3', name: 'Medir mi parcela', url: '/dashboard/tierras' },
+      { id: 'door-4', name: 'Anotar lo que hice hoy', url: '/dashboard/bitacora?intent=new' }
     ];
 
     test('debe exponer las 4 puertas cardinales de producción rural', () => {
@@ -116,6 +116,12 @@ describe('🌾 Zero-Barrier Farmer UX & Intentions System', () => {
         expect(d.url).toBeTruthy();
         expect(d.name).toBeTruthy();
       });
+    });
+
+    test('el mensaje de reaseguro debe garantizar la persistencia local de la finca sin internet', () => {
+      const reassuranceMessage = "Tranquilo, tu finca está guardada en este teléfono: Toda la información de tus potreros se guarda de forma local y segura incluso sin internet.";
+      expect(reassuranceMessage).toContain('Tranquilo, tu finca está guardada en este teléfono');
+      expect(reassuranceMessage).toContain('sin internet');
     });
   });
 
@@ -142,6 +148,18 @@ describe('🌾 Zero-Barrier Farmer UX & Intentions System', () => {
       expect(res.label).toBe('Tierra Mansa o Dulce');
       expect(res.needsLime).toBe(false);
       expect(res.severity).toBe('optimal');
+    });
+
+    test('el glosario de campo debe incluir los 5 conceptos clave incluyendo humedad en punto radar', () => {
+      const GLOSSARY_TERMS = [
+        '🟢 Tierra Mansa o Dulce (pH 6 a 7)',
+        '🟡 Tierra Brava o Ácida (pH menor a 5.5)',
+        '🔵 Ojos Satelitales (Radar SAR)',
+        '🟣 Medida Exacta (Shoelace)',
+        '🟠 Humedad en punto (Retrodispersión de Banda C)'
+      ];
+      expect(GLOSSARY_TERMS).toHaveLength(5);
+      expect(GLOSSARY_TERMS).toContain('🟠 Humedad en punto (Retrodispersión de Banda C)');
     });
   });
 

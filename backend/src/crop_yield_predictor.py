@@ -101,6 +101,17 @@ CROPS_AGRONOMIC_MODELS = {
         "planting_season": "Inicio de lluvias (Mayo)",
         "gdd_required": 1200.0,
     },
+    "tomate_hortalizas": {
+        "name": "Tomate Cherry & Hortalizas Protegidas",
+        "scientific_name": "Solanum lycopersicum var. cerasiforme",
+        "optimal_ph": (6.0, 7.0),
+        "optimal_temp_c": (18.0, 28.0),
+        "optimal_rain_mm": (600.0, 1200.0),
+        "base_yield_ton_ha": 45.0,
+        "max_potential_ton_ha": 70.0,
+        "planting_season": "Todo el año bajo ambiente protegido / Norte-Verano",
+        "gdd_required": 1200.0,
+    },
 }
 
 

@@ -41,3 +41,23 @@ def test_crop_yield_predictor_limiting_factor():
     
     assert pasturas["suitability_score_pct"] > maiz["suitability_score_pct"]
     assert maiz["primary_limiting_factor"] is not None
+
+def test_crop_yield_predictor_tomate_hortalizas():
+    predictor = CropYieldPredictor()
+    # Condiciones óptimas para Tomate Cherry protegido (pH 6.5, Temp 22°C, Riego/Lluvia 800mm)
+    features = {
+        "ph": 6.5,
+        "organic_matter_pct": 3.0,
+        "avg_temperature_c": 22.0,
+        "annual_rainfall_mm": 800.0,
+        "clay_pct": 22.0,
+        "sentinel_ndvi": 0.75
+    }
+
+    result = predictor.predict(features)
+    tomate = next((p for p in result["predictions"] if p["crop_id"] == "tomate_hortalizas"), None)
+    assert tomate is not None
+    assert tomate["suitability_score_pct"] >= 75.0
+    assert tomate["projected_yield_ton_ha"]["expected"] >= 30.0
+    assert tomate["projected_yield_ton_ha"]["max_potential"] <= 70.0
+

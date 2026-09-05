@@ -111,7 +111,7 @@ def test_workflow_3_feature_engineering_and_ml_predictions():
 
     # Validar Predicciones ML
     preds = data["ml_predictions"]["predictions"]
-    assert len(preds) == 8 # 8 cultivos estratégicos evaluados
+    assert len(preds) >= 8 # Modelos de cultivos estratégicos evaluados
     for p in preds:
         assert 0.0 <= p["suitability_score_pct"] <= 100.0
         assert p["projected_yield_ton_ha"]["expected"] > 0

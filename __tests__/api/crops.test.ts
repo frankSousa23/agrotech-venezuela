@@ -11,6 +11,7 @@ describe('Crops & Agronomic Database Tests', () => {
     expect(names).toContain('Café Arábica');
     expect(names).toContain('Caña de Azúcar');
     expect(names).toContain('Soya');
+    expect(names).toContain('Tomate Cherry & Hortalizas');
   });
 
   it('cada cultivo debe tener rangos óptimos de pH y requerimiento hídrico', () => {

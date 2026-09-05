@@ -1,21 +1,4 @@
-# Capability: Farmer Mode Dual UI
-
-## Purpose
-
-Provides a persistent dual-mode presentation switch allowing rural producers with low digital literacy to interact through a simplified 4-door action layout, while retaining full scientific telemetry for technical specialists.
-
-## Requirements
-
-### Requirement: Persistent UI Mode Switcher
-The platform SHALL provide a global, accessible UI mode switch in the top navigation allowing users to toggle between "Modo Productor" and "Modo Técnico".
-
-#### Scenario: Toggling into Farmer Mode
-- **WHEN** the user selects "Modo Productor"
-- **THEN** the application stores `'farmer'` in localStorage under `agrotech_ui_mode` and transforms the dashboard into the simplified 4-door layout without reloading the page.
-
-#### Scenario: Toggling into Specialist Mode
-- **WHEN** the user selects "Modo Técnico"
-- **THEN** the application stores `'specialist'` in localStorage under `agrotech_ui_mode` and reveals the full multi-module sidebar, technical telemetry, and GIS layers.
+## MODIFIED Requirements
 
 ### Requirement: Streamlined 4-Door Farmer Dashboard
 When Farmer Mode is active, the dashboard overview SHALL collapse complex charts and display 4 primary action doors aligned with peasant intentions: "Saber cómo está mi tierra", "Ver si va a llover o secar", "Medir mi parcela", and "Anotar lo que hice hoy", accompanied by colloquial edaphic explanations and an offline data safety guarantee.

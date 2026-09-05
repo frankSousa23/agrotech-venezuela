@@ -339,6 +339,18 @@ export function evaluateCropSuitability(
       baseYield: 25000,
       isAgroforestry: false,
       blockedSouthOrinoco: false,
+    },
+    {
+      name: 'Tomate Cherry & Hortalizas',
+      scientificName: 'Solanum lycopersicum var. cerasiforme',
+      optimalPh: [6.0, 7.0],
+      minPh: 5.5,
+      maxPh: 7.5,
+      optimalRain: [600, 1200],
+      preferredTexture: ['Franco', 'Franco-arenoso', 'Franco-limoso'],
+      baseYield: 45000,
+      isAgroforestry: false,
+      blockedSouthOrinoco: false,
     }
   ];
 
