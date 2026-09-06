@@ -5,34 +5,58 @@
  * 
  * Cuantificación de Carbono Orgánico del Suelo (SOC) y Certificación MRV:
  * - Stock de Carbono base según Textura, Materia Orgánica y Densidad Aparente.
- * - Secuestro de CO2e evitado bajo Manejo Regenerativo (Siembra Directa + Coberturas).
- * - Estimación económica de Bonos/Créditos de Carbono para el productor.
+ * - Secuestro de CO2e evitado bajo Manejo Regenerativo.
+ * - Acoplamiento con Verdad de Campo (Ground Truth) de la Bitácora de Labores.
+ * - Oráculo de verificación con radar Sentinel-1 SAR (colapso de incertidumbre de 40% a 10%).
+ * - Estimación económica neta de Bonos de Carbono bajo estándar Verra VCS / IPCC Tier 2.
  */
 
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { Leaf } from 'lucide-react';
+import { Leaf, ShieldCheck, CheckCircle2, Radar, BookOpen, AlertCircle, TrendingUp } from 'lucide-react';
 import Tooltip from '@/components/layout/Tooltip';
+import { getParcelVerifiedDiaryPractices, calculateEmpiricalSocAdjustment } from '@/lib/diary/fieldDiaryStorage';
+import { verifySarMrvOracle } from '@/lib/geo/sarRadarService';
 
 interface CarbonCreditsCalculatorProps {
   initialAreaHa?: number;
   initialOrganicMatterPct?: number;
   initialTexture?: string;
   parcelName?: string;
+  parcelId?: string;
 }
 
 export default function CarbonCreditsCalculator({
   initialAreaHa = 45.0,
   initialOrganicMatterPct = 2.6,
   initialTexture = 'Franco-arcilloso',
-  parcelName = 'Lote Principal'
+  parcelName = 'Lote Principal',
+  parcelId = 'parc-001'
 }: CarbonCreditsCalculatorProps) {
   const [areaHa, setAreaHa] = useState<number>(initialAreaHa);
   const [organicMatterPct, setOrganicMatterPct] = useState<number>(initialOrganicMatterPct);
   const [managementType, setManagementType] = useState<'regenerative' | 'agroforestry' | 'conventional'>('regenerative');
   const [mapbiomasTransition, setMapbiomasTransition] = useState<string>('pastura_agricultura');
   const [creditPriceUsd, setCreditPriceUsd] = useState<number>(18.5); // USD por tCO2e (Estándar Verra / Gold Standard)
+  
+  // Estados de Verificación MRV & Ground-Truth
+  const [enableGroundTruth, setEnableGroundTruth] = useState<boolean>(true);
+  const [sarRadarVerified, setSarRadarVerified] = useState<boolean>(true);
+
+  // 1. Acoplamiento de Verdad de Campo (Bitácora de Labores)
+  const verifiedPractices = useMemo(() => {
+    return getParcelVerifiedDiaryPractices(parcelId);
+  }, [parcelId]);
+
+  const empiricalAdjustment = useMemo(() => {
+    return calculateEmpiricalSocAdjustment(verifiedPractices);
+  }, [verifiedPractices]);
+
+  // 2. Oráculo Sentinel-1 SAR Radar
+  const sarOracle = useMemo(() => {
+    return verifySarMrvOracle(9.324, -69.112);
+  }, []);
 
   // Densidad aparente estimada por textura (g/cm3)
   const bulkDensity = useMemo(() => {
@@ -49,7 +73,7 @@ export default function CarbonCreditsCalculator({
     return parseFloat(soc.toFixed(1));
   }, [organicMatterPct, bulkDensity]);
 
-  // Tasa anual de secuestro de carbono (tC/ha/año)
+  // Tasa anual de secuestro de carbono base + bonus empírico de bitácora
   const annualSequestrationTcHa = useMemo(() => {
     let baseRate = 0.05; // Convencional con labranza
     if (managementType === 'agroforestry') baseRate = 0.85; // Sistemas Agroforestales (SAF)
@@ -59,24 +83,46 @@ export default function CarbonCreditsCalculator({
     if (mapbiomasTransition === 'bosque_agricultura') baseRate -= 0.30;
     else if (mapbiomasTransition === 'agricultura_continua') baseRate -= 0.10;
     else if (mapbiomasTransition === 'pastura_agricultura') baseRate += 0.15;
+
+    // Bonus empírico por prácticas registradas en la bitácora de campo
+    if (enableGroundTruth && verifiedPractices.length > 0) {
+      baseRate += empiricalAdjustment.totalSocBonusTcHaYr;
+    }
     
-    return Math.max(0, baseRate);
-  }, [managementType, mapbiomasTransition]);
+    return Math.max(0, parseFloat(baseRate.toFixed(2)));
+  }, [managementType, mapbiomasTransition, enableGroundTruth, verifiedPractices, empiricalAdjustment]);
 
   // Conversión tC a tCO2e (Ratio 44/12 = 3.667)
   const annualCo2eHa = useMemo(() => {
     return parseFloat((annualSequestrationTcHa * 3.667).toFixed(2));
   }, [annualSequestrationTcHa]);
 
-  // Total parcela anual
+  // Total parcela anual bruto
   const totalAnnualCo2eTons = useMemo(() => {
     return parseFloat((annualCo2eHa * areaHa).toFixed(1));
   }, [annualCo2eHa, areaHa]);
 
-  // Ingreso anual estimado en USD
+  // 3. Cálculo de Castigo por Incertidumbre (Uncertainty Discount Verra VCS)
+  const uncertaintyPenaltyPct = useMemo(() => {
+    let penalty = 40.0; // Tier 1 sin verificar (estándar internacional)
+    if (enableGroundTruth && verifiedPractices.length > 0) penalty -= 15.0; // Bitácora auditada
+    if (sarRadarVerified && sarOracle.biomassRoughnessVerified) penalty -= 15.0; // Radar SAR verificado
+    return Math.max(10.0, penalty);
+  }, [enableGroundTruth, verifiedPractices, sarRadarVerified, sarOracle]);
+
+  const netIssuanceFactor = useMemo(() => {
+    return (100.0 - uncertaintyPenaltyPct) / 100.0;
+  }, [uncertaintyPenaltyPct]);
+
+  // Emisión Neta Certificable de Créditos de Carbono
+  const netCertifiableCo2eTons = useMemo(() => {
+    return parseFloat((totalAnnualCo2eTons * netIssuanceFactor).toFixed(1));
+  }, [totalAnnualCo2eTons, netIssuanceFactor]);
+
+  // Ingreso anual neto estimado en USD
   const totalEstimatedRevenueUsd = useMemo(() => {
-    return Math.round(totalAnnualCo2eTons * creditPriceUsd);
-  }, [totalAnnualCo2eTons, creditPriceUsd]);
+    return Math.round(netCertifiableCo2eTons * creditPriceUsd);
+  }, [netCertifiableCo2eTons, creditPriceUsd]);
 
   return (
     <div style={{
@@ -89,7 +135,7 @@ export default function CarbonCreditsCalculator({
       display: 'flex',
       flexDirection: 'column',
       gap: '16px'
-    }}>
+    }} data-testid="carbon-mrv-calculator">
       {/* Encabezado */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
         <div>
@@ -100,9 +146,14 @@ export default function CarbonCreditsCalculator({
             Calculadora de Créditos de Carbono ({parcelName})
           </h3>
         </div>
-        <span style={{ fontSize: '0.72rem', background: 'rgba(34, 197, 94, 0.15)', color: '#4ade80', padding: '3px 10px', borderRadius: '999px', border: '1px solid #22c55e', fontWeight: 600 }}>
-          Metodología IPCC Tier 2 / Verra VCS
-        </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <span style={{ fontSize: '0.72rem', background: 'rgba(34, 197, 94, 0.15)', color: '#4ade80', padding: '3px 10px', borderRadius: '999px', border: '1px solid #22c55e', fontWeight: 600 }}>
+            IPCC Tier 2 / Verra VCS
+          </span>
+          <span style={{ fontSize: '0.72rem', background: uncertaintyPenaltyPct <= 15 ? 'rgba(56, 189, 248, 0.2)' : 'rgba(234, 179, 8, 0.2)', color: uncertaintyPenaltyPct <= 15 ? '#38bdf8' : '#facc15', padding: '3px 10px', borderRadius: '999px', border: `1px solid ${uncertaintyPenaltyPct <= 15 ? '#38bdf8' : '#facc15'}`, fontWeight: 700 }}>
+            {uncertaintyPenaltyPct <= 15 ? '🛡️ Certificación Tier 2 Gold' : '⚠️ Tier 1 (Incertidumbre Alta)'}
+          </span>
+        </div>
       </div>
 
       {/* Controles de Entrada */}
@@ -119,7 +170,7 @@ export default function CarbonCreditsCalculator({
             min="1"
             max="5000"
             value={areaHa}
-            onChange={(e) => setAreaHa(Math.max(0.5, parseFloat(e.target.value) || 1))}
+            onChange={(e) => setAreaHa(Math.max(1, parseFloat(e.target.value) || 1))}
             style={{
               width: '100%',
               background: '#0f172a',
@@ -136,7 +187,7 @@ export default function CarbonCreditsCalculator({
         {/* Materia Orgánica */}
         <div style={{ background: 'rgba(30, 41, 59, 0.6)', padding: '10px 12px', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
           <label style={{ fontSize: '0.74rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '4px' }}>
-            <Tooltip content="Materia orgánica actual del suelo. Influye directamente en la base de carbono capturado (SOC). Un mayor % significa suelo más rico y sano.">
+            <Tooltip content="Porcentaje de materia orgánica en suelo determinado en laboratorio o estimado vía satélite/gemelo digital.">
               Materia Orgánica (%):
             </Tooltip>
           </label>
@@ -144,9 +195,9 @@ export default function CarbonCreditsCalculator({
             type="number"
             step="0.1"
             min="0.5"
-            max="8.0"
+            max="15"
             value={organicMatterPct}
-            onChange={(e) => setOrganicMatterPct(Math.max(0.1, parseFloat(e.target.value) || 1))}
+            onChange={(e) => setOrganicMatterPct(Math.max(0.1, parseFloat(e.target.value) || 0.1))}
             style={{
               width: '100%',
               background: '#0f172a',
@@ -160,10 +211,10 @@ export default function CarbonCreditsCalculator({
           />
         </div>
 
-        {/* Manejo Agronómico */}
+        {/* Tipo de Manejo Regenerativo */}
         <div style={{ background: 'rgba(30, 41, 59, 0.6)', padding: '10px 12px', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
           <label style={{ fontSize: '0.74rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '4px' }}>
-            <Tooltip content="El manejo regenerativo o agroforestal aumenta significativamente el secuestro anual de CO2 en comparación con la labranza convencional.">
+            <Tooltip content="Práctica agronómica aplicada en el lote. La siembra directa y agroforestería maximizan la captura de carbono edáfico.">
               Manejo del Suelo:
             </Tooltip>
           </label>
@@ -183,15 +234,15 @@ export default function CarbonCreditsCalculator({
           >
             <option value="regenerative">🌱 Siembra Directa + Coberturas</option>
             <option value="agroforestry">🌳 Sistema Agroforestal (SAF)</option>
-            <option value="conventional">🚜 Labranza Convencional</option>
+            <option value="conventional">🚜 Labranza Convencional (Control)</option>
           </select>
         </div>
 
-        {/* Historial MapBiomas */}
+        {/* Transición MapBiomas */}
         <div style={{ background: 'rgba(30, 41, 59, 0.6)', padding: '10px 12px', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
           <label style={{ fontSize: '0.74rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '4px' }}>
-            <Tooltip content="Extraído automáticamente de MapBiomas 1985-2024. Los créditos penalizan áreas deforestadas recientemente y bonifican la recuperación de pasturas degradadas.">
-              Transición Histórica (MapBiomas):
+            <Tooltip content="Historial de uso de suelo derivado de MapBiomas Venezuela Colección 1.0 (1985-2024).">
+              Transición MapBiomas:
             </Tooltip>
           </label>
           <select
@@ -216,6 +267,93 @@ export default function CarbonCreditsCalculator({
         </div>
       </div>
 
+      {/* SECCIÓN MRV: AUDITORÍA DE VERDAD DE CAMPO & ORÁCULO SENTINEL-1 SAR */}
+      <div style={{
+        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(6, 95, 70, 0.15))',
+        border: '1px solid rgba(16, 185, 129, 0.3)',
+        borderRadius: '12px',
+        padding: '14px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '10px'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <ShieldCheck size={18} color="#34d399" />
+            <span style={{ fontWeight: 700, fontSize: '0.9rem', color: '#ecfdf5' }}>
+              Validación MRV: Verdad de Campo & Oráculo Radar Sentinel-1 SAR
+            </span>
+          </div>
+          <span style={{ fontSize: '0.75rem', color: '#a7f3d0' }}>
+            Incertidumbre Deductiva Verra: <b style={{ color: uncertaintyPenaltyPct <= 15 ? '#4ade80' : '#facc15' }}>{uncertaintyPenaltyPct}%</b> (Factor de emisión: {(netIssuanceFactor * 100).toFixed(0)}%)
+          </span>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '10px' }}>
+          {/* Tarjeta 1: Verdad de Campo (Bitácora) */}
+          <div style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '10px', padding: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#38bdf8', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <BookOpen size={14} /> Bitácora Cuaderno de Campo
+              </span>
+              <label style={{ fontSize: '0.7rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}>
+                <input 
+                  type="checkbox" 
+                  checked={enableGroundTruth} 
+                  onChange={e => setEnableGroundTruth(e.target.checked)} 
+                />
+                Acoplar
+              </label>
+            </div>
+            {verifiedPractices.length > 0 ? (
+              <div>
+                <div style={{ fontSize: '0.8rem', color: '#4ade80', fontWeight: 700 }}>
+                  ✓ {verifiedPractices.length} labor(es) empírica(s) confirmada(s)
+                </div>
+                <div style={{ fontSize: '0.7rem', color: '#cbd5e1', marginTop: '2px' }}>
+                  Bonus SOC: <b>+{empiricalAdjustment.totalSocBonusTcHaYr} tC/ha/año</b> (+{empiricalAdjustment.totalCo2eBonusTonHaYr} tCO₂e)
+                </div>
+                <div style={{ fontSize: '0.68rem', color: '#94a3b8', marginTop: '4px' }}>
+                  Labores: {verifiedPractices.map(p => p.practiceKey.replace('_', ' ')).join(', ')}
+                </div>
+              </div>
+            ) : (
+              <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
+                Sin labores regenerativas registradas en la bitácora aún.
+              </div>
+            )}
+          </div>
+
+          {/* Tarjeta 2: Oráculo Radar Sentinel-1 SAR */}
+          <div style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '10px', padding: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#a855f7', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <Radar size={14} /> Oráculo Radar Sentinel-1 SAR
+              </span>
+              <label style={{ fontSize: '0.7rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}>
+                <input 
+                  type="checkbox" 
+                  checked={sarRadarVerified} 
+                  onChange={e => setSarRadarVerified(e.target.checked)} 
+                />
+                Verificar
+              </label>
+            </div>
+            <div>
+              <div style={{ fontSize: '0.8rem', color: '#c084fc', fontWeight: 700 }}>
+                {sarOracle.biomassRoughnessVerified ? '✓ Rugosidad de Dosel Confirmada' : '⚠️ Rugosidad Insuficiente'}
+              </div>
+              <div style={{ fontSize: '0.7rem', color: '#cbd5e1', marginTop: '2px' }}>
+                Relación VH/VV: <b>{sarOracle.crossRatio_dB} dB</b> (Umbral: {sarOracle.roughnessThreshold_dB} dB)
+              </div>
+              <div style={{ fontSize: '0.68rem', color: '#94a3b8', marginTop: '4px', fontFamily: 'monospace' }}>
+                Audit Hash: {sarOracle.cryptographicAuditProof}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Métricas y Resultados de Secuestro */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '10px' }}>
         {/* Stock Base */}
@@ -229,25 +367,25 @@ export default function CarbonCreditsCalculator({
           </div>
         </div>
 
-        {/* Secuestro Anual CO2e */}
+        {/* Secuestro Anual CO2e Certificable */}
         <div style={{ background: 'rgba(56, 189, 248, 0.08)', border: '1px solid rgba(56, 189, 248, 0.2)', padding: '12px', borderRadius: '12px' }}>
-          <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Secuestro Anual Total</div>
+          <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Secuestro Neto Certificable</div>
           <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#38bdf8', marginTop: '2px' }}>
-            {totalAnnualCo2eTons} <span style={{ fontSize: '0.75rem', fontWeight: 400 }}>tCO₂e / año</span>
+            {netCertifiableCo2eTons} <span style={{ fontSize: '0.75rem', fontWeight: 400 }}>tCO₂e / año</span>
           </div>
           <div style={{ fontSize: '0.7rem', color: '#cbd5e1', marginTop: '4px' }}>
-            Equivale a {annualCo2eHa} tCO₂e/ha/año
+            Bruto: {totalAnnualCo2eTons} tCO₂e (-{uncertaintyPenaltyPct}% MRV)
           </div>
         </div>
 
         {/* Valor Económico en Créditos */}
         <div style={{ background: 'rgba(234, 179, 8, 0.08)', border: '1px solid rgba(234, 179, 8, 0.2)', padding: '12px', borderRadius: '12px' }}>
-          <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Ingreso Bruto Estimado</div>
+          <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Ingreso Neto Certificado</div>
           <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#facc15', marginTop: '2px' }}>
             ${totalEstimatedRevenueUsd.toLocaleString()} <span style={{ fontSize: '0.75rem', fontWeight: 400 }}>USD / año</span>
           </div>
           <div style={{ fontSize: '0.7rem', color: '#cbd5e1', marginTop: '4px' }}>
-            A ${creditPriceUsd} USD por tCO₂e certificada
+            A ${creditPriceUsd} USD por tCO₂e neta
           </div>
         </div>
       </div>
@@ -285,7 +423,7 @@ export default function CarbonCreditsCalculator({
         </div>
 
         <p style={{ fontSize: '0.78rem', color: '#cbd5e1', margin: 0, lineHeight: 1.5 }}>
-          <b>Barrera para el Pequeño Productor:</b> La certificación Verra VCS / Gold Standard individual exige auditorías de campo de más de <b>$45,000 USD</b>, haciendo inviable certificar predios menores a 500 ha de manera aislada. <b>Agrotech agrupa parcelas de 10 a 100 ha en un Portfolio Digital Regional</b> auditado con Sentinel-2 y MapBiomas, reduciendo el costo de entrada a cero para el productor.
+          <b>Barrera para el Pequeño Productor:</b> La certificación Verra VCS individual exige auditorías de campo de más de <b>$45,000 USD</b>. Con <b>Agrotech Carbon Pooling</b> y validación cruzada con Sentinel-1 SAR y Bitácora, agrupamos predios de 10 a 100 ha en un portfolio regional, colapsando el descuento por incertidumbre del 40% al 10% y eliminando los costos de auditoría individual.
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '10px' }}>
@@ -321,10 +459,10 @@ export default function CarbonCreditsCalculator({
               Escalabilidad del Pool (5,000 ha)
             </div>
             <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#c084fc', marginTop: '2px' }}>
-              ${Math.round(annualCo2eHa * 5000 * creditPriceUsd).toLocaleString()} <span style={{ fontSize: '0.75rem', fontWeight: 400 }}>USD/año</span>
+              ${Math.round(annualCo2eHa * netIssuanceFactor * 5000 * creditPriceUsd).toLocaleString()} <span style={{ fontSize: '0.75rem', fontWeight: 400 }}>USD/año</span>
             </div>
             <div style={{ fontSize: '0.68rem', color: '#d8b4fe', marginTop: '4px' }}>
-              ~{(annualCo2eHa * 5000).toFixed(0)} tCO₂e/año agrupadas
+              ~{(annualCo2eHa * netIssuanceFactor * 5000).toFixed(0)} tCO₂e/año netas agrupadas
             </div>
           </div>
         </div>

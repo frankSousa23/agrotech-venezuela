@@ -127,14 +127,14 @@ Agrotech Venezuela **elimina la fricción de entrada manual**: al marcar un terr
 
 3. **Minuto 3 — Modelo de Negocio de Carbono & Prescripción Maquinaria**:
    - *Acción*: Abrir la Calculadora de Carbono y el Exportador de Maquinaria.
-   - *Narrativa*: "Demostramos el modelo de Carbon Pooling: agrupamos pequeños lotes para generar ingresos pasivos y descargamos prescripciones Shapefile para tractores John Deere o Trimble."
+   - *Narrativa*: "Demostramos el modelo de Carbon Pooling: agrupamos pequeños lotes para generar ingresos pasivos auditados por el Oráculo Satelital Radar SAR (que reduce el castigo de incertidumbre del 40% al 10%) y descargamos prescripciones Shapefile para tractores John Deere o Trimble."
 
 ---
 
 ## 🛠️ Apéndice Técnico: Arquitectura y Factibilidad TRL 7
 
-- **Frontend WebGIS**: Next.js 16 (App Router, Turbopack, 28 rutas limpias), React 19, Leaflet Nativo puro, PWA offline.
+- **Frontend WebGIS**: Next.js 16 (App Router, Turbopack, 30 rutas de producción), React 19, Leaflet Nativo puro, PWA offline con resolución determinista de conflictos.
 - **Dual-Mode UI & QoS**: Modo Productor Fácil (4 Puertas táctiles, dictado por voz) y Protocolo QoS que bloquea mapas pesados en señales 2G/EDGE priorizando notas de bitácora (< 10 KB).
 - **Backend Espacial**: Python 3.13, FastAPI, Scikit-Learn, NumPy, SQLite en modo WAL con hash geodésico a 4 decimales (< 5ms).
-- **Validación Automatizada**: **197 pruebas automatizadas pasando (145 Jest + 52 Pytest, 100% aprobadas)**, 0 errores TypeScript, auditorías responsive 320px–4K.
+- **Validación Automatizada**: **227 pruebas automatizadas pasando (173 Jest + 54 Pytest, 100% aprobadas)**, 0 errores TypeScript, auditorías responsive 320px–4K.
 - **Propiedad Intelectual**: Código bajo Licencia MIT (Copyright 2026 Frank Sousa). Datos satelitales bajo Creative Commons CC BY 4.0.

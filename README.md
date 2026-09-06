@@ -8,7 +8,7 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.62-FF4B4B.svg)](https://streamlit.io/)
 [![Python 3.13](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
 [![PostgreSQL 15](https://img.shields.io/badge/PostgreSQL-15-336791.svg)](https://www.postgresql.org/)
-[![Tests: 202 Passing](https://img.shields.io/badge/Tests-202%20Passing-brightgreen.svg)]()
+[![Tests: 227 Passing](https://img.shields.io/badge/Tests-227%20Passing-brightgreen.svg)]()
 [![TRL: 7](https://img.shields.io/badge/TRL-7%20(Validado%20en%20Campo)-orange.svg)]()
 
 Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LULC) de **MapBiomas Venezuela** (1985–2024), **Sentinel-1 SAR Radar**, **Sentinel-2 L2A (Copernicus)** y **NASA POWER**, Agrotech transforma la teledetección espacial en **decisiones agronómicas prescriptivas y de acción directa** para productores, extensionistas agrícolas e investigadores.
@@ -20,7 +20,7 @@ Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LUL
 
 | Perfil de Audiencia | Enfoque Estratégico | Acceso Directo |
 | :--- | :--- | :--- |
-| 🛠️ **Para Desarrolladores & DevOps** | Arquitectura de microservicios, stack tecnológico, despliegue turnkey en 2 min, Docker y suite de pruebas (**202 tests**). | [Ir a Guía de Desarrollo & Despliegue ➔](#-para-desarrolladores--devops) |
+| 🛠️ **Para Desarrolladores & DevOps** | Arquitectura de microservicios, stack tecnológico, despliegue turnkey en 2 min, Docker y suite de pruebas (**227 tests**). | [Ir a Guía de Desarrollo & Despliegue ➔](#-para-desarrolladores--devops) |
 | 🏆 **Para Jurados de Innovación e Inversores** | Nivel de madurez operacional **TRL 7**, impacto socioeconómico (**ROI 3.8x**, -35% fertilizantes), agregación **Carbon Pooling (85/15)** y ODS. | [Ir a Expediente TRL 7 & Modelo de Negocio ➔](#-para-jurados-de-innovación-e-inversores) |
 | 🌾 **Para Agrónomos y Productores** | Modo Productor Fácil (**4 Puertas**), resiliencia PWA offline en 2G/EDGE, dictado por voz y prescripciones VRA para maquinaria. | [Ir a Operaciones de Campo & Accesibilidad ➔](#-para-agrónomos-extensionistas-y-productores) |
 
@@ -90,7 +90,7 @@ Para estructurar la experiencia sin listas planas indiscriminadas, la plataforma
 ### 🛰️ Pilar I: Núcleo de Inteligencia Espacial, Radar SAR & Cerebro IA
 *La artillería científica que transforma datos orbitales en diagnósticos precisos:*
 
-- **Radar SAR Sentinel-1 Banda C (5.4 GHz) All-Weather**: Monitoreo de retrodispersión dual ($\sigma^\circ_{\text{VV}}/\sigma^\circ_{\text{VH}}$ en dB) capaz de atravesar nubes densas y determinar el índice de saturación de humedad en suelo sin depender de cielo despejado.
+- **Radar SAR Sentinel-1 Banda C (5.4 GHz) & Oráculo MRV**: Monitoreo de retrodispersión dual ($\sigma^\circ_{\text{VV}}/\sigma^\circ_{\text{VH}}$ en dB) capaz de atravesar nubes densas y auditar la rugosidad estructural del dosel ($\sigma^\circ_{VH}/\sigma^\circ_{VV} > -12\text{ dB}$) para colapsar la incertidumbre MRV del 40% al 10%.
 - **Asesor Agronómico Google Gemini 2.5 Flash Dual-Tone ("El Compadre Agrónomo")**: Inteligencia artificial con memoria territorial de 40 años (MapBiomas) que adapta dinámicamente su vocabulario (en sacos de enmienda y días de sol para agricultores, o en ecuaciones Kamprath y decibelios SAR para ingenieros).
 - **Visor WebGIS Multi-Escala de 3 Niveles (`/dashboard/mapa`)**: Cartografía interactiva jerárquica: Nivel 1 Nacional (24 estados con semáforo edáfico), Nivel 2 Municipal (335 polos agrícolas con centros de acopio) y Nivel 3 Micro-Parcela con Shoelace geodésico WGS84.
 - **Motor Hidro-Térmico (GDD & Balance Hídrico)**: Predicción cronológica de estadios fenológicos ($V_E$ a $R_6$) cruzando grados día acumulados ($10.0^\circ\text{C}$ a $30.0^\circ\text{C}$) con balance hídrico diario ($P - ET_c$) de NASA POWER.
@@ -101,7 +101,7 @@ Para estructurar la experiencia sin listas planas indiscriminadas, la plataforma
 ### 🚜 Pilar II: Operaciones de Campo, Resiliencia Rural & Voz Campesina
 *La tecnología llevada a la realidad física del productor:*
 
-- **Dual-Mode UI (Modo Productor Fácil vs Modo Técnico)**: Switch persistente que transforma la interfaz entre 4 Puertas táctiles gigantes para agricultores y consola analítica multicapa para especialistas.
+- **Dual-Mode UI & Resolución Determinista de Conflictos**: Switch persistente (Modo Productor Fácil vs Modo Técnico). Versionado monotónico con cola de cuarentena (`/api/parcels/conflicts`) y modal comparativo (`ParcelConflictModal`) que previene sobreescrituras silenciosas tras reconexión rural.
 - **Modo Finca Offline & Sincronización Rural QoS**: Arquitectura PWA con IndexedDB y protocolo QoS de 2 canales: uplink prioritario inmediato de textos ligeros (< 10 KB) con UUIDs idempotentes y supresión automática de teselas de mapa pesadas en redes 2G/EDGE.
 - **Dictado por Voz Nativo & Parser Vernacular Campesino**: Registro de labores mediante Web Speech API (`es-VE`) con normalización offline e insensible a acentos de unidades tradicionales venezolanas (1 saco = 50 kg, 1 tambor = 200 L, 1 caneca = 20 L, 1 tablón = 1.0 ha).
 - **Espacio del Productor: "Mis Tierras" y "Cuaderno de Campo Digital"**: Catálogo de parcelas delimitadas y bitácora cronológica de labores (siembra, encalado, fertilización, riego y cosecha) para contrastar el pronóstico con el rendimiento real de cosecha.
@@ -111,9 +111,9 @@ Para estructurar la experiencia sin listas planas indiscriminadas, la plataforma
 ### 📈 Pilar III: Viabilidad Comercial, MRV Carbon Pooling & Madurez TRL 7
 *El impacto económico medible y la sostenibilidad institucional:*
 
-- **Calculadora MRV de Créditos de Carbono & Carbon Pooling Cooperativo**: Stock de SOC (0-30 cm) y secuestro anual ($\text{tCO}_2\text{e}/\text{ha}/\text{año}$) bajo IPCC Tier 2 / Verra VCS, con mecanismo de agregación regional para pequeños lotes (< 50 ha) y reparto transparente (85% agricultor / 15% Agrotech).
+- **Calculadora MRV de Créditos de Carbono & Acoplamiento Ground-Truth**: Stock de SOC (0-30 cm) y secuestro anual ($\text{tCO}_2\text{e}/\text{ha}/\text{año}$) bajo IPCC Tier 2 / Verra VCS acoplado a labores de Bitácora (siembra directa, abonos verdes, encalado), con agregación regional (Carbon Pooling 85/15) y auditoría satelital SAR.
 - **Calibración Edafológica Regional de Enmiendas & Prescripciones VRA**: Modelos pedológicos geo-diferenciados (Kamprath $Al^{3+}$ en sabanas ácidas, Ca:Mg en Sur del Lago y Yeso Agrícola en Quíbor) exportables a Shapefiles UTM 19N para tractores GPS, KML para drones y fichas analógicas de cabina.
-- **Laboratorio Agro-IoT de Micro-Cultivo & Riego Predictivo (`/dashboard/iot`)**: Banco interactivo de experimentación con sensores edáficos libres (< $35 USD) y supresión de riego sincronizado con lluvia satelital para ahorro hídrico y energético.
+- **Laboratorio Agro-IoT de Micro-Cultivo & Pedocalibración Dinámica (`/dashboard/iot`)**: Banco interactivo de experimentación con sensores edáficos (< $35 USD), curvas de pedotransferencia Saxton-Rawls (Arenoso 9%, Franco 20%, Arcilloso 35%) y supresión de bombeo cuando $\text{PAW} \ge 50\%$.
 - **Centro Oficial de Postulación & Validación TRL 7 (`/dashboard/postulacion`)**: Expediente integral validado en entorno operacional real con matriz ODS, ROI 3.8x cuantificado y descarga directa de los 5 PDFs oficiales del premio MapBiomas 2026.
 
 ---
@@ -146,7 +146,7 @@ Si tu labor está en el lote o asesorando fincas:
 ## 🏆 Para Jurados de Innovación e Inversores
 
 Si evalúas el impacto tecnológico, la viabilidad de negocio o la madurez institucional:
-- **Nivel de Madurez Operacional TRL 7**: Sistema validado en campo sobre 24 estados y 335 municipios, con 28 rutas limpias en Next.js 16 Turbopack y 202 pruebas automatizadas.
+- **Nivel de Madurez Operacional TRL 7**: Sistema validado en campo sobre 24 estados y 335 municipios, con 30 rutas de producción optimizadas en Next.js 16 Turbopack y 227 pruebas automatizadas.
 - **Retorno Económico Comprobado (ROI 3.8x)**: Reducción del 35% en desperdicio de fertilizantes NPK gracias al encalado de precisión y aumento de rendimiento de 3.5 a 6.2+ t/ha en cereales llaneros.
 - **Modelo de Agregación Carbon Pooling**: Superación de la barrera de auditoría tradicional (\$45k USD) agrupando 5,000 ha regionales para transar \$185k USD anuales en bonos Verra VCS, con reparto 85% (\$157k) directo a productores y 15% (\$27k) a la plataforma.
 - **Alineación con Objetivos de Desarrollo Sostenible (ODS)**: Cumplimiento de ODS 1 (Fin de la Pobreza), ODS 2 (Hambre Cero), ODS 12 (Producción Responsable), ODS 13 (Acción por el Clima) y ODS 15 (Ecosistemas Terrestres).
@@ -222,19 +222,19 @@ graph TD
 ---
 
 <details>
-<summary><b>🧪 Ver suite de validación y comandos de prueba automatizada (202 tests)</b></summary>
+<summary><b>🧪 Ver suite de validación y comandos de prueba automatizada (227 tests)</b></summary>
 
-El proyecto mantiene una suite rigurosa de 202 pruebas automatizadas que se ejecuta antes de cualquier integración a la rama principal:
+El proyecto mantiene una suite rigurosa de 227 pruebas automatizadas que se ejecuta antes de cualquier integración a la rama principal:
 
 | Suite de Validación | Comando | Métricas Verificadas | Estado |
 | :--- | :--- | :--- | :---: |
-| **Pruebas Frontend Jest** | `npm test` | **150 tests aprobados** (24 suites: WebGIS, Radar SAR, GDD, Auth, PWA, IoT, UX Rural, Vernacular Parser, Machinery) | ✅ 100% |
+| **Pruebas Frontend Jest** | `npm test` | **173 tests aprobados** (28 suites: WebGIS, Radar SAR, GDD, Auth, PWA, IoT Pedocalibration, Conflict Quarantine, Carbon MRV, UX Rural, Vernacular Parser, Machinery) | ✅ 100% |
 | **Verificación TypeScript** | `npm run typecheck` | **0 errores** de compilación estricta | ✅ 100% |
-| **Compilación Turbopack** | `npm run build` | **28 rutas de producción limpias** en Next.js 16 | ✅ 100% |
-| **Pruebas Backend Pytest** | `npm run test:backend` | **52 tests aprobados** (FastAPI, ML Cosecha, Algoritmos Geoespaciales) | ✅ 100% |
-| **Suite Automatizada Completa** | `npm run test:all` | **202 de 202 pruebas en verde** | ✅ 100% |
+| **Compilación Turbopack** | `npm run build` | **30 rutas de producción limpias** en Next.js 16 | ✅ 100% |
+| **Pruebas Backend Pytest** | `npm run test:backend` | **54 tests aprobados** (FastAPI, ML Cosecha, Algoritmos Geoespaciales, Saxton-Rawls, Oráculo SAR) | ✅ 100% |
+| **Suite Automatizada Completa** | `npm run test:all` | **227 de 227 pruebas en verde** | ✅ 100% |
 
-Consulta la guía paso a paso en [DEVELOPING.md](DEVELOPING.md#4-suite-completa-de-pruebas-y-verificación-202-tests).
+Consulta la guía paso a paso en [DEVELOPING.md](DEVELOPING.md#4-suite-completa-de-pruebas-y-verificación-227-tests).
 </details>
 
 ---

@@ -46,7 +46,7 @@ export default function PostulacionPage() {
             <ShieldCheck size={14} /> Nivel de Madurez TRL 7 (Sistema Validado en Entorno Real)
           </span>
           <span className="badge-pill badge-emerald">
-            <CheckCircle2 size={13} /> 202 Tests Automatizados Pasando (150 Jest + 52 Pytest)
+            <CheckCircle2 size={13} /> 227 Tests Automatizados Pasando (173 Jest + 54 Pytest)
           </span>
           <span className="badge-pill badge-cyan">
             <Globe size={13} /> 24 Estados & 335 Municipios Activos
@@ -643,6 +643,30 @@ export default function PostulacionPage() {
             </div>
             <p className={styles.scienceDesc}>
               Exportación universal tri-modal: consolas GPS de tractor (John Deere/Trimble), planes de vuelo para drones y cartilla de ajuste analógico.
+            </p>
+          </div>
+
+          <div className={styles.scienceCard}>
+            <h3 className={styles.scienceTitle}>
+              <Activity size={16} /> Pedocalibración Saxton-Rawls & PAW
+            </h3>
+            <div className={styles.scienceFormula}>
+              PAW = ((θ - θ_PWP) / (θ_FC - θ_PWP)) · 100
+            </div>
+            <p className={styles.scienceDesc}>
+              Curvas hidráulicas regionales (Arenoso 9%, Franco 20%, Arcilloso 35%) con activación de microrriego inteligente exclusivamente si PAW &lt; 50%.
+            </p>
+          </div>
+
+          <div className={styles.scienceCard}>
+            <h3 className={styles.scienceTitle}>
+              <Waves size={16} /> Oráculo SAR MRV para Carbono
+            </h3>
+            <div className={styles.scienceFormula}>
+              σ°_VH / σ°_VV &gt; -12 dB | Descuento 40% → 10%
+            </div>
+            <p className={styles.scienceDesc}>
+              Validación satelital radar all-weather de rugosidad y cobertura vegetal acoplada a la bitácora, colapsando la deducción por incertidumbre Verra VCS al 10%.
             </p>
           </div>
         </div>

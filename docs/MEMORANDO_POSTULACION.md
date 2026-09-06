@@ -68,11 +68,11 @@ El módulo de **Créditos de Carbono y MRV** (`CarbonCreditsCalculator.tsx`) sup
 ## 🚀 4. Nivel de Madurez Tecnológica (TRL 7) y Validación Operacional
 
 El sistema opera en **TRL 7** (Validado en entorno operacional real):
-- **Plataforma WebGIS en Producción**: Next.js 16 App Router con compilador Turbopack y 28 rutas limpias.
+- **Plataforma WebGIS en Producción**: Next.js 16 App Router con compilador Turbopack y 30 rutas de producción optimizadas (ampliadas desde la base de 28 rutas limpias).
 - **Cobertura Territorial Integral**: 24 estados y 335 municipios de Venezuela con datos agroecológicos y edafológicos calibrados.
 - **Doble Modo de Interfaz (Dual-Mode UI)**: *Modo Productor Fácil* con 4 puertas táctiles, vocabulario de campo y dictado por voz, alternable a *Modo Técnico* para ingenieros y comités evaluadores.
 - **Asesoría IA Adaptativa (Dual-Tone)**: La IA ("El Compadre Agrónomo") adapta dinámicamente su vocabulario según la interfaz activa, hablando en sacos y días de sol para agricultores, y en ecuaciones edafológicas para técnicos.
-- **Calidad de Software Certificada**: **202 pruebas automatizadas (ampliadas desde la certificación base de 197 pruebas automatizadas: 150 Jest + 52 Pytest, 100% aprobadas)**, 0 errores de compilación TypeScript.
+- **Calidad de Software Certificada**: **227 pruebas automatizadas (ampliadas desde la certificación base de 197 pruebas automatizadas: 173 Jest + 54 Pytest, 100% aprobadas)**, 0 errores de compilación TypeScript.
 
 ---
 
@@ -119,14 +119,19 @@ Parámetros tropicales: $T_{\text{base}} = 10.0^\circ\text{C}$ y $T_{\text{upper
 - **Sur del Lago de Maracaibo**: Corrección de relación Ca:Mg (3:1 a 4:1) con cal dolomítica.
 - **Valles Semiáridos de Quíbor/Lara**: Para suelos salino-sódicos alcalinos ($pH \ge 7.4$), prescripción de Yeso Agrícola ($CaSO_4 \cdot 2H_2O$) a 2.5 t/ha.
 
+### A.5 Pedocalibración Dinámica (Saxton-Rawls) y Agua Disponible (PAW)
+$$\text{PAW (\%)} = \frac{\theta - \theta_{PWP}}{\theta_{FC} - \theta_{PWP}} \times 100$$
+Calibrada regionalmente para texturas venezolanas (Arenoso $\theta_{crit} = 9\%$, Franco $\theta_{crit} = 20\%$, Arcilloso $\theta_{crit} = 35\%$). El riego predictivo se desencadena ante $\text{PAW} < 50\%$ y lluvia menor a 5.0 mm en 6 horas.
+
 ---
 
 ## 🏗️ Apéndice B: Arquitectura Tecnológica y Microservicios
 
-- **WebGIS Frontend**: Next.js 16 (App Router con Turbopack), React 19, Leaflet nativo puro con ciclo de vida `useRef`, CSS Modules Glassmorphism, PWA con IndexedDB.
+- **WebGIS Frontend**: Next.js 16 (App Router con Turbopack, 30 rutas de producción), React 19, Leaflet nativo puro con ciclo de vida `useRef`, CSS Modules Glassmorphism, PWA con IndexedDB y resolución determinista de conflictos en `/api/parcels/conflicts`.
 - **Backend Espacial**: Python 3.13, FastAPI con OpenAPI 3.0, Scikit-Learn, NumPy, cliente NASA POWER, caché geodésica SQLite en modo WAL (< 5ms de latencia).
 - **Inteligencia Artificial**: Google Gemini 2.5 Flash (`gemini-2.5-flash`) con memoria territorial de 40 años (MapBiomas Colección 3) y motor heurístico determinista de respaldo.
 - **Prescripción Tri-Modal para Maquinaria**: Paquetes ESRI Shapefile con atributos VRA (`RATE_LIME`, `RATE_NPK`, `AREA_HA` en UTM 19N WGS84) para consolas GPS John Deere/Trimble, planes de vuelo KML para drones y fichas analógicas de cabina.
+- **Oráculo Satelital Radar SAR para MRV**: Algoritmo en `/api/mrv/sar-oracle` que evalúa retrodispersión $\sigma^\circ_{VH}/\sigma^\circ_{VV} > -12\text{ dB}$ para abatir la incertidumbre Verra VCS al 10%.
 
 ---
 

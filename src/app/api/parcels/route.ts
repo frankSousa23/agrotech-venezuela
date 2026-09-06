@@ -9,34 +9,24 @@
  *    - Intenta consultar PostgreSQL vía Prisma; en caso de modo offline/sandbox,
  *      recurre al almacenamiento en memoria 'IN_MEMORY_PARCELS'.
  * 2. POST /api/parcels:
- *    - Registra un nuevo lote georreferenciado con polígono GeoJSON y área Shoelace calculada.
+ *    - Registra un nuevo lote georreferenciado o actualiza uno existente con
+ *      control de versiones optimista determinista (detección de conflictos 409).
  * 3. DELETE /api/parcels:
  *    - Elimina un lote por 'id' garantizando aislamiento de datos.
  * 
  * Interacciones:
- * - Usado por: MultiLevelMapViewer.tsx (guardado directo), Mis Tierras (/dashboard/tierras)
- *   y Cuaderno de Campo (/dashboard/bitacora).
+ * - Usado por: MultiLevelMapViewer.tsx (guardado directo), Mis Tierras (/dashboard/tierras),
+ *   Cuaderno de Campo (/dashboard/bitacora) y cola de sincronización IndexedDB.
  */
 
 import { NextResponse } from 'next/server';
 import { extractUserFromRequest } from '@/lib/auth/authUtils';
+import { Parcel, ParcelConflict } from '@/types/parcel';
 
-export interface InMemParcel {
-  id: string;
-  userId: string;
-  name: string;
-  stateId: string;
-  municipalityId: string;
-  areaHectares: number;
-  polygonGeoJson: string;
-  centerLat: number;
-  centerLng: number;
-  currentCrop?: string;
-  soilTexture?: string;
-  ph?: number;
-  organicMatter?: number;
-  createdAt: string;
-}
+export type InMemParcel = Parcel;
+
+// Almacén en memoria de conflictos de concurrencia en cuarentena
+export const PARCEL_CONFLICTS_MAP = new Map<string, ParcelConflict>();
 
 // In-memory persistent storage for development & demo resilience
 export const IN_MEMORY_PARCELS: InMemParcel[] = [
@@ -63,7 +53,10 @@ export const IN_MEMORY_PARCELS: InMemParcel[] = [
     soilTexture: "Franco-limoso",
     ph: 6.2,
     organicMatter: 3.2,
-    createdAt: new Date().toISOString()
+    version: 1,
+    updated_at: '2026-03-01T00:00:00.000Z',
+    createdAt: '2026-03-01T00:00:00.000Z',
+    syncStatus: 'synced'
   },
   {
     id: "parc-002",
@@ -88,7 +81,10 @@ export const IN_MEMORY_PARCELS: InMemParcel[] = [
     soilTexture: "Vertisol Arcilloso",
     ph: 6.8,
     organicMatter: 2.4,
-    createdAt: new Date().toISOString()
+    version: 1,
+    updated_at: '2026-03-01T00:00:00.000Z',
+    createdAt: '2026-03-01T00:00:00.000Z',
+    syncStatus: 'synced'
   },
   {
     id: "parc-003",
@@ -113,7 +109,10 @@ export const IN_MEMORY_PARCELS: InMemParcel[] = [
     soilTexture: "Franco-arcilloso",
     ph: 6.4,
     organicMatter: 2.9,
-    createdAt: new Date().toISOString()
+    version: 1,
+    updated_at: '2026-03-01T00:00:00.000Z',
+    createdAt: '2026-03-01T00:00:00.000Z',
+    syncStatus: 'synced'
   },
   {
     id: "parc-004",
@@ -138,7 +137,10 @@ export const IN_MEMORY_PARCELS: InMemParcel[] = [
     soilTexture: "Franco Andino",
     ph: 5.6,
     organicMatter: 4.5,
-    createdAt: new Date().toISOString()
+    version: 1,
+    updated_at: '2026-03-01T00:00:00.000Z',
+    createdAt: '2026-03-01T00:00:00.000Z',
+    syncStatus: 'synced'
   },
   {
     id: "parc-005",
@@ -163,7 +165,10 @@ export const IN_MEMORY_PARCELS: InMemParcel[] = [
     soilTexture: "Franco-arenoso Oxisol",
     ph: 5.2,
     organicMatter: 1.8,
-    createdAt: new Date().toISOString()
+    version: 1,
+    updated_at: '2026-03-01T00:00:00.000Z',
+    createdAt: '2026-03-01T00:00:00.000Z',
+    syncStatus: 'synced'
   }
 ];
 
@@ -178,13 +183,19 @@ export function getOrCreateGuestParcels(guestId: string): InMemParcel[] {
         ...IN_MEMORY_PARCELS[0],
         id: `parc-guest-${guestId.replace('usr-guest-', '')}-1`,
         userId: guestId,
-        name: "Finca Demostración — Tablón Turén (Maíz)"
+        name: "Finca Demostración — Tablón Turén (Maíz)",
+        version: 1,
+        updated_at: new Date().toISOString(),
+        syncStatus: 'synced'
       },
       {
         ...IN_MEMORY_PARCELS[1],
         id: `parc-guest-${guestId.replace('usr-guest-', '')}-2`,
         userId: guestId,
-        name: "Lote Demostración — Arroz Calabozo"
+        name: "Lote Demostración — Arroz Calabozo",
+        version: 1,
+        updated_at: new Date().toISOString(),
+        syncStatus: 'synced'
       }
     ];
     GUEST_PARCELS_MAP.set(guestId, cleanSamples);
@@ -220,6 +231,7 @@ export async function POST(req: Request) {
     const session = extractUserFromRequest(req);
     const body = await req.json();
     const {
+      id,
       userId,
       name,
       stateId = 'portuguesa',
@@ -231,7 +243,10 @@ export async function POST(req: Request) {
       currentCrop = 'Maíz Blanco Harinero',
       soilTexture = 'Franco-limoso',
       ph = 6.2,
-      organicMatter = 3.2
+      organicMatter = 3.2,
+      version,
+      baseVersion,
+      forceOverwrite = false
     } = body;
 
     if (!name) {
@@ -243,8 +258,85 @@ export async function POST(req: Request) {
       ? (session.isGuest || session.status === 'GUEST' || session.id.startsWith('usr-guest')) 
       : effectiveUserId.startsWith('usr-guest');
 
+    const targetList = isGuest 
+      ? getOrCreateGuestParcels(effectiveUserId) 
+      : IN_MEMORY_PARCELS;
+
+    // Detectar si es una actualización de un lote existente por ID
+    if (id) {
+      const existingIdx = targetList.findIndex(p => p.id === id && (isGuest || p.userId === effectiveUserId));
+      if (existingIdx !== -1) {
+        const existing = targetList[existingIdx];
+        const currentServerVersion = existing.version || 1;
+        const incomingBaseVersion = typeof baseVersion === 'number' 
+          ? baseVersion 
+          : (typeof version === 'number' ? version : currentServerVersion);
+
+        // Si el cliente envía una versión base menor a la versión del servidor y no fuerza la sobreescritura -> CONFLICTO
+        if (incomingBaseVersion < currentServerVersion && !forceOverwrite) {
+          const conflictId = `conf-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
+          const conflict: ParcelConflict = {
+            conflictId,
+            parcelId: existing.id,
+            userId: effectiveUserId,
+            detectedAt: new Date().toISOString(),
+            serverVersion: { ...existing },
+            clientVersion: {
+              id: existing.id,
+              userId: effectiveUserId,
+              name,
+              stateId,
+              municipalityId,
+              areaHectares: parseFloat(areaHectares),
+              polygonGeoJson: typeof polygonGeoJson === 'string' ? polygonGeoJson : JSON.stringify(polygonGeoJson),
+              centerLat: parseFloat(centerLat),
+              centerLng: parseFloat(centerLng),
+              currentCrop,
+              soilTexture,
+              ph: parseFloat(ph),
+              organicMatter: parseFloat(organicMatter),
+              version: incomingBaseVersion,
+              updated_at: new Date().toISOString(),
+              createdAt: existing.createdAt,
+              syncStatus: 'conflict'
+            },
+            resolved: false
+          };
+
+          PARCEL_CONFLICTS_MAP.set(conflictId, conflict);
+          existing.syncStatus = 'conflict';
+
+          return NextResponse.json({
+            error: 'Conflicto de concurrencia detectado: la versión del servidor es más reciente',
+            code: 'VERSION_CONFLICT',
+            conflict
+          }, { status: 409 });
+        }
+
+        // Actualización válida sin conflicto o forzada
+        existing.name = name;
+        existing.stateId = stateId;
+        existing.municipalityId = municipalityId;
+        existing.areaHectares = parseFloat(areaHectares);
+        existing.polygonGeoJson = typeof polygonGeoJson === 'string' ? polygonGeoJson : JSON.stringify(polygonGeoJson);
+        existing.centerLat = parseFloat(centerLat);
+        existing.centerLng = parseFloat(centerLng);
+        existing.currentCrop = currentCrop;
+        existing.soilTexture = soilTexture;
+        existing.ph = parseFloat(ph);
+        existing.organicMatter = parseFloat(organicMatter);
+        existing.version = currentServerVersion + 1;
+        existing.updated_at = new Date().toISOString();
+        existing.syncStatus = 'synced';
+
+        return NextResponse.json({ success: true, parcel: existing, updated: true }, { status: 200 });
+      }
+    }
+
+    // Creación de nueva parcela
+    const now = new Date().toISOString();
     const newParcel: InMemParcel = {
-      id: `parc-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+      id: id || `parc-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
       userId: effectiveUserId,
       name,
       stateId,
@@ -257,16 +349,13 @@ export async function POST(req: Request) {
       soilTexture,
       ph: parseFloat(ph),
       organicMatter: parseFloat(organicMatter),
-      createdAt: new Date().toISOString()
+      version: 1,
+      updated_at: now,
+      createdAt: now,
+      syncStatus: 'synced'
     };
 
-    if (isGuest) {
-      const guestList = getOrCreateGuestParcels(effectiveUserId);
-      guestList.unshift(newParcel);
-      return NextResponse.json({ success: true, parcel: newParcel }, { status: 201 });
-    }
-
-    IN_MEMORY_PARCELS.unshift(newParcel);
+    targetList.unshift(newParcel);
     return NextResponse.json({ success: true, parcel: newParcel }, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: 'Error al guardar la parcela' }, { status: 500 });

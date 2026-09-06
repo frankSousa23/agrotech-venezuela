@@ -139,24 +139,24 @@ cp .env.production.example .env.production
 
 ---
 
-## 🧪 4. Suite Completa de Pruebas y Verificación (202 Tests)
+## 🧪 4. Suite Completa de Pruebas y Verificación (227 Tests)
 
 El proyecto cuenta con una cobertura exhaustiva de pruebas unitarias, de integración, geoespaciales y de accesibilidad. Antes de realizar cualquier pull request o commit a `main`, se debe verificar la suite completa:
 
 ```bash
-# 1. Pruebas Frontend Jest (150 tests: WebGIS, SAR Radar, GDD, Auth, UX Rural, IoT, Intentions, Vernacular Voice Parser, Machinery Exporter):
+# 1. Pruebas Frontend Jest (173 tests: WebGIS, SAR Radar, GDD, Auth, UX Rural, IoT, Pedotransfer, Conflict Quarantine, Carbon MRV, Vernacular Voice Parser, Machinery Exporter):
 npm test
 
 # 2. Verificación Estática TypeScript (0 errores obligatorios):
 npm run typecheck
 
-# 3. Compilación de Producción Next.js 16 Turbopack (28 rutas limpias):
+# 3. Compilación de Producción Next.js 16 Turbopack (30 rutas limpias):
 npm run build
 
-# 4. Pruebas Backend Pytest (52 tests: FastAPI, ML Cosecha, GDD, Shoelace, Caché):
+# 4. Pruebas Backend Pytest (54 tests: FastAPI, ML Cosecha, GDD, Shoelace, Caché, Saxton-Rawls, Oráculo SAR):
 npm run test:backend
 
-# 5. Suite Automatizada Unificada (202 de 202 tests aprobados):
+# 5. Suite Automatizada Unificada (227 de 227 tests aprobados):
 npm run test:all
 ```
 
@@ -173,6 +173,9 @@ npm run test:all
 7. **Calibración Edafológica Regional**: Modelo Kamprath modificado ($1.5 \times \text{Al}^{3+} \times 100 / \text{PRNT}$) para sabanas orientales ácidas, balance Ca:Mg (3:1 a 4:1) para Sur del Lago con cal dolomítica, y Yeso Agrícola ($CaSO_4 \cdot 2H_2O$) a 2.5 t/ha para suelos salino-sódicos alcalinos en Quíbor/Lara ($pH \ge 7.4$).
 8. **Parser Vernacular Campesino**: Normalización offline e insensible a acentos de unidades tradicionales venezolanas (1 saco = 50 kg, 1 tambor = 200 L, 1 caneca = 20 L, 1 tablón = 1.0 ha) acoplado a la Bitácora de Campo.
 9. **Prescripciones Tri-Modales para Maquinaria y Drones**: Paquetes ESRI Shapefile con atributos VRA (`RATE_LIME`, `RATE_NPK`, `AREA_HA` en UTM 19N WGS84) para tractores GPS, misiones de vuelo KML para drones agrícolas y fichas de cabina analógica de 1 página.
+10. **Resolución Determinista de Conflictos Offline**: Versionado monotónico (`version: number`) y marcas de tiempo ISO (`updated_at`) en geometrías y registros de parcelas. Las mutaciones concurrentes o desincronizadas devuelven HTTP 409 y se desvían a la cola de cuarentena en `/api/parcels/conflicts` para resolución guiada (`ParcelConflictModal.tsx`) en Modo Productor (vernacular) o Modo Técnico (diff métrico).
+11. **Pedocalibración Dinámica de Suelos & Agua Disponible (PAW)**: Modelo Saxton-Rawls calibrado regionalmente para Arenoso ($\theta_{crit} = 9\%$), Franco ($\theta_{crit} = 20\%$) y Arcilloso ($\theta_{crit} = 35\%$). Las alertas y actuadores de microrriego IoT exigen que el Agua Disponible para la Planta caiga bajo el 50% ($\text{PAW} < 50\%$) y ausencia de lluvia satelital inminente.
+12. **Oráculo Satelital Radar SAR Sentinel-1 Banda C para MRV**: Verificación de rugosidad estructural del dosel ($\sigma^\circ_{VH}/\sigma^\circ_{VV} > -12\text{ dB}$) en `/api/mrv/sar-oracle` acoplada al ground-truth de la Bitácora de Campo (siembra directa, abonos verdes, encalado), colapsando el descuento por incertidumbre metodológica Verra VCS / IPCC Tier 2 del 40% al 10%.
 
 ---
 

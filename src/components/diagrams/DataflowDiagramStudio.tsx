@@ -82,12 +82,14 @@ const SYSTEM_DIAGRAMS: DiagramDef[] = [
 
     subgraph CLIENTE["🌐 Capa de Presentación & Clientes"]
         WEBGIS["🛰️ WebGIS Next.js 16 App Router\\nPuerto 3000 | Turbopack | Leaflet"]:::frontend
-        IOT_LAB["🔬 Lab Agro-IoT Micro-Cultivo\\nESP32 Sim & Riego Predictivo"]:::frontend
+        IOT_LAB["🔬 Lab Agro-IoT Micro-Cultivo\\nESP32 Sim & Saxton-Rawls PAW"]:::frontend
+        MRV_CALC["📈 Calculadora Carbono MRV\\nPool 85/15 | Auditoría SAR"]:::frontend
         STREAMLIT["📊 Streamlit Prescripción VRA\\nPuerto 8501 | Folium | Plotly"]:::frontend
     end
 
     subgraph BACKEND_SERVICES["⚙️ Capa de Servicios & Cómputo Espacial"]
         FASTAPI["🚀 FastAPI Backend Espacial\\nPuerto 8000 | Python 3.13 | Uvicorn"]:::backend
+        SAR_ORACLE["🛰️ Oráculo SAR Sentinel-1\\n/api/mrv/sar-oracle | Roughness -12dB"]:::backend
         ML_ENGINE["🧠 Scikit-Learn Random Forest\\nClasificación Edafológica & Salud"]:::backend
         GEMINI_AI["✨ Gemini 3.5 Flash\\nRecomendaciones Agronómicas & Dosis"]:::ai
     end
@@ -95,21 +97,26 @@ const SYSTEM_DIAGRAMS: DiagramDef[] = [
     subgraph CACHE_DATA["💾 Capa de Persistencia & Caché Híbrida"]
         SQLITE_CACHE["⚡ SQLite WAL Geodesic Cache\\nHash ~11m (lat < 25ms) | Rural Offline"]:::database
         POSTGRES["🐘 PostgreSQL 15 (Docker)\\nPuerto 5444 | Relaciones & Bitácora"]:::database
+        QUARANTINE["🛑 Cola Cuarentena Parcelas\\n/api/parcels/conflicts | Versión Monotónica"]:::database
     end
 
     subgraph EXTERNAL_APIS["🛰️ Proveedores Satelitales & Clima"]
         GEE["🌍 Google Earth Engine API\\nSentinel-2 L2A (10m) | SCL Mask"]:::external
+        S1_RADAR["📡 Sentinel-1 SAR C-Band\\nPolarización Dual VV/VH All-Weather"]:::external
         NASA["☀️ NASA POWER Agroclimatology\\nPrecipitaciones, GDD (10°-30°C) & Radiación"]:::external
         MAPBIOMAS["🗺️ MapBiomas Venezuela Colección 3\\n40 Años LULC (Provita / RAISG)"]:::external
     end
 
     %% Relaciones y Flujos
     WEBGIS <-->|REST API / GeoJSON| FASTAPI
-    IOT_LAB -->|Telemetría Suelo & Válvula| FASTAPI
+    WEBGIS <-->|Detección Conflicto 409| QUARANTINE
+    IOT_LAB -->|Telemetría Suelo & PAW < 50%| FASTAPI
+    MRV_CALC <-->|Auditoría Rugosidad -12dB| SAR_ORACLE
     WEBGIS <-->|Prisma ORM CRUD| POSTGRES
     STREAMLIT <-->|API Prescripciones| FASTAPI
     
     FASTAPI <-->|Consulta Geohash| SQLITE_CACHE
+    SAR_ORACLE -->|Backscatter Ratio| S1_RADAR
     FASTAPI -->|Fallback Ingestion| GEE
     FASTAPI -->|Consultas Agrometeorológicas| NASA
     FASTAPI -->|Entrenamiento & Inferencia| ML_ENGINE
@@ -171,28 +178,37 @@ const SYSTEM_DIAGRAMS: DiagramDef[] = [
     autonumber
     actor Productor as 🚜 Agricultor en Campo
     participant App as 📱 WebGIS Frontend (Next.js)
-    participant LocalDB as 💾 SQLite WAL / Local Storage
-    participant API as 🚀 FastAPI / API Gateway
+    participant LocalDB as 💾 SQLite WAL / IndexedDB
+    participant API as 🚀 Next.js API Gateway
+    participant Quarantine as 🛑 Cuarentena (/api/parcels/conflicts)
     participant CloudDB as 🐘 PostgreSQL 15 (Docker)
 
-    Productor->>App: Delimita Parcela / Registra Labor en Bitácora
+    Productor->>App: Delimita Parcela / Edita Lote Offline
     alt Sin Conexión a Internet (Modo Rural Offline)
-        App->>LocalDB: Guarda Registro con Geohash (~11m) & Timestamp Local
-        LocalDB-->>App: Confirmación Inmediata (<10ms)
+        App->>LocalDB: Guarda Registro con Versión Monotónica v(N) & Geohash
+        LocalDB-->>App: Confirmación Inmediata (<5ms)
         App-->>Productor: ✓ Guardado en Cuaderno Local Offline
-    else Con Conexión de Datos (3G/4G/WiFi)
-        App->>API: Envía Payload + Token JWT / Sesión Concurrente
-        API->>CloudDB: Transacción ACID con Prisma ORM
-        CloudDB-->>API: Confirmación de Persistencia
-        API-->>App: Registro Sincronizado
-        App-->>Productor: ✓ Sincronizado en la Nube
-    end
-    Note over App,CloudDB: Al restablecerse la red, se dispara sincronización en lote en segundo plano.`,
+    else Con Conexión de Datos (Al Reconectar)
+        App->>API: POST /api/parcels (Payload con Base Version v(N))
+        alt Versión Coincide (v_server == v_client)
+            API->>CloudDB: Transacción ACID (v_server = v_server + 1)
+            CloudDB-->>API: Confirmación de Persistencia
+            API-->>App: 200 OK (Registro Sincronizado)
+            App-->>Productor: ✓ Sincronizado en la Nube
+        else Conflicto Detectado (v_server > v_client)
+            API->>Quarantine: Almacena en Cuarentena (/api/parcels/conflicts)
+            API-->>App: 409 Conflict (Colisión Detectada)
+            App->>Productor: ⚠️ Modal Dual-Mode: Resolver Conflicto (Campesino vs Técnico)
+            Productor->>App: Selecciona Estrategia (Keep Server / Overwrite / Merge)
+            App->>Quarantine: POST /api/parcels/conflicts (Resuelve Conflicto)
+            Quarantine-->>App: 200 OK (Conflicto Resuelto)
+        end
+    end`,
     svgHighlights: [
       { step: '1. Detección de Red', title: 'Conectividad Dinámica', description: 'El cliente evalúa el estado de red sin bloquear la interfaz de usuario.', tech: 'Navigator Online API', latency: '0 ms' },
-      { step: '2. Buffer Local', title: 'Almacenamiento Local Seguro', description: 'Los registros se conservan con hashing geodésico y firma de integridad.', tech: 'SQLite WAL / IndexedDB', latency: '< 5 ms' },
-      { step: '3. Cola de Sincronización', title: 'Batch Dispatcher', description: 'Al reconectar, procesa la cola de labores pendientes sin pérdida de datos.', tech: 'REST API Sync', latency: '150 ms' },
-      { step: '4. Consistencia Global', title: 'PostgreSQL Relacional', description: 'Actualización atómica en el servidor con trazabilidad de usuario.', tech: 'PostgreSQL 15', latency: '25 ms' }
+      { step: '2. Buffer & Versión', title: 'Versionado Monotónico', description: 'Los registros se conservan con versión monotónica y firma de integridad.', tech: 'SQLite WAL / IndexedDB', latency: '< 5 ms' },
+      { step: '3. Cuarentena 409', title: 'Aislamiento de Colisión', description: 'Al reconectar, colisiones concurrentes se desvían a /api/parcels/conflicts.', tech: 'Quarantine Store', latency: '25 ms' },
+      { step: '4. Resolución Dual', title: 'ParcelConflictModal', description: 'Resolución guiada en lenguaje campesino o diff métrico técnico.', tech: 'Dual-Mode UI Modal', latency: '0 ms' }
     ]
   },
   {

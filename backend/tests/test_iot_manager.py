@@ -82,3 +82,29 @@ def test_actuator_state_override():
     res = manager.set_actuator_state("act-turen-01", cmd)
     assert res["status"] == "command_acknowledged"
     assert res["actuator"]["state"] == "ON"
+
+
+def test_predictive_irrigation_soil_texture_calibration():
+    """Valida la calibración de umbral pedotranferencial (Arenoso vs Arcilloso)."""
+    manager = IoTManager()
+
+    # 1. Arenoso con 12% (crit: 9%, FC: 14%, PWP: 6% -> PAW = 75%) -> STANDBY
+    res_sand = manager.evaluate_predictive_irrigation(
+        moisture_pct=12.0,
+        forecast_rain_6h_mm=0.0,
+        soil_texture="arenoso"
+    )
+    assert res_sand["action"] == "STANDBY"
+    assert res_sand["valve_command"] == "CLOSED"
+    assert res_sand["paw_pct"] >= 50.0
+
+    # 2. Arcilloso con 30% (crit: 35%, FC: 44%, PWP: 28% -> PAW = 12.5%) -> ACTIVATE_IRRIGATION
+    res_clay = manager.evaluate_predictive_irrigation(
+        moisture_pct=30.0,
+        forecast_rain_6h_mm=0.0,
+        soil_texture="arcilloso"
+    )
+    assert res_clay["action"] == "ACTIVATE_IRRIGATION"
+    assert res_clay["valve_command"] == "OPEN"
+    assert res_clay["paw_pct"] < 50.0
+

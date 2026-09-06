@@ -47,6 +47,9 @@ Este documento define los estándares arquitectónicos, convenciones de código 
 - **Calibración Edafológica Regional**: Modelo Kamprath modificado ($1.5 \times \text{Al}^{3+} \times 100 / \text{PRNT}$) para sabanas orientales ácidas, balance Ca:Mg (3:1 a 4:1) para Sur del Lago con cal dolomítica, y Yeso Agrícola ($CaSO_4 \cdot 2H_2O$) a 2.5 t/ha para suelos salino-sódicos alcalinos en Quíbor/Lara ($pH \ge 7.4$).
 - **Parser Vernacular Campesino**: Normalización offline e insensible a acentos de unidades tradicionales venezolanas (1 saco = 50 kg, 1 tambor = 200 L, 1 caneca = 20 L, 1 tablón = 1.0 ha) acoplado a la Bitácora de Campo.
 - **Prescripciones Tri-Modales para Maquinaria**: Paquetes ESRI Shapefile con atributos VRA (`RATE_LIME`, `RATE_NPK`, `AREA_HA` en UTM 19N WGS84) para tractores GPS, misiones de vuelo KML para drones agrícolas y fichas de cabina analógica de 1 página.
+- **Resolución Determinista de Conflictos Offline**: Versionado monotónico (`version`) y timestamp (`updated_at`) en geometrías de parcelas. Colisiones concurrentes devuelven HTTP 409 y se almacenan en la cola de cuarentena `/api/parcels/conflicts` para resolución guiada (`ParcelConflictModal.tsx`) en Modo Productor (vernacular) o Modo Técnico (diff métrico).
+- **Pedocalibración Dinámica Edafológica & PAW**: Modelo Saxton-Rawls regionalizado (Arenoso $\theta_{crit}=9\%$, Franco $\theta_{crit}=20\%$, Arcilloso $\theta_{crit}=35\%$). Ingestión IoT en `/api/iot/telemetry` condicionada a $\text{PAW} < 50\%$ para activación de riego.
+- **Oráculo Satelital Radar SAR Sentinel-1 para MRV**: Verificación de rugosidad estructural del dosel ($\sigma^\circ_{VH}/\sigma^\circ_{VV} > -12\text{ dB}$) en `/api/mrv/sar-oracle` acoplada a la Bitácora de Campo, reduciendo la incertidumbre Verra VCS del 40% al 10%.
 
 ---
 
@@ -55,19 +58,19 @@ Este documento define los estándares arquitectónicos, convenciones de código 
 Antes de realizar cualquier commit a la rama `main`, se **deben** ejecutar y pasar ambas suites de pruebas automatizadas:
 
 ```bash
-# 1. Pruebas de Frontend WebGIS, SAR Radar, GDD, Auth, Security, Diary, Spatial, Routing, Search, IoT, Vernacular & Machinery (Jest — 145 tests)
+# 1. Pruebas de Frontend WebGIS, SAR Radar, GDD, Auth, Security, Diary, Spatial, Routing, Search, IoT, Pedotransfer, Conflict Quarantine, Carbon MRV, Vernacular & Machinery (Jest — 173 tests en 28 suites)
 npm test
 
 # 2. Verificación de Tipos TypeScript (0 errores obligatorios)
 npm run typecheck
 
-# 3. Compilación de Producción Next.js 16 Turbopack (28 rutas limpias)
+# 3. Compilación de Producción Next.js 16 Turbopack (30 rutas limpias)
 npm run build
 
-# 4. Pruebas de Backend Espacial, ML, IA y Carga (Pytest — 52 tests)
+# 4. Pruebas de Backend Espacial, ML, IA, Saxton-Rawls y Oráculo SAR (Pytest — 54 tests)
 npm run test:backend
 
-# 5. Suite Unificada Automatizada Completa (197 tests)
+# 5. Suite Unificada Automatizada Completa (227 tests)
 npm run test:all
 ```
 

@@ -25,6 +25,8 @@ export interface ParcelGeometry {
   perimeterMeters: number;        // Perímetro en metros (Haversine)
   centroid: [number, number];     // Centroide [lat, lng]
   detectedState: StateGeoData | null; // Estado territorial detectado por Ray-Casting
+  version?: number;
+  updated_at?: string;
 }
 
 export interface CropSuitabilityResult {

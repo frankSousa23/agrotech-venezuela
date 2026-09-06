@@ -7,11 +7,17 @@
  * y el microservicio espacial FastAPI (Python 3.13):
  * 1. Ingesta lecturas de humedad, temperatura, pH y NPK de nodos ESP32.
  * 2. Reenvía hacia FastAPI (puerto 8000) si el microservicio está activo.
- * 3. Ejecuta fallback de cálculo agronómico in-situ con tolerancia a fallos
+ * 3. Ejecuta fallback de cálculo agronómico in-situ calibrado por textura
+ *    edafológica (Saxton-Rawls) y Agua Fácilmente Aprovechable (PAW)
  *    cuando el backend está apagado o en modo rural offline.
  */
 
 import { NextResponse } from 'next/server';
+import { 
+  evaluateSoilWaterStatus, 
+  normalizeSoilTexture, 
+  REGIONAL_SOIL_HYDRAULICS 
+} from '@/lib/agronomy/pedotransferEngine';
 
 export interface IoTTelemetryInput {
   hardware_uid?: string;
@@ -25,6 +31,7 @@ export interface IoTTelemetryInput {
   forecast_rain_6h_mm?: number;
   crop_name?: string;
   critical_threshold?: number;
+  soil_texture?: string;
 }
 
 export async function GET() {
@@ -47,9 +54,16 @@ export async function POST(request: Request) {
     const moisture = typeof body.soil_moisture_pct === 'number' ? body.soil_moisture_pct : 35;
     const temp = typeof body.soil_temp_c === 'number' ? body.soil_temp_c : 24.5;
     const rainForecast = typeof body.forecast_rain_6h_mm === 'number' ? body.forecast_rain_6h_mm : 0.0;
-    const threshold = typeof body.critical_threshold === 'number' ? body.critical_threshold : 35;
     const hardwareUid = body.hardware_uid || 'esp32_microcrop_lab_01';
     const battery = typeof body.battery_voltage === 'number' ? body.battery_voltage : 4.12;
+    const rawTexture = body.soil_texture || 'franco';
+    const texture = normalizeSoilTexture(rawTexture);
+
+    // Calibración pedotranferencial Saxton-Rawls (PAW y potencial mátrico)
+    const waterEvaluation = evaluateSoilWaterStatus(moisture, texture, rainForecast);
+    const threshold = typeof body.critical_threshold === 'number' 
+      ? body.critical_threshold 
+      : waterEvaluation.criticalThreshold;
 
     const backendUrl = process.env.SPATIAL_BACKEND_URL || 'http://localhost:8000';
     const targetEndpoint = `${backendUrl}/api/v1/iot/telemetry?x_device_token=sec_iot_node_turen_001&forecast_rain_6h_mm=${rainForecast}`;
@@ -63,6 +77,7 @@ export async function POST(request: Request) {
         hardware_uid: hardwareUid,
         soil_moisture_pct: moisture,
         soil_temp_c: temp,
+        soil_texture: texture,
         ph: body.ph ?? 6.2,
         nitrogen_mg_kg: body.nitrogen_mg_kg ?? 45,
         phosphorus_mg_kg: body.phosphorus_mg_kg ?? 18,
@@ -98,20 +113,20 @@ export async function POST(request: Request) {
     }
 
     // 2. Fallback Agronómico Local Deterministico (Modo Offline o Microservicio Apagado)
-    const isCritical = moisture < threshold;
+    const isCritical = moisture < threshold || waterEvaluation.plantAvailableWaterPct < 50.0;
     const rainAlert = rainForecast >= 5.0;
 
     let valveAction: 'OPEN' | 'CLOSED' = 'CLOSED';
-    let reason = 'Humedad edáfica adecuada. Riego en espera.';
+    let reason = `Humedad edáfica adecuada para suelo ${waterEvaluation.displayName} (PAW: ${waterEvaluation.plantAvailableWaterPct}%). Riego en espera.`;
     let savedWaterL = 0;
     let savedKwh = 0;
 
     if (isCritical && !rainAlert) {
       valveAction = 'OPEN';
-      reason = `Humedad (${moisture.toFixed(1)}%) inferior al umbral (${threshold}%). Activando electroválvula.`;
+      reason = `Humedad (${moisture.toFixed(1)}%) inferior al umbral (${threshold}%). Activando electroválvula en suelo ${texture} (PAW: ${waterEvaluation.plantAvailableWaterPct}%).`;
     } else if (isCritical && rainAlert) {
       valveAction = 'CLOSED';
-      reason = `Riego suprimido preventivamente: lluvia pronosticada (${rainForecast.toFixed(1)} mm en 6h).`;
+      reason = `Riego suprimido preventivamente: lluvia pronosticada (${rainForecast.toFixed(1)} mm en 6h) en suelo ${texture} (PAW: ${waterEvaluation.plantAvailableWaterPct}%).`;
       savedWaterL = 45;
       savedKwh = 0.38;
     }
@@ -128,6 +143,10 @@ export async function POST(request: Request) {
         hardware_uid: hardwareUid,
         soil_moisture_pct: moisture,
         soil_temp_c: temp,
+        soil_texture: texture,
+        plant_available_water_pct: waterEvaluation.plantAvailableWaterPct,
+        matric_potential_kpa: waterEvaluation.matricPotentialKPa,
+        calibrated_threshold: threshold,
         valve_action: valveAction,
         reason,
         forecast_rain_6h_mm: rainForecast,

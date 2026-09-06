@@ -91,4 +91,40 @@ describe('📡 /api/iot/telemetry — Route Handler Gateway Tests', () => {
     expect(result.data.valve_action).toBe('CLOSED');
     expect(result.data.reason).toContain('adecuada');
   });
+
+  test('POST debe calibrar umbral dinámicamente según textura de suelo (Arenoso vs Arcilloso)', async () => {
+    // Caso 1: Suelo arenoso con 12% de humedad (FC: 14%, PWP: 6%, crit: 9%). PAW = 75% -> Rango óptimo, no requiere riego.
+    const reqSand = new Request('http://localhost:3000/api/iot/telemetry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        hardware_uid: 'esp32_sand_node_01',
+        soil_moisture_pct: 12.0,
+        soil_texture: 'arenoso',
+        forecast_rain_6h_mm: 0.0
+      })
+    });
+    const resSand = await POST(reqSand);
+    const dataSand = await resSand.json();
+    expect(dataSand.data.valve_action).toBe('CLOSED');
+    expect(dataSand.data.soil_texture).toBe('arenoso');
+    expect(dataSand.data.plant_available_water_pct).toBeGreaterThanOrEqual(50.0);
+
+    // Caso 2: Suelo arcilloso ("Tierra Brava") con 30% de humedad (crit: 35%, PWP: 28%). PAW = 12.5% -> Déficit crítico, activa electroválvula.
+    const reqClay = new Request('http://localhost:3000/api/iot/telemetry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        hardware_uid: 'esp32_clay_node_01',
+        soil_moisture_pct: 30.0,
+        soil_texture: 'arcilloso',
+        forecast_rain_6h_mm: 0.0
+      })
+    });
+    const resClay = await POST(reqClay);
+    const dataClay = await resClay.json();
+    expect(dataClay.data.valve_action).toBe('OPEN');
+    expect(dataClay.data.soil_texture).toBe('arcilloso');
+    expect(dataClay.data.plant_available_water_pct).toBeLessThan(50.0);
+  });
 });

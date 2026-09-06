@@ -1,17 +1,4 @@
-# offline-pwa-geocache Specification
-
-## Purpose
-
-Ensures seamless agricultural field operations and data logging without internet connectivity in rural environments through Service Worker caching and IndexedDB persistence.
-
-## Requirements
-
-### Requirement: Offline Field Operation & Local Geocaching
-The system SHALL support PWA installation, offline tile caching, and queued field log recording when disconnected from the internet.
-
-#### Scenario: Registering Field Logs Offline
-- **WHEN** user logs a field activity without network connectivity
-- **THEN** the system saves the entry locally in IndexedDB and automatically syncs with the server when connection is restored.
+## ADDED Requirements
 
 ### Requirement: Deterministic Parcel Conflict Quarantine and Dual-Mode Resolution
 The system SHALL assign incremental integer version counters and ISO-8601 update timestamps to all parcel records, detect version divergence during offline synchronization, route colliding updates to a quarantine queue, and provide visual conflict resolution adapted to both Farmer Mode and Technical Mode.

@@ -117,11 +117,16 @@ class RiskAndCarbonEngine:
         }
 
     def model_carbon_sequestration(
-        self, feature_dict: Dict[str, Any], parcel_area_ha: float = 10.0
+        self,
+        feature_dict: Dict[str, Any],
+        parcel_area_ha: float = 10.0,
+        verified_diary_practices: Any = None,
+        sar_oracle_ratio_db: Any = None,
     ) -> Dict[str, Any]:
         """
         Calcula el stock actual de Carbono Orgánico del Suelo (SOC) y el potencial de fijación de CO2
-        anual bajo diferentes prácticas de manejo regenerativo.
+        anual bajo diferentes prácticas de manejo regenerativo, acoplado a bitácora empírica y
+        oráculo radar Sentinel-1 SAR para certificación Verra VCS / IPCC Tier 2.
         """
         om_pct = float(feature_dict.get("organic_matter_pct", 3.0))
         clay_pct = float(feature_dict.get("clay_pct", 25.0))
@@ -134,8 +139,20 @@ class RiskAndCarbonEngine:
         current_soc_ton_c_ha = round((om_pct * 0.58) * bulk_density * (depth_cm / 10.0), 2)
         total_current_soc_ton = round(current_soc_ton_c_ha * parcel_area_ha, 1)
 
+        # Ajuste empírico si se han verificado labores de campo en la bitácora
+        diary_list = verified_diary_practices or []
+        ground_truth_bonus = 0.0
+        if "SIEMBRA_DIRECTA" in diary_list:
+            ground_truth_bonus += 0.35
+        if "ABONO_VERDE" in diary_list:
+            ground_truth_bonus += 0.25
+        if "ENCALADO_DOLOMITICO" in diary_list:
+            ground_truth_bonus += 0.15
+
         # Potencial de secuestro anual según manejo (Ton CO2e / ha / año)
         # Factor C a CO2 = 44 / 12 = 3.67
+        reg_base = round(1.95 + (ground_truth_bonus * 3.67), 2)
+
         scenarios = {
             "agroforestry_shaded_cacao_coffee": {
                 "practice": "Sistemas Agroforestales (Cacao/Café bajo Sombra)",
@@ -149,14 +166,36 @@ class RiskAndCarbonEngine:
             },
             "regenerative_no_till_cover_crops": {
                 "practice": "Siembra Directa + Cultivos de Cobertura (Rotación Soya-Maíz)",
-                "annual_co2_seq_ton_ha_yr": 1.95,
-                "total_annual_co2_seq_ton": round(1.95 * parcel_area_ha, 1),
+                "annual_co2_seq_ton_ha_yr": reg_base,
+                "total_annual_co2_seq_ton": round(reg_base * parcel_area_ha, 1),
+                "empirical_bonus_applied": ground_truth_bonus > 0,
             },
             "conventional_tillage": {
                 "practice": "Labranza Convencional Intensiva",
                 "annual_co2_seq_ton_ha_yr": -0.45,  # Emisión neta
                 "total_annual_co2_seq_ton": round(-0.45 * parcel_area_ha, 1),
             },
+        }
+
+        # Auditoría MRV y Oráculo Radar Sentinel-1 SAR
+        uncertainty_penalty = 40.0  # Penalización base por incertidumbre en Tier 1
+        sar_verified = False
+
+        if diary_list:
+            uncertainty_penalty -= 15.0  # Verificación empírica en terreno
+
+        if sar_oracle_ratio_db is not None and float(sar_oracle_ratio_db) > -12.0:
+            uncertainty_penalty -= 15.0  # Rugosidad confirmada por radar SAR C-Band
+            sar_verified = True
+
+        mrv_verification = {
+            "baseline_uncertainty_pct": 40.0,
+            "final_uncertainty_penalty_pct": round(uncertainty_penalty, 1),
+            "ground_truth_practices_detected": diary_list,
+            "sar_oracle_roughness_verified": sar_verified,
+            "sar_cross_ratio_db": sar_oracle_ratio_db,
+            "certification_tier": "TIER_2_VERRA_GOLD" if uncertainty_penalty <= 15.0 else "TIER_1_STANDARD",
+            "net_certifiable_issuance_factor": round(1.0 - (uncertainty_penalty / 100.0), 2),
         }
 
         return {
@@ -168,4 +207,5 @@ class RiskAndCarbonEngine:
                 "analyzed_area_ha": parcel_area_ha,
             },
             "annual_sequestration_scenarios": scenarios,
+            "mrv_verification": mrv_verification,
         }
