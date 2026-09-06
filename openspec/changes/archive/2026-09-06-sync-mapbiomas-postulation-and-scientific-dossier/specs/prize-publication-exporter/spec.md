@@ -1,10 +1,6 @@
-# prize-publication-exporter Specification
+# prize-publication-exporter Delta Specification
 
-## Purpose
-
-Compiles scientific manuscripts, parcel digital twins, charts, official MapBiomas Prize 2026 rules, FAQs, evaluation matrices, and metadata into publication-ready PDF formats compliant with MapBiomas Venezuela Prize 2026 guidelines.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Submission Paper and Digital Twin Compilation
 The system SHALL compile the draft scientific paper (`public/docs/ARTICULO_CIENTIFICO_DRAFT.md` and `docs/mapbiomas_premio_2026/`) together with live parcel agronomic metrics, NASA POWER climate charts, MapBiomas transition diagrams, explicit author attribution to **Frank Sousa**, open-source MIT code licensing, and MapBiomas CC BY 4.0 data terms into an up-to-date, publication-ready PDF document under 10,000 words.
