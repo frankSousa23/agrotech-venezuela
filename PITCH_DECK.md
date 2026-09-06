@@ -5,7 +5,7 @@
 - **Autor y Fundador**: Frank Sousa
 - **Proyecto**: Agrotech Venezuela
 - **Sector**: Agtech, Inteligencia Edafo-Climática, Visión Satelital (WebGIS) y Fintech Climática (MRV Carbon Pooling).
-- **Madurez Operacional**: **TRL 7** (Validado en campo real con 202 pruebas automatizadas).
+- **Madurez Operacional**: **TRL 7** (Validado en campo real con 227 pruebas automatizadas: 173 Jest + 54 Pytest).
 
 [⬅️ Ir al README Principal](README.md) | [🛠️ Ver Guía de Desarrollo & Despliegue](DEVELOPING.md) | [🏛️ Ver Memorando Oficial](docs/MEMORANDO_POSTULACION.md)
 
