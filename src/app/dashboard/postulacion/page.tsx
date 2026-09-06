@@ -77,18 +77,30 @@ export default function PostulacionPage() {
           </div>
 
           <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-            <Link 
-              href="/docs/MEMORANDO_POSTULACION.md" 
+            <a 
+              href="/docs/Articulo_Cientifico_Agrotech_MapBiomas_2026.pdf" 
+              className="btn-primary"
+              target="_blank"
+              rel="noopener noreferrer"
+              download="Articulo_Cientifico_Agrotech_MapBiomas_2026.pdf"
+              style={{ fontSize: '0.8rem', padding: '6px 12px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+            >
+              <Download size={15} /> Artículo Científico (PDF)
+            </a>
+            <a 
+              href="/docs/Memorando_Postulacion_Agrotech_2026.pdf" 
               className="btn-secondary"
               target="_blank"
-              style={{ borderColor: 'rgba(56, 189, 248, 0.4)', color: '#38bdf8', fontSize: '0.8rem', padding: '6px 12px' }}
+              rel="noopener noreferrer"
+              download="Memorando_Postulacion_Agrotech_2026.pdf"
+              style={{ borderColor: 'rgba(56, 189, 248, 0.4)', color: '#38bdf8', fontSize: '0.8rem', padding: '6px 12px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
             >
-              <FileText size={15} /> Ver Memorando Markdown
-            </Link>
+              <FileText size={15} /> Memorando Oficial (PDF)
+            </a>
             <Link 
               href="/api-docs" 
               className="btn-secondary"
-              style={{ fontSize: '0.8rem', padding: '6px 12px' }}
+              style={{ fontSize: '0.8rem', padding: '6px 12px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
             >
               <Cpu size={15} /> Swagger OpenAPI 3.0
             </Link>
@@ -454,6 +466,274 @@ export default function PostulacionPage() {
             >
               <Printer size={15} /> Imprimir / Guardar en PDF
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* 📚 Centro de Documentación Oficial, Expediente & Descargas PDF */}
+      <section className={styles.section} style={{ border: '1px solid rgba(56, 189, 248, 0.25)', background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(14, 116, 144, 0.12))' }}>
+        <div className={styles.sectionHeader}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span className="badge-pill badge-blue">
+              <Download size={13} /> Publicaciones Oficiales
+            </span>
+            <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
+              Formatos PDF de Alta Resolución y Markdown Abierto
+            </span>
+          </div>
+          <h2 className={styles.sectionTitle} style={{ color: '#f8fafc', marginTop: '4px' }}>
+            <BookOpen size={22} color="#38bdf8" /> Centro de Documentación Oficial y Descargas PDF
+          </h2>
+          <span style={{ fontSize: '0.85rem', color: '#cbd5e1' }}>
+            Descarga o visualiza directamente en tu navegador la totalidad del acervo documental, artículo científico, memorando, matriz de criterios y dossier comercial de Agrotech Venezuela:
+          </span>
+        </div>
+
+        {/* Grid de Tarjetas de Documentos */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: '14px',
+          marginTop: '1rem'
+        }}>
+          {/* Doc 1: Artículo Científico */}
+          <div style={{ background: 'rgba(15, 23, 42, 0.75)', border: '1px solid rgba(16, 185, 129, 0.35)', borderRadius: '12px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <FlaskConical size={20} color="#10b981" />
+                <span style={{ fontSize: '0.92rem', fontWeight: 700, color: '#f8fafc' }}>Artículo Científico Arbitrable</span>
+              </div>
+              <span className="badge-pill badge-emerald" style={{ fontSize: '0.7rem' }}>TRL 7 Validado</span>
+            </div>
+            <p style={{ fontSize: '0.8rem', color: '#cbd5e1', margin: 0, lineHeight: 1.45 }}>
+              Gemelo Digital Agronómico, Teledetección Multi-Escala e IA Prescriptiva. Incluye Oráculo SAR Sentinel-1 all-weather, Shoelace esferoidal, pedocalibración Saxton-Rawls y memoria de 40 años MapBiomas.
+            </p>
+            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', fontSize: '0.7rem', color: '#94a3b8' }}>
+              <span>• 3.178 palabras (&lt; 10k)</span>
+              <span>• 227 tests passing</span>
+              <span>• Frank Sousa</span>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', marginTop: 'auto', paddingTop: '8px' }}>
+              <a
+                href="/docs/Articulo_Cientifico_Agrotech_MapBiomas_2026.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download="Articulo_Cientifico_Agrotech_MapBiomas_2026.pdf"
+                className="btn-primary"
+                style={{ flex: 1, justifyContent: 'center', fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+              >
+                <Download size={14} /> Descargar PDF
+              </a>
+              <a
+                href="/docs/ARTICULO_CIENTIFICO_DRAFT.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary"
+                style={{ fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+              >
+                <FileText size={14} /> Markdown
+              </a>
+            </div>
+          </div>
+
+          {/* Doc 2: Memorando Institucional */}
+          <div style={{ background: 'rgba(15, 23, 42, 0.75)', border: '1px solid rgba(56, 189, 248, 0.35)', borderRadius: '12px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Building2 size={20} color="#38bdf8" />
+                <span style={{ fontSize: '0.92rem', fontWeight: 700, color: '#f8fafc' }}>Memorando Institucional de Postulación</span>
+              </div>
+              <span className="badge-pill badge-blue" style={{ fontSize: '0.7rem' }}>ROI 3.8x</span>
+            </div>
+            <p style={{ fontSize: '0.8rem', color: '#cbd5e1', margin: 0, lineHeight: 1.45 }}>
+              Dossier formal de candidatura y viabilidad comercial. Detalla el retorno rural de 3.8x, protocolo QoS de sincronización en 2G/EDGE, modelo Carbon Pooling y apéndices edáficos.
+            </p>
+            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', fontSize: '0.7rem', color: '#94a3b8' }}>
+              <span>• Viabilidad B2B/B2G</span>
+              <span>• Licencia MIT</span>
+              <span>• CC BY 4.0</span>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', marginTop: 'auto', paddingTop: '8px' }}>
+              <a
+                href="/docs/Memorando_Postulacion_Agrotech_2026.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download="Memorando_Postulacion_Agrotech_2026.pdf"
+                className="btn-primary"
+                style={{ flex: 1, justifyContent: 'center', fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+              >
+                <Download size={14} /> Descargar PDF
+              </a>
+              <a
+                href="/docs/MEMORANDO_POSTULACION.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary"
+                style={{ fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+              >
+                <FileText size={14} /> Markdown
+              </a>
+            </div>
+          </div>
+
+          {/* Doc 3: Expediente Consolidado */}
+          <div style={{ background: 'rgba(15, 23, 42, 0.75)', border: '1px solid rgba(245, 158, 11, 0.35)', borderRadius: '12px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Award size={20} color="#f59e0b" />
+                <span style={{ fontSize: '0.92rem', fontWeight: 700, color: '#f8fafc' }}>Expediente Consolidado Premio 2026</span>
+              </div>
+              <span className="badge-pill badge-amber" style={{ fontSize: '0.7rem' }}>Expediente Final</span>
+            </div>
+            <p style={{ fontSize: '0.8rem', color: '#cbd5e1', margin: 0, lineHeight: 1.45 }}>
+              Expediente técnico integral de postulación que unifica el manuscrito científico con el anexo fotográfico y los gráficos analíticos de transición histórica (Plotly).
+            </p>
+            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', fontSize: '0.7rem', color: '#94a3b8' }}>
+              <span>• Categoría General</span>
+              <span>• Políticas Públicas</span>
+              <span>• Anexos Gráficos</span>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', marginTop: 'auto', paddingTop: '8px' }}>
+              <a
+                href="/docs/Postulacion_Expediente_Premio_2026.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download="Postulacion_Expediente_Premio_2026.pdf"
+                className="btn-primary"
+                style={{ flex: 1, justifyContent: 'center', fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+              >
+                <Download size={14} /> Descargar PDF
+              </a>
+              <a
+                href="/docs/POSTULACION_EXPEDIENTE_PREMIO_2026.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary"
+                style={{ fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+              >
+                <FileText size={14} /> Markdown
+              </a>
+            </div>
+          </div>
+
+          {/* Doc 4: Matriz de Cumplimiento */}
+          <div style={{ background: 'rgba(15, 23, 42, 0.75)', border: '1px solid rgba(168, 85, 247, 0.35)', borderRadius: '12px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <CheckSquare size={20} color="#a855f7" />
+                <span style={{ fontSize: '0.92rem', fontWeight: 700, color: '#f8fafc' }}>Matriz de Criterios (Anexo II)</span>
+              </div>
+              <span className="badge-pill badge-purple" style={{ fontSize: '0.7rem' }}>Evaluación 5/5</span>
+            </div>
+            <p style={{ fontSize: '0.8rem', color: '#cbd5e1', margin: 0, lineHeight: 1.45 }}>
+              Auditoría y autoevaluación punto por punto de los 6 criterios del jurado: Complejidad (20%), Originalidad (20%), Claridad (15%), Resultados (20%), Aporte Social (20%) y MapBiomas (5%).
+            </p>
+            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', fontSize: '0.7rem', color: '#94a3b8' }}>
+              <span>• 100% Ponderado</span>
+              <span>• 227 tests</span>
+              <span>• Anexo II MapBiomas</span>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', marginTop: 'auto', paddingTop: '8px' }}>
+              <a
+                href="/docs/Matriz_Cumplimiento_Evaluacion_2026.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download="Matriz_Cumplimiento_Evaluacion_2026.pdf"
+                className="btn-primary"
+                style={{ flex: 1, justifyContent: 'center', fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+              >
+                <Download size={14} /> Descargar PDF
+              </a>
+              <a
+                href="/docs/MATRIZ_CUMPLIMIENTO_EVALUACION.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary"
+                style={{ fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+              >
+                <FileText size={14} /> Markdown
+              </a>
+            </div>
+          </div>
+
+          {/* Doc 5: Guía Oficial de Postulación */}
+          <div style={{ background: 'rgba(15, 23, 42, 0.75)', border: '1px solid rgba(6, 182, 212, 0.35)', borderRadius: '12px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <HelpCircle size={20} color="#06b6d4" />
+                <span style={{ fontSize: '0.92rem', fontWeight: 700, color: '#f8fafc' }}>Guía Oficial de Postulación</span>
+              </div>
+              <span className="badge-pill badge-cyan" style={{ fontSize: '0.7rem' }}>Bases 2026</span>
+            </div>
+            <p style={{ fontSize: '0.8rem', color: '#cbd5e1', margin: 0, lineHeight: 1.45 }}>
+              Síntesis oficial de bases, directrices para la presentación de trabajos, fechas de convocatoria, límites de extensión y requisitos de licenciamiento y atribución de fuentes.
+            </p>
+            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', fontSize: '0.7rem', color: '#94a3b8' }}>
+              <span>• Lineamientos oficiales</span>
+              <span>• Cita obligatoria</span>
+              <span>• Red MapBiomas</span>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', marginTop: 'auto', paddingTop: '8px' }}>
+              <a
+                href="/docs/Guia_Postulacion_MapBiomas_2026.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download="Guia_Postulacion_MapBiomas_2026.pdf"
+                className="btn-primary"
+                style={{ flex: 1, justifyContent: 'center', fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+              >
+                <Download size={14} /> Descargar PDF
+              </a>
+              <a
+                href="/docs/GUIA_POSTULACION.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary"
+                style={{ fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+              >
+                <FileText size={14} /> Markdown
+              </a>
+            </div>
+          </div>
+
+          {/* Doc 6: Pitch Deck */}
+          <div style={{ background: 'rgba(15, 23, 42, 0.75)', border: '1px solid rgba(236, 72, 153, 0.35)', borderRadius: '12px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <TrendingUp size={20} color="#ec4899" />
+                <span style={{ fontSize: '0.92rem', fontWeight: 700, color: '#f8fafc' }}>Pitch Deck Comercial & Inversión</span>
+              </div>
+              <span className="badge-pill badge-pink" style={{ fontSize: '0.7rem' }}>Fintech & AgTech</span>
+            </div>
+            <p style={{ fontSize: '0.8rem', color: '#cbd5e1', margin: 0, lineHeight: 1.45 }}>
+              Dossier ejecutivo para comités técnicos e inversores. Explica las 4 capas de monetización, la ventaja competitiva frente a visores estáticos y la escalabilidad del Carbon Pooling.
+            </p>
+            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', fontSize: '0.7rem', color: '#94a3b8' }}>
+              <span>• 4 canales de ingreso</span>
+              <span>• Modelo B2B/B2G</span>
+              <span>• ROI rural 3.8x</span>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', marginTop: 'auto', paddingTop: '8px' }}>
+              <a
+                href="/docs/Pitch_Deck_Agrotech_Venezuela_2026.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download="Pitch_Deck_Agrotech_Venezuela_2026.pdf"
+                className="btn-primary"
+                style={{ flex: 1, justifyContent: 'center', fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+              >
+                <Download size={14} /> Descargar PDF
+              </a>
+              <a
+                href="/docs/PITCH_DECK.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary"
+                style={{ fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+              >
+                <FileText size={14} /> Markdown
+              </a>
+            </div>
           </div>
         </div>
       </section>
