@@ -21,6 +21,7 @@ import { extractUserFromRequest } from '@/lib/auth/authUtils';
 
 export interface InMemFieldLog {
   id: string;
+  clientLogId?: string;
   parcelId: string;
   userId: string;
   logType: 'SIEMBRA' | 'ENCALADO' | 'FERTILIZACION' | 'RIEGO' | 'FITOSANITARIO' | 'COSECHA' | 'OBSERVACION';
@@ -152,6 +153,8 @@ export async function POST(req: Request) {
     const session = extractUserFromRequest(req);
     const body = await req.json();
     const {
+      clientLogId,
+      id,
       parcelId = 'parc-001',
       userId,
       logType = 'OBSERVACION',
@@ -171,8 +174,28 @@ export async function POST(req: Request) {
       ? (session.isGuest || session.status === 'GUEST' || session.id.startsWith('usr-guest')) 
       : effectiveUserId.startsWith('usr-guest');
 
+    const targetLogId = clientLogId || id;
+
+    // Idempotencia: Verificar si ya existe un registro con el mismo clientLogId / id
+    if (targetLogId) {
+      const existingLogs = isGuest ? getOrCreateGuestLogs(effectiveUserId) : IN_MEMORY_LOGS;
+      const existingLog = existingLogs.find(l => 
+        (l.id === targetLogId || l.clientLogId === targetLogId) && l.userId === effectiveUserId
+      );
+
+      if (existingLog) {
+        return NextResponse.json({ 
+          success: true, 
+          log: existingLog, 
+          duplicate: true, 
+          message: 'Registro ya sincronizado previamente (idempotente)' 
+        }, { status: 200 });
+      }
+    }
+
     const newLog: InMemFieldLog = {
-      id: `log-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+      id: targetLogId || `log-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+      clientLogId: targetLogId,
       parcelId,
       userId: effectiveUserId,
       logType,

@@ -40,16 +40,40 @@ export default function BitacoraPage() {
   const [dosage, setDosage] = useState('');
   const [yieldTonHa, setYieldTonHa] = useState('');
 
+  const resetForm = () => {
+    setShowModal(false);
+    setTitle('');
+    setDescription('');
+    setDosage('');
+    setYieldTonHa('');
+  };
+
   const fetchData = () => {
     setLoading(true);
     const uId = user?.id || 'usr-farmer-01';
     
     Promise.all([
-      fetch(`/api/field-logs?userId=${uId}`).then(res => res.json()),
-      fetch(`/api/parcels?userId=${uId}`).then(res => res.json())
+      fetch(`/api/field-logs?userId=${uId}`).then(res => res.json()).catch(() => []),
+      fetch(`/api/parcels?userId=${uId}`).then(res => res.json()).catch(() => [])
     ])
     .then(([logsData, parcelsData]) => {
-      setLogs(Array.isArray(logsData) ? logsData : []);
+      let mergedLogs = Array.isArray(logsData) ? logsData : [];
+      // Incorporar registros offline locales pendientes que aún no estén en el servidor
+      try {
+        if (typeof window !== 'undefined') {
+          const localPending = localStorage.getItem('agrotech_offline_field_logs');
+          if (localPending) {
+            const parsed = JSON.parse(localPending);
+            if (Array.isArray(parsed)) {
+              const serverIds = new Set(mergedLogs.map((l: any) => l.id || l.clientLogId));
+              const unSynced = parsed.filter((p: any) => !serverIds.has(p.id) && !serverIds.has(p.clientLogId));
+              mergedLogs = [...unSynced, ...mergedLogs];
+            }
+          }
+        }
+      } catch {}
+
+      setLogs(mergedLogs);
       const pList = Array.isArray(parcelsData) ? parcelsData : [];
       setParcels(pList);
       if (pList.length > 0 && !parcelId) {
@@ -67,35 +91,59 @@ export default function BitacoraPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const clientLogId = `offline-log-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+    const newLogPayload = {
+      id: clientLogId,
+      clientLogId,
+      parcelId,
+      userId: user?.id || 'usr-farmer-01',
+      logType,
+      title,
+      description,
+      dosage,
+      yieldTonHa: yieldTonHa ? parseFloat(yieldTonHa) : undefined,
+      date: new Date().toISOString().split('T')[0],
+      isOfflinePending: false
+    };
+
+    const saveOfflineFallback = () => {
+      try {
+        const existingRaw = localStorage.getItem('agrotech_offline_field_logs');
+        const list = existingRaw ? JSON.parse(existingRaw) : [];
+        const pendingLog = { ...newLogPayload, isOfflinePending: true };
+        list.unshift(pendingLog);
+        localStorage.setItem('agrotech_offline_field_logs', JSON.stringify(list));
+        setLogs(prev => [pendingLog as any, ...prev]);
+        toast.info('Guardado Localmente (Modo Finca)', `"${title}" ha sido guardado en el teléfono. Se sincronizará automáticamente al detectar señal.`);
+        resetForm();
+      } catch (e) {
+        toast.error('Error al Guardar', 'No se pudo guardar la labor en el almacenamiento local.');
+      }
+    };
+
+    // Si no hay red, guardar directamente en la cola offline
+    if (typeof navigator !== 'undefined' && !navigator.onLine) {
+      saveOfflineFallback();
+      return;
+    }
+
     try {
       const res = await fetch('/api/field-logs', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          parcelId,
-          userId: user?.id || 'usr-farmer-01',
-          logType,
-          title,
-          description,
-          dosage,
-          yieldTonHa: yieldTonHa ? parseFloat(yieldTonHa) : undefined
-        })
+        body: JSON.stringify(newLogPayload)
       });
 
       if (res.ok) {
         toast.success('Labor Registrada con Éxito', `"${title}" ha sido asentada en tu cuaderno de campo.`);
-        setShowModal(false);
-        setTitle('');
-        setDescription('');
-        setDosage('');
-        setYieldTonHa('');
+        resetForm();
         fetchData();
       } else {
-        toast.error('Error al Guardar', 'No se pudo registrar la labor. Intenta nuevamente.');
+        saveOfflineFallback();
       }
     } catch (err) {
-      console.error(err);
-      toast.error('Error de Conexión', 'Ocurrió un problema al sincronizar con el servidor.');
+      console.warn('Fallo de red al enviar bitácora, guardando en cola offline:', err);
+      saveOfflineFallback();
     }
   };
 
@@ -324,9 +372,27 @@ export default function BitacoraPage() {
             return (
               <div key={log.id} className={styles.logCard}>
                 <div className={styles.logHeader}>
-                  <span className={styles.typeBadge} style={{ background: badge.bg, color: badge.text }}>
-                    {log.logType}
-                  </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                    <span className={styles.typeBadge} style={{ background: badge.bg, color: badge.text }}>
+                      {log.logType}
+                    </span>
+                    {(log as any).isOfflinePending && (
+                      <span style={{
+                        background: 'rgba(249, 115, 22, 0.18)',
+                        color: '#fb923c',
+                        border: '1px solid rgba(249, 115, 22, 0.35)',
+                        borderRadius: '999px',
+                        padding: '2px 8px',
+                        fontSize: '0.68rem',
+                        fontWeight: 700,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px'
+                      }}>
+                        🟠 Guardado Local (Pendiente Sync)
+                      </span>
+                    )}
+                  </div>
                   <span style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '4px' }}>
                     <Calendar size={14} /> {log.date}
                   </span>

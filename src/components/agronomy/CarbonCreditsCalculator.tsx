@@ -242,12 +242,90 @@ export default function CarbonCreditsCalculator({
 
         {/* Valor Económico en Créditos */}
         <div style={{ background: 'rgba(234, 179, 8, 0.08)', border: '1px solid rgba(234, 179, 8, 0.2)', padding: '12px', borderRadius: '12px' }}>
-          <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Ingreso Estimado en Créditos</div>
+          <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Ingreso Bruto Estimado</div>
           <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#facc15', marginTop: '2px' }}>
             ${totalEstimatedRevenueUsd.toLocaleString()} <span style={{ fontSize: '0.75rem', fontWeight: 400 }}>USD / año</span>
           </div>
           <div style={{ fontSize: '0.7rem', color: '#cbd5e1', marginTop: '4px' }}>
-            A ${creditPriceUsd} USD por crédito certificado
+            A ${creditPriceUsd} USD por tCO₂e certificada
+          </div>
+        </div>
+      </div>
+
+      {/* Modelo Comercial: Agregación Regional de Carbono (Carbon Pooling) */}
+      <div style={{
+        background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9))',
+        border: '1px solid rgba(56, 189, 248, 0.3)',
+        borderRadius: '12px',
+        padding: '16px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '12px'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{
+              background: 'rgba(56, 189, 248, 0.15)',
+              color: '#38bdf8',
+              padding: '2px 8px',
+              borderRadius: '6px',
+              fontSize: '0.7rem',
+              fontWeight: 700,
+              textTransform: 'uppercase'
+            }}>
+              Fintech Climática B2B / Cooperativas
+            </span>
+            <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 700, color: '#f8fafc' }}>
+              Modelo de Agregación Comercial • Agrotech Carbon Pooling
+            </h4>
+          </div>
+          <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
+            Partición Transparente: <b>85% Productor / 15% Plataforma</b>
+          </span>
+        </div>
+
+        <p style={{ fontSize: '0.78rem', color: '#cbd5e1', margin: 0, lineHeight: 1.5 }}>
+          <b>Barrera para el Pequeño Productor:</b> La certificación Verra VCS / Gold Standard individual exige auditorías de campo de más de <b>$45,000 USD</b>, haciendo inviable certificar predios menores a 500 ha de manera aislada. <b>Agrotech agrupa parcelas de 10 a 100 ha en un Portfolio Digital Regional</b> auditado con Sentinel-2 y MapBiomas, reduciendo el costo de entrada a cero para el productor.
+        </p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '10px' }}>
+          {/* Ingreso Neto del Productor (85%) */}
+          <div style={{ background: 'rgba(34, 197, 94, 0.12)', border: '1px solid rgba(34, 197, 94, 0.3)', borderRadius: '10px', padding: '10px' }}>
+            <div style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 600 }}>
+              Ingreso Neto del Productor (85%)
+            </div>
+            <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#4ade80', marginTop: '2px' }}>
+              ${Math.round(totalEstimatedRevenueUsd * 0.85).toLocaleString()} <span style={{ fontSize: '0.75rem', fontWeight: 400 }}>USD/año</span>
+            </div>
+            <div style={{ fontSize: '0.68rem', color: '#86efac', marginTop: '4px' }}>
+              Retorno líquido directo sin costo de auditoría
+            </div>
+          </div>
+
+          {/* Comisión de Plataforma Agrotech (15%) */}
+          <div style={{ background: 'rgba(56, 189, 248, 0.12)', border: '1px solid rgba(56, 189, 248, 0.3)', borderRadius: '10px', padding: '10px' }}>
+            <div style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 600 }}>
+              Originación & Monitoreo Agrotech (15%)
+            </div>
+            <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#38bdf8', marginTop: '2px' }}>
+              ${Math.round(totalEstimatedRevenueUsd * 0.15).toLocaleString()} <span style={{ fontSize: '0.75rem', fontWeight: 400 }}>USD/año</span>
+            </div>
+            <div style={{ fontSize: '0.68rem', color: '#93c5fd', marginTop: '4px' }}>
+              Por telemetría satelital MRV y gestión Verra
+            </div>
+          </div>
+
+          {/* Escala del Pool Regional */}
+          <div style={{ background: 'rgba(168, 85, 247, 0.12)', border: '1px solid rgba(168, 85, 247, 0.3)', borderRadius: '10px', padding: '10px' }}>
+            <div style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 600 }}>
+              Escalabilidad del Pool (5,000 ha)
+            </div>
+            <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#c084fc', marginTop: '2px' }}>
+              ${Math.round(annualCo2eHa * 5000 * creditPriceUsd).toLocaleString()} <span style={{ fontSize: '0.75rem', fontWeight: 400 }}>USD/año</span>
+            </div>
+            <div style={{ fontSize: '0.68rem', color: '#d8b4fe', marginTop: '4px' }}>
+              ~{(annualCo2eHa * 5000).toFixed(0)} tCO₂e/año agrupadas
+            </div>
           </div>
         </div>
       </div>

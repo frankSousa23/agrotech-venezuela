@@ -13,6 +13,7 @@ import {
 import { estimateVenezuelaAgroClimate } from '@/lib/geo/nasaPowerService';
 import { calculateHydroThermalGdd } from '@/lib/geo/hydroThermalEngine';
 import CarbonCreditsCalculator from '@/components/agronomy/CarbonCreditsCalculator';
+import { useUIMode } from '@/lib/context/UIModeContext';
 import { 
   Sparkles, 
   FlaskConical, 
@@ -23,6 +24,10 @@ import {
   ShieldCheck, 
   CheckCircle2, 
   AlertTriangle,
+  ArrowRight,
+  RefreshCw,
+  Compass,
+  FileCheck,
   MapPin,
   Clock,
   Waves,
@@ -33,10 +38,12 @@ import {
 import EmptyStateCard from '@/components/ui/EmptyStateCard';
 import AgroTooltip from '@/components/ui/AgroTooltip';
 import { useVoiceAssistant } from '@/lib/hooks/useVoiceAssistant';
+import BackButton from '@/components/ui/BackButton';
 
 function RecomendacionesContent() {
+  const { mode, isFarmerMode } = useUIMode();
   const searchParams = useSearchParams();
-  const stateQuery = searchParams.get('state') || searchParams.get('stateId');
+  const stateQuery = searchParams.get('state');
   const phQuery = searchParams.get('ph');
   const textureQuery = searchParams.get('soilTexture');
   const cropQuery = searchParams.get('crop');
@@ -58,7 +65,7 @@ function RecomendacionesContent() {
 
   // Gemini Live Advisor en simulador
   const [aiAdvice, setAiAdvice] = useState<string | null>(null);
-  const [isLoadingAi, setIsLoadingAi] = useState<boolean>(false);
+  const [isLoadingAi, setIsLoadingAi] = useState(false);
   const { isSpeaking, speak, stopSpeaking } = useVoiceAssistant();
 
   // Al cambiar de estado, sincronizar con los valores edafológicos promedio del estado
@@ -80,7 +87,9 @@ function RecomendacionesContent() {
     return VENEZUELA_STATES_DATA.find(s => s.id === selectedStateId) || VENEZUELA_STATES_DATA[0];
   }, [selectedStateId]);
 
+  // Centroide del estado
   const [centerLat, centerLng] = selectedState.center;
+
   const trajectory = useMemo(() => calculateMapBiomasTrajectory(centerLat, centerLng), [centerLat, centerLng]);
   const agua = useMemo(() => calculateMapBiomasAgua(centerLat, centerLng), [centerLat, centerLng]);
   const orinocoShield = useMemo(() => evaluateOrinocoConservationShield(centerLat, centerLng, trajectory.currentClass2024), [centerLat, centerLng, trajectory.currentClass2024]);
@@ -121,7 +130,10 @@ function RecomendacionesContent() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          prompt: `¿Cuál es el plan agronómico óptimo para una finca de ${simAreaHa} ha en ${selectedState.name} con pH ${simPh}, ${simOM}% de MO y ${simYearsUse} años de uso agrícola según MapBiomas?`,
+          prompt: isFarmerMode
+            ? `Compadre, ¿cuál es su mejor consejo para este lote de ${simAreaHa} ha en ${selectedState.name} con suelo ${simPh < 5.8 ? 'ácido/bravo' : 'manso'} (pH ${simPh}) y ${simYearsUse} años de uso continuo?`
+            : `¿Cuál es el plan agronómico óptimo para una finca de ${simAreaHa} ha en ${selectedState.name} con pH ${simPh}, ${simOM}% de MO y ${simYearsUse} años de uso agrícola según MapBiomas?`,
+          uiMode: mode || (isFarmerMode ? 'farmer' : 'technical'),
           parcelContext: {
             coordinates: { lat: centerLat, lng: centerLng },
             stateName: selectedState.name,
@@ -141,10 +153,14 @@ function RecomendacionesContent() {
         const data = await res.json();
         setAiAdvice(data.reply);
       } else {
-        setAiAdvice('Recomendación técnica: Mantener el encalado y la rotación con leguminosas como frijol bayo o mucuna para revitalizar la fertilidad de la parcela.');
+        setAiAdvice(isFarmerMode
+          ? 'Consejo de campo: No olvide aplicar su cal agrícola para quitarle la bravura a la tierra y sembrar frijol para rotar.'
+          : 'Recomendación técnica: Mantener el encalado y la rotación con leguminosas como frijol bayo o mucuna para revitalizar la fertilidad de la parcela.');
       }
     } catch {
-      setAiAdvice('Recomendación técnica: Se sugiere aplicar las enmiendas orgánicas recomendadas e instalar drenajes agrícolas para la temporada de lluvia.');
+      setAiAdvice(isFarmerMode
+        ? 'Consejo de campo: Incorpore abono orgánico y asegure zanjas de drenaje antes del golpe de agua de mayo.'
+        : 'Recomendación técnica: Se sugiere aplicar las enmiendas orgánicas recomendadas e instalar drenajes agrícolas para la temporada de lluvia.');
     } finally {
       setIsLoadingAi(false);
     }

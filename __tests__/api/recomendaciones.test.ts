@@ -28,4 +28,25 @@ describe('Recommendations & Liming Engine Tests', () => {
     const res = calculatePointSuitability(9.3240, -69.1120, 6.5, 3.5);
     expect(res.limingDoseTonHa).toBe(0);
   });
+
+  it('debe calcular métricas del modelo comercial Carbon Pooling (85% agricultor / 15% Agrotech)', () => {
+    // Parcela de 45 ha con 2.6% MO en manejo regenerativo
+    const areaHa = 45.0;
+    const sequestrationRateTcHa = 0.55 + 0.15; // 0.70 tC/ha/año
+    const annualCo2eHa = sequestrationRateTcHa * 3.667; // ~2.57 tCO2e/ha/año
+    const totalAnnualCo2e = annualCo2eHa * areaHa; // ~115.5 tCO2e/año
+    const creditPriceUsd = 18.5;
+    const grossRevenueUsd = totalAnnualCo2e * creditPriceUsd; // ~$2,137 USD/año
+
+    const farmerNetRevenueUsd = Math.round(grossRevenueUsd * 0.85);
+    const platformTakeRateUsd = Math.round(grossRevenueUsd * 0.15);
+
+    expect(farmerNetRevenueUsd).toBeGreaterThan(1500);
+    expect(platformTakeRateUsd).toBeGreaterThan(250);
+    expect(farmerNetRevenueUsd + platformTakeRateUsd).toBeCloseTo(Math.round(grossRevenueUsd), 0);
+
+    // Escala del Pool Regional de 5,000 ha
+    const regionalPoolGrossUsd = Math.round(annualCo2eHa * 5000 * creditPriceUsd);
+    expect(regionalPoolGrossUsd).toBeGreaterThan(200000); // > $200k USD/año transables
+  });
 });

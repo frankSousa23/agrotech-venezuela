@@ -13,6 +13,7 @@ import {
   evaluateOrinocoConservationShield 
 } from '@/lib/geo/mapbiomasTrajectory';
 import { estimateVenezuelaAgroClimate } from '@/lib/geo/nasaPowerService';
+import { useUIMode } from '@/lib/context/UIModeContext';
 
 interface ParcelDiagnosticModalProps {
   parcel: ParcelGeometry;
@@ -27,6 +28,7 @@ interface ChatMessage {
 }
 
 export default function ParcelDiagnosticModal({ parcel, onClose }: ParcelDiagnosticModalProps) {
+  const { mode, isFarmerMode } = useUIMode();
   const [activeTab, setActiveTab] = useState<'overview' | 'crops' | 'prescriptions' | 'gemini'>('overview');
   const [selectedCrop, setSelectedCrop] = useState<string>('Maíz Blanco Harinero');
   
@@ -75,9 +77,19 @@ export default function ParcelDiagnosticModal({ parcel, onClose }: ParcelDiagnos
 
   // Inicializar el saludo de Gemini con Memoria Territorial
   useEffect(() => {
-    const initialGreeting = orinocoShield.shieldActive
-      ? `🌲 **Hola, soy tu Asesor Agronómico con Memoria Territorial.**\n\nDetecto que tu parcela de **${parcel.areaHectares} ha** en **${state?.name || 'Guayana'}** está en zona de protección al sur del Orinoco con cobertura de bosque tropical estable.\n\n🛡️ Hemos activado el **Escudo de Conservación** para sugerirte Sistemas Agroforestales (SAF) de alto valor comercial como Cacao Criollo bajo sombra o Açaí silvestre. ¿En qué puedo orientarte hoy?`
-      : `🌾 **Hola, soy tu Asesor Agronómico con Memoria Territorial.**\n\nHe consultado el registro histórico de **40 años de MapBiomas (1985-2024)** para tu parcela de **${parcel.areaHectares} ha** en **${state?.name || 'Venezuela'}**.\n\n📜 Tu lote registra **${trajectory.yearsInAnthropicUse} años de uso continuo** con riesgo de pérdida de carbono orgánico **${trajectory.carbonLossRisk}**. El balance hídrico es de régimen **${agua.hydrologicalRegime}** (${nasaClimate.annualPrecipitationMm} mm/año).\n\n¿Deseas consultar fechas óptimas de siembra, dosis de fertilización o rotación con leguminosas?`;
+    let initialGreeting: string;
+
+    if (isFarmerMode) {
+      if (orinocoShield.shieldActive) {
+        initialGreeting = `🌲 **¡Hola, compadre! Soy su asesor de campo.**\n\nSu lote de **${parcel.areaHectares} ha** en **${state?.name || 'Guayana'}** está en zona de protección al sur del Orinoco con bosque vivo.\n\n🛡️ Aquí cuidamos la montaña sembrando **Cacao Criollo Fino bajo sombra** o **Açaí silvestre**, sin quemar. ¿En qué le puedo colaborar hoy?`;
+      } else {
+        initialGreeting = `🧑‍🌾 **¡Hola, compadre! Soy su asesor de campo.**\n\nRevisé su parcela de **${parcel.areaHectares} ha** en **${state?.name || 'Venezuela'}** con el satélite.\n\n📜 Su tierra lleva más de **${trajectory.yearsInAnthropicUse} años trabajando continuo** y está pidiendo su cariñito con abono orgánico. ¿Qué cultivo tiene en mente sembrar o qué duda tiene de sus tierras?`;
+      }
+    } else {
+      initialGreeting = orinocoShield.shieldActive
+        ? `🌲 **Hola, soy tu Asesor Agronómico con Memoria Territorial.**\n\nDetecto que tu parcela de **${parcel.areaHectares} ha** en **${state?.name || 'Guayana'}** está en zona de protección al sur del Orinoco con cobertura de bosque tropical estable.\n\n🛡️ Hemos activado el **Escudo de Conservación** para sugerirte Sistemas Agroforestales (SAF) de alto valor comercial como Cacao Criollo bajo sombra o Açaí silvestre. ¿En qué puedo orientarte hoy?`
+        : `🌾 **Hola, soy tu Asesor Agronómico con Memoria Territorial.**\n\nHe consultado el registro histórico de **40 años de MapBiomas (1985-2024)** para tu parcela de **${parcel.areaHectares} ha** en **${state?.name || 'Venezuela'}**.\n\n📜 Tu lote registra **${trajectory.yearsInAnthropicUse} años de uso continuo** con riesgo de pérdida de carbono orgánico **${trajectory.carbonLossRisk}**. El balance hídrico es de régimen **${agua.hydrologicalRegime}** (${nasaClimate.annualPrecipitationMm} mm/año).\n\n¿Deseas consultar fechas óptimas de siembra, dosis de fertilización o rotación con leguminosas?`;
+    }
 
     setChatMessages([
       {
@@ -87,7 +99,7 @@ export default function ParcelDiagnosticModal({ parcel, onClose }: ParcelDiagnos
         timestamp: 'Ahora',
       }
     ]);
-  }, [parcel.areaHectares, state?.name, orinocoShield.shieldActive, trajectory.yearsInAnthropicUse, trajectory.carbonLossRisk, agua.hydrologicalRegime, nasaClimate.annualPrecipitationMm]);
+  }, [isFarmerMode, parcel.areaHectares, state?.name, orinocoShield.shieldActive, trajectory.yearsInAnthropicUse, trajectory.carbonLossRisk, agua.hydrologicalRegime, nasaClimate.annualPrecipitationMm]);
 
   const handleSendMessage = async (queryText?: string) => {
     const text = queryText || inputQuery;
@@ -114,6 +126,7 @@ export default function ParcelDiagnosticModal({ parcel, onClose }: ParcelDiagnos
         body: JSON.stringify({
           prompt: text,
           chatHistory: chatMessages.slice(-4),
+          uiMode: mode || (isFarmerMode ? 'farmer' : 'technical'),
           parcelContext: {
             coordinates: { lat: centroidLat, lng: centroidLng },
             stateName: state?.name || 'Venezuela',

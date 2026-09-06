@@ -184,4 +184,65 @@ describe('🌾 Zero-Barrier Farmer UX & Intentions System', () => {
       expect(cleanText).not.toContain('#');
     });
   });
+
+  describe('6. IA Dual-Tone & Capa de Traducción Vernácula (/api/gemini/advisor)', () => {
+    test('debe devolver asesoría en lenguaje campesino ("Compadre Agrónomo" y sacos) cuando uiMode es "farmer"', async () => {
+      const { POST } = await import('@/app/api/gemini/advisor/route');
+      const req = {
+        json: async () => ({
+          uiMode: 'farmer',
+          parcelContext: {
+            stateName: 'Portuguesa',
+            areaHectares: 15,
+            ph: 5.2,
+            organicMatter: 1.8,
+            selectedCrop: 'Maíz Blanco',
+            trajectory: { yearsInAnthropicUse: 25 },
+            mapbiomasAgua: { hydrologicalRegime: 'Estacional' },
+            orinocoShield: { shieldActive: false },
+            nasaClimate: { annualPrecipitationMm: 1400 }
+          }
+        })
+      } as any;
+
+      const res = await POST(req);
+      const data = await res.json();
+
+      expect(res.status).toBe(200);
+      expect(data.uiMode).toBe('farmer');
+      expect(data.reply).toContain('Compadre Agrónomo');
+      expect(data.reply).toContain('sacos de cal agrícola');
+      expect(data.reply).toContain('Quitarle la bravura ácida a la tierra');
+      expect(data.reply).not.toContain('retrodispersión radar SAR en dB');
+    });
+
+    test('debe devolver dictamen técnico edafológico formal cuando uiMode es "technical"', async () => {
+      const { POST } = await import('@/app/api/gemini/advisor/route');
+      const req = {
+        json: async () => ({
+          uiMode: 'technical',
+          parcelContext: {
+            stateName: 'Portuguesa',
+            areaHectares: 15,
+            ph: 5.2,
+            organicMatter: 1.8,
+            selectedCrop: 'Maíz Blanco',
+            trajectory: { yearsInAnthropicUse: 25 },
+            mapbiomasAgua: { hydrologicalRegime: 'Estacional' },
+            orinocoShield: { shieldActive: false },
+            nasaClimate: { annualPrecipitationMm: 1400 }
+          }
+        })
+      } as any;
+
+      const res = await POST(req);
+      const data = await res.json();
+
+      expect(res.status).toBe(200);
+      expect(data.uiMode).toBe('technical');
+      expect(data.reply).toContain('Diagnóstico Agronómico con Memoria Territorial');
+      expect(data.reply).toContain('Ton/ha de Cal Agrícola');
+      expect(data.reply).toContain('Prescripción Edafológica');
+    });
+  });
 });

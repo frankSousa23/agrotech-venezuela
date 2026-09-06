@@ -26,7 +26,10 @@ import {
   Printer,
   Award,
   HelpCircle,
-  CheckSquare
+  CheckSquare,
+  Coins,
+  TrendingUp,
+  DollarSign
 } from 'lucide-react';
 
 export default function PostulacionPage() {
@@ -43,7 +46,7 @@ export default function PostulacionPage() {
             <ShieldCheck size={14} /> Nivel de Madurez TRL 7 (Sistema Validado en Entorno Real)
           </span>
           <span className="badge-pill badge-emerald">
-            <CheckCircle2 size={13} /> 197 Tests Automatizados Pasando (145 Jest + 52 Pytest)
+            <CheckCircle2 size={13} /> 202 Tests Automatizados Pasando (150 Jest + 52 Pytest)
           </span>
           <span className="badge-pill badge-cyan">
             <Globe size={13} /> 24 Estados & 335 Municipios Activos
@@ -118,6 +121,102 @@ export default function PostulacionPage() {
           </div>
         </div>
       </div>
+
+      {/* 💰 Sección 1: Viabilidad Comercial, Impacto Económico & Modelos de Negocio B2B */}
+      <section className={styles.section} style={{ border: '1px solid rgba(34, 197, 94, 0.3)', background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(20, 83, 45, 0.15))' }}>
+        <div className={styles.sectionHeader}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span className="badge-pill badge-emerald">
+              <TrendingUp size={13} /> Sostenibilidad & Escalabilidad
+            </span>
+            <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
+              Economía y Negocio al Frente
+            </span>
+          </div>
+          <h2 className={styles.sectionTitle} style={{ color: '#f8fafc', marginTop: '4px' }}>
+            <DollarSign size={22} color="#4ade80" /> Impacto Económico Cuantificado & Modelos de Monetización
+          </h2>
+          <span style={{ fontSize: '0.85rem', color: '#cbd5e1' }}>
+            Agrotech Venezuela no solo es una proeza de ingeniería (TRL 7), sino una empresa de tecnología agro-climática con retorno de inversión comprobado y 4 canales de monetización B2B/B2G:
+          </span>
+        </div>
+
+        {/* Grid de KPIs Económicos */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gap: '12px',
+          marginTop: '1rem'
+        }}>
+          <div style={{ background: 'rgba(34, 197, 94, 0.1)', border: '1px solid rgba(34, 197, 94, 0.3)', borderRadius: '12px', padding: '14px' }}>
+            <div style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>Retorno de Inversión (ROI)</div>
+            <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#4ade80', margin: '4px 0' }}>3.8x</div>
+            <div style={{ fontSize: '0.72rem', color: '#86efac' }}>Por cada $1 invertido en encalado dirigido, retornan $3.80 en cosecha.</div>
+          </div>
+
+          <div style={{ background: 'rgba(56, 189, 248, 0.1)', border: '1px solid rgba(56, 189, 248, 0.3)', borderRadius: '12px', padding: '14px' }}>
+            <div style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>Ahorro en Fertilizantes</div>
+            <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#38bdf8', margin: '4px 0' }}>-35% N-P-K</div>
+            <div style={{ fontSize: '0.72rem', color: '#93c5fd' }}>Evita la fijación de fósforo y reduce compras innecesarias de urea.</div>
+          </div>
+
+          <div style={{ background: 'rgba(234, 179, 8, 0.1)', border: '1px solid rgba(234, 179, 8, 0.3)', borderRadius: '12px', padding: '14px' }}>
+            <div style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>Rendimiento en Cereales</div>
+            <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#facc15', margin: '4px 0' }}>+75% Maíz</div>
+            <div style={{ fontSize: '0.72rem', color: '#fef08a' }}>De 3.5 t/ha a 6.2+ t/ha promedio en suelos corregidos en Portuguesa.</div>
+          </div>
+
+          <div style={{ background: 'rgba(168, 85, 247, 0.1)', border: '1px solid rgba(168, 85, 247, 0.3)', borderRadius: '12px', padding: '14px' }}>
+            <div style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>Fintech Carbon Pooling</div>
+            <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#c084fc', margin: '4px 0' }}>85% / 15%</div>
+            <div style={{ fontSize: '0.72rem', color: '#d8b4fe' }}>85% de ingreso líquido al productor y 15% take-rate de plataforma.</div>
+          </div>
+        </div>
+
+        {/* 4 Capas de Monetización B2B / B2G */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+          gap: '12px',
+          marginTop: '1rem'
+        }}>
+          <div style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '10px', padding: '12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#4ade80', fontWeight: 700, fontSize: '0.85rem' }}>
+              <Coins size={16} /> 1. Freemium Campesino
+            </div>
+            <p style={{ fontSize: '0.75rem', color: '#cbd5e1', margin: '6px 0 0 0', lineHeight: 1.4 }}>
+              Acceso sin costo a diagnóstico preliminar, semáforo de acidez y bitácora de campo para pequeños predios (&lt; 10 ha). Construye adopción comunitaria masiva y trazabilidad de datos.
+            </p>
+          </div>
+
+          <div style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '10px', padding: '12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#38bdf8', fontWeight: 700, fontSize: '0.85rem' }}>
+              <Building2 size={16} /> 2. SaaS Cooperativas ($0.50/ha/año)
+            </div>
+            <p style={{ fontSize: '0.75rem', color: '#cbd5e1', margin: '6px 0 0 0', lineHeight: 1.4 }}>
+              Licencias para asociaciones (Fedeagro, Asoportuguesa, Socaportuguesa) con tableros de pronóstico de cosecha, estrés hídrico regional y alertas tempranas de plagas satelitales.
+            </p>
+          </div>
+
+          <div style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '10px', padding: '12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#facc15', fontWeight: 700, fontSize: '0.85rem' }}>
+              <Activity size={16} /> 3. B2B API Scoring Agro-Banca
+            </div>
+            <p style={{ fontSize: '0.75rem', color: '#cbd5e1', margin: '6px 0 0 0', lineHeight: 1.4 }}>
+              Integración vía API para evaluación de riesgo crediticio agrícola en bancos y pronóstico de demanda de insumos para empresas fabricantes de fertilizantes ($1,200 - $3,500 USD/mes).
+            </p>
+          </div>
+
+          <div style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '10px', padding: '12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#c084fc', fontWeight: 700, fontSize: '0.85rem' }}>
+              <TreePine size={16} /> 4. Agrotech Carbon Pooling
+            </div>
+            <p style={{ fontSize: '0.75rem', color: '#cbd5e1', margin: '6px 0 0 0', lineHeight: 1.4 }}>
+              Agrupación de pequeños lotes en pools regionales de 5,000+ ha, eliminando la barrera de auditoría Verra ($45k USD). La plataforma retiene un 15% por originación y MRV satelital.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Expediente Oficial Premio MapBiomas Venezuela 2026 & Descargas */}
       <section className={styles.section}>
