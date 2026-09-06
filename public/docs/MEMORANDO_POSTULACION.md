@@ -7,6 +7,8 @@
 - **Nivel de Madurez Tecnológica**: **TRL 7** (Sistema integrado y validado operacionalmente en entorno real).
 - **Licencia**: Código bajo MIT License (Copyright 2026 Frank Sousa) / Datos de Cobertura bajo Creative Commons Atribución 4.0 Internacional (CC BY 4.0 - MapBiomas Venezuela).
 
+[⬅️ Ir al README Principal](../README.md) | [🛠️ Ver Guía de Desarrollo & Arquitectura](../DEVELOPING.md) | [📊 Ver Pitch Deck](../PITCH_DECK.md)
+
 ---
 
 ## 🎯 1. Resumen Ejecutivo (Executive Summary)
@@ -70,7 +72,7 @@ El sistema opera en **TRL 7** (Validado en entorno operacional real):
 - **Cobertura Territorial Integral**: 24 estados y 335 municipios de Venezuela con datos agroecológicos y edafológicos calibrados.
 - **Doble Modo de Interfaz (Dual-Mode UI)**: *Modo Productor Fácil* con 4 puertas táctiles, vocabulario de campo y dictado por voz, alternable a *Modo Técnico* para ingenieros y comités evaluadores.
 - **Asesoría IA Adaptativa (Dual-Tone)**: La IA ("El Compadre Agrónomo") adapta dinámicamente su vocabulario según la interfaz activa, hablando en sacos y días de sol para agricultores, y en ecuaciones edafológicas para técnicos.
-- **Calidad de Software Certificada**: **197 pruebas automatizadas (145 Jest + 52 Pytest, 100% aprobadas)**, 0 errores de compilación TypeScript.
+- **Calidad de Software Certificada**: **202 pruebas automatizadas (ampliadas desde la certificación base de 197 pruebas automatizadas: 150 Jest + 52 Pytest, 100% aprobadas)**, 0 errores de compilación TypeScript.
 
 ---
 

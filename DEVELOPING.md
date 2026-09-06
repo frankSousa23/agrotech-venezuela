@@ -1,6 +1,8 @@
 # Guía de Arquitectura, Desarrollo y Despliegue — Agrotech Venezuela 🛠️🌾
 
 Bienvenido a la documentación técnica de ingeniería y despliegue de **Agrotech Venezuela**. Este documento concentra todos los requerimientos de entorno, diagramas de microservicios, instrucciones de ejecución local y comandos de auditoría para desarrolladores, evaluadores técnicos y operadores DevOps.
+ 
+[⬅️ Volver al README Principal](README.md) | [🏆 Ver Expediente de Postulación (MEMORANDO_POSTULACION.md)](docs/MEMORANDO_POSTULACION.md) | [📊 Ver Pitch Deck](PITCH_DECK.md)
 
 ---
 
@@ -137,12 +139,12 @@ cp .env.production.example .env.production
 
 ---
 
-## 🧪 4. Suite Completa de Pruebas y Verificación (197 Tests)
+## 🧪 4. Suite Completa de Pruebas y Verificación (202 Tests)
 
 El proyecto cuenta con una cobertura exhaustiva de pruebas unitarias, de integración, geoespaciales y de accesibilidad. Antes de realizar cualquier pull request o commit a `main`, se debe verificar la suite completa:
 
 ```bash
-# 1. Pruebas Frontend Jest (145 tests: WebGIS, SAR Radar, GDD, Auth, UX Rural, IoT, Intentions, Vernacular Voice Parser, Machinery Exporter):
+# 1. Pruebas Frontend Jest (150 tests: WebGIS, SAR Radar, GDD, Auth, UX Rural, IoT, Intentions, Vernacular Voice Parser, Machinery Exporter):
 npm test
 
 # 2. Verificación Estática TypeScript (0 errores obligatorios):
@@ -154,7 +156,7 @@ npm run build
 # 4. Pruebas Backend Pytest (52 tests: FastAPI, ML Cosecha, GDD, Shoelace, Caché):
 npm run test:backend
 
-# 5. Suite Automatizada Unificada (197 de 197 tests aprobados):
+# 5. Suite Automatizada Unificada (202 de 202 tests aprobados):
 npm run test:all
 ```
 

@@ -15,3 +15,11 @@ The system SHALL maintain a comprehensive technical whitepaper (`docs/MEMORANDO_
 #### Scenario: Verifying Mathematical and Scientific Formulations
 - **WHEN** reviewing scientific equations in the memorandum
 - **THEN** all mathematical notation accurately reflects geodetic area calculations, cloud-penetrating SAR dual polarization ($VV/VH$), thermal unit accumulation ($GDD_{10}^{30}$), and soil organic carbon stock ($SOC_{0-30cm}$).
+
+### Requirement: Cross-Referenced Role-Based Navigation in Institutional Memorandum
+The formal institutional postulation memorandum (`docs/MEMORANDO_POSTULACION.md`) SHALL provide reciprocal navigation links and role-specific shortcuts to the developer guide (`DEVELOPING.md`) and commercial pitch deck (`PITCH_DECK.md`) to maintain unified document coherence.
+
+#### Scenario: Navigating from Institutional Memorandum to Technical Architecture
+- **WHEN** an evaluator or technical auditor in the memorandum seeks low-level deployment instructions or microservice schemas
+- **THEN** the document provides direct contextual links into the developer guide and repository deployment sections without interrupting the whitepaper flow.
+
