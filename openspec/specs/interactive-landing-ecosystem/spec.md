@@ -18,7 +18,7 @@ The root landing page SHALL render a hero section with mission statements, live 
 - **THEN** the system navigates to `/auth/login` with access to the role switcher (Farmer, Agronomist, Admin, Guest).
 
 ### Requirement: Institutional Postulation & Impact Showcase on Landing
-The landing page SHALL render a dedicated section featuring the project's institutional dossier link, TRL 7 verification, and SDG/ODS impact matrix.
+The landing page SHALL render a dedicated section featuring the project's institutional dossier link, TRL 6 verification, and SDG/ODS impact matrix.
 
 #### Scenario: Accessing the Project Profile from Landing
 - **WHEN** a reviewer or guest clicks "Ficha de Postulación & Dossier Técnico" on the landing page

@@ -120,7 +120,7 @@ export default function Home() {
               📊 Geoestadísticas
             </Link>
             <Link href="/dashboard/postulacion" className={styles.navLink} style={{ color: '#4ade80', fontWeight: 700 }}>
-              🏛️ Postulación TRL 7
+              🏛️ Postulación TRL 6
             </Link>
             <Link href="/api-docs" className={styles.navLink}>
               <FileCode2 size={16} /> API Docs
@@ -149,7 +149,7 @@ export default function Home() {
           <div className={styles.heroContent}>
             <div className={styles.awardBadge}>
               <Sparkles size={16} className={styles.awardIcon} />
-              <span>Iniciativa Agrotech Venezuela • Inteligencia Territorial & Ciencia Abierta (TRL 7)</span>
+              <span>Iniciativa Agrotech Venezuela • Inteligencia Territorial & Ciencia Abierta (TRL 6)</span>
             </div>
 
             <h1 className={styles.heroTitle}>
@@ -661,7 +661,7 @@ export default function Home() {
                 <span>🌱</span> Probar Visor Satelital WebGIS
               </Link>
               <Link href="/dashboard/postulacion" className="btn-secondary" style={{ padding: '0.9rem 2rem', fontSize: '1rem', borderColor: 'rgba(34, 197, 94, 0.4)', color: '#4ade80' }}>
-                <span>🏛️</span> Ficha de Postulación TRL 7
+                <span>🏛️</span> Ficha de Postulación TRL 6
               </Link>
               <Link href="/auth/login" className="btn-secondary" style={{ padding: '0.9rem 2rem', fontSize: '1rem' }}>
                 <span>🚀</span> Iniciar Sesión / Demo Rápida
@@ -693,7 +693,7 @@ export default function Home() {
                 <li><Link href="/dashboard/tierras">Mis Tierras & IoT ESP32</Link></li>
                 <li><Link href="/dashboard/bitacora">Cuaderno de Campo Digital</Link></li>
                 <li><Link href="/dashboard/recomendaciones">Simulador Edafológico & IA</Link></li>
-                <li><Link href="/dashboard/postulacion">Ficha de Postulación & TRL 7</Link></li>
+                <li><Link href="/dashboard/postulacion">Ficha de Postulación & TRL 6</Link></li>
                 <li><Link href="/dashboard/estadisticas">Geoestadísticas Territoriales</Link></li>
               </ul>
             </div>

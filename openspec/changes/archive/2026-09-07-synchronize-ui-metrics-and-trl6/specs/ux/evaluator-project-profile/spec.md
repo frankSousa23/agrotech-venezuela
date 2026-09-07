@@ -1,9 +1,4 @@
-# Capability: Evaluator Project Profile
-
-## Purpose
-Provides a dedicated, interactive project profile and 5-minute evaluator tour route (`/dashboard/postulacion`) inside the application for institutional juries and reviewers.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Interactive Evaluator Tour Route
 The system SHALL provide a dedicated route at `/dashboard/postulacion` presenting the project's technical architecture, TRL 6 status (functional prototype demonstrated in relevant agricultural environments), live platform metrics with 233 passing automated tests (179 Jest + 54 Pytest), and a 5-step guided evaluation sequence.

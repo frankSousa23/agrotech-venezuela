@@ -43,10 +43,10 @@ export default function PostulacionPage() {
       <header className={styles.header}>
         <div className={styles.badgeRow}>
           <span className={styles.trlBadge}>
-            <ShieldCheck size={14} /> Nivel de Madurez TRL 7 (Sistema Validado en Entorno Real)
+            <ShieldCheck size={14} /> Nivel de Madurez TRL 6 (Prototipo Demostrado en Entorno Relevante)
           </span>
           <span className="badge-pill badge-emerald">
-            <CheckCircle2 size={13} /> 227 Tests Automatizados Pasando (173 Jest + 54 Pytest)
+            <CheckCircle2 size={13} /> 233 Tests Automatizados Pasando (179 Jest + 54 Pytest)
           </span>
           <span className="badge-pill badge-cyan">
             <Globe size={13} /> 24 Estados & 335 Municipios Activos
@@ -149,7 +149,7 @@ export default function PostulacionPage() {
             <DollarSign size={22} color="#4ade80" /> Impacto Económico Cuantificado & Modelos de Monetización
           </h2>
           <span style={{ fontSize: '0.85rem', color: '#cbd5e1' }}>
-            Agrotech Venezuela no solo es una proeza de ingeniería (TRL 7), sino una empresa de tecnología agro-climática con retorno de inversión comprobado y 4 canales de monetización B2B/B2G:
+            Agrotech Venezuela no solo es una proeza de ingeniería (TRL 6), sino una empresa de tecnología agro-climática con retorno de inversión comprobado y 4 canales de monetización B2B/B2G:
           </span>
         </div>
 
@@ -404,7 +404,7 @@ export default function PostulacionPage() {
                 Artículo Científico: Actualidad y Futuro
               </h3>
               <p style={{ fontSize: '0.82rem', color: '#94a3b8', margin: 0, lineHeight: 1.4 }}>
-                Manuscrito formal de validación TRL 7, penetración radar SAR Banda C, formulación Shoelace WGS84, casos de estudio y hoja de ruta 2026–2030.
+                Manuscrito formal de validación TRL 6, penetración radar SAR Banda C, formulación Shoelace WGS84, casos de estudio y hoja de ruta 2026–2030.
               </p>
             </div>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
@@ -503,14 +503,14 @@ export default function PostulacionPage() {
                 <FlaskConical size={20} color="#10b981" />
                 <span style={{ fontSize: '0.92rem', fontWeight: 700, color: '#f8fafc' }}>Artículo Científico Arbitrable</span>
               </div>
-              <span className="badge-pill badge-emerald" style={{ fontSize: '0.7rem' }}>TRL 7 Validado</span>
+              <span className="badge-pill badge-emerald" style={{ fontSize: '0.7rem' }}>TRL 6 Demostrado</span>
             </div>
             <p style={{ fontSize: '0.8rem', color: '#cbd5e1', margin: 0, lineHeight: 1.45 }}>
               Gemelo Digital Agronómico, Teledetección Multi-Escala e IA Prescriptiva. Incluye Oráculo SAR Sentinel-1 all-weather, Shoelace esferoidal, pedocalibración Saxton-Rawls y memoria de 40 años MapBiomas.
             </p>
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', fontSize: '0.7rem', color: '#94a3b8' }}>
               <span>• 3.178 palabras (&lt; 10k)</span>
-              <span>• 227 tests passing</span>
+              <span>• 233 tests passing</span>
               <span>• Frank Sousa</span>
             </div>
             <div style={{ display: 'flex', gap: '8px', marginTop: 'auto', paddingTop: '8px' }}>
@@ -630,7 +630,7 @@ export default function PostulacionPage() {
             </p>
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', fontSize: '0.7rem', color: '#94a3b8' }}>
               <span>• 100% Ponderado</span>
-              <span>• 227 tests</span>
+              <span>• 233 tests</span>
               <span>• Anexo II MapBiomas</span>
             </div>
             <div style={{ display: 'flex', gap: '8px', marginTop: 'auto', paddingTop: '8px' }}>
