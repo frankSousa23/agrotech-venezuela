@@ -82,9 +82,11 @@
     border: 1px solid #334155;
     border-radius: 8px;
     padding: 8px 12px;
+    min-height: 44px;
     font-size: 0.82rem;
     font-weight: 700;
     cursor: pointer;
     margin-bottom: 8px;
+    touch-action: manipulation;
   }
 }

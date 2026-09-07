@@ -214,19 +214,19 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
 
         {/* User Session Pill & Role Indicator (Compact) */}
         <div style={{
-          padding: '8px 10px',
+          padding: '5px 8px',
           background: isGuest ? 'rgba(234, 179, 8, 0.12)' : 'rgba(30, 41, 59, 0.7)',
           borderRadius: '8px',
           border: isGuest ? '1px solid rgba(234, 179, 8, 0.3)' : '1px solid rgba(255, 255, 255, 0.08)',
           display: 'flex',
           flexDirection: 'column',
-          gap: '6px'
+          gap: '4px'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <div style={{
-                width: 28,
-                height: 28,
+                width: 24,
+                height: 24,
                 borderRadius: '6px',
                 background: isGuest ? 'rgba(234, 179, 8, 0.25)' : 'rgba(34, 197, 94, 0.2)',
                 color: isGuest ? '#facc15' : '#22c55e',
@@ -391,7 +391,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
         <nav className={styles.nav}>
           {NAV_GROUPS.map((group) => (
             <div key={group.title}>
-              <div className={styles.navSectionLabel} style={{ marginTop: group.title.includes('Fase 1') ? '0' : '0.45rem' }}>
+              <div className={styles.navSectionLabel} style={{ marginTop: group.title.includes('Fase 1') ? '0' : '0.2rem' }}>
                 {group.title}
               </div>
               {group.items.map((item) => {
@@ -413,7 +413,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
             </div>
           ))}
 
-          <div className={styles.navSectionLabel} style={{ marginTop: '0.45rem' }}>HERRAMIENTAS AVANZADAS</div>
+          <div className={styles.navSectionLabel} style={{ marginTop: '0.2rem' }}>HERRAMIENTAS AVANZADAS</div>
           {ADVANCED_ITEMS.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href;

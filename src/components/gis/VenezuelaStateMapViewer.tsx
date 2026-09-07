@@ -469,6 +469,7 @@ export default function VenezuelaStateMapViewer({
                   color: '#fff',
                   textDecoration: 'none',
                   padding: '9px 12px',
+                  minHeight: '44px',
                   borderRadius: '8px',
                   fontWeight: 700,
                   fontSize: '0.82rem',

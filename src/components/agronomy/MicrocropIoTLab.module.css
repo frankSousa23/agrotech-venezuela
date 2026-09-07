@@ -112,6 +112,7 @@
 
 .tabBtn {
   padding: 8px 16px;
+  min-height: 44px;
   border-radius: 8px;
   border: none;
   background: transparent;
@@ -124,6 +125,7 @@
   align-items: center;
   gap: 6px;
   transition: all 0.2s;
+  touch-action: manipulation;
 }
 
 .tabBtn:hover {
@@ -441,4 +443,21 @@
 
 .pinoutTable tr:nth-child(even) {
   background: rgba(255, 255, 255, 0.02);
+}
+
+@media (max-width: 768px) {
+  .heroHeader {
+    padding: 1rem;
+  }
+  .labGrid {
+    grid-template-columns: 1fr;
+  }
+  .presetBar {
+    gap: 0.35rem;
+  }
+  .presetBtn {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+    min-height: 44px;
+  }
 }
