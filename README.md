@@ -8,8 +8,8 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.62-FF4B4B.svg)](https://streamlit.io/)
 [![Python 3.13](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
 [![PostgreSQL 15](https://img.shields.io/badge/PostgreSQL-15-336791.svg)](https://www.postgresql.org/)
-[![Tests: 227 Passing](https://img.shields.io/badge/Tests-227%20Passing-brightgreen.svg)]()
-[![TRL: 7](https://img.shields.io/badge/TRL-7%20(Validado%20en%20Campo)-orange.svg)]()
+[![Tests: 233 Passing](https://img.shields.io/badge/Tests-233%20Passing-brightgreen.svg)]()
+[![TRL: 6](https://img.shields.io/badge/TRL-6%20(Prototipo%20Integrado)-blue.svg)]()
 
 Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LULC) de **MapBiomas Venezuela** (1985–2024), **Sentinel-1 SAR Radar**, **Sentinel-2 L2A (Copernicus)** y **NASA POWER**, Agrotech transforma la teledetección espacial en **decisiones agronómicas prescriptivas y de acción directa** para productores, extensionistas agrícolas e investigadores.
 
@@ -20,8 +20,8 @@ Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LUL
 
 | Perfil de Audiencia | Enfoque Estratégico | Acceso Directo |
 | :--- | :--- | :--- |
-| 🛠️ **Para Desarrolladores & DevOps** | Arquitectura de microservicios, stack tecnológico, despliegue turnkey en 2 min, Docker y suite de pruebas (**227 tests**). | [Ir a Guía de Desarrollo & Despliegue ➔](#-para-desarrolladores--devops) |
-| 🏆 **Para Jurados de Innovación e Inversores** | Nivel de madurez operacional **TRL 7**, impacto socioeconómico (**ROI 3.8x**, -35% fertilizantes), agregación **Carbon Pooling (85/15)** y ODS. | [Ir a Expediente TRL 7 & Modelo de Negocio ➔](#-para-jurados-de-innovación-e-inversores) |
+| 🛠️ **Para Desarrolladores & DevOps** | Arquitectura de microservicios, stack tecnológico, despliegue turnkey en 2 min, Docker y suite de pruebas (**233 tests**). | [Ir a Guía de Desarrollo & Despliegue ➔](#-para-desarrolladores--devops) |
+| 🏆 **Para Jurados de Innovación e Inversores** | Nivel de madurez operacional **TRL 6**, impacto socioeconómico (**ROI 3.8x**, -35% fertilizantes), investigación **Carbon Pooling (85/15)** y ODS. | [Ir a Expediente TRL 6 & Modelo de Negocio ➔](#-para-jurados-de-innovación-e-inversores) |
 | 🌾 **Para Agrónomos y Productores** | Modo Productor Fácil (**4 Puertas**), resiliencia PWA offline en 2G/EDGE, dictado por voz y prescripciones VRA para maquinaria. | [Ir a Operaciones de Campo & Accesibilidad ➔](#-para-agrónomos-extensionistas-y-productores) |
 
 ---
@@ -38,7 +38,7 @@ Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LUL
      (Penetra nubes tropicales)        ("El Compadre Agrónomo")          (ESRI Shapefile / KML / Papel)
    • Sentinel-2 L2A (10m NDVI/EVI)   • Motor Hidro-Térmico GDD         • Encalado & N-P-K Geo-calibrado
    • Clima NASA POWER Diario         • Regresión ML de Cosecha         • Bitácora de Campo Offline PWA
-   • Nodos IoT Suelo (< $35 USD)     • Cuantificación MRV Carbono      • Bonos de Carbono Pool 85/15
+   • Sandbox Agro-IoT BYOD (Opcional) • Cuantificación MRV Carbono     • Bonos de Carbono Pool 85/15
                │                                 │                                 │
                └─────────────────────────────────┴─────────────────────────────────┘
 ```
@@ -108,13 +108,13 @@ Para estructurar la experiencia sin listas planas indiscriminadas, la plataforma
 
 ---
 
-### 📈 Pilar III: Viabilidad Comercial, MRV Carbon Pooling & Madurez TRL 7
+### 📈 Pilar III: Viabilidad Comercial, MRV Carbon Pooling & Madurez TRL 6
 *El impacto económico medible y la sostenibilidad institucional:*
 
-- **Calculadora MRV de Créditos de Carbono & Acoplamiento Ground-Truth**: Stock de SOC (0-30 cm) y secuestro anual ($\text{tCO}_2\text{e}/\text{ha}/\text{año}$) bajo IPCC Tier 2 / Verra VCS acoplado a labores de Bitácora (siembra directa, abonos verdes, encalado), con agregación regional (Carbon Pooling 85/15) y auditoría satelital SAR.
+- **Calculadora MRV de Créditos de Carbono & Acoplamiento Ground-Truth**: Stock de SOC (0-30 cm) y secuestro anual ($\text{tCO}_2\text{e}/\text{ha}/\text{año}$) bajo IPCC Tier 2 / Verra VCS acoplado a labores de Bitácora (siembra directa, abonos verdes, encalado), con agregación regional (Carbon Pooling 85/15) y auditoría satelital SAR como línea de investigación avanzada.
 - **Calibración Edafológica Regional de Enmiendas & Prescripciones VRA**: Modelos pedológicos geo-diferenciados (Kamprath $Al^{3+}$ en sabanas ácidas, Ca:Mg en Sur del Lago y Yeso Agrícola en Quíbor) exportables a Shapefiles UTM 19N para tractores GPS, KML para drones y fichas analógicas de cabina.
-- **Laboratorio Agro-IoT de Micro-Cultivo & Pedocalibración Dinámica (`/dashboard/iot`)**: Banco interactivo de experimentación con sensores edáficos (< $35 USD), curvas de pedotransferencia Saxton-Rawls (Arenoso 9%, Franco 20%, Arcilloso 35%) y supresión de bombeo cuando $\text{PAW} \ge 50\%$.
-- **Centro Oficial de Postulación & Validación TRL 7 (`/dashboard/postulacion`)**: Expediente integral validado en entorno operacional real con matriz ODS, ROI 3.8x cuantificado y descarga directa de los 5 PDFs oficiales del premio MapBiomas 2026.
+- **Laboratorio Agro-IoT de Micro-Cultivo & Pedocalibración Dinámica (`/dashboard/iot`)**: Banco didáctico y experimental aislado para probar sensores edáficos bajo premisa BYOD (Bring Your Own Device). Agrotech es una plataforma de software libre de manufactura de hardware; el núcleo opera sin requerir sensores físicos.
+- **Centro Oficial de Postulación & Validación TRL 6 (`/dashboard/postulacion`)**: Expediente integral validado en entorno relevante con datos multitemporales de Portuguesa, Zulia y Monagas, con matriz ODS, ROI 3.8x cuantificado y descarga directa de los PDFs oficiales del premio MapBiomas 2026.
 
 ---
 
@@ -146,11 +146,11 @@ Si tu labor está en el lote o asesorando fincas:
 ## 🏆 Para Jurados de Innovación e Inversores
 
 Si evalúas el impacto tecnológico, la viabilidad de negocio o la madurez institucional:
-- **Nivel de Madurez Operacional TRL 7**: Sistema validado en campo sobre 24 estados y 335 municipios, con 30 rutas de producción optimizadas en Next.js 16 Turbopack y 227 pruebas automatizadas.
+- **Nivel de Madurez Operacional TRL 6**: Prototipo funcional de sistema integrado demostrado en entorno relevante sobre 24 estados y 335 municipios con datos espaciales reales, 30 rutas de producción optimizadas en Next.js 16 Turbopack y 233 pruebas automatizadas.
 - **Retorno Económico Comprobado (ROI 3.8x)**: Reducción del 35% en desperdicio de fertilizantes NPK gracias al encalado de precisión y aumento de rendimiento de 3.5 a 6.2+ t/ha en cereales llaneros.
-- **Modelo de Agregación Carbon Pooling**: Superación de la barrera de auditoría tradicional (\$45k USD) agrupando 5,000 ha regionales para transar \$185k USD anuales en bonos Verra VCS, con reparto 85% (\$157k) directo a productores y 15% (\$27k) a la plataforma.
+- **Modelo Prospectivo de Agregación Carbon Pooling**: Superación de la barrera de auditoría tradicional (\$45k USD) agrupando 5,000 ha regionales para transar \$185k USD anuales en bonos Verra VCS, con reparto 85% (\$157k) directo a productores y 15% (\$27k) a la plataforma (modelo de investigación).
 - **Alineación con Objetivos de Desarrollo Sostenible (ODS)**: Cumplimiento de ODS 1 (Fin de la Pobreza), ODS 2 (Hambre Cero), ODS 12 (Producción Responsable), ODS 13 (Acción por el Clima) y ODS 15 (Ecosistemas Terrestres).
-- **Expediente Institucional**: Consulta el [Centro Oficial de Postulación](/dashboard/postulacion) o revisa el [Memorando de Postulación Oficial (docs/MEMORANDO_POSTULACION.md)](docs/MEMORANDO_POSTULACION.md).
+- **Expediente Institucional**: Consulta el [Centro Oficial de Postulación](/dashboard/postulacion) o revisa el [Memorando de Postulación Oficial (docs/mapbiomas_premio_2026/MEMORANDO_POSTULACION.md)](docs/mapbiomas_premio_2026/MEMORANDO_POSTULACION.md).
 
 ---
 
@@ -222,17 +222,17 @@ graph TD
 ---
 
 <details>
-<summary><b>🧪 Ver suite de validación y comandos de prueba automatizada (227 tests)</b></summary>
+<summary><b>🧪 Ver suite de validación y comandos de prueba automatizada (233 tests)</b></summary>
 
-El proyecto mantiene una suite rigurosa de 227 pruebas automatizadas que se ejecuta antes de cualquier integración a la rama principal:
+El proyecto mantiene una suite rigurosa de 233 pruebas automatizadas que se ejecuta antes de cualquier integración a la rama principal:
 
 | Suite de Validación | Comando | Métricas Verificadas | Estado |
 | :--- | :--- | :--- | :---: |
-| **Pruebas Frontend Jest** | `npm test` | **173 tests aprobados** (28 suites: WebGIS, Radar SAR, GDD, Auth, PWA, IoT Pedocalibration, Conflict Quarantine, Carbon MRV, UX Rural, Vernacular Parser, Machinery) | ✅ 100% |
+| **Pruebas Frontend Jest** | `npm test` | **179 tests aprobados** (28 suites: WebGIS, Radar SAR, GDD, Auth, PWA, IoT Pedocalibration, Conflict Quarantine, Carbon MRV, UX Rural, Vernacular Parser, Machinery) | ✅ 100% |
 | **Verificación TypeScript** | `npm run typecheck` | **0 errores** de compilación estricta | ✅ 100% |
 | **Compilación Turbopack** | `npm run build` | **30 rutas de producción limpias** en Next.js 16 | ✅ 100% |
 | **Pruebas Backend Pytest** | `npm run test:backend` | **54 tests aprobados** (FastAPI, ML Cosecha, Algoritmos Geoespaciales, Saxton-Rawls, Oráculo SAR) | ✅ 100% |
-| **Suite Automatizada Completa** | `npm run test:all` | **227 de 227 pruebas en verde** | ✅ 100% |
+| **Suite Automatizada Completa** | `npm run test:all` | **233 de 233 pruebas en verde** | ✅ 100% |
 
 Consulta la guía paso a paso en [DEVELOPING.md](DEVELOPING.md#4-suite-completa-de-pruebas-y-verificación-227-tests).
 </details>

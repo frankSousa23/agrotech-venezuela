@@ -3,8 +3,8 @@
 
 - **Autor / Desarrollador Principal**: Frank Sousa
 - **Ecosistema**: Agrotech Venezuela
-- **Nicho Tecnológico**: AgTech, Fintech Climática (MRV Carbon Pooling), Observación Satelital (WebGIS Multi-Escala) e Inteligencia Artificial Generativa Prescriptiva.
-- **Nivel de Madurez Tecnológica**: **TRL 7** (Sistema integrado y validado operacionalmente en entorno real).
+- **Nicho Tecnológico**: AgTech, Fintech Climática (MRV Carbon Pooling), Observación Satelital (WebGIS Multi-Escala) y Prototipado Agro-IoT BYOD.
+- **Nivel de Madurez Tecnológica**: **TRL 6** (Prototipo funcional de sistema integrado demostrado en entorno relevante con datos multitemporales de Portuguesa, Zulia y Monagas; validado con 233 pruebas automatizadas: 179 Jest + 54 Pytest).
 - **Licencia**: Código bajo MIT License (Copyright 2026 Frank Sousa) / Datos de Cobertura bajo Creative Commons Atribución 4.0 Internacional (CC BY 4.0 - MapBiomas Venezuela).
 
 [⬅️ Ir al README Principal](../README.md) | [🛠️ Ver Guía de Desarrollo & Arquitectura](../DEVELOPING.md) | [📊 Ver Pitch Deck](../PITCH_DECK.md)
@@ -18,7 +18,7 @@ La agricultura en Venezuela y la cuenca tropical enfrenta una paradoja estructur
 2. **Pérdida Financiera por Ineficiencia de Insumos**: La acidez edáfica no corregida (pH < 5.2 con saturación fitotóxica de Al³⁺) bloquea hasta un **45% de los fertilizantes N-P-K**, destruyendo los márgenes de ganancia.
 3. **Inaccesibilidad a Mercados de Carbono**: Aunque las prácticas regenerativas capturan carbono, una auditoría Verra VCS individual cuesta más de \$45,000 USD, excluyendo a predios menores de 500 ha.
 
-**Agrotech Venezuela** democratiza la agricultura de precisión transformando coordenadas GPS en un **Gemelo Digital instantáneo**, combinando prescripción edafológica en sacos accesibles, un modelo comercial escalable de **Agregación de Carbono (Carbon Pooling)** y un protocolo de sincronización rural **QoS** que opera sin colapsar bajo señales celulares 2G/EDGE.
+**Agrotech Venezuela** democratiza la agricultura de precisión transformando coordenadas GPS en un **Gemelo Digital instantáneo**, combinando prescripción edafológica en sacos accesibles, un modelo de investigación económica de **Agregación de Carbono (Carbon Pooling)**, un sandbox didáctico Agro-IoT BYOD y un protocolo de sincronización rural **QoS** que opera sin colapsar bajo señales celulares 2G/EDGE.
 
 ---
 
@@ -36,13 +36,13 @@ Agrotech cuenta con una estructura de ingresos diversificada y sostenible:
 1. **Tier Productor Familiar (Freemium)**: Diagnóstico básico, bitácora y clima gratuito para parcelas < 10 ha, garantizando adopción comunitaria masiva.
 2. **Tier Asociaciones y Cooperativas (B2B SaaS — \$0.50/ha/año)**: Contratado por gremios como Fedeagro, Asoportuguesa y Socaportuguesa. Proporciona tableros multi-predio de pronóstico de cosecha, monitoreo de estrés hídrico y alertas tempranas de plagas. (Mercado objetivo regional: 400,000 ha = \$200,000 USD anuales).
 3. **Tier Agro-Banca & Insumeras (B2B API Scoring)**: Evaluaciones de riesgo crediticio edafo-climático para banca de desarrollo (Banco Agrícola, Banesco, Mercantil) e inteligencia de demanda de insumos para fabricantes de fertilizantes (\$1,200 - \$3,500 USD/mes).
-4. **Originación Fintech de Carbono (Carbon Pooling)**: Comisión de corretaje y gestión del 15% sobre bonos de carbono emitidos en mercados voluntarios.
+4. **Originación Prospectiva de Carbono (Carbon Pooling - I+D)**: Modelo exploratorio de corretaje y agregación comunitaria sobre bonos de carbono emitidos en mercados voluntarios.
 
 ---
 
-## 🌿 3. Módulo MRV y Fintech de Carbono: El Modelo "Agrotech Carbon Pooling"
+## 🌿 3. Módulo MRV y Sandbox Didáctico Agro-IoT BYOD
 
-El módulo de **Créditos de Carbono y MRV** (`CarbonCreditsCalculator.tsx`) supera la limitación de escala de la pequeña agricultura mediante la **Agregación Regional Digital**:
+El módulo de **Créditos de Carbono y MRV** (`CarbonCreditsCalculator.tsx`) y el **Laboratorio Agro-IoT** (`MicrocropIoTLab.tsx`) articulan las líneas de frontera científica y formativa de la plataforma:
 
 | Segmento de Predio Participante | Mecanismo de Agregación Regional (Pool) | Emisión y Distribución Económica (Verra VCS) |
 | :--- | :--- | :--- |
@@ -50,19 +50,21 @@ El módulo de **Créditos de Carbono y MRV** (`CarbonCreditsCalculator.tsx`) sup
 
 <p class="caption"><strong>Figura 2: Arquitectura del modelo Fintech "Agrotech Carbon Pooling"</strong> — <em>Estructura de gobernanza y agregación regional para la emisión de bonos de carbono Verra VCS / IPCC Tier 2. Resuelve la barrera de los \$45.000 USD de auditoría individual y transfiere el 85% de los dividendos económicos de conservación directamente a los productores locales.</em></p>
 
-- **Mecanismo**: Un lote de 45 ha genera ~90 tCO₂e/año (\$1,665/año). Al integrarse en el pool regional de 5,000 ha gestionado por Agrotech (~10,000 tCO₂e/año), el grupo alcanza la masa crítica para transar \$185,000 USD anuales en mercados de bonos voluntarios.
-- **Distribución**: 85% (\$157,250 USD) se distribuye directamente a los agricultores participantes como ingreso pasivo que subsidia su encalado, y 15% (\$27,750 USD) remunera la verificación satelital automatizada de Agrotech.
+- **Investigación Económica de Carbono**: Explora la viabilidad de la agricultura regenerativa para predios familiares típicamente excluidos de certificaciones internacionales (Verra/Gold Standard). Agrotech modela algoritmos de agregación digital (pools de 5.000 ha) y verificación satelital SAR como línea prospectiva de ingresos para el productor.
+- **Sandbox Educativo Agro-IoT (BYOD)**: Entorno aislado y 100% opcional para experimentación en huertos, viveros o camas demostrativas indoor/outdoor. **Agrotech Venezuela no fabrica ni vende hardware**; cualquier productor o estudiante puede conectar sensores genéricos comerciales (ESP32/capacitivos) mediante código abierto, o bien prescindir por completo de ellos, ya que el 100% de la analítica del sistema opera de forma satelital autónoma.
 
 ---
 
-## 🚀 4. Nivel de Madurez Tecnológica (TRL 7) y Validación Operacional
+## 🚀 4. Nivel de Madurez Tecnológica (TRL 6) y Validación Operacional
 
-El sistema opera en **TRL 7** (Validado en entorno operacional real):
+El sistema se sitúa en **TRL 6** (Prototipo funcional de sistema integrado demostrado en entorno relevante con datos multitemporales reales de Portuguesa, Zulia y Monagas, listo para fases de validación piloto en campo):
 - **Plataforma WebGIS en Producción**: Next.js 16 App Router con compilador Turbopack y 30 rutas de producción optimizadas (ampliadas desde la base de 28 rutas limpias).
 - **Cobertura Territorial Integral**: 24 estados y 335 municipios de Venezuela con datos agroecológicos y edafológicos calibrados.
 - **Doble Modo de Interfaz (Dual-Mode UI)**: *Modo Productor Fácil* con 4 puertas táctiles, vocabulario de campo y dictado por voz, alternable a *Modo Técnico* para ingenieros y comités evaluadores.
 - **Asesoría IA Adaptativa (Dual-Tone)**: La IA ("El Compadre Agrónomo") adapta dinámicamente su vocabulario según la interfaz activa, hablando en sacos y días de sol para agricultores, y en ecuaciones edafológicas para técnicos.
-- **Calidad de Software Certificada**: **227 pruebas automatizadas (ampliadas desde la certificación base de 197 pruebas automatizadas: 173 Jest + 54 Pytest, 100% aprobadas)**, 0 errores de compilación TypeScript.
+- **IA On-Demand & FinOps Cero Deuda**: Gemini 1.5 Flash activado bajo demanda mediante la cuota gratuita de Google AI Studio (15 RPM / 1.500 RPD) para asistencia cualitativa y vernacular, mientras los cálculos agronómicos de rutina (Kamprath, Shoelace, Saxton-Rawls) se resuelven en motores locales deterministas a costo marginal cero ($0.00).
+- **Neutralidad de Hardware (BYOD)**: Enfoque 100% Software-First. El laboratorio IoT es un sandbox experimental y educativo; la plataforma no fabrica hardware ni requiere sensores físicos en campo para operar.
+- **Calidad de Software Certificada**: **233 pruebas automatizadas (ampliadas desde la certificación base de 197 pruebas automatizadas: 179 Jest + 54 Pytest, 100% aprobadas)**, 0 errores de compilación TypeScript.
 
 ---
 
@@ -119,7 +121,7 @@ Calibrada regionalmente para texturas venezolanas (Arenoso θ_crit = 9,0%, Franc
 
 - **WebGIS Frontend**: Next.js 16 (App Router con Turbopack, 30 rutas de producción), React 19, Leaflet nativo puro con ciclo de vida `useRef`, CSS Modules Glassmorphism, PWA con IndexedDB y resolución determinista de conflictos en `/api/parcels/conflicts`.
 - **Backend Espacial**: Python 3.13, FastAPI con OpenAPI 3.0, Scikit-Learn, NumPy, cliente NASA POWER, caché geodésica SQLite en modo WAL (< 5ms de latencia).
-- **Inteligencia Artificial**: Google Gemini 2.5 Flash (`gemini-2.5-flash`) con memoria territorial de 40 años (MapBiomas Colección 3) y motor heurístico determinista de respaldo.
+- **Inteligencia Artificial & FinOps**: Google Gemini 1.5 Flash activado bajo demanda con cuota gratuita de Google AI Studio y motores heurísticos locales deterministas a costo marginal cero ($0.00).
 - **Prescripción Tri-Modal para Maquinaria**: Paquetes ESRI Shapefile con atributos VRA (`RATE_LIME`, `RATE_NPK`, `AREA_HA` en UTM 19N WGS84) para consolas GPS John Deere/Trimble, planes de vuelo KML para drones y fichas analógicas de cabina.
 - **Oráculo Satelital Radar SAR para MRV**: Algoritmo en `/api/mrv/sar-oracle` que evalúa retrodispersión σ°_VH / σ°_VV > −12.0 dB para abatir la incertidumbre Verra VCS al 10%.
 
@@ -140,5 +142,4 @@ El presente memorando valida formalmente la postulación técnica e instituciona
 
 | Postulante y Responsable Técnico | Afiliación y Laboratorio | Estatus del Ecosistema | Fecha de Emisión |
 | :--- | :--- | :--- | :---: |
-| **Frank Sousa** | Agrotech Venezuela / Lab Edafo-Espacial | **TRL 7 Operacional (227 tests)** | Septiembre 2026 |
-
+| **Frank Sousa** | Agrotech Venezuela / Lab Edafo-Espacial | **TRL 6 Integrado (233 tests)** | Septiembre 2026 |

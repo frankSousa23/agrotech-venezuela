@@ -217,11 +217,11 @@ def validate_and_compile_dossier():
 
 ## 9. Certificación Institucional y Declaración de Postulación
 
-El presente expediente técnico-científico consolida la candidatura oficial de **Agrotech Venezuela** a la **Segunda Edición del Premio MapBiomas Venezuela 2026** en las categorías *General* y *Políticas Públicas, Gestión Ambiental y Comunitaria*. Se certifica que todo el software es de código abierto (Licencia MIT), los algoritmos son reproducibles, los datos territoriales cumplen estrictamente con la licencia CC BY 4.0 de MapBiomas Venezuela, y la plataforma opera en nivel de madurez **TRL 7** validada mediante **227 pruebas automatizadas** (173 Jest + 54 Pytest, 100% aprobadas).
+El presente expediente técnico-científico consolida la candidatura oficial de **Agrotech Venezuela** a la **Segunda Edición del Premio MapBiomas Venezuela 2026** en las categorías *General* y *Políticas Públicas, Gestión Ambiental y Comunitaria*. Se certifica que todo el software es de código abierto (Licencia MIT), los algoritmos son reproducibles, los datos territoriales cumplen estrictamente con la licencia CC BY 4.0 de MapBiomas Venezuela, y la plataforma opera en nivel de madurez **TRL 6** (Prototipo Integrado en Entorno Relevante) validada mediante **233 pruebas automatizadas** (179 Jest + 54 Pytest, 100% aprobadas).
 
 | Postulante e Investigador Principal | Institución / Laboratorio | Convocatoria Oficial | Estatus Tecnológico |
 | :--- | :--- | :--- | :---: |
-| **Frank Sousa** | Agrotech Venezuela / Lab Edafo-Espacial | Premio MapBiomas Venezuela 2026 | **TRL 7 (Validado en Entorno Operacional)** |
+| **Frank Sousa** | Agrotech Venezuela / Lab Edafo-Espacial | Premio MapBiomas Venezuela 2026 | **TRL 6 (Prototipo Integrado en Entorno Relevante)** |
 
 <p class="caption"><strong>Certificación Oficial de Postulación</strong> — <em>Documento expedido para el Comité Organizador y el Jurado Calificador del Premio MapBiomas Venezuela 2026. Toda la suite de software, datos y microservicios se encuentra disponible públicamente en https://github.com/frankSousa23/agrotech-venezuela.</em></p>
 """

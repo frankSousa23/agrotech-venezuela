@@ -1,6 +1,6 @@
 # Certificado de Auditoría Global del Sistema — Agrotech Venezuela 🌾🛰️
 **Fecha de Certificación:** 5 de Septiembre de 2026  
-**Nivel de Madurez Tecnológica:** TRL 7 (Sistema Operacional Validado en Entorno Relevante/Real)  
+**Nivel de Madurez Tecnológica:** TRL 6 (Prototipo Funcional de Sistema Integrado Demostrado en Entorno Relevante con Datos Reales de Portuguesa, Zulia y Monagas)  
 **Entorno de Compilación:** Next.js 16.2.10 (Turbopack) | Python 3.13.15 | Node.js v20+  
 **Autor Principal:** Frank Sousa — Agrotech Venezuela  
 **Licencia del Código:** MIT License  
@@ -17,9 +17,9 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
                       MATRIZ DE SALUD DEL SISTEMA (100% OPERATIVO)
 ========================================================================================
  [✓] Verificación Estática TypeScript:    0 Errores (Modo Estricto / npx tsc --noEmit)
- [✓] Frontend & WebGIS Suite (Jest):      173 Tests Pasando (28 Test Suites)
+ [✓] Frontend & WebGIS Suite (Jest):      179 Tests Pasando (28 Test Suites)
  [✓] Backend Espacial & ML (Pytest):      54 Tests Pasando (17 Módulos)
- [✓] Suite Unificada Completa:            227 Tests Automatizados (100% Passing)
+ [✓] Suite Unificada Completa:            233 Tests Automatizados (100% Passing)
  [✓] Next.js App Router (Turbopack):      30 Rutas Compiladas Limpiamente (0 Fallos)
  [✓] Endpoints de Backend (FastAPI):      39 Endpoints OpenAPI 3.0 (/docs interactivo)
  [✓] Cobertura Geográfica Territorial:    24 Estados + 335 Municipios Venezolanos
@@ -42,7 +42,7 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 - **Estimador de Rendimiento Agrícola (Yield Prediction)**: Modelo Random Forest multivariable entrenado con 40 años de series temporales de MapBiomas Venezuela (1985-2024), calibrado para 8 cadenas agrícolas clave (Maíz, Arroz, Café, Cacao, Caña de Azúcar, Yuca, Pastos Mejorados y Tomate Cherry).
 - **Modelo Hidrotérmico GDD & Balance Hídrico**: Algoritmo de acumulación térmica de Grados Día de Crecimiento con base $T_{\text{base}} = 10.0^\circ\text{C}$ y techo $T_{\text{upper}} = 30.0^\circ\text{C}$, correlacionado con el balance hídrico mensual ($P - ET_c$) mediante telemetría meteorológica NASA POWER API (`src/lib/geo/hydroThermalEngine.ts`).
 - **Cuantificación de Carbono Orgánico (SOC) IPCC Tier 2 / Verra VCS**: Cálculo de reservas de carbono edáfico (0-30 cm) y modelado de secuestro anual bajo prácticas regenerativas (siembra directa, abonos verdes, agroforestería).
-- **Agente Agrónomo Google Gemini 2.5 Flash**: Módulo de prescripciones edafológicas y de fertilización N-P-K contextualmente adaptadas a las materias primas y fertilizantes disponibles en el mercado nacional venezolano.
+- **Agente Agrónomo Google Gemini 1.5 Flash (On-Demand & Free Tier)**: Invocación bajo demanda con cuota gratuita de Google AI Studio (15 RPM / 1.500 RPD) para asistencia cualitativa y contextual, acoplado a motores deterministas locales (Kamprath, Shoelace, Saxton-Rawls) resueltos en milisegundos con costo marginal cero ($0.00).
 - **Caché Geodésica SQLite en modo WAL**: Hashing espacial a 4 decimales (~11 metros de resolución) que garantiza latencias de respuesta inferiores a 5 ms y funcionamiento sin internet en campo (`backend/src/cache_manager.py`).
 
 ### Eje 3: Accesibilidad Rural, Resiliencia UX y Funcionamiento Offline
@@ -62,9 +62,10 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
   - `README.md` estructurado exclusivamente como escaparate de impacto agrícola, innovación satelital, arquitectura visual y modelo socioeconómico para evaluadores e inversores.
   - `DEVELOPING.md` como guía exhaustiva de ingeniería que aísla los requerimientos técnicos de instalación, microservicios Docker, pipelines de testing y convenciones geoespaciales.
 - **Ficha Técnica & Expediente de Postulación (`/dashboard/postulacion`)**:
-  - Badge oficial actualizado y sincronizado a **197 Tests Automatizados Pasando (145 Jest + 52 Pytest)**.
+  - Badge oficial actualizado y sincronizado a **233 Tests Automatizados Pasando (179 Jest + 54 Pytest)**.
   - Tour Demostrativo interactivo de 5 pasos para evaluadores técnicos del jurado.
-  - Descarga y visualización de memorandos técnicos enlazados a `docs/MEMORANDO_POSTULACION.md` y `public/docs/MEMORANDO_POSTULACION.md`.
+  - Sandbox didáctico Agro-IoT desacoplado bajo premisa BYOD (sin manufactura ni dependencia de hardware).
+  - Descarga y visualización de memorandos técnicos enlazados a `docs/mapbiomas_premio_2026/MEMORANDO_POSTULACION.md` y `public/docs/MEMORANDO_POSTULACION.md`.
   - Integridad de los 10 documentos públicos requeridos para el Premio MapBiomas Venezuela 2026.
 
 ---
@@ -96,8 +97,12 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 22. `__tests__/api/workflow.test.ts` — Flujo integral de usuario (desde login hasta delimitación y reporte).
 23. `__tests__/api/vernacular-parser.test.ts` — Parser de voz campesina, normalización tradicional métrica e intenciones dialectales (10 tests).
 24. `__tests__/api/machinery-exporter.test.ts` — Generador tri-modal de prescripciones VRA para tractores GPS, drones y cabina analógica (3 tests).
+25. `__tests__/api/parcels-conflict.test.ts` — Resolución determinista de conflictos offline y cola de cuarentena (4 tests).
+26. `__tests__/api/parcel-conflict-modal.test.ts` — Modal interactivo de resolución de conflictos en doble modo (3 tests).
+27. `__tests__/agronomy/pedotransfer.test.ts` — Funciones de pedotransferencia Saxton-Rawls y PAW (3 tests).
+28. `__tests__/agronomy/carbon-groundtruth.test.ts` — Acoplamiento de bitácora y oráculo radar SAR para MRV de carbono (4 tests).
 
-### B. Backend Espacial & ML Suite (Pytest — 52 Tests en 12 Módulos)
+### B. Backend Espacial & ML Suite (Pytest — 54 Tests en 17 Módulos)
 1. `tests/test_api_endpoints.py` (7 tests) — Endpoints REST principales de FastAPI.
 2. `tests/test_audit_subsystems.py` (4 tests) — Verificación de subsistemas espaciales.
 3. `tests/test_cache_manager.py` (1 test) — Manejo de caché geodésica SQLite WAL.
@@ -156,9 +161,9 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 
 El ecosistema **Agrotech Venezuela** se encuentra en estado **100% verde, integrado y verificado**, cumpliendo con los más exigentes estándares de la industria del software geoespacial y agronómico:
 
-1. **Cero regresiones**: 197 de 197 tests automatizados pasando sin advertencias.
+1. **Cero regresiones**: 233 de 233 tests automatizados pasando sin advertencias.
 2. **Cero errores de compilación**: Modo estricto de TypeScript superado al 100%.
-3. **Producción lista para despliegue**: 28 rutas estáticas y dinámicas optimizadas mediante Next.js 16 Turbopack.
+3. **Producción lista para despliegue**: 30 rutas estáticas y dinámicas optimizadas mediante Next.js 16 Turbopack.
 4. **Sincronización institucional absoluta**: Toda la documentación pública (`README.md`, `DEVELOPING.md`, `MEMORANDO_POSTULACION.md`) refleja fielmente las capacidades técnicas y operacionales del sistema.
 
 **Certificado por:**  

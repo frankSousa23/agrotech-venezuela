@@ -280,13 +280,47 @@ void loop() {
               Laboratorio Agro-IoT de Micro-Cultivo & Riego de Precisión
             </h2>
             <p className={styles.subtitle}>
-              Banco de pruebas didáctico para ensayar sensores edáficos, calibración de señales analógicas ESP32 y algoritmos de riego predictivo vinculados a la telemetría satelital NASA POWER.
+              Banco de pruebas didáctico y sandbox experimental para ensayar sensores edáficos, calibración analógica ESP32 y algoritmos de riego predictivo acoplados a telemetría satelital.
             </p>
           </div>
-          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-            <span className={styles.badgePill}>
-              <Cpu size={14} /> ESP32 Edge Core Activo
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+            <span style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              background: 'rgba(56, 189, 248, 0.15)',
+              border: '1px solid rgba(56, 189, 248, 0.35)',
+              color: '#38bdf8',
+              padding: '4px 10px',
+              borderRadius: '9999px',
+              fontSize: '0.75rem',
+              fontWeight: 700
+            }}>
+              <Info size={14} /> Sandbox Didáctico BYOD (100% Opcional)
             </span>
+            <span className={styles.badgePill}>
+              <Cpu size={14} /> ESP32 Simulado / Edge
+            </span>
+          </div>
+        </div>
+
+        {/* Banner de Neutralidad de Hardware y Sandbox Educativo */}
+        <div style={{
+          marginTop: '1rem',
+          padding: '0.75rem 1rem',
+          borderRadius: '10px',
+          background: 'rgba(56, 189, 248, 0.08)',
+          border: '1px solid rgba(56, 189, 248, 0.25)',
+          display: 'flex',
+          alignItems: 'flex-start',
+          gap: '12px',
+          fontSize: '0.84rem',
+          color: '#cbd5e1',
+          lineHeight: '1.45'
+        }}>
+          <Info size={20} color="#38bdf8" style={{ flexShrink: 0, marginTop: '2px' }} />
+          <div>
+            <strong style={{ color: '#38bdf8' }}>Sandbox Didáctico y Experimentación BYOD (Bring Your Own Device):</strong> Este laboratorio es un entorno aislado concebido para que estudiantes, agrónomos e investigadores puedan experimentar a micro-escala (huertos caseros, viveros o camas demostrativas indoor/outdoor). <strong style={{ color: '#f8fafc' }}>Agrotech Venezuela no fabrica ni comercializa hardware</strong>; el núcleo de la plataforma funciona de forma 100% satelital y autónoma sin necesidad de adquirir sensores físicos.
           </div>
         </div>
 
