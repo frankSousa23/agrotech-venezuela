@@ -82,6 +82,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [intentionsOpen, setIntentionsOpen] = useState(false);
   const { user, login, logout, isAuthenticated } = useAuth();
+  const { isFarmerMode } = useUIMode();
   const isGuest = user?.isGuest || user?.status === 'GUEST';
 
   const handleLogout = () => {
@@ -211,38 +212,38 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
           )}
         </div>
 
-        {/* User Session Pill & Role Indicator */}
+        {/* User Session Pill & Role Indicator (Compact) */}
         <div style={{
-          padding: '10px 12px',
-          background: isGuest ? 'rgba(234, 179, 8, 0.15)' : 'rgba(30, 41, 59, 0.7)',
-          borderRadius: '10px',
-          border: isGuest ? '1px solid rgba(234, 179, 8, 0.35)' : '1px solid rgba(255, 255, 255, 0.1)',
+          padding: '8px 10px',
+          background: isGuest ? 'rgba(234, 179, 8, 0.12)' : 'rgba(30, 41, 59, 0.7)',
+          borderRadius: '8px',
+          border: isGuest ? '1px solid rgba(234, 179, 8, 0.3)' : '1px solid rgba(255, 255, 255, 0.08)',
           display: 'flex',
           flexDirection: 'column',
-          gap: '8px'
+          gap: '6px'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <div style={{
-                width: 32,
-                height: 32,
-                borderRadius: '8px',
+                width: 28,
+                height: 28,
+                borderRadius: '6px',
                 background: isGuest ? 'rgba(234, 179, 8, 0.25)' : 'rgba(34, 197, 94, 0.2)',
                 color: isGuest ? '#facc15' : '#22c55e',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontWeight: 700,
-                fontSize: '0.85rem'
+                fontSize: '0.8rem'
               }}>
                 {isGuest ? '🚀' : (user?.name ? user.name[0].toUpperCase() : 'P')}
               </div>
               <div style={{ overflow: 'hidden' }}>
-                <div style={{ fontSize: '0.82rem', fontWeight: 600, color: '#f8fafc', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
+                <div style={{ fontSize: '0.78rem', fontWeight: 600, color: '#f8fafc', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
                   {user?.name || 'Productor Invitado'}
                 </div>
-                <div style={{ fontSize: '0.7rem', color: isGuest ? '#fde047' : '#94a3b8' }}>
-                  {isGuest ? 'Modo Sandbox (Efímero)' : (user?.role === 'ADMIN' ? '🛡️ Administrador' : user?.role === 'AGRONOMIST' ? '🌱 Ing. Agrónomo' : '🌾 Productor Agrícola')}
+                <div style={{ fontSize: '0.67rem', color: isGuest ? '#fde047' : '#94a3b8' }}>
+                  {isGuest ? 'Modo Sandbox (Efímero)' : (user?.role === 'ADMIN' ? '🛡️ Admin' : user?.role === 'AGRONOMIST' ? '🌱 Agrónomo' : '🌾 Productor')}
                 </div>
               </div>
             </div>
@@ -256,15 +257,14 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
                   border: '1px solid rgba(239, 68, 68, 0.3)', 
                   color: '#ef4444', 
                   cursor: 'pointer', 
-                  padding: '4px 6px',
+                  padding: '3px 6px',
                   borderRadius: '4px',
                   display: 'flex',
                   alignItems: 'center',
-                  fontSize: '0.72rem',
-                  gap: '2px'
+                  fontSize: '0.7rem'
                 }}
               >
-                <LogOut size={13} />
+                <LogOut size={12} />
               </button>
             ) : (
               <Link 
@@ -272,16 +272,16 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
                 title="Iniciar Sesión"
                 style={{ color: '#4ade80', display: 'flex', alignItems: 'center' }}
               >
-                <LogIn size={16} />
+                <LogIn size={15} />
               </Link>
             )}
           </div>
 
-          {/* Selector Rápido de Roles (1-Click Switcher para Pruebas) */}
+          {/* Selector Rápido de Roles (Compact Segmented Control) */}
           <div style={{
             display: 'flex',
-            gap: '4px',
-            padding: '4px',
+            gap: '3px',
+            padding: '2px',
             background: 'rgba(15, 23, 42, 0.6)',
             borderRadius: '6px',
             border: '1px solid rgba(255, 255, 255, 0.06)'
@@ -292,12 +292,12 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
               title="Cambiar a Productor"
               style={{
                 flex: 1,
-                padding: '3px 2px',
+                padding: '2px 1px',
                 borderRadius: '4px',
                 border: user?.role === 'FARMER' && !isGuest ? '1px solid #16a34a' : 'none',
                 background: user?.role === 'FARMER' && !isGuest ? 'rgba(34, 197, 94, 0.25)' : 'transparent',
                 color: user?.role === 'FARMER' && !isGuest ? '#86efac' : '#94a3b8',
-                fontSize: '0.68rem',
+                fontSize: '0.64rem',
                 cursor: 'pointer',
                 fontWeight: 600,
                 textAlign: 'center'
@@ -311,12 +311,12 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
               title="Cambiar a Ingeniero Agrónomo"
               style={{
                 flex: 1,
-                padding: '3px 2px',
+                padding: '2px 1px',
                 borderRadius: '4px',
                 border: user?.role === 'AGRONOMIST' ? '1px solid #3b82f6' : 'none',
                 background: user?.role === 'AGRONOMIST' ? 'rgba(59, 130, 246, 0.25)' : 'transparent',
                 color: user?.role === 'AGRONOMIST' ? '#93c5fd' : '#94a3b8',
-                fontSize: '0.68rem',
+                fontSize: '0.64rem',
                 cursor: 'pointer',
                 fontWeight: 600,
                 textAlign: 'center'
@@ -330,12 +330,12 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
               title="Cambiar a Administrador"
               style={{
                 flex: 1,
-                padding: '3px 2px',
+                padding: '2px 1px',
                 borderRadius: '4px',
                 border: user?.role === 'ADMIN' ? '1px solid #38bdf8' : 'none',
                 background: user?.role === 'ADMIN' ? 'rgba(56, 189, 248, 0.25)' : 'transparent',
                 color: user?.role === 'ADMIN' ? '#7dd3fc' : '#94a3b8',
-                fontSize: '0.68rem',
+                fontSize: '0.64rem',
                 cursor: 'pointer',
                 fontWeight: 600,
                 textAlign: 'center'
@@ -346,16 +346,19 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
           </div>
         </div>
 
-        {/* Live Status & Connectivity Indicator */}
+        {/* Live Status & Connectivity Indicator (Compact Pill) */}
         <div className={styles.statusBox}>
-          <div className={styles.statusHeader}>
-            <span className={styles.statusLiveDot}></span>
-            <span className={styles.statusLiveText}>Sistema Territorial Conectado</span>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '4px' }}>
+            <div className={styles.statusHeader}>
+              <span className={styles.statusLiveDot}></span>
+              <span className={styles.statusLiveText} style={{ fontSize: '0.66rem' }}>Red Territorial</span>
+            </div>
+            <ConnectivityStatusBadge />
           </div>
-          <div className={styles.statusDetails}>
-            <div className={styles.statusItem}>
-              <Radio size={12} className={styles.statusIcon} />
-              <span>MapBiomas Col. 3</span>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '3px', borderTop: '1px solid rgba(255, 255, 255, 0.06)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '3px', fontSize: '0.65rem', color: 'var(--text-muted)' }}>
+              <Radio size={11} className={styles.statusIcon} />
+              <span>MapBiomas</span>
               <HelpModal 
                 title="Integración MapBiomas" 
                 content={
@@ -367,9 +370,9 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
                 iconOnly 
               />
             </div>
-            <div className={styles.statusItem}>
-              <ShieldCheck size={12} className={styles.statusIcon} />
-              <span>NASA POWER V2.0</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '3px', fontSize: '0.65rem', color: 'var(--text-muted)' }}>
+              <ShieldCheck size={11} className={styles.statusIcon} />
+              <span>NASA POWER</span>
               <HelpModal 
                 title="Clima NASA POWER" 
                 content={
@@ -382,16 +385,13 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
               />
             </div>
           </div>
-          <div style={{ marginTop: '8px', display: 'flex', justifyContent: 'center' }}>
-            <ConnectivityStatusBadge />
-          </div>
         </div>
 
         {/* Navigation Links */}
         <nav className={styles.nav}>
           {NAV_GROUPS.map((group) => (
             <div key={group.title}>
-              <div className={styles.navSectionLabel} style={{ marginTop: group.title.includes('Fase 1') ? '0' : '1.2rem' }}>
+              <div className={styles.navSectionLabel} style={{ marginTop: group.title.includes('Fase 1') ? '0' : '0.45rem' }}>
                 {group.title}
               </div>
               {group.items.map((item) => {
@@ -404,7 +404,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
                     className={`${styles.navItem} ${isActive ? styles.navItemActive : ''} ${item.highlight ? styles.navItemHighlight : ''}`}
                     onClick={() => setMobileOpen(false)}
                   >
-                    <Icon size={18} className={styles.navIcon} />
+                    <Icon size={16} className={styles.navIcon} />
                     <span className={styles.navLabel}>{item.label}</span>
                     {item.badge && <span className={styles.navBadge}>{item.badge}</span>}
                   </Link>
@@ -413,7 +413,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
             </div>
           ))}
 
-          <div className={styles.navSectionLabel} style={{ marginTop: '1.2rem' }}>HERRAMIENTAS AVANZADAS</div>
+          <div className={styles.navSectionLabel} style={{ marginTop: '0.45rem' }}>HERRAMIENTAS AVANZADAS</div>
           {ADVANCED_ITEMS.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href;
@@ -425,7 +425,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
                 className={`${styles.navItem} ${isActive ? styles.navItemActive : ''} ${item.highlight ? styles.navItemHighlight : ''}`}
                 onClick={() => setMobileOpen(false)}
               >
-                <Icon size={18} className={styles.navIcon} />
+                <Icon size={16} className={styles.navIcon} />
                 <span className={styles.navLabel}>{item.label}</span>
                 {item.badge && <span className={styles.navBadge}>{item.badge}</span>}
               </Link>
@@ -439,19 +439,19 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
               style={{ background: 'rgba(56, 189, 248, 0.15)', border: '1px solid rgba(56, 189, 248, 0.3)' }}
               onClick={() => setMobileOpen(false)}
             >
-              <ShieldCheck size={18} className={styles.navIcon} color="#38bdf8" />
+              <ShieldCheck size={16} className={styles.navIcon} color="#38bdf8" />
               <span className={styles.navLabel} style={{ color: '#38bdf8', fontWeight: 700 }}>Panel Admin</span>
               <span className={styles.navBadge} style={{ background: '#0284c7' }}>Gestión</span>
             </Link>
           )}
 
-          <div className={styles.navSectionLabel} style={{ marginTop: '1.2rem' }}>RECURSOS & DESARROLLO</div>
+          <div className={styles.navSectionLabel} style={{ marginTop: '0.45rem' }}>RECURSOS & DESARROLLO</div>
           <Link 
             href="/api-docs" 
             className={`${styles.navItem} ${pathname === '/api-docs' ? styles.navItemActive : ''}`}
             onClick={() => setMobileOpen(false)}
           >
-            <FileCode2 size={18} className={styles.navIcon} />
+            <FileCode2 size={16} className={styles.navIcon} />
             <span className={styles.navLabel}>API OpenAPI / Swagger</span>
           </Link>
 
@@ -513,13 +513,14 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
               type="button"
               onClick={() => setIntentionsOpen(true)}
               style={{
-                background: 'rgba(34, 197, 94, 0.15)',
-                border: '1px solid rgba(74, 222, 128, 0.4)',
-                color: '#4ade80',
+                background: isFarmerMode ? 'rgba(34, 197, 94, 0.25)' : 'rgba(34, 197, 94, 0.15)',
+                border: isFarmerMode ? '1px solid #22c55e' : '1px solid rgba(74, 222, 128, 0.4)',
+                boxShadow: isFarmerMode ? '0 0 12px rgba(34, 197, 94, 0.25)' : 'none',
+                color: isFarmerMode ? '#bbf7d0' : '#4ade80',
                 padding: '6px 12px',
                 borderRadius: '8px',
                 fontSize: '0.8rem',
-                fontWeight: 600,
+                fontWeight: 700,
                 cursor: 'pointer',
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -530,7 +531,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
               aria-label="Abrir guía de qué necesitas hacer hoy"
             >
               <Sparkles size={14} />
-              <span>¿Qué necesitas hacer?</span>
+              <span>{isFarmerMode ? '✨ ¿Qué necesitas hacer hoy?' : '¿Qué necesitas hacer?'}</span>
             </button>
           </div>
           

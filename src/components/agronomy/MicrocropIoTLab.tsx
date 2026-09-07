@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import styles from './MicrocropIoTLab.module.css';
+import SoilMoistureCard from '@/components/iot/SoilMoistureCard';
+import { SoilTextureType } from '@/lib/agronomy/pedotransferEngine';
 import { 
   Radio, 
   Droplets, 
@@ -88,6 +90,7 @@ export default function MicrocropIoTLab() {
   const [adcAir, setAdcAir] = useState<number>(3200);
   const [adcWater, setAdcWater] = useState<number>(1350);
   const [adcCurrent, setAdcCurrent] = useState<number>(2650);
+  const [calibTexture, setCalibTexture] = useState<SoilTextureType>('arcilloso');
 
   // Estado de Transmisión E2E hacia FastAPI
   const [isTransmitting, setIsTransmitting] = useState<boolean>(false);
@@ -838,64 +841,79 @@ void loop() {
         </div>
       )}
 
-      {/* PESTAÑA 5: MINI-CALCULADORA DE CALIBRACIÓN ADC */}
+      {/* PESTAÑA 5: CALCULADORA DE CALIBRACIÓN ADC & EDAFOLOGÍA SAXTON-RAWLS */}
       {activeTab === 'CALIBRATION' && (
-        <div className={styles.guideCard}>
-          <h3 style={{ margin: 0, color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Sliders size={22} color="#38bdf8" /> Calculadora de Calibración de Sensor Capacitivo
-          </h3>
-          <p style={{ margin: '4px 0 1rem 0', fontSize: '0.88rem', color: '#94a3b8' }}>
-            El conversor analógico-digital (ADC) de 12 bits del ESP32 entrega valores de 0 a 4095. Para calibrar tu sonda en campo:
-          </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <div className={styles.guideCard}>
+            <h3 style={{ margin: 0, color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Sliders size={22} color="#38bdf8" /> Calculadora de Calibración de Sensor Capacitivo (ESP32)
+            </h3>
+            <p style={{ margin: '4px 0 1rem 0', fontSize: '0.88rem', color: '#94a3b8' }}>
+              El conversor analógico-digital (ADC) de 12 bits del ESP32 entrega valores de 0 a 4095. Para calibrar tu sonda en campo:
+            </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.25rem' }}>
-            <div>
-              <label style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'block', marginBottom: '4px' }}>
-                1. Valor ADC en Aire Seco (0% Humedad):
-              </label>
-              <input
-                type="number"
-                value={adcAir}
-                onChange={(e) => setAdcAir(parseInt(e.target.value) || 3200)}
-                style={{ width: '100%', background: '#1e293b', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '8px 12px', borderRadius: '8px' }}
-              />
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.25rem' }}>
+              <div>
+                <label style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'block', marginBottom: '4px' }}>
+                  1. Valor ADC en Aire Seco (0% Humedad):
+                </label>
+                <input
+                  type="number"
+                  value={adcAir}
+                  onChange={(e) => setAdcAir(parseInt(e.target.value) || 3200)}
+                  style={{ width: '100%', background: '#1e293b', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '8px 12px', borderRadius: '8px' }}
+                />
+              </div>
+
+              <div>
+                <label style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'block', marginBottom: '4px' }}>
+                  2. Valor ADC en Agua / Saturado (100% Humedad):
+                </label>
+                <input
+                  type="number"
+                  value={adcWater}
+                  onChange={(e) => setAdcWater(parseInt(e.target.value) || 1350)}
+                  style={{ width: '100%', background: '#1e293b', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '8px 12px', borderRadius: '8px' }}
+                />
+              </div>
+
+              <div>
+                <label style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'block', marginBottom: '4px' }}>
+                  3. Valor ADC Actual Leído por el ESP32:
+                </label>
+                <input
+                  type="number"
+                  value={adcCurrent}
+                  onChange={(e) => setAdcCurrent(parseInt(e.target.value) || 2600)}
+                  style={{ width: '100%', background: '#1e293b', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '8px 12px', borderRadius: '8px' }}
+                />
+              </div>
             </div>
 
-            <div>
-              <label style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'block', marginBottom: '4px' }}>
-                2. Valor ADC en Agua / Saturado (100% Humedad):
-              </label>
-              <input
-                type="number"
-                value={adcWater}
-                onChange={(e) => setAdcWater(parseInt(e.target.value) || 1350)}
-                style={{ width: '100%', background: '#1e293b', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '8px 12px', borderRadius: '8px' }}
-              />
-            </div>
-
-            <div>
-              <label style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'block', marginBottom: '4px' }}>
-                3. Valor ADC Actual Leído por el ESP32:
-              </label>
-              <input
-                type="number"
-                value={adcCurrent}
-                onChange={(e) => setAdcCurrent(parseInt(e.target.value) || 2600)}
-                style={{ width: '100%', background: '#1e293b', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '8px 12px', borderRadius: '8px' }}
-              />
+            <div style={{ marginTop: '1.5rem', background: 'rgba(56, 189, 248, 0.1)', border: '1px solid #38bdf8', padding: '1.25rem', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
+              <div>
+                <div style={{ fontSize: '0.85rem', color: '#94a3b8' }}>Humedad Volumétrica Resultante (VWC):</div>
+                <div style={{ fontSize: '2rem', fontWeight: 800, color: '#38bdf8' }}>{calculatedVWC}% VWC</div>
+              </div>
+              <div style={{ fontSize: '0.8rem', color: '#cbd5e1', maxWidth: '400px' }}>
+                Fórmula de mapeo inverso: <br />
+                <code style={{ color: '#4ade80' }}>VWC = ((ADC_Aire - ADC_Actual) / (ADC_Aire - ADC_Agua)) * 100</code>
+              </div>
             </div>
           </div>
 
-          <div style={{ marginTop: '1.5rem', background: 'rgba(56, 189, 248, 0.1)', border: '1px solid #38bdf8', padding: '1.25rem', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
-            <div>
-              <div style={{ fontSize: '0.85rem', color: '#94a3b8' }}>Humedad Volumétrica Resultante (VWC):</div>
-              <div style={{ fontSize: '2rem', fontWeight: 800, color: '#38bdf8' }}>{calculatedVWC}% VWC</div>
-            </div>
-            <div style={{ fontSize: '0.8rem', color: '#cbd5e1', maxWidth: '400px' }}>
-              Fórmula de mapeo inverso: <br />
-              <code style={{ color: '#4ade80' }}>VWC = ((ADC_Aire - ADC_Actual) / (ADC_Aire - ADC_Agua)) * 100</code>
-            </div>
-          </div>
+          {/* Calibración Dinámica Edafológica Saxton-Rawls & Potencial Mátrico */}
+          <SoilMoistureCard
+            moisturePct={calculatedVWC}
+            texture={calibTexture}
+            onTextureChange={setCalibTexture}
+            isInteractive={true}
+            onMoistureChange={(m) => {
+              const newAdc = Math.round(adcAir - (m / 100) * (adcAir - adcWater));
+              setAdcCurrent(Math.max(adcWater, Math.min(adcAir, newAdc)));
+            }}
+            cropName="Laboratorio de Calibración de Suelo & Potencial Mátrico (Saxton-Rawls)"
+          />
         </div>
       )}
     </div>

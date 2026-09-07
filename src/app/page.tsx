@@ -26,12 +26,14 @@ import {
   HelpCircle,
   ExternalLink,
   ChevronRight,
+  ChevronDown,
   Gauge,
   Activity
 } from 'lucide-react';
 
 export default function Home() {
   const [activeDemo, setActiveDemo] = useState<'turen' | 'sur_lago' | 'merida' | 'amazonas'>('turen');
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   const DEMOS = {
     turen: {
@@ -101,30 +103,106 @@ export default function Home() {
             <Link href="/dashboard" className={styles.navLink}>
               Dashboard
             </Link>
-            <Link href="/dashboard/mapa" className={styles.navLink}>
-              🗺️ WebGIS 3 Niveles
-            </Link>
-            <Link href="/dashboard/tierras" className={styles.navLink}>
-              🚜 Mis Tierras & IoT
-            </Link>
-            <Link href="/dashboard/bitacora" className={styles.navLink}>
-              📔 Cuaderno Campo
-            </Link>
-            <Link href="/dashboard/recomendaciones" className={styles.navLink}>
-              🧪 Prescripción IA
-            </Link>
-            <Link href="/dashboard/iot" className={styles.navLink} style={{ color: '#38bdf8' }}>
-              🔬 Lab IoT
-            </Link>
-            <Link href="/dashboard/estadisticas" className={styles.navLink}>
-              📊 Geoestadísticas
-            </Link>
-            <Link href="/dashboard/postulacion" className={styles.navLink} style={{ color: '#4ade80', fontWeight: 700 }}>
-              🏛️ Postulación TRL 6
-            </Link>
-            <Link href="/api-docs" className={styles.navLink}>
-              <FileCode2 size={16} /> API Docs
-            </Link>
+
+            {/* Menú Desplegable 1: Módulos de Campo */}
+            <div 
+              className={styles.navDropdown}
+              onMouseEnter={() => setOpenDropdown('campo')}
+              onMouseLeave={() => setOpenDropdown(null)}
+            >
+              <button 
+                type="button"
+                className={`${styles.dropdownToggle} ${openDropdown === 'campo' ? styles.dropdownToggleActive : ''}`}
+                onClick={() => setOpenDropdown(prev => prev === 'campo' ? null : 'campo')}
+                aria-expanded={openDropdown === 'campo'}
+              >
+                <span>🌾 Módulos de Campo</span>
+                <ChevronDown size={14} style={{ transform: openDropdown === 'campo' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+              </button>
+              {openDropdown === 'campo' && (
+                <div className={styles.dropdownMenu}>
+                  <Link href="/dashboard/mapa" className={styles.dropdownItem} onClick={() => setOpenDropdown(null)}>
+                    <span>🗺️</span> WebGIS 3 Niveles
+                  </Link>
+                  <Link href="/dashboard/tierras" className={styles.dropdownItem} onClick={() => setOpenDropdown(null)}>
+                    <span>🚜</span> Mis Fincas & Lotes
+                  </Link>
+                  <Link href="/dashboard/bitacora" className={styles.dropdownItem} onClick={() => setOpenDropdown(null)}>
+                    <span>📔</span> Cuaderno de Campo
+                  </Link>
+                  <Link href="/dashboard/recomendaciones" className={styles.dropdownItem} onClick={() => setOpenDropdown(null)}>
+                    <span>🧪</span> Prescripción IA
+                  </Link>
+                  <Link href="/dashboard/iot" className={styles.dropdownItem} onClick={() => setOpenDropdown(null)}>
+                    <span>🔬</span> Laboratorio IoT
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Menú Desplegable 2: Ciencia & Datos */}
+            <div 
+              className={styles.navDropdown}
+              onMouseEnter={() => setOpenDropdown('ciencia')}
+              onMouseLeave={() => setOpenDropdown(null)}
+            >
+              <button 
+                type="button"
+                className={`${styles.dropdownToggle} ${openDropdown === 'ciencia' ? styles.dropdownToggleActive : ''}`}
+                onClick={() => setOpenDropdown(prev => prev === 'ciencia' ? null : 'ciencia')}
+                aria-expanded={openDropdown === 'ciencia'}
+              >
+                <span>🔬 Ciencia & Datos</span>
+                <ChevronDown size={14} style={{ transform: openDropdown === 'ciencia' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+              </button>
+              {openDropdown === 'ciencia' && (
+                <div className={styles.dropdownMenu}>
+                  <Link href="/dashboard/estadisticas" className={styles.dropdownItem} onClick={() => setOpenDropdown(null)}>
+                    <span>📊</span> Geoestadísticas
+                  </Link>
+                  <Link href="/dashboard/mapa" className={styles.dropdownItem} onClick={() => setOpenDropdown(null)}>
+                    <span>🛰️</span> Radar SAR Sentinel-1
+                  </Link>
+                  <Link href="/dashboard/suelos" className={styles.dropdownItem} onClick={() => setOpenDropdown(null)}>
+                    <span>🌱</span> Suelos & Carbono SOC
+                  </Link>
+                  <Link href="/api-docs" className={styles.dropdownItem} onClick={() => setOpenDropdown(null)}>
+                    <FileCode2 size={14} /> OpenAPI / Swagger
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Menú Desplegable 3: Postulación TRL 6 */}
+            <div 
+              className={styles.navDropdown}
+              onMouseEnter={() => setOpenDropdown('postulacion')}
+              onMouseLeave={() => setOpenDropdown(null)}
+            >
+              <button 
+                type="button"
+                className={`${styles.dropdownToggle} ${openDropdown === 'postulacion' ? styles.dropdownToggleActive : ''}`}
+                onClick={() => setOpenDropdown(prev => prev === 'postulacion' ? null : 'postulacion')}
+                aria-expanded={openDropdown === 'postulacion'}
+                style={{ color: '#4ade80' }}
+              >
+                <span>🏛️ Postulación TRL 6</span>
+                <ChevronDown size={14} style={{ transform: openDropdown === 'postulacion' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+              </button>
+              {openDropdown === 'postulacion' && (
+                <div className={styles.dropdownMenu}>
+                  <Link href="/dashboard/postulacion" className={styles.dropdownItem} onClick={() => setOpenDropdown(null)}>
+                    <span>📋</span> Ficha Técnica FONACIT
+                  </Link>
+                  <Link href="/dashboard/arquitectura" className={styles.dropdownItem} onClick={() => setOpenDropdown(null)}>
+                    <span>📐</span> Arquitectura E2E
+                  </Link>
+                  <Link href="/dashboard" className={styles.dropdownItem} onClick={() => setOpenDropdown(null)}>
+                    <span>🎓</span> Tour Demostrativo
+                  </Link>
+                </div>
+              )}
+            </div>
           </nav>
 
           <div className={styles.navActions}>

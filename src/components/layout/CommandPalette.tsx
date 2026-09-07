@@ -14,6 +14,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { VENEZUELA_STATES_DATA } from '@/lib/geo/venezuelaData';
+import { useUIMode } from '@/lib/context/UIModeContext';
 import { 
   Search, 
   MapPin, 
@@ -39,6 +40,7 @@ interface PaletteItem {
 }
 
 export default function CommandPalette() {
+  const { isFarmerMode } = useUIMode();
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -141,30 +143,32 @@ export default function CommandPalette() {
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
-          background: 'rgba(30, 41, 59, 0.7)',
-          border: '1px solid rgba(255, 255, 255, 0.12)',
+          background: isFarmerMode ? 'rgba(34, 197, 94, 0.12)' : 'rgba(30, 41, 59, 0.7)',
+          border: isFarmerMode ? '1px solid rgba(74, 222, 128, 0.35)' : '1px solid rgba(255, 255, 255, 0.12)',
           borderRadius: '8px',
           padding: '6px 12px',
-          color: '#94a3b8',
+          color: isFarmerMode ? '#86efac' : '#94a3b8',
           fontSize: '0.82rem',
           cursor: 'pointer',
           transition: 'all 0.2s',
         }}
-        title="Buscar estados, cultivos o herramientas (Ctrl + K)"
+        title={isFarmerMode ? "Buscar en mi finca o estado" : "Buscar estados, cultivos o herramientas (Ctrl + K)"}
       >
-        <Search size={14} color="#38bdf8" />
-        <span style={{ display: 'inline-block' }}>Buscar en Agrotech...</span>
-        <kbd style={{
-          background: 'rgba(15, 23, 42, 0.8)',
-          border: '1px solid rgba(255, 255, 255, 0.15)',
-          borderRadius: '4px',
-          padding: '1px 5px',
-          fontSize: '0.68rem',
-          color: '#cbd5e1',
-          marginLeft: '4px'
-        }}>
-          Ctrl K
-        </kbd>
+        <Search size={14} color={isFarmerMode ? "#4ade80" : "#38bdf8"} />
+        <span style={{ display: 'inline-block' }}>{isFarmerMode ? '🌾 Buscar en mi finca...' : 'Buscar en Agrotech...'}</span>
+        {!isFarmerMode && (
+          <kbd style={{
+            background: 'rgba(15, 23, 42, 0.8)',
+            border: '1px solid rgba(255, 255, 255, 0.15)',
+            borderRadius: '4px',
+            padding: '1px 5px',
+            fontSize: '0.68rem',
+            color: '#cbd5e1',
+            marginLeft: '4px'
+          }}>
+            Ctrl K
+          </kbd>
+        )}
       </button>
 
       {/* Modal Backdrop y Omnibox */}
@@ -221,7 +225,7 @@ export default function CommandPalette() {
                   setSelectedIndex(0);
                 }}
                 onKeyDown={handleKeyDownList}
-                placeholder="Escribe un estado (Portuguesa, Zulia...), cultivo o herramienta..."
+                placeholder={isFarmerMode ? "Escribe qué buscas (maíz, suelo en Portuguesa, lluvia...)" : "Escribe un estado (Portuguesa, Zulia...), cultivo o herramienta..."}
                 style={{
                   flex: 1,
                   background: 'transparent',

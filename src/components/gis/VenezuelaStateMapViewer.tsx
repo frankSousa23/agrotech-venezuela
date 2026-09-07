@@ -97,6 +97,40 @@ export default function VenezuelaStateMapViewer({
     return { label: 'Alcalino / Calcáreo', color: '#0284c7', bg: 'rgba(2, 132, 199, 0.15)' };
   }, [selectedState.averagePh]);
 
+  // Alertas Agronómicas Dinámicas Regionales
+  const agronomicAlerts = useMemo(() => {
+    const alerts: { icon: string; text: string; bg: string; border: string; color: string }[] = [];
+    if (selectedState.averagePh < 5.5) {
+      alerts.push({
+        icon: '⚠️',
+        text: 'Acidez Alta: Encalado Kamprath Requerido (Cal Dolomítica)',
+        bg: 'rgba(239, 68, 68, 0.12)',
+        border: '1px solid rgba(239, 68, 68, 0.35)',
+        color: '#f87171'
+      });
+    } else if (selectedState.averagePh > 7.4) {
+      alerts.push({
+        icon: '🧂',
+        text: 'Suelo Alcalino/Sódico: Enmienda con Yeso Agrícola Recomendada',
+        bg: 'rgba(234, 179, 8, 0.12)',
+        border: '1px solid rgba(234, 179, 8, 0.35)',
+        color: '#facc15'
+      });
+    }
+
+    if (selectedState.annualRainfallMm > 1800) {
+      alerts.push({
+        icon: '🌧️',
+        text: 'Alerta SAR: Monitoreo de Saturación Hídrica y Drenaje',
+        bg: 'rgba(56, 189, 248, 0.12)',
+        border: '1px solid rgba(56, 189, 248, 0.35)',
+        color: '#38bdf8'
+      });
+    }
+
+    return alerts;
+  }, [selectedState.averagePh, selectedState.annualRainfallMm]);
+
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(true);
   const cover = selectedState.mapbiomasCoverPercentage || { agriculture: 30, pasture: 25, forest: 40, water: 5 };
 
@@ -393,27 +427,59 @@ export default function VenezuelaStateMapViewer({
             </div>
           </div>
 
-            <a
-              href={`/dashboard/recomendaciones?state=${selectedState.id}&ph=${selectedState.averagePh}`}
-              style={{
-                marginTop: 'auto',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '6px',
-                background: '#16a34a',
-                color: '#fff',
-                textDecoration: 'none',
-                padding: '10px',
-                borderRadius: '8px',
-                fontWeight: 700,
-                fontSize: '0.82rem',
-                transition: 'background 0.2s',
-                textAlign: 'center'
-              }}
-            >
-              <Sparkles size={16} /> Evaluar con Simulador IA <ArrowRight size={14} />
-            </a>
+            {/* Alertas Agronómicas Dinámicas Regionales */}
+            {agronomicAlerts.length > 0 && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <div style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#94a3b8' }}>
+                  Alertas Edafo-Climáticas:
+                </div>
+                {agronomicAlerts.map((alert, idx) => (
+                  <div 
+                    key={idx}
+                    style={{
+                      background: alert.bg,
+                      border: alert.border,
+                      color: alert.color,
+                      padding: '6px 10px',
+                      borderRadius: '8px',
+                      fontSize: '0.74rem',
+                      fontWeight: 600,
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      lineHeight: '1.3'
+                    }}
+                  >
+                    <span>{alert.icon}</span>
+                    <span>{alert.text}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: 'auto' }}>
+              <a
+                href={`/dashboard/recomendaciones?state=${selectedState.id}&ph=${selectedState.averagePh}`}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '6px',
+                  background: 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)',
+                  color: '#fff',
+                  textDecoration: 'none',
+                  padding: '9px 12px',
+                  borderRadius: '8px',
+                  fontWeight: 700,
+                  fontSize: '0.82rem',
+                  boxShadow: '0 4px 12px rgba(22, 163, 74, 0.25)',
+                  transition: 'all 0.2s',
+                  textAlign: 'center'
+                }}
+              >
+                <Sparkles size={16} /> Generar Prescripción VRA <ArrowRight size={14} />
+              </a>
+            </div>
           </>
         )}
         </div>
