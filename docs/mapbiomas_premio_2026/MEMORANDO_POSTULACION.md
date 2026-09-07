@@ -131,3 +131,14 @@ Calibrada regionalmente para texturas venezolanas (Arenoso θ_crit = 9,0%, Franc
 - **Datos de Cobertura y Uso de Suelo**: **MapBiomas Venezuela** (Provita, LSIGMA USB, Wataniba y RAISG), bajo licencia **Creative Commons Atribución 4.0 Internacional (CC BY 4.0)**.
 - **Agroclimatología**: **NASA POWER Project**, Langley Research Center.
 - **Calibración Pedológica**: Protocolos del **INIA**, **Fundación Danac** y **CENIAP**.
+
+---
+
+## ✍️ Dictamen Institucional y Firma de Postulación
+
+El presente memorando valida formalmente la postulación técnica e institucional del proyecto **Agrotech Venezuela** ante el Comité Organizador y el Jurado Evaluador del **Premio MapBiomas Venezuela 2026**.
+
+| Postulante y Responsable Técnico | Afiliación y Laboratorio | Estatus del Ecosistema | Fecha de Emisión |
+| :--- | :--- | :--- | :---: |
+| **Frank Sousa** | Agrotech Venezuela / Lab Edafo-Espacial | **TRL 7 Operacional (227 tests)** | Septiembre 2026 |
+

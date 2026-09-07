@@ -73,6 +73,44 @@ async function compileAll() {
   console.log(`📁 Directorio destino principal: ${PUBLIC_DOCS}`);
   console.log(`📁 Directorio destino expediente: ${EXPEDIENTE_DOCS}\n`);
 
+  // Asegurar que las figuras Plotly HTML estén convertidas a PNG en alta resolución
+  try {
+    let puppeteer;
+    try {
+      puppeteer = require('puppeteer');
+    } catch {
+      puppeteer = require('C:/Users/Windows/AppData/Local/npm-cache/_npx/55158e48eb5c59f7/node_modules/puppeteer');
+    }
+
+    const browser = await puppeteer.launch({ headless: 'new', args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+    const page = await browser.newPage();
+    await page.setViewport({ width: 900, height: 420, deviceScaleFactor: 2 });
+
+    const figures = [
+      { html: path.join(EXPEDIENTE_DOCS, 'figures', 'figura1_transicion_mapbiomas.html'), png: 'figura1_transicion_mapbiomas.png' },
+      { html: path.join(EXPEDIENTE_DOCS, 'figures', 'figura2_optimizacion_rendimientos.html'), png: 'figura2_optimizacion_rendimientos.png' }
+    ];
+
+    const publicFiguresDir = path.join(PUBLIC_DOCS, 'figures');
+    const expFiguresDir = path.join(EXPEDIENTE_DOCS, 'figures');
+    if (!fs.existsSync(publicFiguresDir)) fs.mkdirSync(publicFiguresDir, { recursive: true });
+    if (!fs.existsSync(expFiguresDir)) fs.mkdirSync(expFiguresDir, { recursive: true });
+
+    for (const fig of figures) {
+      if (fs.existsSync(fig.html)) {
+        const destExp = path.join(expFiguresDir, fig.png);
+        const destPub = path.join(publicFiguresDir, fig.png);
+        await page.goto('file:///' + fig.html.replace(/\\/g, '/'), { waitUntil: 'networkidle0' });
+        await page.screenshot({ path: destExp, type: 'png' });
+        fs.copyFileSync(destExp, destPub);
+        console.log(`📸 Figura renderizada a PNG: ${fig.png}`);
+      }
+    }
+    await browser.close();
+  } catch (figErr) {
+    console.warn('Advertencia al renderizar figuras Plotly:', figErr.message);
+  }
+
   for (const doc of DOCUMENTS_TO_COMPILE) {
     if (!fs.existsSync(doc.source)) {
       console.warn(`⚠️ Archivo de origen no encontrado: ${doc.source}. Saltando...`);
@@ -83,7 +121,7 @@ async function compileAll() {
 
     const docConfig = JSON.parse(JSON.stringify(baseConfig));
     if (doc.headerTitle && docConfig.pdf_options) {
-      docConfig.pdf_options.headerTemplate = `<div style='font-size: 7.5pt; font-family: sans-serif; width: 100%; text-align: right; padding-right: 18mm; color: #64748b;'>${doc.headerTitle}</div>`;
+      docConfig.pdf_options.headerTemplate = `<div style='font-size: 7.5pt; font-family: sans-serif; width: 100%; text-align: right; padding-right: 15mm; color: #64748b;'>${doc.headerTitle}</div>`;
     }
 
     try {

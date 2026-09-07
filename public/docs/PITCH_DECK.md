@@ -23,7 +23,7 @@ El valor fundamental de Agrotech Venezuela se mide en el balance financiero del 
 | **Retorno de Inversión (ROI)** | Incierto por manejo a ciegas | **3.8x en el primer ciclo productivo** | Cada dólar invertido en encalado retorna \$3.80 |
 | **Ingreso por Créditos de Carbono** | Inaccesible para predios < 500 ha (auditoría Verra > \$45k) | **Carbon Pooling Agrupado** (\$18.5/tCO₂e) | **+\$1,400 a \$3,200 USD/año** de ingreso neto rural |
 
----
+<div style="page-break-before: always; break-before: always;"></div>
 
 ## 📈 2. Modelo de Negocio Escalable y Estrategia de Monetización
 
@@ -103,8 +103,30 @@ Agrotech Venezuela **elimina la fricción de entrada manual**: al marcar un terr
 
 ## 🛠️ Apéndice Técnico: Arquitectura y Factibilidad TRL 7
 
-- **Frontend WebGIS**: Next.js 16 (App Router, Turbopack, 30 rutas de producción), React 19, Leaflet Nativo puro, PWA offline con resolución determinista de conflictos.
+- **Frontend WebGIS**: Next.js 16 (App Router, Turbopack, 30 rutas de producción), React 19, Leaflet Nativo puro, PWA offline con resolución determinista de conflictos en `/api/parcels/conflicts`.
 - **Dual-Mode UI & QoS**: Modo Productor Fácil (4 Puertas táctiles, dictado por voz) y Protocolo QoS que bloquea mapas pesados en señales 2G/EDGE priorizando notas de bitácora (< 10 KB).
-- **Backend Espacial**: Python 3.13, FastAPI, Scikit-Learn, NumPy, SQLite en modo WAL con hash geodésico a 4 decimales (< 5ms).
+- **Backend Espacial**: Python 3.13, FastAPI con OpenAPI 3.0, Scikit-Learn, NumPy, SQLite en modo WAL con hash geodésico a 4 decimales (< 5ms).
 - **Validación Automatizada**: **227 pruebas automatizadas pasando (173 Jest + 54 Pytest, 100% aprobadas)**, 0 errores TypeScript, auditorías responsive 320px–4K.
 - **Propiedad Intelectual**: Código bajo Licencia MIT (Copyright 2026 Frank Sousa). Datos satelitales bajo Creative Commons CC BY 4.0.
+
+| Dimensión Técnica | Métrica Comprobable | Estándar de Implementación |
+| :--- | :--- | :--- |
+| **Arquitectura WebGIS** | 30 rutas compiladas en producción | Next.js 16 App Router + Leaflet puro (`useRef`) |
+| **Backend Espacial & APIs** | OpenAPI 3.0 / Latencia < 25 ms | FastAPI + Python 3.13 + SQLite WAL |
+| **Suite de Calidad** | 227 tests automatizados (100%) | 173 Jest (Frontend) + 54 Pytest (Backend) |
+| **Teledetección Multi-Sensor**| Óptico 10m + Radar SAR Banda C | Sentinel-2 L2A + Sentinel-1 dual VV/VH |
+| **IA Agroclimática** | Vocabulario dual (Campesino / Técnico) | Google Gemini 2.5 Flash + motor heurístico |
+
+<p class="caption"><strong>Tabla: Parámetros técnicos del Gemelo Digital en TRL 7</strong> — <em>Certificación de robustez del software y de la arquitectura de microservicios para la evaluación del jurado de MapBiomas 2026.</em></p>
+
+---
+
+## 🚀 Llamado a la Acción y Alianzas Estratégicas
+
+Agrotech Venezuela convoca alianzas con la Red MapBiomas, asociaciones de productores agrícolas (Fedeagro, Fedenaga), gremios cooperativos y fondos multilaterales de financiamiento climático para escalar la plataforma a 100.000 hectáreas en los Llanos y cuenca del Lago de Maracaibo en los próximos 18 meses.
+
+| Contacto de Alianzas e Inversión | Rol Institucional | Convocatoria Oficial |
+| :--- | :--- | :---: |
+| **Frank Sousa** (`franksousa@agrotech.ve`) | Fundador & Desarrollador Principal | **Premio MapBiomas Venezuela 2026** |
+
+
