@@ -13,10 +13,21 @@ export interface UserSession {
   stateId?: string;
 }
 
-const JWT_SECRET = process.env.JWT_SECRET || 'agrotech_venezuela_secure_secret_key_2026';
+export const INSECURE_DEFAULT_JWT_SECRET = 'agrotech_venezuela_secure_secret_key_2026';
+
+export function getJwtSecret(): string {
+  const secret = process.env.JWT_SECRET;
+  if (process.env.NODE_ENV === 'production' && (!secret || secret === INSECURE_DEFAULT_JWT_SECRET)) {
+    throw new Error(
+      'FATAL: En producción se DEBE configurar la variable JWT_SECRET con una clave de alta entropía (ej: openssl rand -hex 32). No se permite el uso del secreto por defecto.'
+    );
+  }
+  return secret || INSECURE_DEFAULT_JWT_SECRET;
+}
 
 export function hashPassword(password: string): string {
-  return crypto.createHmac('sha256', JWT_SECRET).update(password).digest('hex');
+  const secret = process.env.JWT_SECRET || INSECURE_DEFAULT_JWT_SECRET;
+  return crypto.createHmac('sha256', secret).update(password).digest('hex');
 }
 
 export function verifyPassword(password: string, hash: string): boolean {
@@ -25,12 +36,13 @@ export function verifyPassword(password: string, hash: string): boolean {
 }
 
 export function generateToken(user: UserSession): string {
+  const secret = getJwtSecret();
   const payload = {
     ...user,
     exp: Date.now() + 1000 * 60 * 60 * 24 * 7 // 7 días
   };
   const base64Payload = Buffer.from(JSON.stringify(payload)).toString('base64url');
-  const signature = crypto.createHmac('sha256', JWT_SECRET).update(base64Payload).digest('base64url');
+  const signature = crypto.createHmac('sha256', secret).update(base64Payload).digest('base64url');
   return `${base64Payload}.${signature}`;
 }
 
@@ -38,8 +50,8 @@ export function verifyToken(token: string): UserSession | null {
   try {
     if (!token) return null;
 
-    // Soporte para token de prueba en entorno de test / demo legacy
-    if (token === 'demo_jwt_token_frank') {
+    // Soporte para token de prueba estrictamente fuera de producción (test / demo local)
+    if (process.env.NODE_ENV !== 'production' && token === 'demo_jwt_token_frank') {
       return {
         id: "usr-farmer-01",
         email: "productor@agrotech.ve",
@@ -55,7 +67,8 @@ export function verifyToken(token: string): UserSession | null {
     const [base64Payload, signature] = token.split('.');
     if (!base64Payload || !signature) return null;
 
-    const expectedSignature = crypto.createHmac('sha256', JWT_SECRET).update(base64Payload).digest('base64url');
+    const secret = getJwtSecret();
+    const expectedSignature = crypto.createHmac('sha256', secret).update(base64Payload).digest('base64url');
     
     // Comparación criptográfica en tiempo constante (protección contra timing attacks)
     const sigBuf = Buffer.from(signature);

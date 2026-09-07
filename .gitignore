@@ -10,10 +10,24 @@ build/
 .swc/
 
 # Variables de entorno y secretos
-.env
-.env*.local
+.env*
 !.env.example
 !.env.production.example
+
+# Claves criptográficas, certificados y credenciales
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+*.id_rsa
+credentials.json
+service-account*.json
+
+# Gestores de paquetes con posibles tokens
+.pypirc
+.npmrc
+pip.conf
 
 # Logs, debug y reportes
 npm-debug.log*

@@ -11,6 +11,20 @@ env:
   NEXT_TELEMETRY_DISABLED: "1"
 
 jobs:
+  security-audit:
+    name: DevSecOps Secret Scanning (Gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Gitleaks Secret Scanner
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   test-nextjs:
     name: Next.js 16 WebGIS & API Tests
     runs-on: ubuntu-latest

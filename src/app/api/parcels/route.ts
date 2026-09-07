@@ -206,6 +206,10 @@ export function getOrCreateGuestParcels(guestId: string): InMemParcel[] {
 export async function GET(req: Request) {
   try {
     const session = extractUserFromRequest(req);
+    if (process.env.NODE_ENV === 'production' && !session) {
+      return NextResponse.json({ error: 'No autorizado. Se requiere token de sesión en producción.' }, { status: 401 });
+    }
+
     const { searchParams } = new URL(req.url);
     const requestedUserId = session ? session.id : (searchParams.get('userId') || 'usr-farmer-01');
     const isGuest = session 
@@ -229,6 +233,10 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const session = extractUserFromRequest(req);
+    if (process.env.NODE_ENV === 'production' && !session) {
+      return NextResponse.json({ error: 'No autorizado. Se requiere token de sesión en producción.' }, { status: 401 });
+    }
+
     const body = await req.json();
     const {
       id,
@@ -365,6 +373,10 @@ export async function POST(req: Request) {
 export async function DELETE(req: Request) {
   try {
     const session = extractUserFromRequest(req);
+    if (process.env.NODE_ENV === 'production' && !session) {
+      return NextResponse.json({ error: 'No autorizado. Se requiere token de sesión en producción.' }, { status: 401 });
+    }
+
     const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
     if (!id) {

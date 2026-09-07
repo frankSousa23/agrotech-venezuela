@@ -173,4 +173,41 @@ describe('Security Hardening, Guest Sandbox Isolation & Award Dossier Suite', ()
       });
     });
   });
+
+  describe('4. Production Environment Access Guard (/api/parcels)', () => {
+    const originalEnv = process.env.NODE_ENV;
+
+    afterEach(() => {
+      (process.env as any).NODE_ENV = originalEnv;
+    });
+
+    it('debe rechazar GET /api/parcels sin autenticación en producción con código 401', async () => {
+      (process.env as any).NODE_ENV = 'production';
+      const req = new Request('http://localhost:3000/api/parcels');
+      const res = await parcelsGet(req);
+      expect(res.status).toBe(401);
+      const data = await res.json();
+      expect(data.error).toContain('No autorizado');
+    });
+
+    it('debe rechazar POST /api/parcels sin autenticación en producción con código 401', async () => {
+      (process.env as any).NODE_ENV = 'production';
+      const req = new Request('http://localhost:3000/api/parcels', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: 'Parcela Intruso' })
+      });
+      const res = await parcelsPost(req);
+      expect(res.status).toBe(401);
+    });
+
+    it('debe permitir GET /api/parcels sin token en desarrollo/test como fallback demostrativo', async () => {
+      (process.env as any).NODE_ENV = 'test';
+      const req = new Request('http://localhost:3000/api/parcels');
+      const res = await parcelsGet(req);
+      expect(res.status).toBe(200);
+      const parcels = await res.json();
+      expect(Array.isArray(parcels)).toBe(true);
+    });
+  });
 });

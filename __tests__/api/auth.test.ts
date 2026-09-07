@@ -94,4 +94,57 @@ describe('Auth Cryptographic & Session Suite', () => {
       }
     });
   });
+
+  describe('Hardening de Entorno y Producción', () => {
+    const originalEnv = process.env.NODE_ENV;
+    const originalSecret = process.env.JWT_SECRET;
+
+    afterEach(() => {
+      (process.env as any).NODE_ENV = originalEnv;
+      process.env.JWT_SECRET = originalSecret;
+    });
+
+    it('debe rechazar la generación de tokens en producción si no hay JWT_SECRET seguro configurado', () => {
+      (process.env as any).NODE_ENV = 'production';
+      delete process.env.JWT_SECRET;
+
+      expect(() => {
+        generateToken({
+          id: 'usr-test',
+          email: 'test@agrotech.ve',
+          name: 'Test',
+          role: 'FARMER',
+          status: 'APPROVED'
+        });
+      }).toThrow(/FATAL: En producción se DEBE configurar la variable JWT_SECRET/);
+    });
+
+    it('debe permitir generación y verificación en producción cuando existe un JWT_SECRET explícito', () => {
+      (process.env as any).NODE_ENV = 'production';
+      process.env.JWT_SECRET = 'clave_produccion_ultra_segura_de_alta_entropia_2026';
+
+      const token = generateToken({
+        id: 'usr-prod',
+        email: 'prod@agrotech.ve',
+        name: 'Productor Prod',
+        role: 'FARMER',
+        status: 'APPROVED'
+      });
+
+      const verified = verifyToken(token);
+      expect(verified?.id).toBe('usr-prod');
+    });
+
+    it('debe aislar el token demo (demo_jwt_token_frank) para que sea rechazado en producción', () => {
+      // En entorno de test (actual), debe ser válido
+      const testVerified = verifyToken('demo_jwt_token_frank');
+      expect(testVerified?.id).toBe('usr-farmer-01');
+
+      // En producción, debe ser rechazado
+      (process.env as any).NODE_ENV = 'production';
+      process.env.JWT_SECRET = 'clave_produccion_ultra_segura_de_alta_entropia_2026';
+      const prodVerified = verifyToken('demo_jwt_token_frank');
+      expect(prodVerified).toBeNull();
+    });
+  });
 });
