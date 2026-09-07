@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import { hashPassword, verifyPassword, generateToken, verifyToken, DEMO_USERS } from '@/lib/auth/authUtils';
 
 describe('Auth Cryptographic & Session Suite', () => {
@@ -121,7 +122,7 @@ describe('Auth Cryptographic & Session Suite', () => {
 
     it('debe permitir generación y verificación en producción cuando existe un JWT_SECRET explícito', () => {
       (process.env as any).NODE_ENV = 'production';
-      process.env.JWT_SECRET = 'clave_produccion_ultra_segura_de_alta_entropia_2026';
+      process.env.JWT_SECRET = crypto.randomBytes(32).toString('hex');
 
       const token = generateToken({
         id: 'usr-prod',
@@ -142,7 +143,7 @@ describe('Auth Cryptographic & Session Suite', () => {
 
       // En producción, debe ser rechazado
       (process.env as any).NODE_ENV = 'production';
-      process.env.JWT_SECRET = 'clave_produccion_ultra_segura_de_alta_entropia_2026';
+      process.env.JWT_SECRET = crypto.randomBytes(32).toString('hex');
       const prodVerified = verifyToken('demo_jwt_token_frank');
       expect(prodVerified).toBeNull();
     });

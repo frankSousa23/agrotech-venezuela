@@ -1,0 +1,18 @@
+# ==============================================================================
+# GITLEAKS CONFIGURATION — AGROTECH VENEZUELA 🌾🛰️
+# ==============================================================================
+# Configuración oficial para el motor de escaneo de secretos Gitleaks en CI/CD.
+# Hereda las reglas maestras globales y define la lista blanca de rutas de prueba.
+# ==============================================================================
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Permitir suites de pruebas automatizadas y plantillas de ejemplo públicas"
+paths = [
+  '''^__tests__/.*''',
+  '''^backend/tests/.*''',
+  '''^\.env\.example$''',
+  '''^\.env\.production\.example$'''
+]
