@@ -37,6 +37,7 @@
     "test:frontend": "jest",
     "test:backend": "node scripts/run-backend-tests.js",
     "test:all": "jest && node scripts/run-backend-tests.js",
+    "test:summary": "node scripts/test_summary.js",
     "clean": "node -e \"fs.rmSync('.next', { recursive: true, force: true })\"",
     "postinstall": "prisma generate",
     "lint": "eslint"

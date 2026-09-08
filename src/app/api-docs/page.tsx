@@ -35,28 +35,32 @@ export default function ApiDocsPage() {
     {
       title: '🛰️ Módulos Geoespaciales & Satelitales (FastAPI / GEE)',
       endpoints: [
-        { method: 'GET', path: '/api/v1/spatial/venezuela/states', desc: 'Catálogo geoespacial de los 24 estados con centro, bounding box y clima.' },
-        { method: 'POST', path: '/api/v1/spatial/polygon/area', desc: 'Cálculo de área esferoidal Shoelace geodésico proyectado sobre WGS84.' },
-        { method: 'GET', path: '/api/v1/spatial/sar/backscatter', desc: 'Estimación de retrodispersión Banda C (VV/VH en dB) de Sentinel-1 SAR.' },
-        { method: 'POST', path: '/api/v1/gee/timeseries', desc: 'Serie temporal MapBiomas 1985-2024 de transiciones de cobertura vegetal.' },
+        { method: 'GET', path: '/api/v1/spatial/venezuela/states', desc: 'Catálogo geoespacial de los 24 estados con centroide, bounding box y perfil bioclimático.' },
+        { method: 'POST', path: '/api/v1/spatial/polygon/area', desc: 'Cálculo de área esferoidal Shoelace geodésico proyectado sobre el elipsoide WGS84.' },
+        { method: 'GET', path: '/api/v1/spatial/sar/backscatter', desc: 'Estimación de retrodispersión Banda C (VV/VH en dB) de Sentinel-1 SAR all-weather.' },
+        { method: 'POST', path: '/api/v1/gee/timeseries', desc: 'Serie temporal MapBiomas 1985-2024 de transiciones de cobertura y uso del suelo (LULC).' },
       ]
     },
     {
-      title: '🧪 Modelado Agronómico, Fenología & ML',
+      title: '🧪 Modelado Agronómico, Fenología & ML (FastAPI)',
       endpoints: [
-        { method: 'POST', path: '/api/v1/predict/yield', desc: 'Predictor de rendimiento en Ton/ha basado en Scikit-Learn y NASA POWER.' },
-        { method: 'POST', path: '/api/v1/agronomy/gdd', desc: 'Acumulación térmica GDD (base 10°C) y balance hídrico mensual P - ETc.' },
-        { method: 'POST', path: '/api/v1/agronomy/carbon-mrv', desc: 'Cuantificación de stock SOC y secuestro de tCO2e/ha/año (IPCC Tier 2).' },
-        { method: 'POST', path: '/api/v1/gemini/advisor', desc: 'Generador de dictamen técnico estructurado asistido por Gemini AI.' },
+        { method: 'POST', path: '/api/v1/predict/yield', desc: 'Predictor de rendimiento en Ton/ha para 8 cadenas agrícolas (Scikit-Learn y NASA POWER).' },
+        { method: 'POST', path: '/api/v1/agronomy/gdd', desc: 'Acumulación térmica GDD (base 10°C) y balance hídrico diario/mensual P - ETc.' },
+        { method: 'POST', path: '/api/v1/agronomy/carbon-mrv', desc: 'Cuantificación de stock SOC y secuestro de tCO2e/ha/año (IPCC Tier 2 / Verra VCS).' },
+        { method: 'POST', path: '/api/v1/gemini/advisor', desc: 'Generador de dictamen agronómico prescriptivo estructurado asistido por Gemini AI.' },
       ]
     },
     {
-      title: '🚜 Gestión de Fincas, Bitácora & Autenticación',
+      title: '🌾 Microservicios WebGIS & Resiliencia Rural (Next.js 16 App Router)',
       endpoints: [
-        { method: 'GET', path: '/api/parcels', desc: 'Listado de parcelas del productor con coordenadas y área calculada.' },
-        { method: 'POST', path: '/api/parcels', desc: 'Persistencia de nueva micro-parcela georreferenciada en base de datos.' },
-        { method: 'GET', path: '/api/field-logs', desc: 'Historial cronológico de labores agrícolas y aplicaciones de enmiendas.' },
-        { method: 'POST', path: '/api/auth/login', desc: 'Autenticación con JWT, control de roles (ADMIN, FARMER, AGRONOMIST) y modo sandbox.' },
+        { method: 'GET', path: '/api/mrv/sar-oracle', desc: 'Oráculo satelital radar SAR Sentinel-1 que valida rugosidad de dosel (VH/VV > -12 dB) y reduce incertidumbre al 10%.' },
+        { method: 'GET', path: '/api/parcels/conflicts', desc: 'Cola de cuarentena y consulta de colisiones concurrentes de parcelas tras reconexión offline.' },
+        { method: 'POST', path: '/api/parcels/conflicts', desc: 'Resolución determinista de conflictos en cuarentena (keep_server, keep_client o merged).' },
+        { method: 'POST', path: '/api/iot/telemetry', desc: 'Ingestión de telemetría IoT con activación de microrriego condicionada a PAW < 50% (Saxton-Rawls).' },
+        { method: 'GET', path: '/api/parcels', desc: 'Listado de micro-parcelas del productor con área Shoelace geodésica y detección de estado.' },
+        { method: 'POST', path: '/api/parcels', desc: 'Persistencia de nueva micro-parcela georreferenciada con versionado monotónico y detección Ray-Casting.' },
+        { method: 'GET', path: '/api/field-logs', desc: 'Historial cronológico de labores agrícolas con normalización vernacular campesina.' },
+        { method: 'POST', path: '/api/auth/login', desc: 'Autenticación con JWT, control de roles (ADMIN, FARMER, AGRONOMIST) y modo sandbox 1-clic.' },
       ]
     }
   ];
@@ -203,25 +207,58 @@ export default function ApiDocsPage() {
 
       {/* Pestaña 1: Visor Swagger Embebido */}
       {activeTab === 'interactive' && (
-        <div style={{
-          background: 'rgba(15, 23, 42, 0.8)',
-          backdropFilter: 'blur(16px)',
-          border: '1px solid rgba(255, 255, 255, 0.12)',
-          borderRadius: '16px',
-          overflow: 'hidden',
-          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.5)',
-          minHeight: '720px'
-        }}>
-          <iframe
-            src="http://127.0.0.1:8000/docs"
-            title="FastAPI Interactive Swagger Documentation"
-            style={{
-              width: '100%',
-              height: '780px',
-              border: 'none',
-              background: '#ffffff'
-            }}
-          />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div style={{
+            background: 'rgba(2, 132, 199, 0.12)',
+            border: '1px solid rgba(56, 189, 248, 0.3)',
+            borderRadius: '12px',
+            padding: '12px 18px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '10px'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span className="badge-pill badge-cyan" style={{ fontSize: '0.74rem' }}>
+                FastAPI Swagger UI (Puerto 8000)
+              </span>
+              <span style={{ fontSize: '0.82rem', color: '#cbd5e1' }}>
+                Visor interactivo en vivo. Si el backend espacial está en reposo, inícialo con: <code style={{ color: '#38bdf8', background: 'rgba(15, 23, 42, 0.6)', padding: '2px 6px', borderRadius: '4px' }}>py -m uvicorn src.main:app --port 8000 --reload</code>
+              </span>
+            </div>
+            <a
+              href="http://127.0.0.1:8000/docs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary"
+              style={{ fontSize: '0.76rem', padding: '5px 12px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+            >
+              <span>Abrir en Pestaña Completa</span>
+              <ExternalLink size={13} />
+            </a>
+          </div>
+
+          <div style={{
+            background: 'rgba(15, 23, 42, 0.8)',
+            backdropFilter: 'blur(16px)',
+            border: '1px solid rgba(255, 255, 255, 0.12)',
+            borderRadius: '16px',
+            overflow: 'hidden',
+            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.5)',
+            minHeight: '720px'
+          }}>
+            <iframe
+              src="http://127.0.0.1:8000/docs"
+              title="FastAPI Interactive Swagger Documentation"
+              style={{
+                width: '100%',
+                height: '780px',
+                border: 'none',
+                background: '#ffffff'
+              }}
+            />
+          </div>
         </div>
       )}
 
