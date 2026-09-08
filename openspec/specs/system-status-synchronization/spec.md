@@ -18,15 +18,19 @@ The system and project documentation SHALL consistently reflect the verified qua
 - **THEN** the workflow execution titles and steps reflect 28 Jest test suites (179 tests) and 54 Pytest tests without outdated label numbers.
 
 ### Requirement: Complete Module Representation
-The project overview (`README.md` and `PITCH_DECK.md`) SHALL document all core operational capabilities organized under a 3-pillar farmer narrative, isolating technical environment setup into `DEVELOPING.md`, articulating every capability via the formula *Technical Feature + Agricultural Problem Solved = Tangible Field Benefit*, and framing economic ROI and carbon accounting as algorithmic projection tools and simulated modeling scenarios.
+The project overview (`README.md` and `PITCH_DECK.md`) SHALL document all core operational capabilities organized under an agile, non-redundant structure (< 150 lines in README), isolating technical environment setup into `DEVELOPING.md`, articulating capabilities via clear visual ASCII pipelines, and framing economic ROI and carbon accounting as algorithmic projection tools and simulated modeling scenarios.
 
 #### Scenario: Discovering System Capabilities from README
 - **WHEN** an evaluator, investor, or agricultural decision-maker inspects `README.md`
-- **THEN** the document introduces Agrotech Venezuela through 3 narrative pillars (*Accesibilidad y Adopción Rural*, *Inteligencia Agronómica y Observación Satelital Sin Nubes*, *Modelado Prescriptivo, Proyección Económica y Sostenibilidad*) framing ROI and carbon as computational projections, offering immediate sandbox access, and referencing `DEVELOPING.md` for local deployment.
+- **THEN** the document introduces Agrotech Venezuela through a concise, single-read overview with 3 core pillars, an ASCII pipeline diagram, turnkey 3-command execution, and direct author attribution without duplicate comparative tables.
 
 #### Scenario: Consulting Developer and Engineering Documentation
 - **WHEN** an engineer, DevOps contributor, or code auditor inspects the repository
 - **THEN** `DEVELOPING.md` provides turnkey local setup, architecture diagrams with microservice ports (3000, 8000, 8501, 5444), Docker profiles, and automated testing suites without distracting non-technical readers.
+
+#### Scenario: Running Automated Test Summary Report
+- **WHEN** an evaluator or engineer runs `npm run test:summary`
+- **THEN** the CLI outputs a clean, categorized breakdown of all 233 automated tests (179 Jest + 54 Pytest) by subsystem with validation descriptions.
 
 ### Requirement: Architectural Diagram Synchronization
 The interactive dataflow diagrams in `DataflowDiagramStudio.tsx` (`/dashboard/arquitectura`) and system technical blueprints SHALL visually represent the certified operational components including Sentinel-1 SAR radar cross-validation oracle in `/api/mrv/sar-oracle` and deterministic parcel conflict quarantine and resolution in `/api/parcels/conflicts`.
