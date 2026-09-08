@@ -28,7 +28,7 @@ Agrotech Venezuela se postula de manera simultánea y convergente en dos categor
 | **Complejidad Técnica** | Uso de técnicas cuantitativas avanzadas, programación geoespacial, teledetección multi-sensor (Sentinel-1/2), plataformas WebGIS y modelos prescriptivos reproducibles. | **20%** | **15%** |
 | **Originalidad e Innovación** | Enfoque inédito de Gemelo Digital Agronómico que transforma series históricas retrospectivas de 40 años en prescripciones prospectivas para el surco. | **20%** | **15%** |
 | **Claridad y Estructura** | Calidad de redacción, consistencia metodológica, visualizaciones cartográficas de alta fidelidad, tablas con leyendas y citas bibliográficas normalizadas. | **15%** | **20%** |
-| **Resultados y Solidez** | Conclusiones sustentadas en validación experimental en campo (Turén y Calabozo), 227 pruebas automatizadas y retorno de inversión verificado de 3.8x. | **20%** | **20%** |
+| **Resultados y Solidez** | Conclusiones sustentadas en validación experimental en campo (Turén y Calabozo), 233 pruebas automatizadas y retorno de inversión verificado de 3.8x. | **20%** | **20%** |
 | **Aporte Social y Ambiental** | Inclusión rural mediante Dual-Mode UI por voz nativa, eliminación del costo diagnóstico ($150 a $0) y esquema de Carbon Pooling para pequeños productores. | **20%** | **25%** |
 | **Aporte a MapBiomas** | Demostración de valor microeconómico agronómico diario de los datos satelitales y retroalimentación ground-truth desde la Bitácora de Campo. | **5%** | **5%** |
 
@@ -60,7 +60,7 @@ Agrotech Venezuela se postula de manera simultánea y convergente en dos categor
 
 - [x] **Manuscrito Científico**: Borrador validado en 3.178 palabras (< 10.000 palabras permitidas).
 - [x] **Cita de Atribución Obligatoria**: Cita formal a los Términos de Uso de MapBiomas Venezuela (CC BY 4.0) incluida en portada, pie de página y bibliografía.
-- [x] **Reproducibilidad y Código Abierto**: Repositorio GitHub público bajo Licencia MIT con 227 tests automatizados y compilación Next.js limpia.
+- [x] **Reproducibilidad y Código Abierto**: Repositorio GitHub público bajo Licencia MIT con 233 tests automatizados y compilación Next.js limpia.
 - [x] **Anexos Analíticos y Visuales**: Figuras vectoriales de alta resolución generadas con Plotly, leyendas interpretativas y tablas estructuradas.
 - [x] **Plataforma WebGIS Operativa**: Despliegue en producción con arquitectura Dual-Mode UI (Modo Productor Fácil campesino y Modo Técnico).
 

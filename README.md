@@ -234,7 +234,7 @@ El proyecto mantiene una suite rigurosa de 233 pruebas automatizadas que se ejec
 | **Pruebas Backend Pytest** | `npm run test:backend` | **54 tests aprobados** (FastAPI, ML Cosecha, Algoritmos Geoespaciales, Saxton-Rawls, Oráculo SAR) | ✅ 100% |
 | **Suite Automatizada Completa** | `npm run test:all` | **233 de 233 pruebas en verde** | ✅ 100% |
 
-Consulta la guía paso a paso en [DEVELOPING.md](DEVELOPING.md#4-suite-completa-de-pruebas-y-verificación-227-tests).
+Consulta la guía paso a paso en [DEVELOPING.md](DEVELOPING.md#4-suite-completa-de-pruebas-y-verificación-233-tests).
 </details>
 
 ---

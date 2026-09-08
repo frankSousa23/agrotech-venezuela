@@ -139,12 +139,12 @@ cp .env.production.example .env.production
 
 ---
 
-## 🧪 4. Suite Completa de Pruebas y Verificación (227 Tests)
+## 🧪 4. Suite Completa de Pruebas y Verificación (233 Tests)
 
 El proyecto cuenta con una cobertura exhaustiva de pruebas unitarias, de integración, geoespaciales y de accesibilidad. Antes de realizar cualquier pull request o commit a `main`, se debe verificar la suite completa:
 
 ```bash
-# 1. Pruebas Frontend Jest (173 tests: WebGIS, SAR Radar, GDD, Auth, UX Rural, IoT, Pedotransfer, Conflict Quarantine, Carbon MRV, Vernacular Voice Parser, Machinery Exporter):
+# 1. Pruebas Frontend Jest (179 tests: WebGIS, SAR Radar, GDD, Auth, UX Rural, IoT, Pedotransfer, Conflict Quarantine, Carbon MRV, Vernacular Voice Parser, Machinery Exporter):
 npm test
 
 # 2. Verificación Estática TypeScript (0 errores obligatorios):
@@ -156,7 +156,7 @@ npm run build
 # 4. Pruebas Backend Pytest (54 tests: FastAPI, ML Cosecha, GDD, Shoelace, Caché, Saxton-Rawls, Oráculo SAR):
 npm run test:backend
 
-# 5. Suite Automatizada Unificada (227 de 227 tests aprobados):
+# 5. Suite Automatizada Unificada (233 de 233 tests aprobados):
 npm run test:all
 ```
 
