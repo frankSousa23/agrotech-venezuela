@@ -16,7 +16,9 @@ El documento original de la declaración debe estar firmado, fechado y ser envia
 
 ### Nombre y firma de todos los autores que participan en el trabajo postulado:
 
-<br><br><br>
+<div style="margin-top: 30px; margin-bottom: -20px; padding-left: 10px;">
+  <img src="figures/firma_frank_sousa.png" alt="Firma de Frank Alfonso Sousa Mota" style="width: 180px; height: auto;" />
+</div>
 
 ____________________________________________________  
 **Frank Alfonso Sousa Mota**  
@@ -24,4 +26,3 @@ ____________________________________________________
 **Rol:** Autor Principal y Desarrollador Independiente  
 **Título / Afiliación:** Ingeniero en Informática (UNERG, 2025)  
 **Correo Electrónico:** frankalfonso1988@gmail.com  
-**Firma:** ________________________________________  

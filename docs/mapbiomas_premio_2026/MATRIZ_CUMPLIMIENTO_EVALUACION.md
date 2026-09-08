@@ -105,5 +105,9 @@
 ### Declaración Jurada de Conformidad
 El postulante **Frank Alfonso Sousa Mota** declara bajo fe de juramento técnico y profesional que toda la información consignada en esta matriz, así como en el código fuente del prototipo funcional (TRL 4), es fidedigna, original y reproducible.
 
-**Firma:** *Frank Alfonso Sousa Mota — Desarrollador Principal, Agrotech Venezuela*  
+<div style="margin-top: 20px; margin-bottom: -15px;">
+  <img src="figures/firma_frank_sousa.png" alt="Firma de Frank Alfonso Sousa Mota" style="width: 160px; height: auto;" />
+</div>
+
+**Firma:** *Frank Alfonso Sousa Mota (C.I. V-18.804.963) — Desarrollador Principal, Agrotech Venezuela*  
 **Fecha:** Septiembre de 2026
