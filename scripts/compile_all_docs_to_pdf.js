@@ -65,6 +65,12 @@ const DOCUMENTS_TO_COMPILE = [
     source: path.join(PUBLIC_DOCS, 'PITCH_DECK.md'),
     filename: 'Pitch_Deck_Agrotech_Venezuela_2026.pdf',
     headerTitle: 'Agrotech Venezuela — Pitch Deck Comercial y Dossier Ejecutivo | Frank Sousa'
+  },
+  {
+    id: 'anexo_i',
+    source: path.join(PUBLIC_DOCS, 'ANEXO_I_DECLARACION_JURADA.md'),
+    filename: 'Anexo_I_Declaracion_Jurada_Frank_Sousa.pdf',
+    headerTitle: 'Premio MapBiomas Venezuela 2026 — Anexo I: Declaración Jurada de Autores'
   }
 ];
 
