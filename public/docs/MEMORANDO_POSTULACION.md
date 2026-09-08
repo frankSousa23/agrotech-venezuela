@@ -1,7 +1,9 @@
 # 🏛️ Memorando Institucional y Dossier de Postulación
 ## Agrotech Venezuela: Inteligencia Edafo-Climática, Viabilidad Comercial y Prescripción Agronómica Sostenible
 
-- **Autor / Desarrollador Principal**: Frank Sousa
+- **Autor / Desarrollador Principal**: Frank Alfonso Sousa Mota
+- **Formación Académica**: Ingeniero en Informática (2025) — Universidad Nacional Experimental de los Llanos Centrales Rómulo Gallegos (UNERG), San Juan de los Morros, Estado Guárico, Venezuela.
+- **Contacto Institucional**: [frankalfonso1988@gmail.com](mailto:frankalfonso1988@gmail.com) | [LinkedIn](https://linkedin.com/in/frank-alfonso-sousa-mota-32ba9971) | [GitHub](https://github.com/frankSousa23)
 - **Ecosistema**: Agrotech Venezuela
 - **Nicho Tecnológico**: AgTech, Fintech Climática (MRV Carbon Pooling), Observación Satelital (WebGIS Multi-Escala) y Prototipado Agro-IoT BYOD.
 - **Nivel de Madurez Tecnológica**: **TRL 6** (Prototipo funcional de sistema integrado demostrado en entorno relevante con datos multitemporales de Portuguesa, Zulia y Monagas; validado con 233 pruebas automatizadas: 179 Jest + 54 Pytest).
@@ -142,4 +144,4 @@ El presente memorando valida formalmente la postulación técnica e instituciona
 
 | Postulante y Responsable Técnico | Afiliación y Laboratorio | Estatus del Ecosistema | Fecha de Emisión |
 | :--- | :--- | :--- | :---: |
-| **Frank Sousa** | Agrotech Venezuela / Lab Edafo-Espacial | **TRL 6 Integrado (233 tests)** | Septiembre 2026 |
+| **Frank Alfonso Sousa Mota**<br>Ing. en Informática (UNERG 2025)<br>San Juan de los Morros, Guárico | Agrotech Venezuela / Lab Edafo-Espacial<br>[frankalfonso1988@gmail.com](mailto:frankalfonso1988@gmail.com) | **TRL 6 Integrado (233 tests)** | Septiembre 2026 |

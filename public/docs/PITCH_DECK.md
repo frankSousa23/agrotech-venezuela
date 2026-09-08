@@ -2,7 +2,9 @@
 
 **"Transformando 40 años de observación satelital en rentabilidad directa para el productor y modelos de negocio agro-climáticos escalables."**
 
-- **Autor y Fundador**: Frank Sousa
+- **Autor y Fundador**: Frank Alfonso Sousa Mota (Ingeniero en Informática, UNERG 2025)
+- **Ubicación Geográfica**: San Juan de los Morros, Estado Guárico, Venezuela 🇻🇪
+- **Contacto**: [frankalfonso1988@gmail.com](mailto:frankalfonso1988@gmail.com) | [LinkedIn](https://linkedin.com/in/frank-alfonso-sousa-mota-32ba9971) | [GitHub](https://github.com/frankSousa23)
 - **Proyecto**: Agrotech Venezuela
 - **Sector**: Agtech, Inteligencia Edafo-Climática, Visión Satelital (WebGIS) y Prototipado Agro-IoT BYOD.
 - **Madurez Operacional**: **TRL 6** (Prototipo funcional de sistema integrado demostrado en entorno relevante con datos multitemporales de Portuguesa, Zulia y Monagas; validado con 233 pruebas automatizadas: 179 Jest + 54 Pytest).
@@ -130,4 +132,4 @@ Agrotech Venezuela convoca alianzas con la Red MapBiomas, asociaciones de produc
 
 | Contacto de Alianzas e Inversión | Rol Institucional | Convocatoria Oficial |
 | :--- | :--- | :---: |
-| **Frank Sousa** (`franksousa@agrotech.ve`) | Fundador & Desarrollador Principal | **Premio MapBiomas Venezuela 2026** |
+| **Frank Alfonso Sousa Mota** (`frankalfonso1988@gmail.com`)<br>Ing. en Informática (UNERG 2025) • San Juan de los Morros, Guárico | Fundador & Desarrollador Principal<br>[LinkedIn](https://linkedin.com/in/frank-alfonso-sousa-mota-32ba9971) • [GitHub](https://github.com/frankSousa23) | **Premio MapBiomas Venezuela 2026** |

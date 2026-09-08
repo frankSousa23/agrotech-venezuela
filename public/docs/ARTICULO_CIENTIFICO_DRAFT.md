@@ -1,8 +1,9 @@
 # 🌾 Agrotech Venezuela: Gemelo Digital Agronómico, Teledetección Multi-Escala e Inteligencia Artificial Prescriptiva para la Agricultura Sostenible
 ### *Validación Operacional TRL 6, Modelado MRV y Resiliencia Rural en el Marco de MapBiomas Venezuela*
 
-**Autor Principal e Investigador**: Frank Sousa  
-**Afiliación Institucional**: Agrotech Venezuela / Laboratorio de Inteligencia Edafo-Espacial  
+**Autor Principal e Investigador**: Frank Alfonso Sousa Mota¹  
+**Afiliación Institucional**: ¹ Ingeniero en Informática (2025), Universidad Nacional Experimental de los Llanos Centrales Rómulo Gallegos (UNERG), San Juan de los Morros, Estado Guárico, Venezuela / Laboratorio de Inteligencia Edafo-Espacial Agrotech Venezuela  
+**Contacto Institucional**: [frankalfonso1988@gmail.com](mailto:frankalfonso1988@gmail.com) | LinkedIn: [frank-alfonso-sousa-mota-32ba9971](https://linkedin.com/in/frank-alfonso-sousa-mota-32ba9971) | GitHub: [@frankSousa23](https://github.com/frankSousa23)  
 **Convocatoria**: Segunda Edición del Premio MapBiomas Venezuela 2026  
 **Categoría de Postulación**: Categoría General / Políticas Públicas, Gestión Ambiental y Comunitaria  
 **Repositorio Oficial de Código Abierto**: [https://github.com/frankSousa23/agrotech-venezuela](https://github.com/frankSousa23/agrotech-venezuela)  
@@ -39,7 +40,7 @@ La producción de alimentos en Venezuela se concentra principalmente en los Llan
 2. **La Barrera Económica y Temporal del Diagnóstico**: Un análisis de fertilidad en laboratorio comercial cuesta entre \$80 y \$150 USD por muestra y su procesamiento tarda de 3 a 6 semanas. Para una pequeña finca familiar de 15 a 40 hectáreas, este desembolso previo a la siembra resulta prohibitivo, provocando que más del 80% de los productores apliquen fórmulas convencionales a ciegas.
 3. **La Ceguera Óptica Estacional por Nubosidad**: Durante la temporada de lluvias (mayo a noviembre), coincidente con el ciclo comercial de cereales (maíz y arroz), el porcentaje medio de cobertura nubosa supera el 75% en las imágenes satelitales ópticas (Sentinel-2 y Landsat), generando vacíos de información justamente cuando el cultivo demanda monitoreo crítico de biomasa y estrés hídrico.
 
-**Agrotech Venezuela**, concebido y desarrollado por **Frank Sousa**, nace como un Gemelo Digital Agronómico abierto y reproducible que capitaliza los 40 años de trayectoria histórica reconstruidos por **MapBiomas Venezuela** para proveer diagnósticos inmediatos, prescripciones de enmiendas regionalizadas, un sandbox didáctico Agro-IoT BYOD y modelos prospectivos de agregación de carbono (Carbon Pooling).
+**Agrotech Venezuela**, concebido y desarrollado por el Ing. **Frank Alfonso Sousa Mota** (UNERG), nace como un Gemelo Digital Agronómico abierto y reproducible que capitaliza los 40 años de trayectoria histórica reconstruidos por **MapBiomas Venezuela** para proveer diagnósticos inmediatos, prescripciones de enmiendas regionalizadas, un sandbox didáctico Agro-IoT BYOD y modelos prospectivos de agregación de carbono (Carbon Pooling).
 
 ---
 

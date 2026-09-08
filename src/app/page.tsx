@@ -786,11 +786,23 @@ export default function Home() {
                 <li><Link href="/dashboard/arquitectura">Diagrama de Microservicios</Link></li>
               </ul>
             </div>
+
+            <div>
+              <div className={styles.footerLinksTitle}>Autor & Contacto</div>
+              <ul className={styles.footerLinksList}>
+                <li style={{ color: '#f8fafc', fontWeight: 600, fontSize: '0.82rem' }}>Frank Alfonso Sousa Mota</li>
+                <li style={{ color: '#94a3b8', fontSize: '0.75rem' }}>Ing. en Informática (UNERG 2025)</li>
+                <li style={{ color: '#94a3b8', fontSize: '0.75rem' }}>San Juan de los Morros, Guárico</li>
+                <li><a href="mailto:frankalfonso1988@gmail.com">frankalfonso1988@gmail.com</a></li>
+                <li><a href="https://linkedin.com/in/frank-alfonso-sousa-mota-32ba9971" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                <li><a href="https://github.com/frankSousa23" target="_blank" rel="noopener noreferrer">GitHub (@frankSousa23)</a></li>
+              </ul>
+            </div>
           </div>
         </div>
 
         <div className={styles.footerBottom}>
-          <span>© 2024–2026 Agrotech Venezuela • Frank Sousa (Licencia MIT)</span>
+          <span>© 2024–2026 Agrotech Venezuela • Frank Alfonso Sousa Mota (Licencia MIT)</span>
           <span>Desarrollado con Next.js 16, Leaflet Nativo, FastAPI, Scikit-Learn, NASA POWER & MapBiomas</span>
         </div>
       </footer>

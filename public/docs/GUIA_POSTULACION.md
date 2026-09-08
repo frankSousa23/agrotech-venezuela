@@ -71,4 +71,4 @@ Agrotech Venezuela se postula de manera simultánea y convergente en dos categor
 - **Portal Oficial del Premio**: [https://venezuela.mapbiomas.org/premio](https://venezuela.mapbiomas.org/premio)
 - **Términos de Uso y Citas**: [https://venezuela.mapbiomas.org/terminos-de-uso/](https://venezuela.mapbiomas.org/terminos-de-uso/)
 - **Repositorio Oficial del Proyecto**: [https://github.com/frankSousa23/agrotech-venezuela](https://github.com/frankSousa23/agrotech-venezuela)
-- **Autor y Contacto Técnico**: Frank Sousa (`franksousa@agrotech.ve`) — *Agrotech Venezuela*
+- **Autor y Contacto Técnico**: Frank Alfonso Sousa Mota ([frankalfonso1988@gmail.com](mailto:frankalfonso1988@gmail.com)) — *Ingeniero en Informática (UNERG 2025), San Juan de los Morros, Estado Guárico, Venezuela*

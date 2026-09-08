@@ -1,8 +1,9 @@
 # 🌾 Agrotech Venezuela: Gemelo Digital Agronómico, Teledetección Multi-Escala e Inteligencia Artificial Prescriptiva para la Agricultura Sostenible
 ### *Validación Operacional TRL 6, Modelado MRV y Resiliencia Rural en el Marco de MapBiomas Venezuela*
 
-**Autor Principal e Investigador**: Frank Sousa  
-**Afiliación Institucional**: Agrotech Venezuela / Laboratorio de Inteligencia Edafo-Espacial  
+**Autor Principal e Investigador**: Frank Alfonso Sousa Mota¹  
+**Afiliación Institucional**: ¹ Ingeniero en Informática (2025), Universidad Nacional Experimental de los Llanos Centrales Rómulo Gallegos (UNERG), San Juan de los Morros, Estado Guárico, Venezuela / Laboratorio de Inteligencia Edafo-Espacial Agrotech Venezuela  
+**Contacto Institucional**: [frankalfonso1988@gmail.com](mailto:frankalfonso1988@gmail.com) | LinkedIn: [frank-alfonso-sousa-mota-32ba9971](https://linkedin.com/in/frank-alfonso-sousa-mota-32ba9971) | GitHub: [@frankSousa23](https://github.com/frankSousa23)  
 **Convocatoria**: Segunda Edición del Premio MapBiomas Venezuela 2026  
 **Categoría de Postulación**: Categoría General / Políticas Públicas, Gestión Ambiental y Comunitaria  
 **Repositorio Oficial de Código Abierto**: [https://github.com/frankSousa23/agrotech-venezuela](https://github.com/frankSousa23/agrotech-venezuela)  
@@ -213,6 +214,6 @@ El presente expediente técnico-científico consolida la candidatura oficial de 
 
 | Postulante e Investigador Principal | Institución / Laboratorio | Convocatoria Oficial | Estatus Tecnológico |
 | :--- | :--- | :--- | :---: |
-| **Frank Sousa** | Agrotech Venezuela / Lab Edafo-Espacial | Premio MapBiomas Venezuela 2026 | **TRL 6 (Prototipo Integrado en Entorno Relevante)** |
+| **Frank Alfonso Sousa Mota**<br>Ingeniero en Informática (UNERG 2025)<br>San Juan de los Morros, Guárico | Agrotech Venezuela / Lab Edafo-Espacial<br>[frankalfonso1988@gmail.com](mailto:frankalfonso1988@gmail.com) | Premio MapBiomas Venezuela 2026 | **TRL 6 (Prototipo Integrado en Entorno Relevante)** |
 
 <p class="caption"><strong>Certificación Oficial de Postulación</strong> — <em>Documento expedido para el Comité Organizador y el Jurado Calificador del Premio MapBiomas Venezuela 2026. Toda la suite de software, datos y microservicios se encuentra disponible públicamente en https://github.com/frankSousa23/agrotech-venezuela.</em></p>

@@ -245,3 +245,17 @@ Consulta la guía paso a paso en [DEVELOPING.md](DEVELOPING.md#4-suite-completa-
 - **Datos de Cobertura y Uso del Suelo**: Referencian y construyen sobre la iniciativa **MapBiomas Venezuela** (Provita, LSIGMA USB, Wataniba y RAISG), disponible bajo licencia **Creative Commons Atribución 4.0 Internacional (CC BY 4.0)**.
 - **Agroclimatología Diaria**: **NASA POWER Project**, NASA Langley Research Center.
 - **Calibración Pedológica**: Protocolos del **INIA**, **Fundación Danac** y **CENIAP**.
+
+---
+
+## 👨‍💻 Autor & Investigador Principal
+
+| Parámetro | Detalle Institucional |
+| :--- | :--- |
+| **Autor / Desarrollador Principal** | **Frank Alfonso Sousa Mota** |
+| **Título Profesional** | **Ingeniero en Informática (2025)** |
+| **Casa de Estudios (Alma Máter)** | **Universidad Nacional Experimental de los Llanos Centrales Rómulo Gallegos (UNERG)** |
+| **Ubicación Geográfica** | **San Juan de los Morros, Estado Guárico, Venezuela 🇻🇪** |
+| **Correo Electrónico de Contacto** | [frankalfonso1988@gmail.com](mailto:frankalfonso1988@gmail.com) |
+| **Perfil Profesional LinkedIn** | [linkedin.com/in/frank-alfonso-sousa-mota-32ba9971](https://linkedin.com/in/frank-alfonso-sousa-mota-32ba9971) |
+| **Repositorio GitHub** | [github.com/frankSousa23](https://github.com/frankSousa23) |

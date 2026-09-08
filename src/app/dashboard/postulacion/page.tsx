@@ -29,7 +29,8 @@ import {
   CheckSquare,
   Coins,
   TrendingUp,
-  DollarSign
+  DollarSign,
+  Mail
 } from 'lucide-react';
 
 export default function PostulacionPage() {
@@ -511,7 +512,7 @@ export default function PostulacionPage() {
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', fontSize: '0.7rem', color: '#94a3b8' }}>
               <span>• 3.178 palabras (&lt; 10k)</span>
               <span>• 233 tests passing</span>
-              <span>• Frank Sousa</span>
+              <span>• Frank Alfonso Sousa Mota (UNERG)</span>
             </div>
             <div style={{ display: 'flex', gap: '8px', marginTop: 'auto', paddingTop: '8px' }}>
               <a
@@ -994,6 +995,99 @@ export default function PostulacionPage() {
             <p className={styles.impactDesc}>
               Monitoreo satelital y certificación de prácticas de labranza mínima, abonos verdes y sistemas agroforestales (SAF).
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Perfil del Postulante e Investigador Principal */}
+      <section className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>
+            <Award size={22} color="#10b981" /> Perfil del Postulante e Investigador Principal
+          </h2>
+          <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
+            Acreditación académica, autoría territorial y contacto institucional:
+          </span>
+        </div>
+
+        <div style={{
+          background: 'rgba(15, 23, 42, 0.75)',
+          border: '1px solid rgba(16, 185, 129, 0.35)',
+          borderRadius: '14px',
+          padding: '24px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '18px',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.37)'
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+                <span style={{ fontSize: '1.3rem', fontWeight: 800, color: '#f8fafc' }}>Frank Alfonso Sousa Mota</span>
+                <span className="badge-pill badge-emerald" style={{ fontSize: '0.72rem' }}>Postulante Principal</span>
+              </div>
+              <p style={{ margin: 0, fontSize: '0.92rem', color: '#38bdf8', fontWeight: 600 }}>
+                Ingeniero en Informática (2025) — Universidad Nacional Experimental de los Llanos Centrales Rómulo Gallegos (UNERG)
+              </p>
+              <p style={{ margin: '6px 0 0 0', fontSize: '0.82rem', color: '#94a3b8' }}>
+                📍 San Juan de los Morros, Estado Guárico, Venezuela 🇻🇪 • Laboratorio de Inteligencia Edafo-Espacial Agrotech Venezuela
+              </p>
+            </div>
+
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <a
+                href="mailto:frankalfonso1988@gmail.com"
+                className="btn-primary"
+                style={{ fontSize: '0.8rem', padding: '8px 14px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+              >
+                <Mail size={15} /> frankalfonso1988@gmail.com
+              </a>
+              <a
+                href="https://linkedin.com/in/frank-alfonso-sousa-mota-32ba9971"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary"
+                style={{ fontSize: '0.8rem', padding: '8px 14px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+              >
+                <ExternalLink size={15} /> LinkedIn
+              </a>
+              <a
+                href="https://github.com/frankSousa23"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary"
+                style={{ fontSize: '0.8rem', padding: '8px 14px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+              >
+                <Globe size={15} /> GitHub (@frankSousa23)
+              </a>
+            </div>
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            gap: '12px',
+            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+            paddingTop: '14px',
+            fontSize: '0.8rem',
+            color: '#cbd5e1'
+          }}>
+            <div>
+              <b style={{ color: '#94a3b8' }}>Categoría de Postulación:</b><br />
+              Categoría General / Políticas Públicas y Gestión Ambiental
+            </div>
+            <div>
+              <b style={{ color: '#94a3b8' }}>Convocatoria:</b><br />
+              Segunda Edición del Premio MapBiomas Venezuela (2026)
+            </div>
+            <div>
+              <b style={{ color: '#94a3b8' }}>Licencia de Software:</b><br />
+              Código Abierto MIT (Copyright 2026 Frank Sousa)
+            </div>
+            <div>
+              <b style={{ color: '#94a3b8' }}>Atribución de Datos:</b><br />
+              CC BY 4.0 — MapBiomas Venezuela (Colección 3.0)
+            </div>
           </div>
         </div>
       </section>

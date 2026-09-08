@@ -1,7 +1,8 @@
 # 📋 Matriz de Cumplimiento Técnico y Autoevaluación de Criterios
 ## Agrotech Venezuela frente a los Criterios de Evaluación del Premio MapBiomas Venezuela 2026 (Anexo II)
 
-**Postulante e Investigador Principal**: Frank Sousa (Agrotech Venezuela)  
+**Postulante e Investigador Principal**: Frank Alfonso Sousa Mota (Ing. en Informática, UNERG 2025 — San Juan de los Morros, Estado Guárico, Venezuela)  
+**Contacto Institucional**: [frankalfonso1988@gmail.com](mailto:frankalfonso1988@gmail.com) | [LinkedIn](https://linkedin.com/in/frank-alfonso-sousa-mota-32ba9971) | [GitHub: @frankSousa23](https://github.com/frankSousa23)  
 **Categoría de Postulación**: Categoría General / Políticas Públicas, Gestión Ambiental y Comunitaria  
 **Nivel de Madurez Tecnológica**: TRL 6 (Prototipo Funcional de Sistema Integrado Demostrado en Entorno Relevante con Datos Reales de Portuguesa, Zulia y Monagas)  
 **Licenciamiento**: MIT License (Código abierto en GitHub) / CC BY 4.0 (Datos MapBiomas Venezuela)  

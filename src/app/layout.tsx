@@ -18,7 +18,8 @@ export const metadata: Metadata = {
   title: "Agrotech Venezuela 🌾🛰️ — Inteligencia Geoespacial & Agronomía Predictiva",
   description: "Plataforma WebGIS de precisión agronómica, monitoreo satelital Sentinel-2 L2A, series temporales MapBiomas y prescripción edafológica asistida por IA para el campo venezolano.",
   keywords: ["Agrotech", "Venezuela", "WebGIS", "MapBiomas", "Sentinel-2", "NASA POWER", "Suelos", "Agricultura de Precisión"],
-  authors: [{ name: "Frank Sousa" }],
+  authors: [{ name: "Frank Alfonso Sousa Mota", url: "https://github.com/frankSousa23" }],
+  creator: "Frank Alfonso Sousa Mota (Ingeniero en Informática, UNERG)",
 };
 
 export default function RootLayout({
