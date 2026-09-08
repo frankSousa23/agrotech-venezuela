@@ -173,7 +173,7 @@ export default function Home() {
               )}
             </div>
 
-            {/* Menú Desplegable 3: Postulación TRL 6 */}
+            {/* Menú Desplegable 3: Postulación TRL 4 */}
             <div 
               className={styles.navDropdown}
               onMouseEnter={() => setOpenDropdown('postulacion')}
@@ -186,7 +186,7 @@ export default function Home() {
                 aria-expanded={openDropdown === 'postulacion'}
                 style={{ color: '#4ade80' }}
               >
-                <span>🏛️ Postulación TRL 6</span>
+                <span>🏛️ Postulación TRL 4</span>
                 <ChevronDown size={14} style={{ transform: openDropdown === 'postulacion' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
               </button>
               {openDropdown === 'postulacion' && (
@@ -227,7 +227,7 @@ export default function Home() {
           <div className={styles.heroContent}>
             <div className={styles.awardBadge}>
               <Sparkles size={16} className={styles.awardIcon} />
-              <span>Iniciativa Agrotech Venezuela • Inteligencia Territorial & Ciencia Abierta (TRL 6)</span>
+              <span>Iniciativa Agrotech Venezuela • Prototipo Funcional de Software Validado (TRL 4)</span>
             </div>
 
             <h1 className={styles.heroTitle}>
@@ -739,7 +739,7 @@ export default function Home() {
                 <span>🌱</span> Probar Visor Satelital WebGIS
               </Link>
               <Link href="/dashboard/postulacion" className="btn-secondary" style={{ padding: '0.9rem 2rem', fontSize: '1rem', borderColor: 'rgba(34, 197, 94, 0.4)', color: '#4ade80' }}>
-                <span>🏛️</span> Ficha de Postulación TRL 6
+                <span>🏛️</span> Ficha de Postulación TRL 4
               </Link>
               <Link href="/auth/login" className="btn-secondary" style={{ padding: '0.9rem 2rem', fontSize: '1rem' }}>
                 <span>🚀</span> Iniciar Sesión / Demo Rápida
@@ -771,7 +771,7 @@ export default function Home() {
                 <li><Link href="/dashboard/tierras">Mis Tierras & IoT ESP32</Link></li>
                 <li><Link href="/dashboard/bitacora">Cuaderno de Campo Digital</Link></li>
                 <li><Link href="/dashboard/recomendaciones">Simulador Edafológico & IA</Link></li>
-                <li><Link href="/dashboard/postulacion">Ficha de Postulación & TRL 6</Link></li>
+                <li><Link href="/dashboard/postulacion">Ficha de Postulación & TRL 4</Link></li>
                 <li><Link href="/dashboard/estadisticas">Geoestadísticas Territoriales</Link></li>
               </ul>
             </div>

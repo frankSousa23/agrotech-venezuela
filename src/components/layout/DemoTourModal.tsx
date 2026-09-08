@@ -85,17 +85,17 @@ const TOUR_STEPS: TourStep[] = [
     actionHref: "/dashboard/iot"
   },
   {
-    title: "Madurez TRL 6, MRV de Carbono & APIs OpenAPI",
-    badge: "Paso 5 de 5 • Certificación",
-    badgeColor: "#f59e0b",
+    title: "Madurez TRL 4, MRV de Carbono & APIs OpenAPI",
+    badge: "Paso 5 de 5 • Validación",
+    badgeColor: "#38bdf8",
     icon: Award,
-    description: "Plataforma demostrada en entorno relevante (TRL 6), con cuantificación de secuestro de carbono orgánico (SOC) bajo IPCC Tier 2 y catálogo de 39 APIs REST.",
+    description: "Prototipo funcional validado en entorno de desarrollo (TRL 4 con 233 tests), con cuantificación prospectiva de secuestro de carbono orgánico (SOC) bajo IPCC Tier 2 y catálogo de 39 APIs REST.",
     highlights: [
       "Calculadora de créditos de carbono certificables para la banca agrícola.",
       "Documentación técnica interactiva OpenAPI / Swagger en Next.js App Router.",
-      "Ecosistema de microservicios contenerizado y listo para producción."
+      "Ecosistema de microservicios contenerizado y validado con 233 tests (179 Jest + 54 Pytest)."
     ],
-    actionLabel: "Ver Ficha de Postulación TRL 6",
+    actionLabel: "Ver Ficha de Postulación TRL 4",
     actionHref: "/dashboard/postulacion"
   }
 ];

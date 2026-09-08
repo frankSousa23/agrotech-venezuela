@@ -9,7 +9,7 @@
 [![Python 3.13](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
 [![PostgreSQL 15](https://img.shields.io/badge/PostgreSQL-15-336791.svg)](https://www.postgresql.org/)
 [![Tests: 233 Passing](https://img.shields.io/badge/Tests-233%20Passing-brightgreen.svg)]()
-[![TRL: 6](https://img.shields.io/badge/TRL-6%20(Prototipo%20Integrado)-blue.svg)]()
+[![TRL: 4](https://img.shields.io/badge/TRL-4%20(Prototipo%20Funcional)-blue.svg)]()
 
 Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LULC) de **MapBiomas Venezuela** (1985–2024), **Sentinel-1 SAR Radar**, **Sentinel-2 L2A (Copernicus)** y **NASA POWER**, Agrotech transforma la teledetección espacial en **decisiones agronómicas prescriptivas y de acción directa** para productores, extensionistas agrícolas e investigadores.
 
@@ -21,7 +21,7 @@ Inspirada y potenciada con las clasificaciones de cobertura y uso del suelo (LUL
 | Perfil de Audiencia | Enfoque Estratégico | Acceso Directo |
 | :--- | :--- | :--- |
 | 🛠️ **Para Desarrolladores & DevOps** | Arquitectura de microservicios, stack tecnológico, despliegue turnkey en 2 min, Docker y suite de pruebas (**233 tests**). | [Ir a Guía de Desarrollo & Despliegue ➔](#-para-desarrolladores--devops) |
-| 🏆 **Para Jurados de Innovación e Inversores** | Nivel de madurez operacional **TRL 6**, impacto socioeconómico (**ROI 3.8x**, -35% fertilizantes), investigación **Carbon Pooling (85/15)** y ODS. | [Ir a Expediente TRL 6 & Modelo de Negocio ➔](#-para-jurados-de-innovación-e-inversores) |
+| 🏆 **Para Jurados de Innovación e Inversores** | Nivel de madurez operacional **TRL 4**, proyecciones socioeconómicas (**ROI estimado hasta 3.8x**, -35% fertilizantes), investigación **Carbon Pooling (85/15)** y ODS. | [Ir a Expediente TRL 4 & Modelo de Negocio ➔](#-para-jurados-de-innovación-e-inversores) |
 | 🌾 **Para Agrónomos y Productores** | Modo Productor Fácil (**4 Puertas**), resiliencia PWA offline en 2G/EDGE, dictado por voz y prescripciones VRA para maquinaria. | [Ir a Operaciones de Campo & Accesibilidad ➔](#-para-agrónomos-extensionistas-y-productores) |
 
 ---
@@ -108,13 +108,13 @@ Para estructurar la experiencia sin listas planas indiscriminadas, la plataforma
 
 ---
 
-### 📈 Pilar III: Viabilidad Comercial, MRV Carbon Pooling & Madurez TRL 6
-*El impacto económico medible y la sostenibilidad institucional:*
+### 📈 Pilar III: Modelado Prescriptivo, Proyección de Impacto y Madurez TRL 4
+*El impacto económico potencial y la ingeniería de software demostrada:*
 
 - **Calculadora MRV de Créditos de Carbono & Acoplamiento Ground-Truth**: Stock de SOC (0-30 cm) y secuestro anual ($\text{tCO}_2\text{e}/\text{ha}/\text{año}$) bajo IPCC Tier 2 / Verra VCS acoplado a labores de Bitácora (siembra directa, abonos verdes, encalado), con agregación regional (Carbon Pooling 85/15) y auditoría satelital SAR como línea de investigación avanzada.
 - **Calibración Edafológica Regional de Enmiendas & Prescripciones VRA**: Modelos pedológicos geo-diferenciados (Kamprath $Al^{3+}$ en sabanas ácidas, Ca:Mg en Sur del Lago y Yeso Agrícola en Quíbor) exportables a Shapefiles UTM 19N para tractores GPS, KML para drones y fichas analógicas de cabina.
 - **Laboratorio Agro-IoT de Micro-Cultivo & Pedocalibración Dinámica (`/dashboard/iot`)**: Banco didáctico y experimental aislado para probar sensores edáficos bajo premisa BYOD (Bring Your Own Device). Agrotech es una plataforma de software libre de manufactura de hardware; el núcleo opera sin requerir sensores físicos.
-- **Centro Oficial de Postulación & Validación TRL 6 (`/dashboard/postulacion`)**: Expediente integral validado en entorno relevante con datos multitemporales de Portuguesa, Zulia y Monagas, con matriz ODS, ROI 3.8x cuantificado y descarga directa de los PDFs oficiales del premio MapBiomas 2026.
+- **Centro Oficial de Postulación & Validación TRL 4 (`/dashboard/postulacion`)**: Expediente integral validado en entorno de desarrollo local con datos satelitales reales, matriz ODS, ROI proyectado de hasta 3.8x y descarga directa de los PDFs oficiales del premio MapBiomas 2026.
 
 ---
 
@@ -145,10 +145,10 @@ Si tu labor está en el lote o asesorando fincas:
 
 ## 🏆 Para Jurados de Innovación e Inversores
 
-Si evalúas el impacto tecnológico, la viabilidad de negocio o la madurez institucional:
-- **Nivel de Madurez Operacional TRL 6**: Prototipo funcional de sistema integrado demostrado en entorno relevante sobre 24 estados y 335 municipios con datos espaciales reales, 30 rutas de producción optimizadas en Next.js 16 Turbopack y 233 pruebas automatizadas.
-- **Retorno Económico Comprobado (ROI 3.8x)**: Reducción del 35% en desperdicio de fertilizantes NPK gracias al encalado de precisión y aumento de rendimiento de 3.5 a 6.2+ t/ha en cereales llaneros.
-- **Modelo Prospectivo de Agregación Carbon Pooling**: Superación de la barrera de auditoría tradicional (\$45k USD) agrupando 5,000 ha regionales para transar \$185k USD anuales en bonos Verra VCS, con reparto 85% (\$157k) directo a productores y 15% (\$27k) a la plataforma (modelo de investigación).
+Si evalúas el impacto tecnológico, la viabilidad de la propuesta o la solidez del software:
+- **Nivel de Madurez Operacional TRL 4**: Prototipo funcional de software validado en entorno de desarrollo y simulación local con datos espaciales reales (24 estados y 335 municipios), 30 rutas de producción optimizadas en Next.js 16 Turbopack y 233 pruebas automatizadas pasando al 100%.
+- **Retorno Económico Proyectado (Potencial ROI hasta 3.8x)**: El modelo computacional proyecta una reducción estimada de hasta 35% en desperdicio de fertilizantes NPK gracias al encalado de precisión y un potencial incremento de rendimiento en cereales llaneros.
+- **Modelo Prospectivo de Agregación Carbon Pooling**: Superación de la barrera de auditoría tradicional (\$45k USD) modelando la agregación de 5,000 ha regionales para transar \$185k USD anuales en bonos Verra VCS, con reparto proyectado del 85% (\$157k) directo a productores y 15% (\$27k) a la plataforma (modelo de investigación).
 - **Alineación con Objetivos de Desarrollo Sostenible (ODS)**: Cumplimiento de ODS 1 (Fin de la Pobreza), ODS 2 (Hambre Cero), ODS 12 (Producción Responsable), ODS 13 (Acción por el Clima) y ODS 15 (Ecosistemas Terrestres).
 - **Expediente Institucional**: Consulta el [Centro Oficial de Postulación](/dashboard/postulacion) o revisa el [Memorando de Postulación Oficial (docs/mapbiomas_premio_2026/MEMORANDO_POSTULACION.md)](docs/mapbiomas_premio_2026/MEMORANDO_POSTULACION.md).
 

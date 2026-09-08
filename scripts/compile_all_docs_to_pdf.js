@@ -31,10 +31,10 @@ const baseConfig = JSON.parse(fs.readFileSync(baseConfigPath, 'utf8'));
 
 const DOCUMENTS_TO_COMPILE = [
   {
-    id: 'articulo_cientifico',
-    source: path.join(PUBLIC_DOCS, 'ARTICULO_CIENTIFICO_DRAFT.md'),
-    filename: 'Articulo_Cientifico_Agrotech_MapBiomas_2026.pdf',
-    headerTitle: 'Agrotech Venezuela — Artículo Científico MapBiomas 2026 | Frank Sousa'
+    id: 'articulo_tecnico',
+    source: path.join(PUBLIC_DOCS, 'ARTICULO_TECNICO_DRAFT.md'),
+    filename: 'Articulo_Tecnico_Agrotech_MapBiomas_2026.pdf',
+    headerTitle: 'Agrotech Venezuela — Artículo Técnico MapBiomas 2026 | Frank Sousa'
   },
   {
     id: 'memorando_postulacion',
@@ -134,6 +134,15 @@ async function compileAll() {
         // Guardar copia en docs/mapbiomas_premio_2026
         const expDest = path.join(EXPEDIENTE_DOCS, doc.filename);
         fs.writeFileSync(expDest, pdf.content);
+
+        // Guardar copia de compatibilidad hacia atrás para Articulo_Cientifico si aplica
+        if (doc.filename === 'Articulo_Tecnico_Agrotech_MapBiomas_2026.pdf') {
+          const legacyPub = path.join(PUBLIC_DOCS, 'Articulo_Cientifico_Agrotech_MapBiomas_2026.pdf');
+          const legacyExp = path.join(EXPEDIENTE_DOCS, 'Articulo_Cientifico_Agrotech_MapBiomas_2026.pdf');
+          fs.writeFileSync(legacyPub, pdf.content);
+          fs.writeFileSync(legacyExp, pdf.content);
+          console.log(`📋 Copia espejo de compatibilidad generada: Articulo_Cientifico_Agrotech_MapBiomas_2026.pdf`);
+        }
 
         console.log(`✅ ${doc.filename} generado exitosamente (${(pdf.content.length / 1024).toFixed(1)} KB)`);
       } else {

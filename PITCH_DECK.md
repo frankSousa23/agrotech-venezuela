@@ -6,37 +6,38 @@
 - **Ubicación Geográfica**: San Juan de los Morros, Estado Guárico, Venezuela 🇻🇪
 - **Contacto**: [frankalfonso1988@gmail.com](mailto:frankalfonso1988@gmail.com) | [LinkedIn](https://linkedin.com/in/frank-alfonso-sousa-mota-32ba9971) | [GitHub](https://github.com/frankSousa23)
 - **Proyecto**: Agrotech Venezuela
-- **Sector**: Agtech, Inteligencia Edafo-Climática, Visión Satelital (WebGIS) y Prototipado Agro-IoT BYOD.
-- **Madurez Operacional**: **TRL 6** (Prototipo funcional de sistema integrado demostrado en entorno relevante con datos multitemporales de Portuguesa, Zulia y Monagas; validado con 233 pruebas automatizadas: 179 Jest + 54 Pytest).
+- **Sector**: AgTech, Inteligencia Edafo-Climática, Visión Satelital (WebGIS) y Prototipado Agro-IoT BYOD.
+- **Convocatoria Oficial**: Segunda Edición del Premio MapBiomas Venezuela 2026 — **Categoría General** (Artículo Técnico)
+- **Madurez Operacional**: **TRL 4** (Prototipo funcional de software validado en entorno de desarrollo y simulación local con datos de Portuguesa, Zulia y Monagas; validado con 233 pruebas automatizadas: 179 Jest + 54 Pytest; con hoja de ruta hacia TRL 5 y TRL 6).
 
 [⬅️ Ir al README Principal](README.md) | [🛠️ Ver Guía de Desarrollo & Despliegue](DEVELOPING.md) | [🏛️ Ver Memorando Oficial](docs/MEMORANDO_POSTULACION.md)
 
 ---
 
-## 💰 1. Impacto Económico Cuantificado y Retorno de Inversión (ROI Rural)
+## 💰 1. Proyecciones de Impacto Económico y Retorno de Inversión Estimado (ROI Rural)
 
-El valor fundamental de Agrotech Venezuela se mide en el balance financiero del agricultor y la soberanía alimentaria:
+El valor fundamental de Agrotech Venezuela se sustenta en la optimización analítica de recursos para el agricultor y la soberanía alimentaria:
 
-| Indicador Financiero / Productivo | Práctica Tradicional | Con Agrotech Venezuela | Impacto Económico Directo |
+| Indicador Financiero / Productivo | Práctica Tradicional | Con Agrotech Venezuela | Impacto Económico Proyectado |
 | :--- | :--- | :--- | :--- |
 | **Diagnóstico de Suelo** | \$80 a \$150 por análisis (3-6 semanas de espera) | **Instantáneo en < 3 segundos** vía satélite | **Ahorro de \$120 y 4 semanas de tiempo crítico** |
-| **Eficiencia de Fertilizantes (NPK)** | Hasta 45% de merma por acidez edáfica no corregida | **Encalado dirigido** (dosis exacta de cal dolomítica) | **-35% en costo de fertilizantes** (\$140/ha ahorrados) |
-| **Rendimiento de Maíz (Llanos)** | 3.2 a 3.8 Ton/ha (promedio histórico nacional) | **6.2+ Ton/ha** con nutrición y GDD calibrados | **+75% en producción neta** (+\$720/ha en ingreso bruto) |
-| **Retorno de Inversión (ROI)** | Incierto por manejo a ciegas | **3.8x en el primer ciclo productivo** | Cada dólar invertido en encalado retorna \$3.80 |
+| **Eficiencia de Fertilizantes (NPK)** | Hasta 45% de merma por acidez edáfica no corregida | **Encalado dirigido** (dosis calculada de cal dolomítica) | **-35% proyectado en costo de fertilizantes** (\$140/ha ahorrados) |
+| **Rendimiento de Maíz (Llanos)** | 3.2 a 3.8 Ton/ha (promedio histórico nacional) | **6.2+ Ton/ha estimadas** con nutrición y GDD calibrados | **+75% potencial en producción neta** (+\$720/ha en ingreso bruto) |
+| **Retorno de Inversión (ROI)** | Incierto por manejo a ciegas | **Hasta 3.8x estimado en el primer ciclo** | Cada dólar invertido en encalado proyecta \$3.80 de retorno |
 | **Ingreso por Créditos de Carbono** | Inaccesible para predios < 500 ha (auditoría Verra > \$45k) | **Carbon Pooling Agrupado (Exploratorio)** | **+\$1,400 a \$3,200 USD/año** (proyección en modelo de investigación) |
 
 <div style="page-break-before: always; break-before: always;"></div>
 
 ## 📈 2. Modelo de Negocio Escalable y Estrategia de Monetización
 
-Agrotech no es solo una pieza de ingeniería; es una empresa escalable con 4 capas diversificadas de ingresos B2B, B2G y Fintech:
+Agrotech no es solo una pieza de ingeniería; es una iniciativa escalable con 4 capas diversificadas de ingresos B2B, B2G y Fintech:
 
 | Capa de Ingreso / Segmento | Modelo de Monetización & Precio | Mercado Objetivo e Impacto Financiero |
 | :--- | :--- | :--- |
 | **1. Tier Productor Familiar** | **Freemium ($0 / mes)**<br>Diagnóstico preliminar, clima diario y bitácora rural para predios < 10 ha. | **Adopción comunitaria masiva** y trazabilidad territorial para alimentar modelos IA. |
 | **2. Tier Gremios & Cooperativas** | **B2B SaaS ($0.50 / ha / año)**<br>Tablero multi-predio, estimación de cosecha y monitoreo hídrico. | **Mercado Portuguesa/Guárico**: 400.000 ha potenciales = **$200.000 USD/año**. |
 | **3. Tier Agro-Banca & Aseguradoras** | **B2B API Data Scoring ($1.200 - $3.500/mes)**<br>Evaluación de riesgo crediticio edafo-climático y demanda de insumos. | Bancos de desarrollo (Banco Agrícola, Banesco) y empresas fabricantes de fertilizantes. |
-| **4. Originación Carbon Pooling (I+D)** | **Take-Rate del 15% sobre bonos transados**<br>Modelo prospectivo de agregación en bloques de 5.000 ha Verra VCS ($18.5/t). | **Línea de investigación económica futura**; el núcleo de la plataforma no depende de bonos para rentabilidad inmediata. |
+| **4. Originación Carbon Pooling (I+D)** | **Take-Rate del 15% sobre bonos transados**<br>Modelo prospectivo de agregación en bloques de 5.000 ha Verra VCS ($18.5/t). | **Línea de investigación económica futura**; el núcleo de la plataforma no depende de bonos para viabilidad inmediata. |
 
 <p class="caption"><strong>Tabla: Arquitectura del modelo de negocios diversificado de Agrotech Venezuela</strong> — <em>Estructura de cuatro capas que garantiza sostenibilidad financiera combinando adopción rural masiva, suscripciones B2B con asociaciones gremiales, APIs corporativas y corretaje en mercados de carbono.</em></p>
 
@@ -50,33 +51,28 @@ El módulo de **Créditos de Carbono y MRV** (`CarbonCreditsCalculator.tsx`) y e
 
 ---
 
-## 🎯 4. El Problema Agrícola que Resolvemos
+## 🚜 4. Prescripciones Tri-Modales Universales para Maquinaria
 
-1. **Fricción y Costo de los Análisis de Laboratorio**:
-   El productor promedio en Venezuela enfrenta costos prohibitivos (\$80 a \$150 por muestra), con tiempos de espera de 3 a 6 semanas y alta dificultad logística para el envío de muestras desde zonas remotas (Turén, Calabozo, Sur del Lago).
-2. **Brecha entre Observación y Acción**:
-   Plataformas como **MapBiomas Venezuela** ofrecen un mapeo histórico (1985–2024) invaluable pero puramente **observacional**. No le dicen al agricultor: *¿Qué sembrar hoy? ¿Cuántos sacos de cal aplicar? ¿Qué rendimiento esperar?*
-3. **Pérdidas Millonarias por Mal Manejo de Suelos**:
-   La acidez no corregida (toxicidad por Aluminio con pH < 5.2) reduce la eficiencia de absorción de fertilizantes N-P-K en hasta un **45%**, causando pérdidas millonarias en rendimiento.
+Agrotech resuelve la brecha de adopción entre tecnología de vanguardia y maquinaria convencional:
+1. **Consolas GPS de Precisión (Shapefiles VRA)**: Formato ESRI SHP con polígonos de tasa variable (`RATE_LIME`, `RATE_NPK`) para tractores guiados por satélite (John Deere, Trimble).
+2. **Drones Agrícolas (Misiones KML)**: Planes de vuelo vectoriales georreferenciados para fumigación y fertilización aérea precisa (DJI Agras, XAG).
+3. **Fichas Analógicas de Cabina (1 Página Imprimible)**: Cuadrantes tabulados en dialecto criollo (sacos por tablón) para tractores tradicionales sin electrónica a bordo.
 
 ---
 
-## 💡 5. La Solución: Gemelo Digital Satelital e IA Adaptativa
+## 🌐 5. Accesibilidad Rural: Dual-Mode UI y Resiliencia en 2G/EDGE
 
-Agrotech Venezuela **elimina la fricción de entrada manual**: al marcar un terreno en el mapa o ingresar coordenadas GPS (Lat, Lon), el sistema produce un **Gemelo Digital instantáneo**:
-
-| Entrada de Campo | Ingesta Espacial Multifuente | Motor Inteligente Dual | Salida Prescriptiva Tri-Modal |
-| :--- | :--- | :--- | :--- |
-| • Coordenadas GPS (Lat, Lon)<br>• Marcado táctil en WebGIS<br>• Dictado por voz campesino | • MapBiomas Col 3 (40 años, 1985–2024)<br>• Sentinel-2 L2A (10m óptico)<br>• Sentinel-1 SAR Banda C (Radar all-weather)<br>• Climatología NASA POWER (Temp, Rad, Ppt)<br>• Sandbox IoT BYOD (Opcional) | • Si uiMode === 'farmer': Voz "Compadre Agrónomo"<br>• Si uiMode === 'technical': Dictamen técnico<br>• Cálculos deterministas locales a costo $0.00<br>• Gemini 1.5 Flash on-demand (Free Tier)<br>• Proyección de cosecha en 42 cultivos | • **Shapefile VRA**: Dosis variable tractor GPS<br>• **KML**: Misiones de vuelo drones DJI/XAG<br>• **Ficha Cabina**: Guía analógica en sacos/tablón |
-
-<p class="caption"><strong>Figura: Pipeline tecnológico del Gemelo Digital Agronómico</strong> — <em>Desde la delimitación geodésica del terreno hasta la ejecución mecánica de dosis variable en tractores, drones o cabinas analógicas.</em></p>
+- **Modo Productor Fácil**: Interfaz de 4 botones de alto contraste, asistida por voz nativa (Web Speech API) y glosario rural criollo (sacos, tablones, canecas).
+- **Modo Técnico**: Consola avanzada para agrónomos y peritos con índices espectrales, curvas térmicas GDD y balances hídricos.
+- **QoS en Conectividad Débil**: En conexiones 2G/EDGE, el sistema prioriza la bitácora de campo (< 10 KB) y pausa automáticamente las capas satelitales pesadas (> 500 KB), apoyándose en SQLite WAL local (< 25 ms).
 
 ---
 
-## ⚔️ 6. Matriz Competitiva
+## ⚡ 6. Comparativa Frente a Soluciones Existentes
 
-| Dimensión | Enfoque Observacional (MapBiomas) | Software de Gestión Tradicional | Agrotech Venezuela (Enfoque Prescriptivo) |
+| Característica / Capacidad | Visores Tradicionales | Soluciones Agrícolas Comerciales | Agrotech Venezuela |
 | :--- | :--- | :--- | :--- |
+| **Profundidad Temporal** | Instantáneas aisladas. | Serie limitada a 1-3 años. | **40 años completos** (MapBiomas 1985–2024). |
 | **Ingreso de Datos** | Consulta de mapas estáticos. | Formularios manuales densos. | **Automático por GPS (Zero-Friction)**. |
 | **Resolución Espacial** | 30 metros (Landsat). | N/A (Solo hojas de cálculo). | **10 metros parcela** (Sentinel-2 + SAR Radar). |
 | **Modelo de Negocio** | Financiación filantrópica. | Licencias costosas (\$800+/año). | **Freemium + B2B Cooperativas + Servicios Satelitales**. |
@@ -88,22 +84,22 @@ Agrotech Venezuela **elimina la fricción de entrada manual**: al marcar un terr
 
 ## 🎬 7. Guión de Demostración en Vivo para los Jueces (3 Minutos)
 
-1. **Minuto 1 — Impacto Económico & Ingesta Espacial**:
+1. **Minuto 1 — Ingesta Espacial y Modelado Prescriptivo**:
    - *Demostración*: Abrir el Dashboard en `http://localhost:3000`.
-   - *Acción*: Seleccionar el preset de **Turén, Portuguesa**.
-   - *Narrativa*: "En 10 milisegundos, el productor ahorra \$120 de análisis de suelo. El sistema extrae 40 años de trayectoria MapBiomas y calcula que corrigiendo el pH con cal dolomítica aumentará su maíz de 3.5 a 6.2 Ton/ha."
+   - *Acción*: Seleccionar el preset del escenario de **Turén, Portuguesa**.
+   - *Narrativa*: "En milisegundos, el sistema consulta 40 años de trayectoria de MapBiomas y calcula la dosis óptima de cal dolomítica para neutralizar el aluminio, proyectando una mejora de rendimiento de 3.5 a 6.2 t/ha."
 
 2. **Minuto 2 — Modo Productor Fácil vs Modo Técnico (IA Dual-Tone)**:
    - *Acción*: Conmutar entre Modo Productor y Modo Técnico; consultar al Asesor IA.
-   - *Narrativa*: "Observen la accesibilidad: para el agricultor, la IA habla en sacos de cal y días de sol ('El Compadre Agrónomo'); para el perito o banco, entrega matrices de correlación y retrodispersión SAR."
+   - *Narrativa*: "Observen la accesibilidad: para el agricultor, la IA habla en sacos de cal y días de sol ('El Compadre Agrónomo'); para el perito o evaluador, entrega matrices de correlación y retrodispersión SAR."
 
 3. **Minuto 3 — Modelos de Proyección Agrícola, Sandbox Didáctico y Prescripción Maquinaria**:
    - *Acción*: Abrir la Calculadora de Carbono, el Laboratorio IoT y el Exportador de Maquinaria.
-   - *Narrativa*: "Demostramos el modelo de proyección regenerativa y estimación de biomasa, el sandbox educativo IoT para ensayar micro-cultivos bajo premisa BYOD (sin atadura a fabricantes de hardware) y la exportación de prescripciones Shapefile para tractores o drones."
+   - *Narrativa*: "Demostramos el módulo de proyección regenerativa, el sandbox didáctico IoT bajo premisa BYOD y la exportación de prescripciones Shapefile para maquinaria."
 
 ---
 
-## 🛠️ Apéndice Técnico: Arquitectura y Factibilidad TRL 6
+## 🛠️ Apéndice Técnico: Arquitectura y Factibilidad TRL 4
 
 - **Frontend WebGIS**: Next.js 16 (App Router, Turbopack, 30 rutas de producción), React 19, Leaflet Nativo puro, PWA offline con resolución determinista de conflictos en `/api/parcels/conflicts`.
 - **Dual-Mode UI & QoS**: Modo Productor Fácil (4 Puertas táctiles, dictado por voz) y Protocolo QoS que bloquea mapas pesados en señales 2G/EDGE priorizando notas de bitácora (< 10 KB).
@@ -120,16 +116,16 @@ Agrotech Venezuela **elimina la fricción de entrada manual**: al marcar un terr
 | **Suite de Calidad** | 233 tests automatizados (100%) | 179 Jest (Frontend) + 54 Pytest (Backend) |
 | **Teledetección Multi-Sensor**| Óptico 10m + Radar SAR Banda C | Sentinel-2 L2A + Sentinel-1 dual VV/VH |
 | **IA Agroclimática & FinOps** | Vocabulario dual (Campesino / Técnico) | Google Gemini 1.5 Flash on-demand + motor local $0 |
-| **Madurez Tecnológica (TRL)** | TRL 6 (Prototipo integrado en entorno relevante) | Datos reales multitemporales de Portuguesa, Zulia y Monagas |
+| **Madurez Tecnológica (TRL)** | TRL 4 (Prototipo funcional en desarrollo) | Validado localmente con datos reales y roadmap a TRL 5/6 |
 
-<p class="caption"><strong>Tabla: Parámetros técnicos del Gemelo Digital en TRL 6</strong> — <em>Certificación de robustez del software y de la arquitectura de microservicios para la evaluación del jurado de MapBiomas 2026.</em></p>
+<p class="caption"><strong>Tabla: Parámetros técnicos del Gemelo Digital en TRL 4</strong> — <em>Certificación de robustez del software y de la arquitectura de microservicios para la evaluación del jurado de MapBiomas 2026.</em></p>
 
 ---
 
 ## 🚀 Llamado a la Acción y Alianzas Estratégicas
 
-Agrotech Venezuela convoca alianzas con la Red MapBiomas, asociaciones de productores agrícolas (Fedeagro, Fedenaga), gremios cooperativos y fondos multilaterales de financiamiento climático para escalar la plataforma a 100.000 hectáreas en los Llanos y cuenca del Lago de Maracaibo en los próximos 18 meses.
+Agrotech Venezuela convoca alianzas con la Red MapBiomas, asociaciones de productores agrícolas (Fedeagro, Fedenaga), gremios cooperativos y centros de investigación para avanzar en las fases TRL 5 y TRL 6 y validar la plataforma en parcelas demostrativas de los Llanos venezolanos.
 
-| Contacto de Alianzas e Inversión | Rol Institucional | Convocatoria Oficial |
+| Contacto de Alianzas | Rol Institucional | Convocatoria Oficial |
 | :--- | :--- | :---: |
-| **Frank Alfonso Sousa Mota** (`frankalfonso1988@gmail.com`)<br>Ing. en Informática (UNERG 2025) • San Juan de los Morros, Guárico | Fundador & Desarrollador Principal<br>[LinkedIn](https://linkedin.com/in/frank-alfonso-sousa-mota-32ba9971) • [GitHub](https://github.com/frankSousa23) | **Premio MapBiomas Venezuela 2026** |
+| **Frank Alfonso Sousa Mota** (`frankalfonso1988@gmail.com`)<br>Ing. en Informática (UNERG 2025) • San Juan de los Morros, Guárico | Fundador & Desarrollador Principal<br>[LinkedIn](https://linkedin.com/in/frank-alfonso-sousa-mota-32ba9971) • [GitHub](https://github.com/frankSousa23) | **Premio MapBiomas Venezuela 2026**<br>(Categoría General) |

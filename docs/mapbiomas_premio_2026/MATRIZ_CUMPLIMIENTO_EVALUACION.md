@@ -1,10 +1,10 @@
 # 📋 Matriz de Cumplimiento Técnico y Autoevaluación de Criterios
 ## Agrotech Venezuela frente a los Criterios de Evaluación del Premio MapBiomas Venezuela 2026 (Anexo II)
 
-**Postulante e Investigador Principal**: Frank Alfonso Sousa Mota (Ing. en Informática, UNERG 2025 — San Juan de los Morros, Estado Guárico, Venezuela)  
+**Postulante y Desarrollador Principal**: Frank Alfonso Sousa Mota (Ing. en Informática, UNERG 2025 — San Juan de los Morros, Estado Guárico, Venezuela)  
 **Contacto Institucional**: [frankalfonso1988@gmail.com](mailto:frankalfonso1988@gmail.com) | [LinkedIn](https://linkedin.com/in/frank-alfonso-sousa-mota-32ba9971) | [GitHub: @frankSousa23](https://github.com/frankSousa23)  
-**Categoría de Postulación**: Categoría General / Políticas Públicas, Gestión Ambiental y Comunitaria  
-**Nivel de Madurez Tecnológica**: TRL 6 (Prototipo Funcional de Sistema Integrado Demostrado en Entorno Relevante con Datos Reales de Portuguesa, Zulia y Monagas)  
+**Categoría de Postulación**: **Categoría General** (Artículo Técnico / Software Libre y Plataformas Espaciales)  
+**Nivel de Madurez Tecnológica**: **TRL 4** (Prototipo Funcional de Software Validado en Entorno de Desarrollo y Simulación Local mediante 233 Pruebas Automatizadas)  
 **Licenciamiento**: MIT License (Código abierto en GitHub) / CC BY 4.0 (Datos MapBiomas Venezuela)  
 **Fecha de Emisión**: Septiembre 2026  
 
@@ -12,15 +12,15 @@
 
 ## Resumen Ejecutivo de Evaluación
 
-| Criterio Oficial (Anexo II) | Ponderación | Calificación Esperada | Evidencia Técnica Comprobable en la Plataforma |
+| Criterio Oficial (Anexo II) | Ponderación (Cat. General) | Calificación Esperada | Evidencia Técnica Comprobable en la Plataforma |
 | :--- | :---: | :---: | :--- |
 | **1. Complejidad Técnica** | **20%** | **5 / 5 (Excelente)** | Integración de 40 años de MapBiomas (Col. 3) + Radar SAR Sentinel-1 Banda C (VV/VH) + Fórmulas Geodésicas Shoelace WGS84 + Modelo Saxton-Rawls PAW IoT + Oráculo Satelital SAR MRV + **233 Tests Automatizados (179 Jest + 54 Pytest)**. |
-| **2. Originalidad** | **20%** | **5 / 5 (Excelente)** | Primer Gemelo Digital Agronómico venezolano que transforma series históricas en prescripciones edáficas cuantitativas con IA prescriptiva (Kamprath modificado, cal dolomítica y yeso agrícola), agregación *Carbon Pooling* y arquitectura *Dual-Mode UI*. |
+| **2. Originalidad** | **20%** | **5 / 5 (Excelente)** | Primer Gemelo Digital Agronómico venezolano de software libre que transforma series históricas en prescripciones edáficas cuantitativas con IA prescriptiva (Kamprath modificado, cal dolomítica y yeso agrícola), agregación *Carbon Pooling* y arquitectura *Dual-Mode UI*. |
 | **3. Claridad y Estructura** | **15%** | **5 / 5 (Excelente)** | Arquitectura Next.js 16 con Turbopack (30 rutas limpias), CSS Glassmorphism, Tour Demostrativo guiado en 5 pasos, APIs REST documentadas en OpenAPI/Swagger 3.0 y formulación matemática en LaTeX/KaTeX desplegada en vivo. |
-| **4. Resultados, Discusión y Conclusiones** | **20%** | **5 / 5 (Excelente)** | Validación en parcelas reales de Turén (maíz: incremento de 3.2 a 6.35 t/ha, ROI rural de 3.8x) y Calabozo (arroz: ahorro hídrico de 18%); secuestro de carbono certificado de 3.85 tCO₂e/ha/año y oráculo SAR que reduce la incertidumbre al 10%. |
+| **4. Resultados, Discusión y Conclusiones** | **20%** | **5 / 5 (Excelente)** | Modelado computacional de escenarios agrícolas representativos (Turén en maíz y Calabozo en arroz), proyectando un potencial de ROI rural estimado de hasta 3.8x, con estimación prospectiva de carbono orgánico (IPCC Tier 2) y oráculo SAR que reduce la incertidumbre al 10%. |
 | **5. Aporte General y Social** | **20%** | **5 / 5 (Excelente)** | Democratización tecnológica para el pequeño agricultor sin costo, interfaz rural campesina gobernada por voz y dialecto criollo (*Modo Productor Fácil*), resiliencia offline en redes 2G/EDGE (QoS 2 canales) y alineación con ODS 1, 2, 12, 13 y 15. |
 | **6. Aporte a MapBiomas Venezuela** | **5%** | **5 / 5 (Excelente)** | Puesta en valor operativo de la serie 1985–2024 para decisiones microeconómicas en el surco, verificación de campo de coberturas y exportación tri-modal para maquinaria (Shapefiles VRA, KML y fichas analógicas). |
-| **Total Ponderado** | **100%** | **100% / 100%** | **Cumplimiento Integral Sobresaliente** |
+| **Total Ponderado** | **100%** | **100% / 100%** | **Cumplimiento Integral Sobresaliente en Categoría General** |
 
 ---
 
@@ -45,7 +45,7 @@
   1. **De la Observación Pasiva a la Prescripción Activa**: Supera los visores tradicionales que solo muestran mapas estáticos. Agrotech traduce 40 años de cambios de cobertura en **planes cuantitativos de enmienda química** (Kamprath modificado, cal dolomítica y yeso agrícola).
   2. **Dual-Mode UI (Innovación de Accesibilidad Rural)**: Alternancia instantánea entre *Modo Productor Fácil* (4 puertas táctiles, dictado por voz Web Speech API y glosario vernáculo venezolano que normaliza sacos, tambores, canecas y tablones) y *Modo Técnico* para ingenieros y científicos.
   3. **Prescripción Tri-Modal para Maquinaria Agrícola**: Generación simultánea de paquetes ESRI Shapefile con atributos de tasa variable (VRA: `RATE_LIME`, `RATE_NPK`) para tractores GPS, misiones KML para drones pulverizadores y fichas de cabina analógicas de 1 página.
-  4. **Agrotech Carbon Pooling**: Modelo Fintech que digitaliza la agregación regional de pequeños productores (< 50 ha) para alcanzar escala Verra VCS, distribuyendo el 85% de los dividendos directamente al campesino.
+  4. **Agrotech Carbon Pooling**: Modelo Fintech conceptual que digitaliza la agregación regional de pequeños productores (< 50 ha) para alcanzar escala Verra VCS, proyectando que el 85% de los dividendos retorne directamente al campesino.
 
 ---
 
@@ -62,11 +62,11 @@
 ### 4. Resultados, Discusión y Conclusiones (Ponderación: 20% | Calificación: 5/5)
 - **Definición del Premio**: *"Resultados y discusión sólidamente sustentados, alineados con los objetivos. El trabajo va más allá de lo descriptivo, aportando un análisis conceptual crítico y reflexivo."*
 - **Cumplimiento de Agrotech Venezuela (Frank Sousa)**:
-  1. **Casos Operacionales en Entorno Real**:
-     - *Turén, Portuguesa*: Parcela de maíz blanco de 48.5 ha; corrección de acidez y descompactación de piso de arado (pastura previa detectada por MapBiomas), elevando el rendimiento de 3.2 a 6.35 t/ha con un ROI de 3.8x.
-     - *Calabozo, Guárico*: Parcela de arroz de 62.0 ha; monitoreo de espejo de agua mediante radar SAR con ahorro de 18% en consumo de bombeo diésel.
+  1. **Escenarios de Modelado Computacional**:
+     - *Escenario Turén, Portuguesa (Maíz)*: Lote simulado de 48.5 ha; modelado de corrección de acidez y descompactación de piso de arado (pastura previa detectada por MapBiomas), proyectando un incremento de rendimiento y un potencial de ROI estimado de hasta 3.8x.
+     - *Escenario Calabozo, Guárico (Arroz)*: Lote simulado de 62.0 ha; monitoreo proyectado de lámina de agua mediante radar SAR con un potencial de ahorro del 18% en consumo de bombeo diésel.
   2. **Resolución Determinista de Conflictos Offline**: Monitoreo y aislamiento de colisiones concurrentes en la cola de cuarentena `/api/parcels/conflicts` con resolución asistida.
-  3. **Discusión Crítica**: Análisis cuantitativo sobre la falacia de usar únicamente teledetección óptica en el trópico húmedo y la necesidad imperiosa de acoplar radar SAR, memoria de uso de suelo y telemetría in-situ.
+  3. **Discusión Crítica**: Análisis cuantitativo sobre la limitación de usar únicamente teledetección óptica en el trópico húmedo y la conveniencia de acoplar radar SAR, series históricas de cobertura y telemetría de apoyo.
 
 ---
 
@@ -82,8 +82,8 @@
 ### 6. Aporte a MapBiomas Venezuela (Ponderación: 5% | Calificación: 5/5)
 - **Definición del Premio**: *"Aporta a la mejora de la metodología, calidad de los datos o visualización de información de MapBiomas Venezuela, generando valor agregado a su desarrollo y aplicación."*
 - **Cumplimiento de Agrotech Venezuela (Frank Sousa)**:
-  1. **Apropiación Productiva de los Datos**: Demuestra que los datos de MapBiomas no solo sirven para alertas de deforestación macro, sino para la toma de decisiones microeconómicas diarias de siembra y fertilización.
-  2. **Verificación en Tierra (Ground Truth)**: La Bitácora de Campo y el Cuaderno Agrícola permiten a los usuarios registrar observaciones de cobertura in-situ que sirven como retroalimentación para futuras colecciones de MapBiomas.
+  1. **Apropiación Productiva de los Datos**: Demuestra que los datos de MapBiomas no solo sirven para inventarios macroecológicos, sino para la toma de decisiones microeconómicas directas de siembra y fertilización.
+  2. **Verificación en Tierra (Ground Truth)**: La Bitácora de Campo campesina permite registrar observaciones de cobertura in-situ que pueden servir como retroalimentación para futuras colecciones de MapBiomas.
   3. **Educación y Conciencia Territorial**: El campesino descubre la historia ecológica de su propio suelo en los últimos 40 años, entendiendo el vínculo directo entre conservación y productividad.
 
 ---
@@ -95,15 +95,15 @@
 | 1. Complejidad Técnica | 20% | **20 / 20** | Cumplimiento Total (233 tests, radar SAR, WGS84) |
 | 2. Originalidad e Innovación | 20% | **20 / 20** | Cumplimiento Total (Gemelo Digital de 40 años) |
 | 3. Claridad y Estructura | 15% | **15 / 15** | Cumplimiento Total (WebGIS multi-escala, Swagger) |
-| 4. Resultados y Discusión | 20% | **20 / 20** | Cumplimiento Total (Validación en Turén/Calabozo) |
+| 4. Resultados y Discusión | 20% | **20 / 20** | Cumplimiento Total (Escenarios computacionales Turén/Calabozo) |
 | 5. Aporte Social y Ambiental | 20% | **20 / 20** | Cumplimiento Total (Dual-Mode UI, Carbon Pooling) |
 | 6. Aporte a MapBiomas | 5% | **5 / 5** | Cumplimiento Total (Apropiación microeconómica) |
-| **PUNTUACIÓN GLOBAL AUDITADA** | **100%** | **100 / 100** | **EXPEDIENTE APTO PARA PREMIACIÓN** |
+| **PUNTUACIÓN GLOBAL AUDITADA** | **100%** | **100 / 100** | **EXPEDIENTE APTO PARA PREMIACIÓN (CATEGORÍA GENERAL)** |
 
-<p class="caption"><strong>Tabla 2: Balance consolidado de evaluación del expediente</strong> — <em>Auditoría integral de requisitos según los baremos oficiales de la Segunda Edición del Premio MapBiomas Venezuela 2026.</em></p>
+<p class="caption"><strong>Tabla 2: Balance consolidado de evaluación del expediente</strong> — <em>Auditoría integral de requisitos según los baremos oficiales de la Segunda Edición del Premio MapBiomas Venezuela 2026 para la Categoría General.</em></p>
 
 ### Declaración Jurada de Conformidad
-El postulante **Frank Sousa** declara bajo fe de juramento técnico y académico que toda la información consignada en esta matriz, así como en el código fuente y visor en vivo, es fidedigna, original y reproducible.
+El postulante **Frank Alfonso Sousa Mota** declara bajo fe de juramento técnico y profesional que toda la información consignada en esta matriz, así como en el código fuente del prototipo funcional (TRL 4), es fidedigna, original y reproducible.
 
-**Firma:** *Frank Sousa — Investigador Principal, Agrotech Venezuela*  
+**Firma:** *Frank Alfonso Sousa Mota — Desarrollador Principal, Agrotech Venezuela*  
 **Fecha:** Septiembre de 2026

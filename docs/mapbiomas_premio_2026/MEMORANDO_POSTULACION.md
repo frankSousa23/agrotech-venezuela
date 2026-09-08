@@ -1,10 +1,11 @@
 # 🏛️ Memorando Institucional y Dossier de Postulación
-## Agrotech Venezuela: Inteligencia Edafo-Climática, Viabilidad Comercial y Prescripción Agronómica Sostenible
+## Agrotech Venezuela: Inteligencia Edafo-Climática, Software Libre y Prescripción Agronómica Sostenible
 
-- **Autor / Desarrollador Principal**: Frank Sousa
+- **Autor y Desarrollador Principal**: Ing. Frank Alfonso Sousa Mota (UNERG, San Juan de los Morros, Guárico)
 - **Ecosistema**: Agrotech Venezuela
-- **Nicho Tecnológico**: AgTech, Fintech Climática (MRV Carbon Pooling), Observación Satelital (WebGIS Multi-Escala) y Prototipado Agro-IoT BYOD.
-- **Nivel de Madurez Tecnológica**: **TRL 6** (Prototipo funcional de sistema integrado demostrado en entorno relevante con datos multitemporales de Portuguesa, Zulia y Monagas; validado con 233 pruebas automatizadas: 179 Jest + 54 Pytest).
+- **Nicho Tecnológico**: AgTech, Modelado de Carbono Orgánico (MRV prospectivo), Observación Satelital (WebGIS Multi-Escala) y Prototipado Agro-IoT BYOD.
+- **Convocatoria**: Segunda Edición del Premio MapBiomas Venezuela 2026 — **Categoría General** (Artículo Técnico)
+- **Nivel de Madurez Tecnológica**: **TRL 4** (Prototipo funcional de software validado en entorno de desarrollo y simulación local con datos espaciales reales y 233 pruebas automatizadas: 179 Jest + 54 Pytest; con hoja de ruta hacia TRL 5/6).
 - **Licencia**: Código bajo MIT License (Copyright 2026 Frank Sousa) / Datos de Cobertura bajo Creative Commons Atribución 4.0 Internacional (CC BY 4.0 - MapBiomas Venezuela).
 
 [⬅️ Ir al README Principal](../README.md) | [🛠️ Ver Guía de Desarrollo & Arquitectura](../DEVELOPING.md) | [📊 Ver Pitch Deck](../PITCH_DECK.md)
@@ -22,49 +23,54 @@ La agricultura en Venezuela y la cuenca tropical enfrenta una paradoja estructur
 
 ---
 
-## 💰 2. Modelo Económico, Viabilidad Comercial y Retorno de Inversión (ROI)
+## 💰 2. Proyección de Viabilidad Económica y Modelado de Retorno de Inversión (ROI)
 
-### 2.1 Impacto Cuantificado en la Economía del Agricultor
-El despliegue de Agrotech genera un beneficio económico cuantificable desde el primer ciclo de cultivo:
-- **Retorno de Inversión (ROI Rural)**: **3.8x en el primer ciclo**. Por cada dólar invertido en encalado dirigido, el agricultor recupera \$3.80 por incremento de cosecha y fertilizante aprovechado.
-- **Reducción de Costos de Fertilización**: Ahorro directo del **35% en fertilizantes N-P-K** (~\$140 USD/ha) al evitar aplicaciones excesivas e ineficientes.
-- **Incremento de Productividad en Cereales**: En los Llanos Occidentales (Portuguesa/Guárico), la corrección agronómica eleva el rendimiento del maíz de **3.2 t/ha a 6.2+ t/ha** (+75% de producción neta).
-- **Diagnóstico Inmediato sin Fricción**: Diagnóstico preliminar en menos de **3 segundos**, ahorrando \$120 USD y 4 semanas frente al laboratorio tradicional.
+### 2.1 Modelado del Impacto Potencial en la Economía del Agricultor
+El motor algorítmico de Agrotech proyecta un beneficio económico sustancial cuando el agricultor adopta las recomendaciones de enmienda:
+- **Potencial de Retorno de Inversión (ROI Proyectado)**: **Hasta 3.8x estimado** por el modelo computacional sobre el costo de la cal dolomítica y nutrientes aprovechados.
+- **Ahorro Estimado en Fertilización**: Reducción proyectada de hasta un **35% en desperdicio de fertilizantes N-P-K** (~\$140 USD/ha) al neutralizar el aluminio tóxico.
+- **Proyección de Productividad en Cereales**: Para los Llanos aluviales (Portuguesa/Guárico), el modelo estima un potencial de incremento de rendimiento en maíz desde **3.2 t/ha hasta 6.2+ t/ha** bajo corrección edáfica óptima.
+- **Diagnóstico Instantáneo sin Costo**: Diagnóstico preliminar en menos de **3 segundos**, eliminando la barrera económica inicial de \$120 USD y 4 semanas frente al laboratorio tradicional.
 
-### 2.2 Estrategia de Monetización y Capas de Negocio B2B / B2G
-Agrotech cuenta con una estructura de ingresos diversificada y sostenible:
+### 2.2 Estrategia de Sostenibilidad y Modelos de Negocio Futuros B2B / B2G
+Como hoja de ruta comercial para escalar el proyecto:
 1. **Tier Productor Familiar (Freemium)**: Diagnóstico básico, bitácora y clima gratuito para parcelas < 10 ha, garantizando adopción comunitaria masiva.
-2. **Tier Asociaciones y Cooperativas (B2B SaaS — \$0.50/ha/año)**: Contratado por gremios como Fedeagro, Asoportuguesa y Socaportuguesa. Proporciona tableros multi-predio de pronóstico de cosecha, monitoreo de estrés hídrico y alertas tempranas de plagas. (Mercado objetivo regional: 400,000 ha = \$200,000 USD anuales).
-3. **Tier Agro-Banca & Insumeras (B2B API Scoring)**: Evaluaciones de riesgo crediticio edafo-climático para banca de desarrollo (Banco Agrícola, Banesco, Mercantil) e inteligencia de demanda de insumos para fabricantes de fertilizantes (\$1,200 - \$3,500 USD/mes).
+2. **Tier Asociaciones y Cooperativas (B2B SaaS — \$0.50/ha/año)**: Proyección para gremios agrícolas (Fedeagro, Asoportuguesa). Proporcionaría tableros multi-predio de pronóstico de cosecha, monitoreo de estrés hídrico y alertas tempranas de plagas.
+3. **Tier Agro-Banca & Insumeras (B2B API Scoring)**: Evaluaciones de riesgo crediticio edafo-climático para banca de desarrollo e inteligencia de demanda de insumos.
 4. **Originación Prospectiva de Carbono (Carbon Pooling - I+D)**: Modelo exploratorio de corretaje y agregación comunitaria sobre bonos de carbono emitidos en mercados voluntarios.
 
 ---
 
-## 🌿 3. Módulo MRV y Sandbox Didáctico Agro-IoT BYOD
+## 🌿 3. Módulo de Estimación Prospectiva de Carbono (MRV) y Sandbox Didáctico IoT
 
-El módulo de **Créditos de Carbono y MRV** (`CarbonCreditsCalculator.tsx`) y el **Laboratorio Agro-IoT** (`MicrocropIoTLab.tsx`) articulan las líneas de frontera científica y formativa de la plataforma:
+El módulo de **Créditos de Carbono y MRV** (`CarbonCreditsCalculator.tsx`) y el **Laboratorio Agro-IoT** (`MicrocropIoTLab.tsx`) articulan las capacidades analíticas de la plataforma:
 
-| Segmento de Predio Participante | Mecanismo de Agregación Regional (Pool) | Emisión y Distribución Económica (Verra VCS) |
+| Segmento de Predio Participante | Mecanismo de Agregación Regional (Pool) | Emisión y Distribución Económica (Modelo Teórico) |
 | :--- | :--- | :--- |
 | • **Pequeñas Fincas** (10 – 50 ha)<br>• **Fincas Medianas** (50 – 200 ha)<br>• **Sistemas Agroforestales** (SAF) | **Pool Regional Agrotech (5.000+ ha)**<br>• Verificación vía Sentinel-2 & MapBiomas<br>• Oráculo Satelital SAR (incertidumbre 10%)<br>• \$0 Costo de auditoría para el productor | **Valor de Mercado: \$18.50 USD / tCO₂e**<br>• **85% para el Productor**: \$15.72 USD/tCO₂e líquida<br>• **15% para Agrotech**: \$2.78 USD/tCO₂e por MRV digital |
 
-<p class="caption"><strong>Figura 2: Arquitectura del modelo Fintech "Agrotech Carbon Pooling"</strong> — <em>Estructura de gobernanza y agregación regional para la emisión de bonos de carbono Verra VCS / IPCC Tier 2. Resuelve la barrera de los \$45.000 USD de auditoría individual y transfiere el 85% de los dividendos económicos de conservación directamente a los productores locales.</em></p>
+<p class="caption"><strong>Figura 2: Arquitectura del modelo conceptual "Agrotech Carbon Pooling"</strong> — <em>Estructura de gobernanza y agregación regional para la emisión prospectiva de bonos de carbono Verra VCS / IPCC Tier 2.</em></p>
 
-- **Investigación Económica de Carbono**: Explora la viabilidad de la agricultura regenerativa para predios familiares típicamente excluidos de certificaciones internacionales (Verra/Gold Standard). Agrotech modela algoritmos de agregación digital (pools de 5.000 ha) y verificación satelital SAR como línea prospectiva de ingresos para el productor.
+- **Investigación Económica de Carbono**: Explora la viabilidad de la agricultura regenerativa para predios familiares típicamente excluidos de certificaciones internacionales. Agrotech modela algoritmos de agregación digital (pools de 5.000 ha) y verificación satelital SAR como línea prospectiva de ingresos para el productor.
 - **Sandbox Educativo Agro-IoT (BYOD)**: Entorno aislado y 100% opcional para experimentación en huertos, viveros o camas demostrativas indoor/outdoor. **Agrotech Venezuela no fabrica ni vende hardware**; cualquier productor o estudiante puede conectar sensores genéricos comerciales (ESP32/capacitivos) mediante código abierto, o bien prescindir por completo de ellos, ya que el 100% de la analítica del sistema opera de forma satelital autónoma.
 
 ---
 
-## 🚀 4. Nivel de Madurez Tecnológica (TRL 6) y Validación Operacional
+## 🚀 4. Nivel de Madurez Tecnológica (TRL 4) y Calidad de Software Certificada
 
-El sistema se sitúa en **TRL 6** (Prototipo funcional de sistema integrado demostrado en entorno relevante con datos multitemporales reales de Portuguesa, Zulia y Monagas, listo para fases de validación piloto en campo):
-- **Plataforma WebGIS en Producción**: Next.js 16 App Router con compilador Turbopack y 30 rutas de producción optimizadas (ampliadas desde la base de 28 rutas limpias).
+El sistema se sitúa en **TRL 4 (Prototipo funcional de software validado en entorno de desarrollo y simulación local con datos geoespaciales reales de Portuguesa, Zulia y Monagas)**:
+- **Plataforma WebGIS Funcional**: Next.js 16 App Router con compilador Turbopack y 30 rutas de producción optimizadas.
 - **Cobertura Territorial Integral**: 24 estados y 335 municipios de Venezuela con datos agroecológicos y edafológicos calibrados.
-- **Doble Modo de Interfaz (Dual-Mode UI)**: *Modo Productor Fácil* con 4 puertas táctiles, vocabulario de campo y dictado por voz, alternable a *Modo Técnico* para ingenieros y comités evaluadores.
+- **Doble Modo de Interfaz (Dual-Mode UI)**: *Modo Productor Fácil* con 4 puertas táctiles, vocabulario de campo y dictado por voz nativo, alternable a *Modo Técnico* para ingenieros y comités evaluadores.
 - **Asesoría IA Adaptativa (Dual-Tone)**: La IA ("El Compadre Agrónomo") adapta dinámicamente su vocabulario según la interfaz activa, hablando en sacos y días de sol para agricultores, y en ecuaciones edafológicas para técnicos.
 - **IA On-Demand & FinOps Cero Deuda**: Gemini 1.5 Flash activado bajo demanda mediante la cuota gratuita de Google AI Studio (15 RPM / 1.500 RPD) para asistencia cualitativa y vernacular, mientras los cálculos agronómicos de rutina (Kamprath, Shoelace, Saxton-Rawls) se resuelven en motores locales deterministas a costo marginal cero ($0.00).
 - **Neutralidad de Hardware (BYOD)**: Enfoque 100% Software-First. El laboratorio IoT es un sandbox experimental y educativo; la plataforma no fabrica hardware ni requiere sensores físicos en campo para operar.
-- **Calidad de Software Certificada**: **233 pruebas automatizadas (ampliadas desde la certificación base de 197 pruebas automatizadas: 179 Jest + 54 Pytest, 100% aprobadas)**, 0 errores de compilación TypeScript.
+- **Calidad de Software Certificada**: **233 pruebas automatizadas (179 Jest + 54 Pytest, 100% aprobadas)**, 0 errores de compilación TypeScript.
+
+### Hoja de Ruta de Escalabilidad (Roadmap TRL 4 → TRL 6)
+1. **TRL 4 (Actual)**: Prototipo funcional completo verificado en local con 233 pruebas automatizadas y datos satelitales históricos.
+2. **TRL 5 (Fase Siguiente)**: Despliegue en servidor cloud con canal piloto multiusuario.
+3. **TRL 6 (Validación en Campo)**: Pruebas piloto participativas en parcelas reales en colaboración con cooperativas agrícolas de Portuguesa y Guárico.
 
 ---
 
@@ -80,15 +86,15 @@ En zonas rurales remotas, la conectividad móvil es frecuentemente inestable y d
 
 ---
 
-## 📊 6. Matriz de Impacto Social, Económico y Ambiental (ODS)
+## 📊 6. Matriz de Proyección de Impacto Social, Económico y Ambiental (ODS)
 
-| Dimensión | Métrica en Campo | Alineación con ODS |
+| Dimensión | Proyección del Modelo | Alineación con ODS |
 | :--- | :--- | :--- |
 | **Inclusión Financiera** | Barrera de diagnóstico reducida de **\$150 a \$0** para pequeños agricultores. | 🌾 **ODS 1 (Fin de la Pobreza)** |
-| **Productividad Agrícola** | Aumento de rendimiento de **3.5 t/ha a 6.2+ t/ha** en cereales llaneros. | 🌽 **ODS 2 (Hambre Cero)** |
-| **Aprovechamiento de Insumos**| Reducción del **35% en desperdicio de fertilizantes NPK** por corrección de pH. | 🧪 **ODS 12 (Producción Responsable)**|
-| **Captura de Carbono** | Secuestro de hasta **3.85 tCO₂e/ha/año** bajo manejo regenerativo. | 🌳 **ODS 13 (Acción por el Clima)** |
-| **Protección de la Amazonía** | Protocolo estricto del **Escudo de Conservación del Sur del Orinoco** (SAF). | 🛡️ **ODS 15 (Ecosistemas Terrestres)** |
+| **Productividad Agrícola** | Potencial de aumento de rendimiento de **3.5 t/ha a 6.2+ t/ha** en cereales llaneros. | 🌽 **ODS 2 (Hambre Cero)** |
+| **Aprovechamiento de Insumos**| Reducción proyectada de hasta el **35% en desperdicio de fertilizantes NPK**. | 🧪 **ODS 12 (Producción Responsable)**|
+| **Captura de Carbono** | Proyección teórica de hasta **3.85 tCO₂e/ha/año** bajo manejo regenerativo sostenido. | 🌳 **ODS 13 (Acción por el Clima)** |
+| **Protección de la Amazonía** | Protocolo de alerta para el **Escudo de Conservación del Sur del Orinoco** (SAF). | 🛡️ **ODS 15 (Ecosistemas Terrestres)** |
 
 ---
 
@@ -138,8 +144,8 @@ Calibrada regionalmente para texturas venezolanas (Arenoso θ_crit = 9,0%, Franc
 
 ## ✍️ Dictamen Institucional y Firma de Postulación
 
-El presente memorando valida formalmente la postulación técnica e institucional del proyecto **Agrotech Venezuela** ante el Comité Organizador y el Jurado Evaluador del **Premio MapBiomas Venezuela 2026**.
+El presente memorando valida formalmente la postulación técnica e institucional del proyecto **Agrotech Venezuela** ante el Comité Organizador y el Jurado Evaluador de la **Segunda Edición del Premio MapBiomas Venezuela 2026**.
 
-| Postulante y Responsable Técnico | Afiliación y Laboratorio | Estatus del Ecosistema | Fecha de Emisión |
+| Postulante y Responsable Técnico | Categoría | Estatus del Ecosistema | Fecha de Emisión |
 | :--- | :--- | :--- | :---: |
-| **Frank Sousa** | Agrotech Venezuela / Lab Edafo-Espacial | **TRL 6 Integrado (233 tests)** | Septiembre 2026 |
+| **Ing. Frank Alfonso Sousa Mota** | **Categoría General** (Artículo Técnico) | **TRL 4 Validado en Desarrollo (233 tests)** | Septiembre 2026 |

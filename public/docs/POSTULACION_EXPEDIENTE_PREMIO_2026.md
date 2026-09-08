@@ -1,11 +1,13 @@
-# 🌾 Agrotech Venezuela: Gemelo Digital Agronómico, Teledetección Multi-Escala e Inteligencia Artificial Prescriptiva para la Agricultura Sostenible
-### *Validación Operacional TRL 6, Modelado MRV y Resiliencia Rural en el Marco de MapBiomas Venezuela*
+# 🌾 Agrotech Venezuela: Plataforma WebGIS y Gemelo Digital de Software Libre para la Integración de Series Históricas de MapBiomas (1985–2024) y Teledetección Satelital en la Prescripción Agrícola
+### *Artículo Técnico — Prototipo Funcional de Software (TRL 4), Modelado Computacional y Accesibilidad Rural*
 
-**Autor Principal e Investigador**: Frank Alfonso Sousa Mota¹  
-**Afiliación Institucional**: ¹ Ingeniero en Informática (2025), Universidad Nacional Experimental de los Llanos Centrales Rómulo Gallegos (UNERG), San Juan de los Morros, Estado Guárico, Venezuela / Laboratorio de Inteligencia Edafo-Espacial Agrotech Venezuela  
+**Autor Principal y Desarrollador**: Ing. Frank Alfonso Sousa Mota¹  
+**Afiliación Institucional**: ¹ Ingeniero en Informática (2025), Universidad Nacional Experimental de los Llanos Centrales Rómulo Gallegos (UNERG), San Juan de los Morros, Estado Guárico, Venezuela  
 **Contacto Institucional**: [frankalfonso1988@gmail.com](mailto:frankalfonso1988@gmail.com) | LinkedIn: [frank-alfonso-sousa-mota-32ba9971](https://linkedin.com/in/frank-alfonso-sousa-mota-32ba9971) | GitHub: [@frankSousa23](https://github.com/frankSousa23)  
 **Convocatoria**: Segunda Edición del Premio MapBiomas Venezuela 2026  
-**Categoría de Postulación**: Categoría General / Políticas Públicas, Gestión Ambiental y Comunitaria  
+**Categoría de Postulación**: **Categoría General** (Software Libre, Plataformas Espaciales e Innovación Tecnológica)  
+**Formato Documental**: **Artículo Técnico**  
+**Nivel de Madurez Tecnológica**: **TRL 4** (Prototipo Funcional de Software Validado en Entorno de Desarrollo y Simulación Local)  
 **Repositorio Oficial de Código Abierto**: [https://github.com/frankSousa23/agrotech-venezuela](https://github.com/frankSousa23/agrotech-venezuela)  
 **Licenciamiento del Código**: Licencia MIT (Copyright 2026 Frank Sousa - Agrotech Venezuela)  
 **Licenciamiento y Atribución de Datos**: Creative Commons Atribución 4.0 Internacional (CC BY 4.0) — [MapBiomas Venezuela](https://venezuela.mapbiomas.org/terminos-de-uso/)  
@@ -14,21 +16,21 @@
 
 ## Resumen
 
-La agricultura en la cuenca tropical venezolana enfrenta desafíos concurrentes: alta meteorización edáfica con acidez severa (pH < 5.2 y toxicidad por Al³⁺), variabilidad climática extrema exacerbada por el fenómeno ENOS, densa nubosidad estacional durante el ciclo de siembra que inutiliza sensores ópticos, y barreras socioeconómicas que excluyen al 85% de los productores del acceso a análisis de laboratorio tradicionales. Este trabajo presenta **Agrotech Venezuela**, una plataforma de inteligencia agroclimática en nivel **TRL 6** (prototipo funcional de sistema integrado demostrado en entorno relevante con datos multitemporales de Portuguesa, Zulia y Monagas) que transforma cuatro décadas de memoria espacial territorial (**MapBiomas Venezuela Colección 3.0, 1985–2024**) en prescripciones agronómicas cuantitativas y ejecutables. 
+La agricultura en la cuenca tropical venezolana enfrenta desafíos concurrentes: alta meteorización edáfica con acidez severa (pH < 5.2 y toxicidad por Al³⁺), variabilidad climática extrema exacerbada por el fenómeno ENOS, densa nubosidad estacional durante el ciclo de siembra que inutiliza sensores ópticos, y barreras socioeconómicas que excluyen al 85% de los productores del acceso a análisis de laboratorio tradicionales. Este trabajo presenta **Agrotech Venezuela**, una plataforma WebGIS y Gemelo Digital de software libre desarrollada de manera independiente por el Ing. **Frank Alfonso Sousa Mota** (UNERG), situada en nivel **TRL 4** (prototipo funcional de software integrado y verificado en entorno de desarrollo local con datos espaciales reales y 233 pruebas automatizadas) que transforma cuatro décadas de memoria espacial territorial (**MapBiomas Venezuela Colección 3.0, 1985–2024**) en prescripciones agronómicas cuantitativas y ejecutables. 
 
-El ecosistema articula reflectancia óptica multiespectral (**Sentinel-2 L2A** a 10m), penetración activa de nubes mediante radar de apertura sintética (**Sentinel-1 SAR Banda C**, retrodispersión dual VV/VH), series climatológicas diarias de superficie (**NASA POWER**), pedocalibración dinámica Saxton-Rawls para agua disponible en suelo (PAW), y un agente experto de inteligencia artificial adaptativa (**Google Gemini AI**). El sistema implementa la formulación esferoidal geodésica Shoelace WGS84 para el cálculo de áreas sin distorsión proyectiva, acumulación térmica por Grados Día de Crecimiento (GDD), un Oráculo Satelital Radar SAR para monitoreo, reporte y verificación (MRV) de carbono orgánico (IPCC Tier 2 / Verra VCS), prescripciones tri-modales para maquinaria (Shapefiles ESRI con dosis variable VRA para tractores, planes KML para drones agrícolas y fichas de cabina analógicas) y una arquitectura de inclusión rural **Dual-Mode UI** con *Modo Productor Fácil* gobernado por voz nativa y dialecto campesino venezolano. Validada mediante **233 pruebas automatizadas (179 Jest + 54 Pytest, 100% aprobadas)** y desplegada sobre 30 rutas de producción Next.js 16 Turbopack en Turén (Portuguesa) y Calabozo (Guárico), la plataforma demuestra un retorno de inversión rural de **3.8x** y abre el camino hacia la soberanía tecnológica y climática.
+El ecosistema articula reflectancia óptica multiespectral (**Sentinel-2 L2A** a 10m), penetración activa de nubes mediante radar de apertura sintética (**Sentinel-1 SAR Banda C**, retrodispersión dual VV/VH), series climatológicas diarias de superficie (**NASA POWER**), pedocalibración dinámica Saxton-Rawls para agua disponible en suelo (PAW), y un agente experto de inteligencia artificial adaptativa (**Google Gemini AI**). El sistema implementa la formulación esferoidal geodésica Shoelace WGS84 para el cálculo de áreas sin distorsión proyectiva, acumulación térmica por Grados Día de Crecimiento (GDD), un módulo de estimación prospectiva de carbono orgánico (IPCC Tier 2 / Verra VCS), prescripciones tri-modales para maquinaria (Shapefiles ESRI con dosis variable VRA para tractores, planes KML para drones agrícolas y fichas de cabina analógicas) y una arquitectura de inclusión rural **Dual-Mode UI** con *Modo Productor Fácil* gobernado por voz nativa y dialecto campesino venezolano. Validada mediante **233 pruebas automatizadas (179 Jest + 54 Pytest, 100% aprobadas)** y desplegada sobre 30 rutas de producción Next.js 16 Turbopack, la plataforma modela un potencial de retorno de inversión rural estimado de **hasta 3.8x** y abre el camino hacia la soberanía tecnológica.
 
-**Palabras clave**: MapBiomas Venezuela, Gemelo Digital Agronómico, Radar SAR Sentinel-1, Shoelace Geodésico WGS84, Saxton-Rawls PAW, Dual-Mode UI, Google Gemini AI, MRV Carbon Pooling, Frank Sousa, TRL 6.
+**Palabras clave**: MapBiomas Venezuela, Artículo Técnico, Gemelo Digital Agronómico, Radar SAR Sentinel-1, Shoelace Geodésico WGS84, Saxton-Rawls PAW, Dual-Mode UI, Google Gemini AI, Frank Sousa, TRL 4.
 
 ---
 
 ## Abstract
 
-Agriculture in the Venezuelan tropics faces multiple structural constraints: high soil weathering with severe acidity (pH < 5.2 and aluminum toxicity), intense climate variability driven by ENSO anomalies, persistent cloud cover during the primary rainy cropping season that obstructs optical satellites, and severe economic barriers preventing over 85% of smallholders from accessing laboratory soil testing. This article presents **Agrotech Venezuela**, an integrated AgTech decision-support platform at **TRL 6** maturity (functional integrated prototype demonstrated in relevant environment) that transforms 40 years of historical land-use spatial data (**MapBiomas Venezuela Collection 3.0, 1985–2024**) into actionable, farm-level prescriptive agronomy.
+Agriculture in the Venezuelan tropics faces multiple structural constraints: high soil weathering with severe acidity (pH < 5.2 and aluminum toxicity), intense climate variability driven by ENSO anomalies, persistent cloud cover during the primary rainy cropping season that obstructs optical satellites, and severe economic barriers preventing over 85% of smallholders from accessing laboratory soil testing. This article presents **Agrotech Venezuela**, an open-source WebGIS decision-support platform and agronomic digital twin independently engineered by Software Engineer **Frank Alfonso Sousa Mota** (UNERG), positioned at Technology Readiness Level **TRL 4** (functional software prototype validated in a local development and simulation environment using real spatial data and a comprehensive suite of 233 automated tests).
 
-The system couples multispectral reflectance (**Sentinel-2 L2A**), cloud-penetrating synthetic aperture radar (**Sentinel-1 SAR C-Band**, dual VV/VH backscatter), daily surface agroclimatology (**NASA POWER**), dynamic Saxton-Rawls pedotransfer soil moisture modeling (PAW), and adaptive artificial intelligence (**Google Gemini AI**). The mathematical engine integrates ellipsoidal Shoelace WGS84 geodesics for sub-metric area quantification, Growing Degree Days (GDD) hydro-thermal balance, a Sentinel-1 SAR satellite oracle for soil organic carbon MRV auditing (IPCC Tier 2 / Verra VCS), tri-modal machinery variable-rate prescriptions (ESRI Shapefiles for GPS tractors, flight KML for drones, and 1-page analog cabin cards), and an offline-resilient **Dual-Mode UI** featuring an accessible *Farmer Easy Mode* with Web Speech voice recognition and Venezuelan agrarian vernacular parsing. Verified through **233 automated tests (179 Jest + 54 Pytest, 100% passing)** across 30 production routes in Next.js 16 Turbopack, the platform delivers a verified rural ROI of **3.8x** in cereal cropping systems and establishes a scalable foundation for digital carbon pooling research.
+The system couples multispectral reflectance (**Sentinel-2 L2A**), cloud-penetrating synthetic aperture radar (**Sentinel-1 SAR C-Band**, dual VV/VH backscatter), daily surface agroclimatology (**NASA POWER**), dynamic Saxton-Rawls pedotransfer soil moisture modeling (PAW), and adaptive artificial intelligence (**Google Gemini AI**). The mathematical engine integrates ellipsoidal Shoelace WGS84 geodesics for sub-metric area quantification, Growing Degree Days (GDD) hydro-thermal balance, a forward-looking soil organic carbon estimation module following IPCC Tier 2 / Verra VCS guidelines, tri-modal machinery variable-rate prescriptions (ESRI Shapefiles for GPS tractors, flight KML for drones, and 1-page analog cabin cards), and an offline-resilient **Dual-Mode UI** featuring an accessible *Farmer Easy Mode* with Web Speech voice recognition and Venezuelan agrarian vernacular parsing. Verified through **233 automated tests (179 Jest + 54 Pytest, 100% passing)** across 30 production routes in Next.js 16 Turbopack, the platform projects a potential rural ROI of **up to 3.8x** in cereal cropping systems and establishes a scalable foundation for digital carbon pooling research.
 
-**Keywords**: MapBiomas Venezuela, Agronomic Digital Twin, Sentinel-1 SAR, WGS84 Shoelace Geodesics, Saxton-Rawls PAW, Dual-Mode UI, Google Gemini AI, Carbon MRV, Frank Sousa, TRL 6.
+**Keywords**: MapBiomas Venezuela, Technical Article, Agronomic Digital Twin, Sentinel-1 SAR, WGS84 Shoelace Geodesics, Saxton-Rawls PAW, Dual-Mode UI, Google Gemini AI, Frank Sousa, TRL 4.
 
 ---
 
@@ -40,7 +42,7 @@ La producción de alimentos en Venezuela se concentra principalmente en los Llan
 2. **La Barrera Económica y Temporal del Diagnóstico**: Un análisis de fertilidad en laboratorio comercial cuesta entre \$80 y \$150 USD por muestra y su procesamiento tarda de 3 a 6 semanas. Para una pequeña finca familiar de 15 a 40 hectáreas, este desembolso previo a la siembra resulta prohibitivo, provocando que más del 80% de los productores apliquen fórmulas convencionales a ciegas.
 3. **La Ceguera Óptica Estacional por Nubosidad**: Durante la temporada de lluvias (mayo a noviembre), coincidente con el ciclo comercial de cereales (maíz y arroz), el porcentaje medio de cobertura nubosa supera el 75% en las imágenes satelitales ópticas (Sentinel-2 y Landsat), generando vacíos de información justamente cuando el cultivo demanda monitoreo crítico de biomasa y estrés hídrico.
 
-**Agrotech Venezuela**, concebido y desarrollado por **Frank Sousa**, nace como un Gemelo Digital Agronómico abierto y reproducible que capitaliza los 40 años de trayectoria histórica reconstruidos por **MapBiomas Venezuela** para proveer diagnósticos inmediatos, prescripciones de enmiendas regionalizadas, un sandbox didáctico Agro-IoT BYOD y modelos prospectivos de agregación de carbono (Carbon Pooling).
+**Agrotech Venezuela**, concebido y desarrollado por el Ing. **Frank Alfonso Sousa Mota** (UNERG), nace como un Gemelo Digital Agronómico abierto y reproducible que capitaliza los 40 años de trayectoria histórica reconstruidos por **MapBiomas Venezuela** para proveer diagnósticos inmediatos, prescripciones de enmiendas regionalizadas, un sandbox didáctico Agro-IoT BYOD y modelos prospectivos de agregación de carbono (Carbon Pooling).
 
 ---
 
@@ -48,9 +50,9 @@ La producción de alimentos en Venezuela se concentra principalmente en los Llan
 
 | 1. Ingestión Espacial & Climatológica | 2. Motor Computacional Edafo-Espacial | 3. Salidas de Campo & Rentabilidad |
 | :--- | :--- | :--- |
-| • **MapBiomas Venezuela Col. 3.0** (1985–2024, 40 años)<br>• **Sentinel-1 SAR** Banda C (5.405 GHz, VV/VH)<br>• **Sentinel-2 L2A** Multiespectral (SCL nube libre)<br>• **NASA POWER** (Radiación solar, Temp, Ppt)<br>• **Telemetría IoT BYOD** (Sandbox didáctico opcional) | • **Shoelace Esferoidal WGS84** (Área elipsoidal)<br>• **Pedocalibración PAW %** (Saxton-Rawls)<br>• **Kamprath Modificado** (Corrección de Al³⁺)<br>• **Oráculo SAR MRV** (σ°_VH / σ°_VV > -12 dB)<br>• **AgroClimatic Engine** (GDD base 10°C) | • **Modo Productor Fácil** (4 Puertas táctiles)<br>• **Prescripción Tri-Modal** (VRA SHP, KML, PDF)<br>• **Agrotech Carbon Pooling** (85% para productor)<br>• **Bitácora de Campo** (Parser vernacular de voz)<br>• **Resiliencia Offline** (SQLite WAL / IndexedDB) |
+| • **MapBiomas Venezuela Col. 3.0** (1985–2024, 40 años)<br>• **Sentinel-1 SAR** Banda C (5.405 GHz, VV/VH)<br>• **Sentinel-2 L2A** Multiespectral (SCL nube libre)<br>• **NASA POWER** (Radiación solar, Temp, Ppt)<br>• **Telemetría IoT BYOD** (Sandbox didáctico opcional) | • **Shoelace Esferoidal WGS84** (Área elipsoidal)<br>• **Pedocalibración PAW %** (Saxton-Rawls)<br>• **Kamprath Modificado** (Corrección de Al³⁺)<br>• **Módulo MRV de Carbono** (Algoritmo IPCC Tier 2)<br>• **AgroClimatic Engine** (GDD base 10°C) | • **Modo Productor Fácil** (4 Puertas táctiles)<br>• **Prescripción Tri-Modal** (VRA SHP, KML, PDF)<br>• **Agrotech Carbon Pooling** (85% para productor)<br>• **Bitácora de Campo** (Parser vernacular de voz)<br>• **Resiliencia Offline** (SQLite WAL / IndexedDB) |
 
-<p class="caption"><strong>Figura 1: Flujo integral de la arquitectura técnica de Agrotech Venezuela</strong> — <em>Esquema sinóptico de la cadena metodológica y de procesamiento biofísico: 1) Ingesta continua de teledetección multiespectral, radar satelital, series agroclimáticas y telemetría IoT de campo; 2) Motor biofísico y geoespacial que ejecuta cómputos geodésicos esferoidales, funciones de pedotransferencia edafológica, calibración de enmiendas regionales y oráculo radar para verificación MRV de carbono; y 3) Salidas operativas aplicadas en campo, integrando la interfaz Dual-Mode UI (Modo Campesino con voz vernacular), prescripciones universales para maquinaria de precisión y dividendos económicos por descarbonización comunitaria.</em></p>
+<p class="caption"><strong>Figura 1: Flujo integral de la arquitectura técnica de Agrotech Venezuela</strong> — <em>Pipeline desde la ingesta de datos satelitales y climáticos, pasando por el motor matemático edafológico local, hasta los canales de prescripción y accesibilidad rural.</em></p>
 
 ### 2.1 Memoria Espacial de 40 Años: Transición Histórica de Uso de Suelo (MapBiomas)
 La plataforma no trata el suelo como un sustrato estático. A través de la base cartográfica de MapBiomas Venezuela (Colección 3.0, 1985–2024), el sistema rastrea la trayectoria temporal de cada polígono parcelario:
@@ -97,12 +99,12 @@ El sistema formula planes de dosificación según la ecorregión:
 
 Para la asistencia interactiva y vernacular, el sistema acopla **Google Gemini 1.5 Flash** activado bajo demanda (mediante la cuota gratuita de Google AI Studio: 15 RPM / 1.500 RPD), garantizando cero deuda en la nube. A su vez, la totalidad de los cálculos agronómicos deterministas (Kamprath, Shoelace, Saxton-Rawls) son resueltos localmente en milisegundos con costo marginal cero ($0.00).
 
-### 2.6 Oráculo Satelital Radar SAR para Certificación MRV de Carbono
-Para abatir el costo prohibitivo de auditorías presenciales en proyectos de secuestro de carbono orgánico (SOC 0-30 cm) bajo metodologías IPCC Tier 2 y Verra VCS, el servicio `/api/mrv/sar-oracle` evalúa la rugosidad estructural del dosel vegetal:
+### 2.6 Módulo de Estimación Prospectiva de Carbono Orgánico (MRV)
+Como componente de investigación tecnológica para la gestión ambiental, el software incorpora un módulo de cuantificación prospectiva basado en las ecuaciones de stock de carbono del IPCC Tier 2 (0-30 cm) acoplado a la verificación satelital de rugosidad de dosel mediante radar SAR:
 
 $$\sigma^\circ_{VH}/\sigma^\circ_{VV} > -12.0\text{ dB}$$
 
-Al cruzar este umbral con las labores registradas en la bitácora de campo (siembra directa, cobertura viva o enmiendas orgánicas), el oráculo satelital reduce la incertidumbre de verificación del **40% al 10%**, permitiendo la agregación comunitaria en el modelo **Agrotech Carbon Pooling**.
+Al cruzar este umbral con las labores registradas en la bitácora de campo (siembra directa, cobertura viva o enmiendas orgánicas), el software modela la reducción de incertidumbre de verificación y proyecta escenarios de acumulación de carbono para esquemas de **Carbon Pooling**.
 
 ### 2.7 Prescripciones Tri-Modales para Maquinaria Agrícola
 Para transformar los dictámenes analíticos en acciones físicas en el surco, Agrotech emite paquetes tri-modales:
@@ -126,9 +128,9 @@ En comunidades rurales donde la conectividad celular es precaria o nula (2G/EDGE
 
 ---
 
-## 4. Estado de Madurez Actual (TRL 6) y Calidad de Software Certificada
+## 4. Estado de Madurez Actual (TRL 4) y Calidad de Software Certificada
 
-El sistema se sitúa en el nivel de madurez tecnológica **TRL 6** (Prototipo funcional de sistema integrado demostrado en entorno relevante con datos multitemporales reales de Portuguesa, Zulia y Monagas, preparado para validación piloto en campo):
+El sistema se sitúa en el nivel de madurez tecnológica **TRL 4 (Prototipo funcional de software validado en entorno de desarrollo y simulación local)**:
 
 | Dimensión de Certificación | Métrica Verificada en Producción | Estándar y Entorno Operacional |
 | :--- | :---: | :--- |
@@ -141,35 +143,40 @@ El sistema se sitúa en el nivel de madurez tecnológica **TRL 6** (Prototipo fu
 | **IA Pragmática & FinOps** | **Google AI Studio Free Tier + Motor $0** | Invocación on-demand de Gemini 1.5 Flash; cómputo determinista local a costo marginal cero |
 | **Filosofía de Hardware** | **100% Software-First & BYOD** | Agrotech no manufactura hardware; sandbox educativo opcional sin dependencias físicas en campo |
 
-<p class="caption"><strong>Tabla 1: Matriz de salud del sistema y certificación de calidad de software</strong> — <em>Resumen cuantitativo de los indicadores de robustez, confiabilidad, cobertura geográfica y rendimiento computacional que sustentan el nivel de madurez tecnológica TRL 6 (prototipo de sistema integrado validado en entorno relevante). Acredita la ejecución exitosa de 233 pruebas automatizadas de extremo a extremo, cero errores de tipado, tiempos de respuesta sub-25ms para entornos rurales offline y total conformidad con los estándares de ingeniería de software para el Premio MapBiomas Venezuela 2026.</em></p>
+<p class="caption"><strong>Tabla 1: Matriz de salud del sistema y certificación de calidad de software</strong> — <em>Resumen cuantitativo de los indicadores de robustez, confiabilidad, cobertura geográfica y rendimiento computacional que sustentan el nivel de madurez tecnológica TRL 4 (prototipo de software funcional validado en entorno de desarrollo). Acredita la ejecución exitosa de 233 pruebas automatizadas de extremo a extremo, cero errores de tipado y total conformidad técnica para el Premio MapBiomas Venezuela 2026.</em></p>
+
+### Hoja de Ruta Tecnológica (Roadmap TRL 4 → TRL 6)
+- **TRL 4 (Actual — Septiembre 2026)**: Prototipo funcional completo verificado en desarrollo local con 233 pruebas automatizadas y datos satelitales reales de MapBiomas y Sentinel-1.
+- **TRL 5 (Fase Siguiente)**: Despliegue en servidor cloud con soporte multiusuario y canal piloto de telemetría IoT.
+- **TRL 6 (Validación en Campo)**: Ensayos demostrativos y pruebas piloto participativas en parcelas reales en colaboración con cooperativas agrícolas de Portuguesa y Guárico.
 
 ---
 
-## 5. Casos de Estudio y Validación Experimental en Campo
+## 5. Escenarios de Modelado Computacional y Proyecciones Agronómicas
 
-### Caso 1: Polo Cerealero de Turén, Portuguesa (Cultivo de Maíz Blanco)
-- **Lote de Estudio**: Finca "El Carmen", 48.5 ha.
-- **Diagnóstico Espacial**: Suelo franco-limoso, pH inicial de 4.85, saturación de Al³⁺ del 38%. La serie histórica MapBiomas identificó deforestación en 1994 y 20 años continuos de pastura introducida degradada (*Urochloa brizantha*) previa a la siembra agrícola.
-- **Prescripción Aplicada**: Encalado dirigido con 1,450 kg/ha de cal dolomítica (Kamprath modificado) fraccionado 30 días antes del inicio de lluvias, más descompactación mecánica vertical del piso de arado (20 cm) advertido por la firma de transición de pastura.
-- **Impacto**: Aumento de rendimiento de grano de **3.2 t/ha a 6.35 t/ha (+98%)**, evitando la pérdida del 40% del fertilizante nitrogenado por fijación y lixiviación. Retorno de inversión comprobado de **3.8x** en el primer ciclo.
+A fin de evaluar la coherencia de las recomendaciones del sistema, se configuraron dos escenarios de simulación computacional basados en características agroclimáticas y edafológicas representativas de Venezuela:
 
-### Caso 2: Sistema de Riego Calabozo, Guárico (Cultivo de Arroz Inundado)
-- **Lote de Estudio**: Sector "Las Majaguas", 62.0 ha.
-- **Diagnóstico Espacial**: Suelo arcilloso vértico. Detección continua de la lámina de agua mediante retrodispersión Sentinel-1 SAR (σ°_VV con atenuación especular < -18 dB).
-- **Prescripción Aplicada**: Ajuste del régimen hídrico mediante balances P − ET_c y drenaje intercalado a los 45 días pos-emergencia.
-- **Impacto**: Reducción del **18% en consumo de agua por bombeo** diésel y disminución estimada de 1.2 tCO₂e/ha en emisiones entéricas de metano (CH₄).
+### Escenario 1: Modelado Computacional en Suelos Ácidos de Turén, Portuguesa (Cultivo de Maíz Blanco)
+- **Contexto Simulado**: Lote de 48.5 ha representativo de terrazas aluviales con historial de transición de pastura degradada a agricultura anual (detectado en MapBiomas). Parámetros iniciales: pH 4.85 y saturación de Al³⁺ del 38%.
+- **Prescripción Generada por el Software**: Dosis calculada de 1.450 kg/ha de cal dolomítica mediante el modelo Kamprath modificado y recomendación de descompactación mecánica (subsolado a 20 cm).
+- **Proyección del Modelo**: El algoritmo de proyección edáfica estima un potencial de reducción sustancial de pérdidas de fertilizante por inmovilización química y una mejora progresiva del rendimiento teórico en campañas sucesivas, proyectando un retorno de inversión (ROI) estimado de **hasta 3.8x** sobre el costo de la enmienda en condiciones óptimas de manejo.
 
-### Caso 3: Modelo Prospectivo "Agrotech Carbon Pooling" (Investigación I+D)
-Como línea de investigación económica para superar el costo de auditoría individual Verra VCS (\$45,000 USD), el módulo MRV explora la agregación digital de 5,000 ha de pequeños predios bajo manejo regenerativo (siembra directa y abonos verdes, secuestro estimado de 3.85 tCO₂e/ha/año).
-- **Masa Crítica Generada**: ~19,250 tCO₂e/año proyectables a \$18.5 USD/tCO₂e (\$356,125 USD brutos).
-- **Distribución**: **85% (\$302,706 USD)** distribuido directamente a los agricultores participantes como dividendo anual por conservación, y **15% (\$53,419 USD)** para mantenimiento y soporte de la red satelital de Agrotech.
+### Escenario 2: Modelado Computacional en el Sistema de Riego Calabozo, Guárico (Cultivo de Arroz Inundado)
+- **Contexto Simulado**: Lote de 62.0 ha en suelo arcilloso vértico.
+- **Monitoreo Satelital Simulado**: Seguimiento de lámina de agua mediante retrodispersión Sentinel-1 SAR ($\sigma^\circ_{VV} < -18\text{ dB}$) y cálculo de balance hídrico $P - ET_c$.
+- **Proyección del Modelo**: El algoritmo proyecta un potencial de optimización del riego que permitiría un ahorro teórico de hasta el **18% en bombeo de agua**, con la consecuente reducción en consumo de combustible diésel.
+
+### Escenario 3: Módulo de Estimación Prospectiva de Carbono Orgánico (MRV y Carbon Pooling)
+Como componente de investigación tecnológica para la gestión ambiental, el software incorpora un módulo de cuantificación prospectiva basado en las ecuaciones de stock de carbono del IPCC Tier 2:
+- **Funcionalidad**: Permite proyectar el secuestro teórico de carbono ($\text{tCO}_2\text{e}/\text{ha}/\text{año}$) si el productor registra con constancia prácticas de manejo regenerativo (siembra directa, abonos verdes).
+- **Modelo de Agregación "Carbon Pooling"**: El sistema modela esquemas teóricos de agregación comunitaria donde pequeños predios suman masa crítica para diluir costos de certificación, proyectando que hasta un **85%** de los eventuales dividendos retorne directamente al agricultor.
 
 ---
 
 ## 6. Conclusiones y Aportes a la Gestión Territorial en Venezuela
 
 1. **Puesta en Valor Productivo de MapBiomas**: Agrotech Venezuela demuestra que los 40 años de datos de cobertura de la iniciativa MapBiomas Venezuela no constituyen únicamente un inventario ambiental retrospectivo, sino una palanca prospectiva indispensable para restaurar la fertilidad biológica y productiva de los suelos agrícolas.
-2. **Democratización Tecnológica y Soberanía**: Al unificar código libre bajo licencia MIT, accesibilidad rural nativa por voz (Dual-Mode UI) y resiliencia offline en redes 2G, la plataforma transfiere el poder de la inteligencia artificial de vanguardia directamente a las manos de los campesinos y agrónomos venezolanos.
+2. **Democratización Tecnológica y Soberanía**: Al unificar código libre bajo licencia MIT, accesibilidad rural nativa por voz (Dual-Mode UI) y resiliencia offline en redes 2G, la plataforma transfiere el poder de la informática de vanguardia directamente a las manos de los campesinos y agrónomos venezolanos.
 3. **Escalabilidad y Transparencia**: Con **233 pruebas automatizadas** y una rigurosa arquitectura de microservicios, el proyecto sienta las bases para la gobernanza territorial, la investigación en certificación de carbono y la seguridad agroalimentaria de la nación.
 
 ---
@@ -181,8 +188,7 @@ Como línea de investigación económica para superar el costo de auditoría ind
 3. **Saxton, K. E., & Rawls, W. J. (2006)**: *Soil water characteristic estimates by texture and organic matter for hydrologic solutions*. Soil Science Society of America Journal, 70(5), 1569-1578.
 4. **IPCC (2019)**: *Refinement to the 2006 IPCC Guidelines for National Greenhouse Gas Inventories: Volume 4 (Agriculture, Forestry and Other Land Use)*. Intergovernmental Panel on Climate Change, Geneva, Switzerland.
 5. **NASA POWER Project (2026)**: *Prediction of Worldwide Energy Resources: Surface Meteorology and Solar Energy Data Set*. NASA Langley Research Center, Hampton, VA.
-6. **Sousa, F. (2026)**: *Agrotech Venezuela: Ecosistema Integral de Inteligencia Edafo-Espacial, WebGIS Multi-Escala y Modelado Prescriptivo*. Repositorio GitHub: [https://github.com/frankSousa23/agrotech-venezuela](https://github.com/frankSousa23/agrotech-venezuela). Licencia MIT.
-
+6. **Sousa, F. A. (2026)**: *Agrotech Venezuela: Plataforma WebGIS y Gemelo Digital de Software Libre para la Prescripción Agrícola*. Repositorio GitHub: [https://github.com/frankSousa23/agrotech-venezuela](https://github.com/frankSousa23/agrotech-venezuela). Licencia MIT.
 
 ---
 
@@ -203,17 +209,17 @@ Como línea de investigación económica para superar el costo de auditoría ind
   <div style="text-align: center; margin-bottom: 4px;">
     <img src="figures/figura2_optimizacion_rendimientos.png" alt="Figura 2: Optimización de Rendimiento por Compensación de Legado Edafológico" style="width: 100%; max-width: 650px; border: 1px solid #cbd5e1; border-radius: 6px;" />
   </div>
-  <p class="caption"><strong>Figura 2: Comparativa de rendimientos proyectados (t/ha) entre manejo empírico convencional y el Gemelo Digital Agrotech acoplado a MapBiomas</strong> — <em>Evaluación multicadena en cinco rubros prioritarios de soberanía agroalimentaria (maíz blanco, soya, arroz bajo riego, plátano y cacao criollo fino de aroma). La compensación de acidez, fijación de fósforo y balance hídrico Saxton-Rawls PAW genera saltos de productividad comprobados entre +28% y +98%, sustentando el ROI rural de 3.8x.</em></p>
+  <p class="caption"><strong>Figura 2: Comparativa de rendimientos proyectados (t/ha) entre manejo empírico convencional y el Gemelo Digital Agrotech acoplado a MapBiomas</strong> — <em>Evaluación multicadena en cinco rubros prioritarios de soberanía agroalimentaria (maíz blanco, soya, arroz bajo riego, plátano y cacao criollo fino de aroma). La compensación de acidez, fijación de fósforo y balance hídrico Saxton-Rawls PAW genera saltos de productividad modelados entre +28% y +98%, sustentando el potencial de ROI rural estimado de hasta 3.8x.</em></p>
 </div>
 
 ---
 
 ## 9. Certificación Institucional y Declaración de Postulación
 
-El presente expediente técnico-científico consolida la candidatura oficial de **Agrotech Venezuela** a la **Segunda Edición del Premio MapBiomas Venezuela 2026** en las categorías *General* y *Políticas Públicas, Gestión Ambiental y Comunitaria*. Se certifica que todo el software es de código abierto (Licencia MIT), los algoritmos son reproducibles, los datos territoriales cumplen estrictamente con la licencia CC BY 4.0 de MapBiomas Venezuela, y la plataforma opera en nivel de madurez **TRL 6** (Prototipo Integrado en Entorno Relevante) validada mediante **233 pruebas automatizadas** (179 Jest + 54 Pytest, 100% aprobadas).
+El presente expediente técnico consolida la candidatura oficial de **Agrotech Venezuela** a la **Segunda Edición del Premio MapBiomas Venezuela 2026** en la **Categoría General** (Artículo Técnico). Se certifica que todo el software es de código abierto (Licencia MIT), los algoritmos son reproducibles, los datos territoriales cumplen estrictamente con la licencia CC BY 4.0 de MapBiomas Venezuela, y la plataforma opera en nivel de madurez **TRL 4** (Prototipo Funcional de Software Validado en Entorno de Desarrollo Local) validada mediante **233 pruebas automatizadas** (179 Jest + 54 Pytest, 100% aprobadas).
 
-| Postulante e Investigador Principal | Institución / Laboratorio | Convocatoria Oficial | Estatus Tecnológico |
+| Postulante y Desarrollador Principal | Convocatoria Oficial | Categoría | Estatus Tecnológico |
 | :--- | :--- | :--- | :---: |
-| **Frank Alfonso Sousa Mota**<br>Ingeniero en Informática (UNERG 2025)<br>San Juan de los Morros, Guárico | Agrotech Venezuela / Lab Edafo-Espacial<br>[frankalfonso1988@gmail.com](mailto:frankalfonso1988@gmail.com) | Premio MapBiomas Venezuela 2026 | **TRL 6 (Prototipo Integrado en Entorno Relevante)** |
+| **Ing. Frank Alfonso Sousa Mota**<br>Ingeniero en Informática (UNERG 2025)<br>San Juan de los Morros, Guárico<br>[frankalfonso1988@gmail.com](mailto:frankalfonso1988@gmail.com) | Premio MapBiomas Venezuela 2026 | **Categoría General**<br>(Artículo Técnico) | **TRL 4 (Prototipo Funcional Validado en Desarrollo — 233 tests)** |
 
 <p class="caption"><strong>Certificación Oficial de Postulación</strong> — <em>Documento expedido para el Comité Organizador y el Jurado Calificador del Premio MapBiomas Venezuela 2026. Toda la suite de software, datos y microservicios se encuentra disponible públicamente en https://github.com/frankSousa23/agrotech-venezuela.</em></p>

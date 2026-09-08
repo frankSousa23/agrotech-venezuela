@@ -44,7 +44,10 @@ export default function PostulacionPage() {
       <header className={styles.header}>
         <div className={styles.badgeRow}>
           <span className={styles.trlBadge}>
-            <ShieldCheck size={14} /> Nivel de Madurez TRL 6 (Prototipo Demostrado en Entorno Relevante)
+            <ShieldCheck size={14} /> Nivel de Madurez TRL 4 (Prototipo Funcional en Entorno de Desarrollo)
+          </span>
+          <span className="badge-pill badge-emerald">
+            <Award size={13} /> Categoría General (Artículo Técnico)
           </span>
           <span className="badge-pill badge-emerald">
             <CheckCircle2 size={13} /> 233 Tests Automatizados Pasando (179 Jest + 54 Pytest)
@@ -61,7 +64,7 @@ export default function PostulacionPage() {
           Ficha Técnica & Perfil Institucional de Postulación
         </h1>
         <p className={styles.subtitle}>
-          Memorando técnico, rigor científico, métricas de impacto socioeconómico y guía rápida de evaluación para comités técnicos y evaluadores.
+          Memorando técnico, rigor algorítmico, modelos de proyección socioeconómica y guía rápida de evaluación para comités técnicos y evaluadores.
         </p>
       </header>
 
@@ -79,14 +82,14 @@ export default function PostulacionPage() {
 
           <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
             <a 
-              href="/docs/Articulo_Cientifico_Agrotech_MapBiomas_2026.pdf" 
+              href="/docs/Articulo_Tecnico_Agrotech_MapBiomas_2026.pdf" 
               className="btn-primary"
               target="_blank"
               rel="noopener noreferrer"
-              download="Articulo_Cientifico_Agrotech_MapBiomas_2026.pdf"
+              download="Articulo_Tecnico_Agrotech_MapBiomas_2026.pdf"
               style={{ fontSize: '0.8rem', padding: '6px 12px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
             >
-              <Download size={15} /> Artículo Científico (PDF)
+              <Download size={15} /> Artículo Técnico (PDF)
             </a>
             <a 
               href="/docs/Memorando_Postulacion_Agrotech_2026.pdf" 
@@ -150,7 +153,7 @@ export default function PostulacionPage() {
             <DollarSign size={22} color="#4ade80" /> Impacto Económico Cuantificado & Modelos de Monetización
           </h2>
           <span style={{ fontSize: '0.85rem', color: '#cbd5e1' }}>
-            Agrotech Venezuela no solo es una proeza de ingeniería (TRL 6), sino una empresa de tecnología agro-climática con retorno de inversión comprobado y 4 canales de monetización B2B/B2G:
+            Agrotech Venezuela no solo es un prototipo funcional de software validado (TRL 4), sino una plataforma de tecnología agro-climática con modelos de proyección económica (ROI 3.8x proyectado) y 4 canales de monetización B2B/B2G:
           </span>
         </div>
 
@@ -383,7 +386,7 @@ export default function PostulacionPage() {
             </div>
           </div>
 
-          {/* Tarjeta 4: Artículo Científico Técnico */}
+          {/* Tarjeta 4: Artículo Técnico */}
           <div style={{
             background: 'rgba(15, 23, 42, 0.75)',
             border: '1px solid rgba(168, 85, 247, 0.3)',
@@ -397,20 +400,20 @@ export default function PostulacionPage() {
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
                 <span style={{ fontSize: '0.72rem', background: 'rgba(168, 85, 247, 0.2)', color: '#c084fc', padding: '2px 8px', borderRadius: '6px', fontWeight: 700 }}>
-                  Paper Técnico
+                  Artículo Técnico
                 </span>
-                <FlaskConical size={16} color="#c084fc" />
+                <Cpu size={16} color="#c084fc" />
               </div>
               <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#fff', margin: '0 0 0.4rem 0' }}>
-                Artículo Científico: Actualidad y Futuro
+                Artículo Técnico: Arquitectura y Algoritmos
               </h3>
               <p style={{ fontSize: '0.82rem', color: '#94a3b8', margin: 0, lineHeight: 1.4 }}>
-                Manuscrito formal de validación TRL 6, penetración radar SAR Banda C, formulación Shoelace WGS84, casos de estudio y hoja de ruta 2026–2030.
+                Manuscrito formal de validación técnica TRL 4 (233 tests), arquitectura WebGIS Next.js 16/FastAPI, penetración radar SAR Banda C, formulación Shoelace WGS84, escenarios de simulación y hoja de ruta TRL 5/6.
               </p>
             </div>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               <Link 
-                href="/docs/ARTICULO_CIENTIFICO_DRAFT.md" 
+                href="/docs/ARTICULO_TECNICO_DRAFT.md" 
                 target="_blank"
                 className="btn-secondary" 
                 style={{ flex: 1, justifyContent: 'center', fontSize: '0.78rem', padding: '6px 10px' }}
@@ -418,8 +421,8 @@ export default function PostulacionPage() {
                 <FileText size={14} /> Ver Paper
               </Link>
               <a 
-                href="/docs/Articulo_Cientifico_Agrotech_MapBiomas_2026.pdf" 
-                download="Articulo_Cientifico_Agrotech_MapBiomas_2026.pdf"
+                href="/docs/Articulo_Tecnico_Agrotech_MapBiomas_2026.pdf" 
+                download="Articulo_Tecnico_Agrotech_MapBiomas_2026.pdf"
                 className="btn-primary" 
                 style={{ fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
               >
@@ -497,36 +500,36 @@ export default function PostulacionPage() {
           gap: '14px',
           marginTop: '1rem'
         }}>
-          {/* Doc 1: Artículo Científico */}
+          {/* Doc 1: Artículo Técnico */}
           <div style={{ background: 'rgba(15, 23, 42, 0.75)', border: '1px solid rgba(16, 185, 129, 0.35)', borderRadius: '12px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <FlaskConical size={20} color="#10b981" />
-                <span style={{ fontSize: '0.92rem', fontWeight: 700, color: '#f8fafc' }}>Artículo Científico Arbitrable</span>
+                <span style={{ fontSize: '0.92rem', fontWeight: 700, color: '#f8fafc' }}>Artículo Técnico Arbitrable</span>
               </div>
-              <span className="badge-pill badge-emerald" style={{ fontSize: '0.7rem' }}>TRL 6 Demostrado</span>
+              <span className="badge-pill badge-cyan" style={{ fontSize: '0.7rem' }}>TRL 4 Validado (233 Tests)</span>
             </div>
             <p style={{ fontSize: '0.8rem', color: '#cbd5e1', margin: 0, lineHeight: 1.45 }}>
-              Gemelo Digital Agronómico, Teledetección Multi-Escala e IA Prescriptiva. Incluye Oráculo SAR Sentinel-1 all-weather, Shoelace esferoidal, pedocalibración Saxton-Rawls y memoria de 40 años MapBiomas.
+              Gemelo Digital Agronómico, Teledetección Multi-Escala e IA Prescriptiva. Incluye Oráculo SAR Sentinel-1 all-weather, Shoelace esferoidal, pedocalibración Saxton-Rawls, memoria de 40 años MapBiomas y escenarios de simulación en Turén y Calabozo.
             </p>
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', fontSize: '0.7rem', color: '#94a3b8' }}>
-              <span>• 3.178 palabras (&lt; 10k)</span>
-              <span>• 233 tests passing</span>
+              <span>• ~3.200 palabras (&lt; 10k)</span>
+              <span>• 233 tests passing (179 Jest + 54 Pytest)</span>
               <span>• Frank Alfonso Sousa Mota (UNERG)</span>
             </div>
             <div style={{ display: 'flex', gap: '8px', marginTop: 'auto', paddingTop: '8px' }}>
               <a
-                href="/docs/Articulo_Cientifico_Agrotech_MapBiomas_2026.pdf"
+                href="/docs/Articulo_Tecnico_Agrotech_MapBiomas_2026.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                download="Articulo_Cientifico_Agrotech_MapBiomas_2026.pdf"
+                download="Articulo_Tecnico_Agrotech_MapBiomas_2026.pdf"
                 className="btn-primary"
                 style={{ flex: 1, justifyContent: 'center', fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
               >
                 <Download size={14} /> Descargar PDF
               </a>
               <a
-                href="/docs/ARTICULO_CIENTIFICO_DRAFT.md"
+                href="/docs/ARTICULO_TECNICO_DRAFT.md"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary"
@@ -587,7 +590,7 @@ export default function PostulacionPage() {
               <span className="badge-pill badge-amber" style={{ fontSize: '0.7rem' }}>Expediente Final</span>
             </div>
             <p style={{ fontSize: '0.8rem', color: '#cbd5e1', margin: 0, lineHeight: 1.45 }}>
-              Expediente técnico integral de postulación que unifica el manuscrito científico con el anexo fotográfico y los gráficos analíticos de transición histórica (Plotly).
+              Expediente técnico integral de postulación que unifica el manuscrito técnico con el anexo fotográfico y los gráficos analíticos de transición histórica (Plotly).
             </p>
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', fontSize: '0.7rem', color: '#94a3b8' }}>
               <span>• Categoría General</span>
@@ -1003,7 +1006,7 @@ export default function PostulacionPage() {
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>
-            <Award size={22} color="#10b981" /> Perfil del Postulante e Investigador Principal
+            <Award size={22} color="#10b981" /> Perfil del Autor y Desarrollador de Software
           </h2>
           <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
             Acreditación académica, autoría territorial y contacto institucional:
@@ -1024,13 +1027,13 @@ export default function PostulacionPage() {
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
                 <span style={{ fontSize: '1.3rem', fontWeight: 800, color: '#f8fafc' }}>Frank Alfonso Sousa Mota</span>
-                <span className="badge-pill badge-emerald" style={{ fontSize: '0.72rem' }}>Postulante Principal</span>
+                <span className="badge-pill badge-emerald" style={{ fontSize: '0.72rem' }}>Autor & Desarrollador Principal</span>
               </div>
               <p style={{ margin: 0, fontSize: '0.92rem', color: '#38bdf8', fontWeight: 600 }}>
                 Ingeniero en Informática (2025) — Universidad Nacional Experimental de los Llanos Centrales Rómulo Gallegos (UNERG)
               </p>
               <p style={{ margin: '6px 0 0 0', fontSize: '0.82rem', color: '#94a3b8' }}>
-                📍 San Juan de los Morros, Estado Guárico, Venezuela 🇻🇪 • Laboratorio de Inteligencia Edafo-Espacial Agrotech Venezuela
+                📍 San Juan de los Morros, Estado Guárico, Venezuela 🇻🇪 • Proyecto Independiente de Software e Inteligencia Edafo-Espacial Agrotech Venezuela
               </p>
             </div>
 
@@ -1074,7 +1077,7 @@ export default function PostulacionPage() {
           }}>
             <div>
               <b style={{ color: '#94a3b8' }}>Categoría de Postulación:</b><br />
-              Categoría General / Políticas Públicas y Gestión Ambiental
+              Categoría General (Artículo Técnico / Software WebGIS)
             </div>
             <div>
               <b style={{ color: '#94a3b8' }}>Convocatoria:</b><br />
