@@ -109,7 +109,7 @@ Este proyecto se postula formalmente en la **Segunda Edición del Premio MapBiom
 - **Categoría**: **Categoría General** (postulación unificada e individual).
 - **Formato**: **Artículo Técnico** (arquitectura de software, algoritmos y teledetección espacial, ~3.200 palabras).
 - **Madurez**: **TRL 4** (*Prototipo Funcional de Software Validado en Entorno de Desarrollo y Simulación Local*), con hoja de ruta hacia TRL 5/6.
-- **Expediente Completo**: Visita la **[Ficha de Postulación](/dashboard/postulacion)** interactiva en la app o consulta los documentos oficiales en [`docs/mapbiomas_premio_2026/`](docs/mapbiomas_premio_2026/).
+- **Expediente Completo**: Consulta el **[Expediente Consolidado de Postulación](docs/mapbiomas_premio_2026/POSTULACION_EXPEDIENTE_PREMIO_2026.md)** y el **[Artículo Técnico Oficial](public/docs/ARTICULO_TECNICO_DRAFT.md)** en [`docs/mapbiomas_premio_2026/`](docs/mapbiomas_premio_2026/) (o explora la vista interactiva en la app local en `/dashboard/postulacion`).
 
 ---
 

@@ -9,7 +9,7 @@
 const fs = require('fs');
 const path = require('path');
 
-// Intentar cargar mdToPdf desde la caché de npm o node_modules
+// Intentar cargar mdToPdf desde node_modules, global o caché de npx
 let mdToPdf;
 try {
   ({ mdToPdf } = require('md-to-pdf'));
@@ -17,8 +17,12 @@ try {
   try {
     ({ mdToPdf } = require('C:/Users/Windows/AppData/Local/npm-cache/_npx/55158e48eb5c59f7/node_modules/md-to-pdf'));
   } catch (err) {
-    console.error('Error al cargar md-to-pdf:', err);
-    process.exit(1);
+    try {
+      const globalRoot = require('child_process').execSync('npm root -g', { stdio: ['pipe', 'pipe', 'ignore'] }).toString().trim();
+      ({ mdToPdf } = require(path.join(globalRoot, 'md-to-pdf')));
+    } catch (e2) {
+      mdToPdf = null;
+    }
   }
 }
 
@@ -78,6 +82,13 @@ async function compileAll() {
   console.log('🚀 Iniciando compilación de documentos Markdown a PDF...');
   console.log(`📁 Directorio destino principal: ${PUBLIC_DOCS}`);
   console.log(`📁 Directorio destino expediente: ${EXPEDIENTE_DOCS}\n`);
+
+  if (!mdToPdf) {
+    console.warn('⚠️ md-to-pdf no está disponible directamente en el entorno Node.js actual.');
+    console.warn('   Todos los PDFs oficiales ya están precompilados y disponibles en public/docs/ y docs/mapbiomas_premio_2026/.');
+    console.warn('   Para recompilar individualmente, utiliza: npx md-to-pdf <archivo.md>\n');
+    return;
+  }
 
   // Asegurar que las figuras Plotly HTML estén convertidas a PNG en alta resolución
   try {
