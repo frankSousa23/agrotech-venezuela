@@ -141,15 +141,6 @@ async function compileAll() {
         const expDest = path.join(EXPEDIENTE_DOCS, doc.filename);
         fs.writeFileSync(expDest, pdf.content);
 
-        // Guardar copia de compatibilidad hacia atrás para Articulo_Cientifico si aplica
-        if (doc.filename === 'Articulo_Tecnico_Agrotech_MapBiomas_2026.pdf') {
-          const legacyPub = path.join(PUBLIC_DOCS, 'Articulo_Cientifico_Agrotech_MapBiomas_2026.pdf');
-          const legacyExp = path.join(EXPEDIENTE_DOCS, 'Articulo_Cientifico_Agrotech_MapBiomas_2026.pdf');
-          fs.writeFileSync(legacyPub, pdf.content);
-          fs.writeFileSync(legacyExp, pdf.content);
-          console.log(`📋 Copia espejo de compatibilidad generada: Articulo_Cientifico_Agrotech_MapBiomas_2026.pdf`);
-        }
-
         console.log(`✅ ${doc.filename} generado exitosamente (${(pdf.content.length / 1024).toFixed(1)} KB)`);
       } else {
         console.error(`❌ Falló la generación de ${doc.filename}`);

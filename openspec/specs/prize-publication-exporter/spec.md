@@ -7,7 +7,7 @@ Compiles scientific manuscripts, parcel digital twins, charts, official MapBioma
 ## Requirements
 
 ### Requirement: Submission Paper and Digital Twin Compilation
-The system SHALL compile the draft scientific/technical paper (`public/docs/ARTICULO_TECNICO_DRAFT.md`, `public/docs/ARTICULO_CIENTIFICO_DRAFT.md`, and `docs/mapbiomas_premio_2026/`) together with live parcel agronomic metrics, NASA POWER climate charts, MapBiomas transition diagrams, explicit author attribution to **Frank Sousa**, open-source MIT code licensing, and MapBiomas CC BY 4.0 data terms into an up-to-date, publication-ready PDF document under 10,000 words.
+The system SHALL compile the draft technical paper (`public/docs/ARTICULO_TECNICO_DRAFT.md` and `docs/mapbiomas_premio_2026/`) together with live parcel agronomic metrics, NASA POWER climate charts, MapBiomas transition diagrams, explicit author attribution to **Frank Sousa**, open-source MIT code licensing, and MapBiomas CC BY 4.0 data terms into an up-to-date, publication-ready PDF document under 10,000 words.
 
 #### Scenario: Generating Submission Package
 - **WHEN** user or pipeline executes the publication exporter command (`md-to-pdf` or compiler script)

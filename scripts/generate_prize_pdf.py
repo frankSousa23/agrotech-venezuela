@@ -157,7 +157,7 @@ def generate_analytical_charts():
 
 def validate_and_compile_dossier():
     """Compila el expediente y verifica las restricciones formales de las Bases."""
-    draft_file = os.path.join(DOCS_DIR, "ARTICULO_CIENTIFICO_DRAFT.md")
+    draft_file = os.path.join(DOCS_DIR, "ARTICULO_TECNICO_DRAFT.md")
     if not os.path.exists(draft_file):
         print(f"❌ Error: No se encontró el borrador en {draft_file}")
         return False

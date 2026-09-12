@@ -23,67 +23,67 @@ class CacheManager:
         self.db_path = db_path
         self._init_database()
 
+    def _reset_corrupt_db(self):
+        for suffix in ["", "-wal", "-shm"]:
+            p = f"{self.db_path}{suffix}"
+            if os.path.exists(p):
+                try:
+                    os.remove(p)
+                except OSError:
+                    pass
+
     def _get_connection(self) -> sqlite3.Connection:
         """Crea conexión con soporte WAL (Write-Ahead Logging) para alta concurrencia con auto-recuperación."""
         try:
             conn = sqlite3.connect(self.db_path)
             conn.execute("PRAGMA journal_mode = WAL")
             conn.execute("PRAGMA synchronous = NORMAL")
+            res = conn.execute("PRAGMA quick_check").fetchone()
+            if res and res[0] != "ok":
+                raise sqlite3.DatabaseError("quick_check failed")
             return conn
         except sqlite3.DatabaseError:
-            # En caso de imagen corrupta por apagado abrupto, recuperar automáticamente
-            for suffix in ["", "-wal", "-shm"]:
-                p = f"{self.db_path}{suffix}"
-                if os.path.exists(p):
-                    try:
-                        os.remove(p)
-                    except OSError:
-                        pass
+            self._reset_corrupt_db()
             conn = sqlite3.connect(self.db_path)
             conn.execute("PRAGMA journal_mode = WAL")
             conn.execute("PRAGMA synchronous = NORMAL")
+            self._init_database_tables(conn)
             return conn
+
+    def _init_database_tables(self, conn: sqlite3.Connection):
+        cursor = conn.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS spatial_cache (
+                coord_hash TEXT PRIMARY KEY,
+                latitude REAL NOT NULL,
+                longitude REAL NOT NULL,
+                mapbiomas_json TEXT,
+                climate_json TEXT,
+                sentinel_json TEXT,
+                soil_json TEXT,
+                created_at INTEGER NOT NULL,
+                expires_at INTEGER NOT NULL,
+                hit_count INTEGER DEFAULT 0
+            )
+        """)
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_coords ON spatial_cache (latitude, longitude)")
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_expires ON spatial_cache (expires_at)")
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS query_metrics (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                latitude REAL,
+                longitude REAL,
+                cache_hit INTEGER,
+                response_time_ms REAL,
+                timestamp INTEGER
+            )
+        """)
+        conn.commit()
 
     def _init_database(self):
         """Inicializa las tablas y los índices espaciales."""
         with self._get_connection() as conn:
-            cursor = conn.cursor()
-
-            # Tabla principal de caché de perfiles espaciales
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS spatial_cache (
-                    coord_hash TEXT PRIMARY KEY,
-                    latitude REAL NOT NULL,
-                    longitude REAL NOT NULL,
-                    mapbiomas_json TEXT,
-                    climate_json TEXT,
-                    sentinel_json TEXT,
-                    soil_json TEXT,
-                    created_at INTEGER NOT NULL,
-                    expires_at INTEGER NOT NULL,
-                    hit_count INTEGER DEFAULT 0
-                )
-            """)
-
-            # Índices espaciales para acelerar consultas por proximidad
-            cursor.execute(
-                "CREATE INDEX IF NOT EXISTS idx_coords ON spatial_cache (latitude, longitude)"
-            )
-            cursor.execute("CREATE INDEX IF NOT EXISTS idx_expires ON spatial_cache (expires_at)")
-
-            # Tabla de métricas y auditoría de consultas
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS query_metrics (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    latitude REAL,
-                    longitude REAL,
-                    cache_hit INTEGER,
-                    response_time_ms REAL,
-                    timestamp INTEGER
-                )
-            """)
-
-            conn.commit()
+            self._init_database_tables(conn)
 
     def _make_coord_hash(self, lat: float, lon: float, precision_decimals: int = 4) -> str:
         """
