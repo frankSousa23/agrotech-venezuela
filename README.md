@@ -91,6 +91,9 @@ El código fuente cuenta con una suite rigurosa de **233 pruebas automatizadas (
 # Ejecutar verificación completa (179 tests Jest + 54 tests Pytest)
 npm run test:all
 
+# Matriz ejecutiva visual de pruebas (resumen categorizado)
+npm run test:summary
+
 # Verificación de tipos TypeScript estricto (0 errores)
 npm run typecheck
 

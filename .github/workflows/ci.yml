@@ -46,8 +46,11 @@ jobs:
       - name: TypeScript Type Check
         run: npx tsc --noEmit
 
-      - name: Run Jest Test Suite (28 suites / 173 tests)
+      - name: Run Jest Test Suite (28 suites / 179 tests)
         run: npm test
+
+      - name: Verify Automated Test Matrix Summary (233 tests)
+        run: npm run test:summary
 
       - name: Build Next.js Production App
         run: npm run build

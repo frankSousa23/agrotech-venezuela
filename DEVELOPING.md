@@ -158,6 +158,9 @@ npm run test:backend
 
 # 5. Suite Automatizada Unificada (233 de 233 tests aprobados):
 npm run test:all
+
+# 6. Matriz Ejecutiva Visual de Pruebas (Resumen ASCII categorizado):
+npm run test:summary
 ```
 
 ---
