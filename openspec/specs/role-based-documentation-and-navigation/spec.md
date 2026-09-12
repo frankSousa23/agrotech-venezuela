@@ -15,7 +15,7 @@ The primary project documentation (`README.md`) SHALL feature visual role-based 
 
 #### Scenario: Navigating as an Innovation Juror or Investor
 - **WHEN** an evaluator, jury member, or commercial partner clicks the "Para Jurados e Inversores" navigation anchor
-- **THEN** the documentation jumps directly to the TRL 6 operational maturity validation, economic ROI metrics (3.8x return), carbon pooling cooperative model, and SDG impact matrix.
+- **THEN** the documentation jumps directly to the TRL 4 operational maturity validation, economic ROI metrics (3.8x return), carbon pooling cooperative model, and SDG impact matrix.
 
 #### Scenario: Navigating as an Agronomist or Farmer
 - **WHEN** an agricultural producer or field technician clicks the "Para Agrónomos y Productores" navigation anchor

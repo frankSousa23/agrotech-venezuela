@@ -18,14 +18,14 @@ The root landing page SHALL render a hero section with mission statements, live 
 - **THEN** the system navigates to `/auth/login` with access to the role switcher (Farmer, Agronomist, Admin, Guest).
 
 ### Requirement: Institutional Postulation & Impact Showcase on Landing
-The landing page SHALL render a dedicated section featuring the project's institutional dossier link, TRL 6 verification, and SDG/ODS impact matrix.
+The landing page SHALL render a dedicated section featuring the project's institutional dossier link, TRL 4 verification, and SDG/ODS impact matrix.
 
 #### Scenario: Accessing the Project Profile from Landing
 - **WHEN** a reviewer or guest clicks "Ficha de Postulación & Dossier Técnico" on the landing page
 - **THEN** the system navigates directly to `/dashboard/postulacion` allowing immediate inspection of technical and scientific credentials.
 
 ### Requirement: Semantic Navigation Menus and Responsive Tablet Retention
-The root landing page SHALL provide structured navigation organized into semantic dropdown categories (such as Field Modules, Science & Data, and Institutional Postulation TRL 6) and MUST maintain horizontal navigation links across viewports down to 880px before collapsing into the mobile navigation drawer.
+The root landing page SHALL provide structured navigation organized into semantic dropdown categories (such as Field Modules, Science & Data, and Institutional Postulation TRL 4) and MUST maintain horizontal navigation links across viewports down to 880px before collapsing into the mobile navigation drawer.
 
 #### Scenario: Interacting with Semantic Navigation Dropdowns on Desktop
 - **WHEN** user hovers over or focuses a semantic menu trigger (e.g. "🌾 Módulos de Campo" or "🔬 Ciencia & Datos") on a viewport ≥ 880px

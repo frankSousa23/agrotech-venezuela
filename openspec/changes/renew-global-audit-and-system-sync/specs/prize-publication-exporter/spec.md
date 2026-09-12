@@ -1,10 +1,4 @@
-# prize-publication-exporter Specification
-
-## Purpose
-
-Compiles scientific manuscripts, parcel digital twins, charts, official MapBiomas Prize 2026 rules, FAQs, evaluation matrices, and metadata into publication-ready PDF formats compliant with MapBiomas Venezuela Prize 2026 guidelines.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Submission Paper and Digital Twin Compilation
 The system SHALL compile the draft scientific/technical paper (`public/docs/ARTICULO_TECNICO_DRAFT.md`, `public/docs/ARTICULO_CIENTIFICO_DRAFT.md`, and `docs/mapbiomas_premio_2026/`) together with live parcel agronomic metrics, NASA POWER climate charts, MapBiomas transition diagrams, explicit author attribution to **Frank Sousa**, open-source MIT code licensing, and MapBiomas CC BY 4.0 data terms into an up-to-date, publication-ready PDF document under 10,000 words.
@@ -53,11 +47,3 @@ The publication exporter and documentation suite SHALL present the platform's te
 #### Scenario: Inspecting On-Demand AI Architecture
 - **WHEN** an evaluator reviews the system's economic feasibility and AI invocation strategy
 - **THEN** documentation clarifies that routine edaphic calculations run on local deterministic engines with zero API fees, reserving generative AI for targeted, high-value agronomic synthesis.
-
-### Requirement: Grounded Agricultural Value Prioritization
-The official dossier and pitch deck SHALL anchor the primary value proposition on concrete agricultural economics—fertilizer optimization (-35%), soil acidity correction (Kamprath), drainage risk management via Sentinel-1 SAR, and offline vernacular accessibility—framing carbon credits as an exploratory, future-facing research module rather than an immediate commercial dependency.
-
-#### Scenario: Reviewing Primary Platform Objectives
-- **WHEN** reading the project overview and executive summary
-- **THEN** the primary focus highlights farmer productivity, cost reduction in inputs, and climate resilience, keeping international carbon finance as an auxiliary research capability.
-
