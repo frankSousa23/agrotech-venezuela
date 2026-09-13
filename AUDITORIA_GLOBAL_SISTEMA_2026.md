@@ -17,9 +17,9 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
                       MATRIZ DE SALUD DEL SISTEMA (100% OPERATIVO)
 ========================================================================================
  [✓] Verificación Estática TypeScript:    0 Errores (Modo Estricto / npx tsc --noEmit)
- [✓] Frontend & WebGIS Suite (Jest):      198 Tests Pasando (30 Test Suites)
+ [✓] Frontend & WebGIS Suite (Jest):      213 Tests Pasando (31 Test Suites)
  [✓] Backend Espacial & ML (Pytest):      54 Tests Pasando (17 Módulos)
- [✓] Suite Unificada Completa:            252 Tests Automatizados (100% Passing)
+ [✓] Suite Unificada Completa:            267 Tests Automatizados (100% Passing)
  [✓] Next.js App Router (Turbopack):      31 Rutas Compiladas Limpiamente (0 Fallos)
  [✓] Endpoints de Backend (FastAPI):      39 Endpoints OpenAPI 3.0 (/docs y /api-docs)
  [✓] Cobertura Geográfica Territorial:    24 Estados + 335 Municipios Venezolanos
@@ -75,9 +75,9 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 
 ---
 
-## 📊 3. Desglose Detallado de Pruebas Automatizadas (252 Tests)
+## 📊 3. Desglose Detallado de Pruebas Automatizadas (267 Tests)
 
-### A. Frontend, Agronomía & WebGIS Suite (Jest — 198 Tests en 30 Suites)
+### A. Frontend, Agronomía & WebGIS Suite (Jest — 213 Tests en 31 Suites)
 
 #### Agronomía & Física Edafológica (23 tests)
 1. `__tests__/agronomy/pedotransfer.test.ts` (11 tests) — Curvas de Saxton-Rawls, cálculo de PAW % y disparo de riego (<50%).
@@ -102,7 +102,7 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 15. `__tests__/api/guest-concurrency.test.ts` (3 tests) — Pruebas de concurrencia y no-colisión de usuarios demo.
 16. `__tests__/api/parcels-and-diary.test.ts` (5 tests) — Delimitador de parcelas y bitácora de labores agronómicas.
 
-#### Usabilidad Rural Dual-Mode, Seguridad & Sistema (92 tests)
+#### Usabilidad Rural Dual-Mode, Manual & Onboarding, Seguridad & Sistema (103 tests)
 17. `__tests__/api/vernacular-parser.test.ts` (10 tests) — Parser de voz campesina y normalización de unidades métricas criollas.
 18. `__tests__/api/farmer-ux-and-intentions.test.ts` (17 tests) — Flujos de usuario del Modo Productor y dictado por voz.
 19. `__tests__/api/machinery-exporter.test.ts` (3 tests) — Generador tri-modal de prescripciones VRA para tractores GPS, drones y cabina.
@@ -116,6 +116,7 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 28. `__tests__/api/workflow.test.ts` (2 tests) — Flujo integral de usuario (desde login hasta delimitación y reporte).
 29. `__tests__/api/comprehensive-audit.test.ts` (8 tests) — Auditoría integral de componentes y persistencia.
 30. `__tests__/api/mapbiomas-discrepancy-and-pedagogy.test.ts` (14 tests) — Detección de discrepancias con MapBiomas 1985-2024, rigor pedagógico y alertas.
+31. `__tests__/manual-and-onboarding.test.ts` (11 tests) — Manual agronómico 7 capítulos, filtrado por 4 roles (FARMER/AGRONOMIST/ADMIN/GUEST), onboarding 4 hitos y sandbox efímero de invitado.
 
 ---
 
@@ -180,7 +181,7 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 | 28 | **Estática** | `/dashboard/recomendaciones` | Motor de prescripción de cultivos, encalado y fertilización NPK. |
 | 29 | **Estática** | `/dashboard/suelos` | Mapa edafológico nacional y perfiles de suelo venezolano. |
 | 30 | **Estática** | `/dashboard/tierras` | Gestor de parcelas agrícolas y delimitador geodésico de precisión. |
-| 31 | **Dinámica** | *(Sub-handler de Rutas)* | Manejadores dinámicos de parámetros de parcelas y perfiles geográficos. |
+| 31 | **Estática** | `/dashboard/manual` | Manual Agronómico Interactivo con 7 capítulos por rol, búsqueda en tiempo real y hoja de cabina imprimible. |
 
 ---
 
@@ -188,7 +189,7 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 
 El ecosistema **Agrotech Venezuela** se encuentra en estado **100% verde, integrado y verificado**, cumpliendo con los más exigentes estándares de la industria del software geoespacial y agronómico:
 
-1. **Cero regresiones**: 252 de 252 tests automatizados pasando sin advertencias (198 Jest + 54 Pytest).
+1. **Cero regresiones**: 267 de 267 tests automatizados pasando sin advertencias (213 Jest + 54 Pytest).
 2. **Cero errores de compilación**: Modo estricto de TypeScript superado al 100% (`tsc --noEmit`).
 3. **Producción lista para despliegue**: 31 rutas estáticas y dinámicas optimizadas mediante Next.js 16 Turbopack.
 4. **Sincronización institucional absoluta**: Toda la documentación pública (`README.md`, `DEVELOPING.md`, `MEMORANDO_POSTULACION.md`, `AUDITORIA_GLOBAL_SISTEMA_2026.md`) refleja fielmente el nivel de madurez **TRL 4** y las capacidades técnicas comprobables de la plataforma.

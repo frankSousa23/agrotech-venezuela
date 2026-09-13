@@ -6,9 +6,9 @@
  * 
  * Script nativo en Node.js (cero dependencias externas) que genera un informe
  * visual consolidado de la suite de pruebas completa:
- * - Jest (198 pruebas en 30 suites de frontend, agronomía, geoespacial y UI)
+ * - Jest (213 pruebas en 31 suites de frontend, agronomía, geoespacial y UI)
  * - Pytest (54 pruebas en 17 módulos de backend FastAPI, ML, SAR y satélites)
- * Total: 252 pruebas automatizadas con 100% de cobertura y paso limpio.
+ * Total: 267 pruebas automatizadas con 100% de cobertura y paso limpio.
  */
 
 const fs = require('fs');
@@ -77,7 +77,8 @@ const frontendSuites = [
       { name: 'import-export.test.ts', tests: 2, focus: 'Serialización GeoJSON, CSV y compatibilidad con maquinaria' },
       { name: 'workflow.test.ts', tests: 2, focus: 'Flujo extremo a extremo: dibujo ➔ prescripción ➔ exportación' },
       { name: 'comprehensive-audit.test.ts', tests: 8, focus: 'Auditoría integral del sistema y tolerancia a fallos' },
-      { name: 'mapbiomas-discrepancy-and-pedagogy.test.ts', tests: 14, focus: 'Alertas de discrepancia MapBiomas 1985-2024 y pedagogía' }
+      { name: 'mapbiomas-discrepancy-and-pedagogy.test.ts', tests: 14, focus: 'Alertas de discrepancia MapBiomas 1985-2024 y pedagogía' },
+      { name: 'manual-and-onboarding.test.ts', tests: 11, focus: 'Manual agronómico 7 capítulos, 4 roles, onboarding 4 hitos y sandbox efímero de invitado' }
     ]
   }
 ];

@@ -6,7 +6,7 @@
 [![Next.js 16](https://img.shields.io/badge/Next.js-16%20(Turbopack)-black.svg)](https://nextjs.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-2.0-009688.svg)](https://fastapi.tiangolo.com/)
 [![Python 3.13](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
-[![Tests: 252 Passing](https://img.shields.io/badge/Tests-252%20Passing-brightgreen.svg)]()
+[![Tests: 267 Passing](https://img.shields.io/badge/Tests-267%20Passing-brightgreen.svg)]()
 [![TRL: 4](https://img.shields.io/badge/TRL-4%20(Prototipo%20Funcional)-blue.svg)]()
 [![MapBiomas Col 3.0](https://img.shields.io/badge/MapBiomas-Colección%203.0%20(1985--2024)-amber.svg)](https://venezuela.mapbiomas.org)
 
@@ -40,7 +40,8 @@ La plataforma transforma los **40 años de trayectoria de MapBiomas Venezuela (1
 
 ### 2. 🚜 Inclusión Rural, Voz Campesina & Resiliencia Offline
 - **Dual-Mode UI (`Modo Productor Fácil`)**: Interfaz táctil de 4 puertas de gran tamaño (*Saber cómo está mi tierra*, *Ver si va a llover*, *Medir mi parcela*, *Anotar lo que hice hoy*), operable bajo sol intenso con una sola mano.
-- **Dictado por Voz & Parser Vernacular**: Registro de labores con reconocimiento de voz nativo en español venezolano, convirtiendo unidades tradicionales (1 saco = 50 kg, 1 tambor = 200 L, 1 tablón = 1.0 ha) a unidades métricas oficiales.
+- **Dictado por Voz & Parser Vernacular**: Registro de labores con reconocimiento de voz nativo en español venezolano, convirtiendo unidades tradicionales (1 saco = 50 kg, 1 tambor = 200 L, 1 caneca = 20 L, 1 tablón = 1.0 ha) a unidades métricas oficiales.
+- **Manual Agronómico Interactivo (`/dashboard/manual`)**: Guía de campo con 7 capítulos filtrados por rol (Productor, Técnico, Admin, Invitado), búsqueda en tiempo real y hoja de cabina imprimible optimizada para tractores GPS.
 - **Resiliencia PWA Offline en 2G/EDGE**: Almacenamiento local con IndexedDB y resolución determinista de conflictos en cuarentena (`/api/parcels/conflicts`), priorizando datos ligeros y pausando descargas pesadas sin señal.
 
 ### 3. 📈 Modelado Prescriptivo, Proyección de Cosecha & TRL 4
@@ -87,12 +88,12 @@ Abre **`http://localhost:3000`** en tu navegador para interactuar con la platafo
 
 ---
 
-## 🧪 Calidad de Software & Validación Automatizada (252 Tests)
+## 🧪 Calidad de Software & Validación Automatizada (267 Tests)
 
-El código fuente cuenta con una suite rigurosa de **252 pruebas automatizadas (100% passing)** ejecutadas antes de cada versión:
+El código fuente cuenta con una suite rigurosa de **267 pruebas automatizadas (100% passing)** ejecutadas antes de cada versión:
 
 ```bash
-# Ejecutar verificación completa (198 tests Jest + 54 tests Pytest)
+# Ejecutar verificación completa (213 tests Jest + 54 tests Pytest)
 npm run test:all
 
 # Matriz ejecutiva visual de pruebas (resumen categorizado)

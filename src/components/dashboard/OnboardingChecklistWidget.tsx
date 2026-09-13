@@ -1,3 +1,16 @@
+/**
+ * ============================================================================
+ * AGROTECH VENEZUELA — ONBOARDING CHECKLIST WIDGET
+ * ============================================================================
+ *
+ * Widget gamificado de bienvenida para el dashboard principal:
+ * - Guía paso a paso con 4 hitos: explorar mapa, delimitar parcela,
+ *   activar telemetría IoT y consultar el manual agronómico.
+ * - Persistencia de progreso en localStorage (clave: agrotech_onboarding_checklist).
+ * - Barra de progreso 0%–100% con animación de confeti al completar.
+ * - Colapsable para no saturar la vista una vez completado el onboarding.
+ */
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
