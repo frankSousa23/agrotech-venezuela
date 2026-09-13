@@ -48,7 +48,7 @@ const frontendSuites = [
       { name: 'municipalities.test.ts', tests: 4, focus: 'Resolución municipal y delimitaciones territoriales INE' },
       { name: 'native-gis-lifecycle.test.ts', tests: 6, focus: 'Ciclo de vida Leaflet puro (L.map) con useRef y ssr:false' },
       { name: 'map-viewer.test.ts', tests: 14, focus: 'Renderizado interactivo de capas temáticas y micro-parcelas' },
-      { name: 'unifiedMapAndIoTLab.test.ts', tests: 5, focus: 'Pirámide cartográfica 3 niveles, Shoelace WGS84 y caudalímetro IoT' }
+      { name: 'unifiedMapAndIoTLab.test.ts', tests: 12, focus: 'Pirámide cartográfica 3 niveles, Shoelace WGS84 y caudalímetro IoT' }
     ]
   },
   {
@@ -77,7 +77,7 @@ const frontendSuites = [
       { name: 'import-export.test.ts', tests: 2, focus: 'Serialización GeoJSON, CSV y compatibilidad con maquinaria' },
       { name: 'workflow.test.ts', tests: 2, focus: 'Flujo extremo a extremo: dibujo ➔ prescripción ➔ exportación' },
       { name: 'comprehensive-audit.test.ts', tests: 8, focus: 'Auditoría integral del sistema y tolerancia a fallos' },
-      { name: 'mapbiomas-discrepancy-and-pedagogy.test.ts', tests: 14, focus: 'Alertas de discrepancia MapBiomas 1985-2024 y pedagogía' },
+      { name: 'mapbiomas-discrepancy-and-pedagogy.test.ts', tests: 11, focus: 'Alertas de discrepancia MapBiomas 1985-2024 y pedagogía' },
       { name: 'manual-and-onboarding.test.ts', tests: 11, focus: 'Manual agronómico 7 capítulos, 4 roles, onboarding 4 hitos y sandbox efímero de invitado' }
     ]
   }

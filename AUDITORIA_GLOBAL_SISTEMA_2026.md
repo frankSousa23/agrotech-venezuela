@@ -86,13 +86,13 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 4. `__tests__/api/crops.test.ts` (2 tests) — Catálogo de 42 cultivos tropicales y las 8 cadenas estratégicas.
 5. `__tests__/api/recomendaciones.test.ts` (5 tests) — Motor de prescripción de fertilización NPK y enmiendas (Kamprath, dolomita, yeso).
 
-#### Geoespacial, WebGIS & Sensores (44 tests)
+#### Geoespacial, WebGIS & Sensores (51 tests)
 6. `__tests__/api/spatial.test.ts` (11 tests) — Shoelace geodésico WGS84, Haversine y point-in-polygon Ray-Casting.
 7. `__tests__/api/geo.test.ts` (4 tests) — Geometrías estatales, reproyecciones cartográficas y capas vectoriales.
 8. `__tests__/api/municipalities.test.ts` (4 tests) — Resolución municipal de los 335 municipios de Venezuela.
 9. `__tests__/api/native-gis-lifecycle.test.ts` (6 tests) — Ciclo de vida de Leaflet puro (`L.map`) con `useRef` y `ssr: false`.
 10. `__tests__/api/map-viewer.test.ts` (14 tests) — Renderizado interactivo de capas raster, micro-parcelas y leyendas MapBiomas.
-11. `__tests__/agronomy/unifiedMapAndIoTLab.test.ts` (5 tests) — Pirámide cartográfica unificada 3 niveles, Shoelace WGS84, caudalímetro IoT y modelo diurno 24h.
+11. `__tests__/agronomy/unifiedMapAndIoTLab.test.ts` (12 tests) — Pirámide cartográfica unificada 3 niveles, Shoelace WGS84, caudalímetro IoT y modelo diurno 24h.
 
 #### IoT, Telemetría & Resiliencia Offline (25 tests)
 11. `__tests__/api/iot-telemetry-route.test.ts` (5 tests) — Ingesta POST `/api/iot/telemetry` y validación de payloads ESP32.
@@ -102,7 +102,7 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 15. `__tests__/api/guest-concurrency.test.ts` (3 tests) — Pruebas de concurrencia y no-colisión de usuarios demo.
 16. `__tests__/api/parcels-and-diary.test.ts` (5 tests) — Delimitador de parcelas y bitácora de labores agronómicas.
 
-#### Usabilidad Rural Dual-Mode, Manual & Onboarding, Seguridad & Sistema (103 tests)
+#### Usabilidad Rural Dual-Mode, Manual & Onboarding, Seguridad & Sistema (114 tests)
 17. `__tests__/api/vernacular-parser.test.ts` (10 tests) — Parser de voz campesina y normalización de unidades métricas criollas.
 18. `__tests__/api/farmer-ux-and-intentions.test.ts` (17 tests) — Flujos de usuario del Modo Productor y dictado por voz.
 19. `__tests__/api/machinery-exporter.test.ts` (3 tests) — Generador tri-modal de prescripciones VRA para tractores GPS, drones y cabina.
@@ -115,7 +115,7 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 27. `__tests__/api/import-export.test.ts` (2 tests) — Importación y exportación de polígonos GeoJSON para maquinaria con GPS.
 28. `__tests__/api/workflow.test.ts` (2 tests) — Flujo integral de usuario (desde login hasta delimitación y reporte).
 29. `__tests__/api/comprehensive-audit.test.ts` (8 tests) — Auditoría integral de componentes y persistencia.
-30. `__tests__/api/mapbiomas-discrepancy-and-pedagogy.test.ts` (14 tests) — Detección de discrepancias con MapBiomas 1985-2024, rigor pedagógico y alertas.
+30. `__tests__/api/mapbiomas-discrepancy-and-pedagogy.test.ts` (11 tests) — Detección de discrepancias con MapBiomas 1985-2024, rigor pedagógico y alertas.
 31. `__tests__/manual-and-onboarding.test.ts` (11 tests) — Manual agronómico 7 capítulos, filtrado por 4 roles (FARMER/AGRONOMIST/ADMIN/GUEST), onboarding 4 hitos y sandbox efímero de invitado.
 
 ---
