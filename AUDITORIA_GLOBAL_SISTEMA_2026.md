@@ -17,10 +17,10 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
                       MATRIZ DE SALUD DEL SISTEMA (100% OPERATIVO)
 ========================================================================================
  [✓] Verificación Estática TypeScript:    0 Errores (Modo Estricto / npx tsc --noEmit)
- [✓] Frontend & WebGIS Suite (Jest):      179 Tests Pasando (28 Test Suites)
+ [✓] Frontend & WebGIS Suite (Jest):      198 Tests Pasando (30 Test Suites)
  [✓] Backend Espacial & ML (Pytest):      54 Tests Pasando (17 Módulos)
- [✓] Suite Unificada Completa:            233 Tests Automatizados (100% Passing)
- [✓] Next.js App Router (Turbopack):      30 Rutas Compiladas Limpiamente (0 Fallos)
+ [✓] Suite Unificada Completa:            252 Tests Automatizados (100% Passing)
+ [✓] Next.js App Router (Turbopack):      31 Rutas Compiladas Limpiamente (0 Fallos)
  [✓] Endpoints de Backend (FastAPI):      39 Endpoints OpenAPI 3.0 (/docs y /api-docs)
  [✓] Cobertura Geográfica Territorial:    24 Estados + 335 Municipios Venezolanos
  [✓] Cadenas Agrícolas Estratégicas:      8 Cadenas Nacionales (Cereales, Musáceas, etc.)
@@ -67,7 +67,7 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
   - `README.md` estructurado como resumen ejecutivo ágil de ~126 líneas, con arquitectura visual ASCII y 3 pilares estratégicos.
   - `DEVELOPING.md` como guía exhaustiva de ingeniería que aísla los requerimientos técnicos de instalación, microservicios Docker, pipelines de testing y convenciones geoespaciales.
 - **Ficha Técnica & Expediente de Postulación (`/dashboard/postulacion`)**:
-  - Sincronizado a **TRL 4** y **233 Tests Automatizados Pasando (179 Jest + 54 Pytest)**.
+  - Sincronizado a **TRL 4** y **252 Tests Automatizados Pasando (198 Jest + 54 Pytest)**.
   - Tour Demostrativo interactivo de 5 pasos para evaluadores técnicos del jurado.
   - Sandbox didáctico Agro-IoT desacoplado bajo premisa BYOD (sin manufactura ni dependencia de hardware).
   - Descarga y visualización de memorandos técnicos enlazados a `public/docs/MEMORANDO_POSTULACION.md` y su PDF compilado.
@@ -75,9 +75,9 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 
 ---
 
-## 📊 3. Desglose Detallado de Pruebas Automatizadas (233 Tests)
+## 📊 3. Desglose Detallado de Pruebas Automatizadas (252 Tests)
 
-### A. Frontend, Agronomía & WebGIS Suite (Jest — 179 Tests en 28 Suites)
+### A. Frontend, Agronomía & WebGIS Suite (Jest — 198 Tests en 30 Suites)
 
 #### Agronomía & Física Edafológica (23 tests)
 1. `__tests__/agronomy/pedotransfer.test.ts` (11 tests) — Curvas de Saxton-Rawls, cálculo de PAW % y disparo de riego (<50%).
@@ -86,12 +86,13 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 4. `__tests__/api/crops.test.ts` (2 tests) — Catálogo de 42 cultivos tropicales y las 8 cadenas estratégicas.
 5. `__tests__/api/recomendaciones.test.ts` (5 tests) — Motor de prescripción de fertilización NPK y enmiendas (Kamprath, dolomita, yeso).
 
-#### Geoespacial, WebGIS & Sensores (39 tests)
+#### Geoespacial, WebGIS & Sensores (44 tests)
 6. `__tests__/api/spatial.test.ts` (11 tests) — Shoelace geodésico WGS84, Haversine y point-in-polygon Ray-Casting.
 7. `__tests__/api/geo.test.ts` (4 tests) — Geometrías estatales, reproyecciones cartográficas y capas vectoriales.
 8. `__tests__/api/municipalities.test.ts` (4 tests) — Resolución municipal de los 335 municipios de Venezuela.
 9. `__tests__/api/native-gis-lifecycle.test.ts` (6 tests) — Ciclo de vida de Leaflet puro (`L.map`) con `useRef` y `ssr: false`.
 10. `__tests__/api/map-viewer.test.ts` (14 tests) — Renderizado interactivo de capas raster, micro-parcelas y leyendas MapBiomas.
+11. `__tests__/agronomy/unifiedMapAndIoTLab.test.ts` (5 tests) — Pirámide cartográfica unificada 3 niveles, Shoelace WGS84, caudalímetro IoT y modelo diurno 24h.
 
 #### IoT, Telemetría & Resiliencia Offline (25 tests)
 11. `__tests__/api/iot-telemetry-route.test.ts` (5 tests) — Ingesta POST `/api/iot/telemetry` y validación de payloads ESP32.
@@ -111,9 +112,10 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 23. `__tests__/api/auth.test.ts` (9 tests) — Autenticación JWT, registro, login y validación de credenciales por rol.
 24. `__tests__/api/security-and-dossier.test.ts` (20 tests) — Hardening RBAC, aislamiento de sesiones y verificación de dossier.
 25. `__tests__/api/relations.test.ts` (3 tests) — Relaciones agronómicas entre suelos, clima y cultivos.
-26. `__tests__/api/import-export.test.ts` (2 tests) — Importación y exportación de polígonos GeoJSON para maquinaria con GPS.
-27. `__tests__/api/workflow.test.ts` (2 tests) — Flujo integral de usuario (desde login hasta delimitación y reporte).
-28. `__tests__/api/comprehensive-audit.test.ts` (8 tests) — Auditoría integral de componentes y persistencia.
+27. `__tests__/api/import-export.test.ts` (2 tests) — Importación y exportación de polígonos GeoJSON para maquinaria con GPS.
+28. `__tests__/api/workflow.test.ts` (2 tests) — Flujo integral de usuario (desde login hasta delimitación y reporte).
+29. `__tests__/api/comprehensive-audit.test.ts` (8 tests) — Auditoría integral de componentes y persistencia.
+30. `__tests__/api/mapbiomas-discrepancy-and-pedagogy.test.ts` (14 tests) — Detección de discrepancias con MapBiomas 1985-2024, rigor pedagógico y alertas.
 
 ---
 
@@ -144,7 +146,7 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 
 ---
 
-## 🌐 4. Catálogo Exhaustivo de Rutas Compiladas en Next.js (30 Rutas de Producción Turbopack)
+## 🌐 4. Catálogo Exhaustivo de Rutas Compiladas en Next.js (31 Rutas de Producción Turbopack)
 
 | # | Tipo | Ruta | Propósito en el Ecosistema |
 | :-: | :--- | :--- | :--- |
@@ -159,25 +161,26 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 | 9 | **Dinámica** | `/api/gemini/advisor` | Asesor agronómico inteligente potenciado por Google Gemini. |
 | 10 | **Dinámica** | `/api/geo` | Consultas de geometrías vectoriales y límites territoriales. |
 | 11 | **Dinámica** | `/api/iot/telemetry` | Ingesta de telemetría de sensores de suelo (humedad PAW, temperatura, pH). |
-| 12 | **Dinámica** | `/api/mrv/sar-oracle` | Oráculo satelital radar SAR Sentinel-1 para verificación de rugosidad de dosel en MRV. |
-| 13 | **Dinámica** | `/api/municipalities` | Base de datos geoespacial de los 335 municipios de Venezuela. |
-| 14 | **Dinámica** | `/api/parcels` | CRUD de parcelas agrícolas con cálculo Shoelace WGS84 y persistencia. |
-| 15 | **Dinámica** | `/api/parcels/conflicts` | Detección y cola de cuarentena de colisiones concurrentes offline (HTTP 409). |
-| 16 | **Estática** | `/auth/login` | Interfaz de inicio de sesión con soporte para cuenta Demo instantánea. |
-| 17 | **Estática** | `/auth/register` | Interfaz de registro para nuevos productores y técnicos agrícolas. |
-| 18 | **Estática** | `/dashboard` | Centro de mando principal con vista dual (Productor / Técnico). |
-| 19 | **Estática** | `/dashboard/admin` | Panel de administración de usuarios y métricas del sistema. |
-| 20 | **Estática** | `/dashboard/arquitectura` | Explorador visual interactivo de la arquitectura de Agrotech. |
-| 21 | **Estática** | `/dashboard/bitacora` | Cuaderno de campo digital con registros fenológicos y labores. |
-| 22 | **Estática** | `/dashboard/cultivos` | Catálogo de cultivos tropicales con fichas de requerimientos. |
-| 23 | **Estática** | `/dashboard/estadisticas` | Visualizador de estadísticas y series temporales de MapBiomas. |
-| 24 | **Estática** | `/dashboard/iot` | Monitoreo en tiempo real de nodos IoT in-situ y simulador agronómico. |
-| 25 | **Estática** | `/dashboard/mapa` | WebGIS interactivo multicapa con Sentinel-2, Radar SAR y MapBiomas. |
-| 26 | **Estática** | `/dashboard/postulacion` | Ficha técnica, expediente de postulación y Tour Demo para el jurado. |
-| 27 | **Estática** | `/dashboard/recomendaciones` | Motor de prescripción de cultivos, encalado y fertilización NPK. |
-| 28 | **Estática** | `/dashboard/suelos` | Mapa edafológico nacional y perfiles de suelo venezolano. |
-| 29 | **Estática** | `/dashboard/tierras` | Gestor de parcelas agrícolas y delimitador geodésico de precisión. |
-| 30 | **Dinámica** | *(Sub-handler de Rutas)* | Manejadores dinámicos de parámetros de parcelas y perfiles geográficos. |
+| 12 | **Dinámica** | `/api/mapbiomas/discrepancy` | Ingesta y detección de anomalías de cobertura vegetal y transiciones MapBiomas (1985-2024). |
+| 13 | **Dinámica** | `/api/mrv/sar-oracle` | Oráculo satelital radar SAR Sentinel-1 para verificación de rugosidad de dosel en MRV. |
+| 14 | **Dinámica** | `/api/municipalities` | Base de datos geoespacial de los 335 municipios de Venezuela. |
+| 15 | **Dinámica** | `/api/parcels` | CRUD de parcelas agrícolas con cálculo Shoelace WGS84 y persistencia. |
+| 16 | **Dinámica** | `/api/parcels/conflicts` | Detección y cola de cuarentena de colisiones concurrentes offline (HTTP 409). |
+| 17 | **Estática** | `/auth/login` | Interfaz de inicio de sesión con soporte para cuenta Demo instantánea. |
+| 18 | **Estática** | `/auth/register` | Interfaz de registro para nuevos productores y técnicos agrícolas. |
+| 19 | **Estática** | `/dashboard` | Centro de mando principal con vista dual (Productor / Técnico). |
+| 20 | **Estática** | `/dashboard/admin` | Panel de administración de usuarios y métricas del sistema. |
+| 21 | **Estática** | `/dashboard/arquitectura` | Explorador visual interactivo de la arquitectura de Agrotech. |
+| 22 | **Estática** | `/dashboard/bitacora` | Cuaderno de campo digital con registros fenológicos y labores. |
+| 23 | **Estática** | `/dashboard/cultivos` | Catálogo de cultivos tropicales con fichas de requerimientos. |
+| 24 | **Estática** | `/dashboard/estadisticas` | Visualizador de estadísticas y series temporales de MapBiomas. |
+| 25 | **Estática** | `/dashboard/iot` | Monitoreo en tiempo real de nodos IoT in-situ y simulador agronómico. |
+| 26 | **Estática** | `/dashboard/mapa` | WebGIS interactivo multicapa con Sentinel-2, Radar SAR y MapBiomas. |
+| 27 | **Estática** | `/dashboard/postulacion` | Ficha técnica, expediente de postulación y Tour Demo para el jurado. |
+| 28 | **Estática** | `/dashboard/recomendaciones` | Motor de prescripción de cultivos, encalado y fertilización NPK. |
+| 29 | **Estática** | `/dashboard/suelos` | Mapa edafológico nacional y perfiles de suelo venezolano. |
+| 30 | **Estática** | `/dashboard/tierras` | Gestor de parcelas agrícolas y delimitador geodésico de precisión. |
+| 31 | **Dinámica** | *(Sub-handler de Rutas)* | Manejadores dinámicos de parámetros de parcelas y perfiles geográficos. |
 
 ---
 
@@ -185,9 +188,9 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 
 El ecosistema **Agrotech Venezuela** se encuentra en estado **100% verde, integrado y verificado**, cumpliendo con los más exigentes estándares de la industria del software geoespacial y agronómico:
 
-1. **Cero regresiones**: 233 de 233 tests automatizados pasando sin advertencias (179 Jest + 54 Pytest).
+1. **Cero regresiones**: 252 de 252 tests automatizados pasando sin advertencias (198 Jest + 54 Pytest).
 2. **Cero errores de compilación**: Modo estricto de TypeScript superado al 100% (`tsc --noEmit`).
-3. **Producción lista para despliegue**: 30 rutas estáticas y dinámicas optimizadas mediante Next.js 16 Turbopack.
+3. **Producción lista para despliegue**: 31 rutas estáticas y dinámicas optimizadas mediante Next.js 16 Turbopack.
 4. **Sincronización institucional absoluta**: Toda la documentación pública (`README.md`, `DEVELOPING.md`, `MEMORANDO_POSTULACION.md`, `AUDITORIA_GLOBAL_SISTEMA_2026.md`) refleja fielmente el nivel de madurez **TRL 4** y las capacidades técnicas comprobables de la plataforma.
 
 **Certificado por:**  

@@ -8,7 +8,7 @@
 - **Proyecto**: Agrotech Venezuela
 - **Sector**: AgTech, Inteligencia Edafo-Climática, Visión Satelital (WebGIS) y Prototipado Agro-IoT BYOD.
 - **Convocatoria Oficial**: Segunda Edición del Premio MapBiomas Venezuela 2026 — **Categoría General** (Artículo Técnico)
-- **Madurez Operacional**: **TRL 4** (Prototipo funcional de software validado en entorno de desarrollo y simulación local con datos de Portuguesa, Zulia y Monagas; validado con 233 pruebas automatizadas: 179 Jest + 54 Pytest; con hoja de ruta hacia TRL 5 y TRL 6).
+- **Madurez Operacional**: **TRL 4** (Prototipo funcional de software validado en entorno de desarrollo y simulación local con datos de Portuguesa, Zulia y Monagas; validado con 252 pruebas automatizadas: 198 Jest + 54 Pytest; con hoja de ruta hacia TRL 5 y TRL 6).
 
 [⬅️ Ir al README Principal](README.md) | [🛠️ Ver Guía de Desarrollo & Despliegue](DEVELOPING.md) | [🏛️ Ver Memorando Oficial](docs/MEMORANDO_POSTULACION.md)
 
@@ -101,19 +101,19 @@ Agrotech resuelve la brecha de adopción entre tecnología de vanguardia y maqui
 
 ## 🛠️ Apéndice Técnico: Arquitectura y Factibilidad TRL 4
 
-- **Frontend WebGIS**: Next.js 16 (App Router, Turbopack, 30 rutas de producción), React 19, Leaflet Nativo puro, PWA offline con resolución determinista de conflictos en `/api/parcels/conflicts`.
+- **Frontend WebGIS**: Next.js 16 (App Router, Turbopack, 31 rutas de producción), React 19, Leaflet Nativo puro, PWA offline con resolución determinista de conflictos en `/api/parcels/conflicts`.
 - **Dual-Mode UI & QoS**: Modo Productor Fácil (4 Puertas táctiles, dictado por voz) y Protocolo QoS que bloquea mapas pesados en señales 2G/EDGE priorizando notas de bitácora (< 10 KB).
 - **Backend Espacial**: Python 3.13, FastAPI con OpenAPI 3.0, Scikit-Learn, NumPy, SQLite en modo WAL con hash geodésico a 4 decimales (< 5ms).
 - **IA On-Demand & FinOps Cero Deuda**: Modelos heurísticos locales (Kamprath, Shoelace, Saxton-Rawls) ejecutados a costo marginal $0.00; Gemini 1.5 Flash activado bajo demanda con cuota gratuita de Google AI Studio (15 RPM / 1.500 RPD).
 - **Filosofía de Hardware**: 100% Software-First y neutralidad BYOD. Agrotech no manufactura hardware ni exige sensores físicos en campo para operar el WebGIS.
-- **Validación Automatizada**: **233 pruebas automatizadas pasando (179 Jest + 54 Pytest, 100% aprobadas)**, 0 errores TypeScript, auditorías responsive 320px–4K.
+- **Validación Automatizada**: **252 pruebas automatizadas pasando (198 Jest + 54 Pytest, 100% aprobadas)**, 0 errores TypeScript, auditorías responsive 320px–4K.
 - **Propiedad Intelectual**: Código bajo Licencia MIT (Copyright 2026 Frank Sousa). Datos satelitales bajo Creative Commons CC BY 4.0.
 
 | Dimensión Técnica | Métrica Comprobable | Estándar de Implementación |
 | :--- | :--- | :--- |
-| **Arquitectura WebGIS** | 30 rutas compiladas en producción | Next.js 16 App Router + Leaflet puro (`useRef`) |
+| **Arquitectura WebGIS** | 31 rutas compiladas en producción | Next.js 16 App Router + Leaflet puro (`useRef`) |
 | **Backend Espacial & APIs** | OpenAPI 3.0 / Latencia < 25 ms | FastAPI + Python 3.13 + SQLite WAL |
-| **Suite de Calidad** | 233 tests automatizados (100%) | 179 Jest (Frontend) + 54 Pytest (Backend) |
+| **Suite de Calidad** | 252 tests automatizados (100%) | 198 Jest (Frontend) + 54 Pytest (Backend) |
 | **Teledetección Multi-Sensor**| Óptico 10m + Radar SAR Banda C | Sentinel-2 L2A + Sentinel-1 dual VV/VH |
 | **IA Agroclimática & FinOps** | Vocabulario dual (Campesino / Técnico) | Google Gemini 1.5 Flash on-demand + motor local $0 |
 | **Madurez Tecnológica (TRL)** | TRL 4 (Prototipo funcional en desarrollo) | Validado localmente con datos reales y roadmap a TRL 5/6 |

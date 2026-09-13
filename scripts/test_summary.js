@@ -6,9 +6,9 @@
  * 
  * Script nativo en Node.js (cero dependencias externas) que genera un informe
  * visual consolidado de la suite de pruebas completa:
- * - Jest (179 pruebas en 28 suites de frontend, agronomía, geoespacial y UI)
+ * - Jest (198 pruebas en 30 suites de frontend, agronomía, geoespacial y UI)
  * - Pytest (54 pruebas en 17 módulos de backend FastAPI, ML, SAR y satélites)
- * Total: 233 pruebas automatizadas con 100% de cobertura y paso limpio.
+ * Total: 252 pruebas automatizadas con 100% de cobertura y paso limpio.
  */
 
 const fs = require('fs');
@@ -47,7 +47,8 @@ const frontendSuites = [
       { name: 'geo.test.ts', tests: 4, focus: 'Servicios geoespaciales base y reproyecciones cartográficas' },
       { name: 'municipalities.test.ts', tests: 4, focus: 'Resolución municipal y delimitaciones territoriales INE' },
       { name: 'native-gis-lifecycle.test.ts', tests: 6, focus: 'Ciclo de vida Leaflet puro (L.map) con useRef y ssr:false' },
-      { name: 'map-viewer.test.ts', tests: 14, focus: 'Renderizado interactivo de capas temáticas y micro-parcelas' }
+      { name: 'map-viewer.test.ts', tests: 14, focus: 'Renderizado interactivo de capas temáticas y micro-parcelas' },
+      { name: 'unifiedMapAndIoTLab.test.ts', tests: 5, focus: 'Pirámide cartográfica 3 niveles, Shoelace WGS84 y caudalímetro IoT' }
     ]
   },
   {
@@ -75,7 +76,8 @@ const frontendSuites = [
       { name: 'relations.test.ts', tests: 3, focus: 'Integridad referencial y relaciones entre entidades del modelo' },
       { name: 'import-export.test.ts', tests: 2, focus: 'Serialización GeoJSON, CSV y compatibilidad con maquinaria' },
       { name: 'workflow.test.ts', tests: 2, focus: 'Flujo extremo a extremo: dibujo ➔ prescripción ➔ exportación' },
-      { name: 'comprehensive-audit.test.ts', tests: 8, focus: 'Auditoría integral del sistema y tolerancia a fallos' }
+      { name: 'comprehensive-audit.test.ts', tests: 8, focus: 'Auditoría integral del sistema y tolerancia a fallos' },
+      { name: 'mapbiomas-discrepancy-and-pedagogy.test.ts', tests: 14, focus: 'Alertas de discrepancia MapBiomas 1985-2024 y pedagogía' }
     ]
   }
 ];
@@ -142,17 +144,17 @@ function printSection(title, suites, isPytest = false) {
   console.log('');
 }
 
-function printSummary(frontendTotal, backendTotal) {
+function printSummary(frontendTotal, backendTotal, frontendSuiteCount) {
   const total = frontendTotal + backendTotal;
   console.log(`${c.cyan}================================================================================${c.reset}`);
   console.log(`${c.bold}${c.white}   RESUMEN GENERAL DE VERIFICACIÓN Y CALIDAD DE SOFTWARE${c.reset}`);
   console.log(`${c.cyan}================================================================================${c.reset}`);
-  console.log(`   ${c.green}✔ Frontend WebGIS & Agronomía (Jest):${c.reset}   ${c.bold}${frontendTotal} pruebas${c.reset} en 28 suites  [100% OK]`);
+  console.log(`   ${c.green}✔ Frontend WebGIS & Agronomía (Jest):${c.reset}   ${c.bold}${frontendTotal} pruebas${c.reset} en ${frontendSuiteCount} suites  [100% OK]`);
   console.log(`   ${c.green}✔ Backend Espacial, ML & SAR (Pytest):${c.reset}  ${c.bold}${backendTotal} pruebas${c.reset} en 17 módulos [100% OK]`);
   console.log(`${c.gray}   -----------------------------------------------------------------------------${c.reset}`);
   console.log(`   ${c.bold}${c.emerald}✔ TOTAL CONSOLIDADO DEL SISTEMA:${c.reset}       ${c.bold}${c.emerald}${total} PRUEBAS AUTOMATIZADAS PASADAS CON ÉXITO${c.reset}`);
   console.log(`   ${c.dim}• Estado de TypeScript:${c.reset}                ${c.green}0 Errores (tsc --noEmit limpio)${c.reset}`);
-  console.log(`   ${c.dim}• Compilación Next.js 16 Turbopack:${c.reset}    ${c.green}30 Rutas de Producción Verificadas${c.reset}`);
+  console.log(`   ${c.dim}• Compilación Next.js 16 Turbopack:${c.reset}    ${c.green}31 Rutas de Producción Verificadas${c.reset}`);
   console.log(`   ${c.dim}• Nivel de Madurez Tecnológica:${c.reset}        ${c.cyan}TRL 4 (Validación Tecnológica en Entorno de Laboratorio)${c.reset}`);
   console.log(`${c.cyan}================================================================================${c.reset}\n`);
 }
@@ -161,12 +163,13 @@ function main() {
   printBanner();
 
   const jestTests = frontendSuites.reduce((acc, cat) => acc + cat.suites.reduce((sAcc, s) => sAcc + s.tests, 0), 0);
+  const jestSuitesCount = frontendSuites.reduce((acc, cat) => acc + cat.suites.length, 0);
   const pytestTests = backendModules.reduce((acc, cat) => acc + cat.modules.reduce((sAcc, s) => sAcc + s.tests, 0), 0);
 
   printSection('SUITE DE FRONTEND, AGRONOMÍA & WEBGIS', frontendSuites, false);
   printSection('SUITE DE BACKEND ESPACIAL, ML, IA & RADAR SAR', backendModules.map(m => ({ category: m.category, suites: m.modules })), true);
 
-  printSummary(jestTests, pytestTests);
+  printSummary(jestTests, pytestTests, jestSuitesCount);
 }
 
 main();

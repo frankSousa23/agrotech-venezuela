@@ -28,7 +28,7 @@ Agrotech Venezuela se postula de forma unívoca y focalizada en la:
 | **Complejidad Técnica** | Uso de técnicas cuantitativas avanzadas, programación geoespacial, teledetección multi-sensor (Sentinel-1/2), plataformas WebGIS y modelos prescriptivos reproducibles. | **20%** | **5 / 5** |
 | **Originalidad e Innovación** | Enfoque de Gemelo Digital Agronómico que transforma series históricas retrospectivas de 40 años en prescripciones edáficas prospectivas para el surco. | **20%** | **5 / 5** |
 | **Claridad y Estructura** | Calidad de redacción técnica, consistencia metodológica, visualizaciones cartográficas de alta fidelidad, tablas con leyendas y citas bibliográficas normalizadas. | **15%** | **5 / 5** |
-| **Resultados y Solidez** | Conclusiones sustentadas en escenarios de modelado computacional (Turén y Calabozo), 233 pruebas automatizadas y estimación prospectiva de retorno de inversión. | **20%** | **5 / 5** |
+| **Resultados y Solidez** | Conclusiones sustentadas en escenarios de modelado computacional (Turén y Calabozo), 252 pruebas automatizadas y estimación prospectiva de retorno de inversión. | **20%** | **5 / 5** |
 | **Aporte Social y Ambiental** | Inclusión rural mediante Dual-Mode UI por voz nativa, eliminación de barreras de diagnóstico ($0 vs $150) y esquema conceptual de Carbon Pooling. | **20%** | **5 / 5** |
 | **Aporte a MapBiomas** | Demostración de valor microeconómico agronómico de los datos satelitales y retroalimentación potencial ground-truth desde la Bitácora de Campo. | **5%** | **5 / 5** |
 
@@ -60,7 +60,7 @@ Agrotech Venezuela se postula de forma unívoca y focalizada en la:
 
 - [x] **Manuscrito Técnico**: Artículo Técnico validado en ~3.200 palabras (< 10.000 palabras permitidas).
 - [x] **Cita de Atribución Obligatoria**: Cita formal a los Términos de Uso de MapBiomas Venezuela (CC BY 4.0) incluida en portada, pie de página y bibliografía.
-- [x] **Reproducibilidad y Código Abierto**: Repositorio GitHub público bajo Licencia MIT con 233 tests automatizados y compilación Next.js limpia.
+- [x] **Reproducibilidad y Código Abierto**: Repositorio GitHub público bajo Licencia MIT con 252 tests automatizados y compilación Next.js limpia.
 - [x] **Nivel de Madurez Tecnológica**: TRL 4 (Prototipo Funcional de Software Validado en Entorno de Desarrollo Local con datos satelitales reales).
 - [x] **Plataforma WebGIS Operativa**: Despliegue en producción con arquitectura Dual-Mode UI (Modo Productor Fácil campesino y Modo Técnico).
 

@@ -4,7 +4,7 @@
 **Postulante y Desarrollador Principal**: Frank Alfonso Sousa Mota (Ing. en Informática, UNERG 2025 — San Juan de los Morros, Estado Guárico, Venezuela)  
 **Contacto Institucional**: [frankalfonso1988@gmail.com](mailto:frankalfonso1988@gmail.com) | [LinkedIn](https://linkedin.com/in/frank-alfonso-sousa-mota-32ba9971) | [GitHub: @frankSousa23](https://github.com/frankSousa23)  
 **Categoría de Postulación**: **Categoría General** (Artículo Técnico / Software Libre y Plataformas Espaciales)  
-**Nivel de Madurez Tecnológica**: **TRL 4** (Prototipo Funcional de Software Validado en Entorno de Desarrollo y Simulación Local mediante 233 Pruebas Automatizadas)  
+**Nivel de Madurez Tecnológica**: **TRL 4** (Prototipo Funcional de Software Validado en Entorno de Desarrollo y Simulación Local mediante 252 Pruebas Automatizadas)  
 **Licenciamiento**: MIT License (Código abierto en GitHub) / CC BY 4.0 (Datos MapBiomas Venezuela)  
 **Fecha de Emisión**: Septiembre 2026  
 
@@ -14,9 +14,9 @@
 
 | Criterio Oficial (Anexo II) | Ponderación (Cat. General) | Calificación Esperada | Evidencia Técnica Comprobable en la Plataforma |
 | :--- | :---: | :---: | :--- |
-| **1. Complejidad Técnica** | **20%** | **5 / 5 (Excelente)** | Integración de 40 años de MapBiomas (Col. 3) + Radar SAR Sentinel-1 Banda C (VV/VH) + Fórmulas Geodésicas Shoelace WGS84 + Modelo Saxton-Rawls PAW IoT + Oráculo Satelital SAR MRV + **233 Tests Automatizados (179 Jest + 54 Pytest)**. |
+| **1. Complejidad Técnica** | **20%** | **5 / 5 (Excelente)** | Integración de 40 años de MapBiomas (Col. 3) + Radar SAR Sentinel-1 Banda C (VV/VH) + Fórmulas Geodésicas Shoelace WGS84 + Modelo Saxton-Rawls PAW IoT + Oráculo Satelital SAR MRV + **252 Tests Automatizados (198 Jest + 54 Pytest)**. |
 | **2. Originalidad** | **20%** | **5 / 5 (Excelente)** | Primer Gemelo Digital Agronómico venezolano de software libre que transforma series históricas en prescripciones edáficas cuantitativas con IA prescriptiva (Kamprath modificado, cal dolomítica y yeso agrícola), agregación *Carbon Pooling* y arquitectura *Dual-Mode UI*. |
-| **3. Claridad y Estructura** | **15%** | **5 / 5 (Excelente)** | Arquitectura Next.js 16 con Turbopack (30 rutas limpias), CSS Glassmorphism, Tour Demostrativo guiado en 5 pasos, APIs REST documentadas en OpenAPI/Swagger 3.0 y formulación matemática en LaTeX/KaTeX desplegada en vivo. |
+| **3. Claridad y Estructura** | **15%** | **5 / 5 (Excelente)** | Arquitectura Next.js 16 con Turbopack (31 rutas limpias), CSS Glassmorphism, Tour Demostrativo guiado en 5 pasos, APIs REST documentadas en OpenAPI/Swagger 3.0 y formulación matemática en LaTeX/KaTeX desplegada en vivo. |
 | **4. Resultados, Discusión y Conclusiones** | **20%** | **5 / 5 (Excelente)** | Modelado computacional de escenarios agrícolas representativos (Turén en maíz y Calabozo en arroz), proyectando un potencial de ROI rural estimado de hasta 3.8x, con estimación prospectiva de carbono orgánico (IPCC Tier 2) y oráculo SAR que reduce la incertidumbre al 10%. |
 | **5. Aporte General y Social** | **20%** | **5 / 5 (Excelente)** | Democratización tecnológica para el pequeño agricultor sin costo, interfaz rural campesina gobernada por voz y dialecto criollo (*Modo Productor Fácil*), resiliencia offline en redes 2G/EDGE (QoS 2 canales) y alineación con ODS 1, 2, 12, 13 y 15. |
 | **6. Aporte a MapBiomas Venezuela** | **5%** | **5 / 5 (Excelente)** | Puesta en valor operativo de la serie 1985–2024 para decisiones microeconómicas en el surco, verificación de campo de coberturas y exportación tri-modal para maquinaria (Shapefiles VRA, KML y fichas analógicas). |
@@ -34,7 +34,7 @@
   3. **Pedocalibración Dinámica Edafológica Saxton-Rawls & Sandbox IoT BYOD**: Estimación de Agua Disponible (PAW) calibrada regionalmente para texturas arenosas (θ_crit = 9,0%), francas (θ_crit = 20,0%) y arcillosas (θ_crit = 35,0%) con sandbox educativo de experimentación BYOD en `/api/iot/telemetry` (100% software-first, sin exigencia de sensores comerciales obligatorios).
   4. **Motor Hidrotérmico GDD y Evapotranspiración**: Algoritmo de balance hídrico mensual (P − ET_c) acoplado a series agroclimáticas NASA POWER con base térmica 10°C y techo 30°C.
   5. **Oráculo Satelital Radar SAR para MRV de Carbono**: Algoritmo en `/api/mrv/sar-oracle` que evalúa rugosidad del dosel (σ°_VH / σ°_VV > −12.0 dB) reduciendo la incertidumbre Verra VCS del 40% al 10%.
-  6. **Respaldo y Certificación de Software**: Suite automatizada de **233 pruebas unitarias y de integración (179 Jest en frontend WebGIS + 54 Pytest en backend espacial y ML, 100% aprobadas)**, con 0 errores de tipado TypeScript.
+  6. **Respaldo y Certificación de Software**: Suite automatizada de **252 pruebas unitarias y de integración (198 Jest en frontend WebGIS + 54 Pytest en backend espacial y ML, 100% aprobadas)**, con 0 errores de tipado TypeScript.
   7. **IA On-Demand & Arquitectura Cero Deuda en la Nube**: Modelo híbrido con Google Gemini 1.5 Flash on-demand (Free Tier de Google AI Studio) para asistencia contextual/vernacular y motores deterministas locales (Kamprath, Shoelace, Saxton-Rawls) resueltos a costo marginal cero ($0.00).
 
 ---
@@ -92,7 +92,7 @@
 
 | Criterio Evaluado | Ponderación | Puntuación Obtenida | Estatus de Cumplimiento |
 | :--- | :---: | :---: | :---: |
-| 1. Complejidad Técnica | 20% | **20 / 20** | Cumplimiento Total (233 tests, radar SAR, WGS84) |
+| 1. Complejidad Técnica | 20% | **20 / 20** | Cumplimiento Total (252 tests, radar SAR, WGS84) |
 | 2. Originalidad e Innovación | 20% | **20 / 20** | Cumplimiento Total (Gemelo Digital de 40 años) |
 | 3. Claridad y Estructura | 15% | **15 / 15** | Cumplimiento Total (WebGIS multi-escala, Swagger) |
 | 4. Resultados y Discusión | 20% | **20 / 20** | Cumplimiento Total (Escenarios computacionales Turén/Calabozo) |

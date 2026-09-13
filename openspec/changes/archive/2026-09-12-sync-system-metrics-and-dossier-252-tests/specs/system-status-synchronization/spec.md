@@ -1,10 +1,4 @@
-# system-status-synchronization Specification
-
-## Purpose
-
-Ensures consistent, synchronized project metrics and capabilities across all documentation, guidelines, and technical UI surfaces of the Agrotech Venezuela platform.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Cross-System Metric Accuracy
 The system and project documentation SHALL consistently reflect the verified quality metrics: TRL 4 maturity (*Prototipo Funcional de Software en Entorno de Desarrollo Local*), Categoría General postulation, 252 automated tests passing (198 Jest + 54 Pytest across 30 test suites and 17 backend modules), 31 clean Next.js 16 production routes, and 0 TypeScript compilation errors across all public-facing and in-app technical materials (`README.md`, `DEVELOPING.md`, `AGENTS.md`, `AUDITORIA_GLOBAL_SISTEMA_2026.md`, `PITCH_DECK.md`, `docs/MEMORANDO_POSTULACION.md`, `public/docs/MEMORANDO_POSTULACION.md`, `.github/workflows/ci.yml`, and `/dashboard/postulacion`).
@@ -31,14 +25,3 @@ The project overview (`README.md` and `PITCH_DECK.md`) SHALL document all core o
 #### Scenario: Running Automated Test Summary Report
 - **WHEN** an evaluator or engineer runs `npm run test:summary`
 - **THEN** the CLI outputs a clean, categorized breakdown of all 252 automated tests (198 Jest across 30 suites + 54 Pytest across 17 modules) and 31 production routes by subsystem with validation descriptions.
-
-### Requirement: Architectural Diagram Synchronization
-The interactive dataflow diagrams in `DataflowDiagramStudio.tsx` (`/dashboard/arquitectura`) and system technical blueprints SHALL visually represent the certified operational components including Sentinel-1 SAR radar cross-validation oracle in `/api/mrv/sar-oracle` and deterministic parcel conflict quarantine and resolution in `/api/parcels/conflicts`.
-
-#### Scenario: Inspecting Offline Conflict Sequence Flow
-- **WHEN** a user or auditor views Diagram 3 (Offline Resilience) in the architecture studio
-- **THEN** the diagram illustrates the sequence of monotonic version collision detection (HTTP 409), quarantine queue routing, and visual resolution via `ParcelConflictModal.tsx`.
-
-#### Scenario: Inspecting MRV Satellite Oracle Dataflow
-- **WHEN** an auditor views Diagram 1 (Microservices & Data Flow) in the architecture studio
-- **THEN** the diagram illustrates the integration of the Sentinel-1 SAR dual-polarization oracle providing structural canopy roughness verification to collapse MRV uncertainty.

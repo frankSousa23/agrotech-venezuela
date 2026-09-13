@@ -6,7 +6,7 @@
 [![Next.js 16](https://img.shields.io/badge/Next.js-16%20(Turbopack)-black.svg)](https://nextjs.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-2.0-009688.svg)](https://fastapi.tiangolo.com/)
 [![Python 3.13](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
-[![Tests: 233 Passing](https://img.shields.io/badge/Tests-233%20Passing-brightgreen.svg)]()
+[![Tests: 252 Passing](https://img.shields.io/badge/Tests-252%20Passing-brightgreen.svg)]()
 [![TRL: 4](https://img.shields.io/badge/TRL-4%20(Prototipo%20Funcional)-blue.svg)]()
 [![MapBiomas Col 3.0](https://img.shields.io/badge/MapBiomas-Colección%203.0%20(1985--2024)-amber.svg)](https://venezuela.mapbiomas.org)
 
@@ -87,12 +87,12 @@ Abre **`http://localhost:3000`** en tu navegador para interactuar con la platafo
 
 ---
 
-## 🧪 Calidad de Software & Validación Automatizada (233 Tests)
+## 🧪 Calidad de Software & Validación Automatizada (252 Tests)
 
-El código fuente cuenta con una suite rigurosa de **233 pruebas automatizadas (100% passing)** ejecutadas antes de cada versión:
+El código fuente cuenta con una suite rigurosa de **252 pruebas automatizadas (100% passing)** ejecutadas antes de cada versión:
 
 ```bash
-# Ejecutar verificación completa (179 tests Jest + 54 tests Pytest)
+# Ejecutar verificación completa (198 tests Jest + 54 tests Pytest)
 npm run test:all
 
 # Matriz ejecutiva visual de pruebas (resumen categorizado)
@@ -101,7 +101,7 @@ npm run test:summary
 # Verificación de tipos TypeScript estricto (0 errores)
 npm run typecheck
 
-# Compilación limpia de producción (30 rutas Next.js 16)
+# Compilación limpia de producción (31 rutas Next.js 16)
 npm run build
 ```
 
