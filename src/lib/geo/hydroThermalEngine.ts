@@ -38,7 +38,7 @@ export interface HydroThermalReport {
   netWaterDeficitMm: number;
 }
 
-const CROP_GDD_REQUIREMENTS: Record<string, { totalGdd: number; base: number; upper: number; kc: number }> = {
+export const CROP_GDD_REQUIREMENTS: Record<string, { totalGdd: number; base: number; upper: number; kc: number }> = {
   'Maíz': { totalGdd: 1650, base: 10.0, upper: 30.0, kc: 1.15 },
   'Maíz Blanco Harinero': { totalGdd: 1650, base: 10.0, upper: 30.0, kc: 1.15 },
   'Arroz': { totalGdd: 1800, base: 10.0, upper: 32.0, kc: 1.20 },
@@ -48,6 +48,16 @@ const CROP_GDD_REQUIREMENTS: Record<string, { totalGdd: number; base: number; up
   'Soya': { totalGdd: 1450, base: 10.0, upper: 30.0, kc: 1.10 },
   'Ajonjolí': { totalGdd: 1300, base: 12.0, upper: 32.0, kc: 0.90 }
 };
+
+export function getCropGddInfo(cropName: string): { totalGdd: number; base: number; upper: number; kc: number } {
+  const norm = cropName.toLowerCase();
+  for (const [key, val] of Object.entries(CROP_GDD_REQUIREMENTS)) {
+    if (norm.includes(key.toLowerCase()) || key.toLowerCase().includes(norm)) {
+      return val;
+    }
+  }
+  return { totalGdd: 1650, base: 10.0, upper: 30.0, kc: 1.15 };
+}
 
 const MONTHS = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 

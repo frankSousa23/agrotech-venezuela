@@ -13,8 +13,10 @@ import {
   FlaskConical, 
   Leaf,
   Sparkles,
-  ArrowRight
+  ArrowRight,
+  Thermometer
 } from 'lucide-react';
+import { getCropGddInfo } from '@/lib/geo/hydroThermalEngine';
 
 export default function CultivosPage() {
   const [crops, setCrops] = useState<any[]>([]);
@@ -179,7 +181,9 @@ export default function CultivosPage() {
               </p>
             </div>
           ) : (
-            filteredCrops.map((crop: any) => (
+            filteredCrops.map((crop: any) => {
+              const gddInfo = getCropGddInfo(crop.name);
+              return (
               <div key={crop.id} className={`${styles.card} glass-panel`}>
                 <div className={styles.cardHeader}>
                   <div>
@@ -194,6 +198,25 @@ export default function CultivosPage() {
                 <p className={styles.cropDesc}>
                   {crop.description || 'Cultivo evaluado en la base de datos agronómica de Agrotech Venezuela.'}
                 </p>
+
+                {/* Constante Térmica GDD */}
+                <div style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'space-between', 
+                  background: 'rgba(234, 179, 8, 0.08)', 
+                  border: '1px solid rgba(234, 179, 8, 0.22)', 
+                  padding: '6px 12px', 
+                  borderRadius: '8px', 
+                  fontSize: '0.8rem' 
+                }}>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#facc15', fontWeight: 600 }}>
+                    <Thermometer size={14} /> Constante Térmica (GDD)
+                  </span>
+                  <span style={{ color: '#f8fafc', fontWeight: 700 }}>
+                    {gddInfo.totalGdd.toLocaleString()} GDD <span style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 400 }}>(Base {gddInfo.base}°C)</span>
+                  </span>
+                </div>
 
                 <div className={styles.metricsBox}>
                   <div className={styles.metricItem}>
@@ -261,9 +284,10 @@ export default function CultivosPage() {
                   </Link>
                 </div>
               </div>
-            ))
-          )}
-        </div>
+            );
+          })
+        )}
+      </div>
       )}
     </div>
   );

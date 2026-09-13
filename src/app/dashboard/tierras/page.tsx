@@ -347,10 +347,10 @@ export default function TierrasPage() {
           </div>
           <div>
             <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#f8fafc' }}>
-              ¿Deseas experimentar con sensores de suelo y riego en un cultivo pequeño?
+              Fase 1 de Investigación: Validación en Ambiente Controlado (Lab IoT)
             </div>
             <div style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
-              Abre el nuevo Laboratorio Agro-IoT de Micro-Cultivo con animaciones en vivo, presets de hortalizas y esquemas ESP32.
+              Antes de desplegar redes de sensores en grandes lotes, calibra la humedad Saxton-Rawls y el microrriego predictivo acoplado a NASA POWER en el Laboratorio Agro-IoT de bajo costo (&lt;$35 BYOD).
             </div>
           </div>
         </div>

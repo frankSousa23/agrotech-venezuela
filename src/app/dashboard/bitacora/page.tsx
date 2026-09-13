@@ -21,8 +21,12 @@ import {
   TrendingUp,
   FileText,
   Sparkles,
-  Map as MapIcon
+  Map as MapIcon,
+  Mic,
+  MicOff
 } from 'lucide-react';
+import { useVoiceAssistant } from '@/lib/hooks/useVoiceAssistant';
+import { parseVernacularSpeech } from '@/lib/farmer/vernacularParser';
 
 export default function BitacoraPage() {
   const { user } = useAuth();
@@ -39,6 +43,54 @@ export default function BitacoraPage() {
   const [description, setDescription] = useState('');
   const [dosage, setDosage] = useState('');
   const [yieldTonHa, setYieldTonHa] = useState('');
+  const [voiceFeedback, setVoiceFeedback] = useState<string | null>(null);
+
+  const { isListening, transcript, startListening, stopListening, resetTranscript } = useVoiceAssistant();
+
+  const applyVernacularSpeech = (speechText: string) => {
+    if (!speechText || !speechText.trim()) return;
+    const parsed = parseVernacularSpeech(speechText);
+    
+    // Auto-ajuste de labor
+    if (parsed.normalizedAction) {
+      if (['SIEMBRA', 'ENCALADO', 'FERTILIZACION', 'RIEGO', 'COSECHA', 'OBSERVACION'].includes(parsed.normalizedAction)) {
+        setLogType(parsed.normalizedAction as any);
+      } else if (parsed.normalizedAction === 'FITOSANITARIO') {
+        setLogType('OBSERVACION');
+      }
+    }
+
+    // Auto-ajuste de título
+    const generatedTitle = `${parsed.actionLabel}${parsed.detectedCrop ? ` en ${parsed.detectedCrop}` : ''}`;
+    setTitle(generatedTitle);
+
+    // Auto-ajuste de dosis con conversión métrica vernácula
+    if (parsed.metricQuantity && parsed.metricUnit) {
+      const doseDesc = parsed.traditionalUnitFound 
+        ? `${parsed.traditionalUnitFound} (${parsed.metricQuantity} ${parsed.metricUnit} eq.)`
+        : `${parsed.metricQuantity} ${parsed.metricUnit}`;
+      setDosage(`${doseDesc}${parsed.detectedInput ? ` • ${parsed.detectedInput}` : ''}`);
+    } else if (parsed.detectedInput) {
+      setDosage(parsed.detectedInput);
+    }
+
+    // Auto-completar descripción
+    setDescription(prev => {
+      const voiceNote = `[Dictado por Voz]: "${parsed.rawTranscript}"\n→ ${parsed.summary}`;
+      return prev ? `${prev}\n\n${voiceNote}` : voiceNote;
+    });
+
+    // Vincular parcela si fue detectada en el habla ("en el tablón 2", "parcela norte", etc.)
+    if (parsed.detectedParcelName && parcels.length > 0) {
+      const match = parcels.find(p => p.name.toLowerCase().includes(parsed.detectedParcelName!.toLowerCase()));
+      if (match) {
+        setParcelId(match.id);
+      }
+    }
+
+    setVoiceFeedback(parsed.summary);
+    toast.success('Labor Campesina Interpretada', parsed.summary);
+  };
 
   const resetForm = () => {
     setShowModal(false);
@@ -46,6 +98,8 @@ export default function BitacoraPage() {
     setDescription('');
     setDosage('');
     setYieldTonHa('');
+    setVoiceFeedback(null);
+    resetTranscript();
   };
 
   const fetchData = () => {
@@ -423,6 +477,71 @@ export default function BitacoraPage() {
             <h3 style={{ margin: '0 0 16px 0', fontSize: '1.2rem', color: '#38bdf8' }}>
               📝 Registrar Labor en Cuaderno de Campo
             </h3>
+
+            {/* Panel de Dictado por Voz y Parser Vernacular Campesino */}
+            <div style={{
+              background: isListening ? 'rgba(239, 68, 68, 0.12)' : 'rgba(56, 189, 248, 0.08)',
+              border: `1px solid ${isListening ? 'rgba(239, 68, 68, 0.4)' : 'rgba(56, 189, 248, 0.25)'}`,
+              borderRadius: '10px',
+              padding: '10px 14px',
+              marginBottom: '14px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '8px'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (isListening) {
+                        stopListening();
+                        if (transcript) applyVernacularSpeech(transcript);
+                      } else {
+                        startListening((text) => applyVernacularSpeech(text));
+                      }
+                    }}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      background: isListening ? '#ef4444' : 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+                      color: '#ffffff',
+                      border: 'none',
+                      padding: '7px 14px',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      fontWeight: 600,
+                      fontSize: '0.82rem',
+                      boxShadow: isListening ? '0 0 12px rgba(239, 68, 68, 0.5)' : 'none'
+                    }}
+                  >
+                    {isListening ? <MicOff size={15} /> : <Mic size={15} />}
+                    <span>{isListening ? 'Detener e Interpretar' : '🎙️ Dictar labor campesina'}</span>
+                  </button>
+                  <span style={{ fontSize: '0.74rem', color: isListening ? '#fca5a5' : '#94a3b8' }}>
+                    {isListening ? 'Escuchando tu voz...' : 'Habla natural: "eche 3 sacos de urea" o "2 tambores de cal"'}
+                  </span>
+                </div>
+                {voiceFeedback && (
+                  <span style={{ fontSize: '0.72rem', color: '#4ade80', fontWeight: 600 }}>
+                    ✓ Interpretado
+                  </span>
+                )}
+              </div>
+
+              {transcript && (
+                <div style={{ fontSize: '0.76rem', color: '#e2e8f0', background: 'rgba(0,0,0,0.3)', padding: '6px 10px', borderRadius: '6px' }}>
+                  <span style={{ color: '#38bdf8', fontWeight: 600 }}>Voz capturada:</span> &quot;{transcript}&quot;
+                </div>
+              )}
+
+              {voiceFeedback && (
+                <div style={{ fontSize: '0.74rem', color: '#86efac', background: 'rgba(34, 197, 94, 0.12)', padding: '6px 10px', borderRadius: '6px', border: '1px solid rgba(34, 197, 94, 0.25)' }}>
+                  🌾 <strong>Interpretación Agronómica:</strong> {voiceFeedback}
+                </div>
+              )}
+            </div>
 
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div>

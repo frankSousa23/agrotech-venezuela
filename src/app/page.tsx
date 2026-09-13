@@ -164,7 +164,10 @@ export default function Home() {
                     <span>🛰️</span> Radar SAR Sentinel-1
                   </Link>
                   <Link href="/dashboard/suelos" className={styles.dropdownItem} onClick={() => setOpenDropdown(null)}>
-                    <span>🌱</span> Suelos & Carbono SOC
+                    <span>🌱</span> Suelos & Nutrientes
+                  </Link>
+                  <Link href="/dashboard/recomendaciones#carbon-credits" className={styles.dropdownItem} onClick={() => setOpenDropdown(null)}>
+                    <span>🌿</span> Créditos de Carbono (MRV)
                   </Link>
                   <Link href="/api-docs" className={styles.dropdownItem} onClick={() => setOpenDropdown(null)}>
                     <FileCode2 size={14} /> OpenAPI / Swagger
@@ -512,11 +515,11 @@ export default function Home() {
                 <b>¿Para qué sirve?</b> Cuantificación del stock de carbono orgánico en suelo (SOC 0-30cm) y secuestro anual (tCO₂e/ha/año) bajo metodología IPCC Tier 2 / Verra VCS.
               </p>
               <div className={styles.moduleSteps}>
-                <div className={styles.stepItem}><span className={styles.stepNum}>1</span> Abre el modal de diagnóstico en cualquier parcela.</div>
+                <div className={styles.stepItem}><span className={styles.stepNum}>1</span> Abre la calculadora en cualquier parcela o simulación.</div>
                 <div className={styles.stepItem}><span className={styles.stepNum}>2</span> Selecciona tu práctica de manejo regenerativo o SAF.</div>
                 <div className={styles.stepItem}><span className={styles.stepNum}>3</span> Obtén las toneladas de CO₂ secuestradas y su valor.</div>
               </div>
-              <Link href="/dashboard/tierras" className={styles.moduleActionBtn}>
+              <Link href="/dashboard/recomendaciones#carbon-credits" className={styles.moduleActionBtn}>
                 Calcular Créditos de Carbono <ArrowRight size={16} />
               </Link>
             </div>

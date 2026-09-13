@@ -34,7 +34,8 @@ import {
   FileCode2,
   Workflow,
   Building2,
-  UserPlus
+  UserPlus,
+  Leaf
 } from 'lucide-react';
 
 interface NavItem {
@@ -74,6 +75,7 @@ const NAV_GROUPS: { title: string; items: NavItem[] }[] = [
 const ADVANCED_ITEMS: NavItem[] = [
   { href: '/dashboard/postulacion', label: 'Ficha de Postulación', icon: Building2, badge: 'TRL 4' },
   { href: '/dashboard/estadisticas', label: 'Geoestadísticas', icon: BarChart3 },
+  { href: '/dashboard/recomendaciones#carbon-credits', label: 'Créditos de Carbono', icon: Leaf, badge: 'MRV' },
   { href: '/dashboard/arquitectura', label: 'Arquitectura E2E', icon: Workflow, badge: 'E2E' },
 ];
 

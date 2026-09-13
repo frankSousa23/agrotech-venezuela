@@ -31,7 +31,7 @@ La plataforma transforma los **40 años de trayectoria de MapBiomas Venezuela (1
 
 ---
 
-## 🌟 Los 3 Pilares del Ecosistema
+## 🌟 Los 4 Pilares del Ecosistema
 
 ### 1. 🛰️ Visión Espacial Multi-Escala & Radar Sin Nubes
 - **WebGIS en 3 Niveles (`/dashboard/mapa`)**: Navegación jerárquica fluida desde nivel Macro-Nacional (24 estados), pasando por Municipal (335 polos agrícolas), hasta Micro-Parcela delimitada por el usuario.
@@ -47,6 +47,10 @@ La plataforma transforma los **40 años de trayectoria de MapBiomas Venezuela (1
 - **Calibración Edafológica Regional**: Algoritmos matemáticos adaptados al suelo venezolano: neutralización de aluminio ($Al^{3+}$) en sabanas orientales, balance Ca:Mg en Sur del Lago y yeso agrícola en suelos alcalinos de Quíbor/Lara.
 - **Machine Learning de Cosecha**: Proyección estimada de rendimiento en Ton/ha para 8 cadenas estratégicas (Maíz, Arroz, Café, Cacao, Caña, Plátano, Soya y Hortalizas).
 - **Herramientas de Decisión y Carbono**: Calculadora prospectiva de retorno económico (ROI proyectado hasta 3.8x) y secuestro de carbono orgánico (SOC) bajo metodología IPCC Tier 2 / Verra VCS.
+
+### 4. 🔬 Laboratorio Agro-IoT: Investigación en Ambiente Controlado & Riego
+- **Fase 1 (Actual - Validación en Ambiente Controlado)**: Sandbox didáctico y banco de investigación de micro-cultivo (`/dashboard/iot`) para ensayar sensores de suelo de bajo costo (<$35 USD, ESP32, relé y sensor capacitivo) bajo premisa BYOD (*Bring Your Own Device*). Calibra la humedad volumétrica (Saxton-Rawls) y el algoritmo de supresión de riego ante lluvias satelitales NASA POWER en macetas o bancales demostrativos sin requerir sensores físicos obligatorios para el funcionamiento general de la plataforma.
+- **Fase 2 (Futuro - Escalamiento Macro-Territorial)**: Hoja de ruta para integrar redes malladas in-situ (LoRaWAN / ESP32 mesh) en grandes tablones agrícolas, acoplando la telemetría del suelo con el Gemelo Digital WebGIS y el radar SAR Sentinel-1 para la automatización de compuertas y pivotes de riego a escala nacional.
 
 ---
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import Link from 'next/link';
 import styles from './page.module.css';
 import { VENEZUELA_STATES_DATA } from '@/lib/geo/venezuelaData';
 import { 
@@ -10,7 +11,8 @@ import {
   Tractor, 
   FlaskConical, 
   Leaf, 
-  FileSpreadsheet
+  FileSpreadsheet,
+  ArrowRight
 } from 'lucide-react';
 
 export default function EstadisticasPage() {
@@ -232,6 +234,30 @@ export default function EstadisticasPage() {
             (como <strong>Cacao Criollo de Sombra</strong> en Chuao y Barlovento o <strong>Café de Especialidad</strong> en Mérida) 
             permite capturar entre <strong>2.5 y 4.8 toneladas de CO₂ por hectárea/año</strong>.
           </p>
+          <div style={{ marginTop: '16px' }}>
+            <Link 
+              href="/dashboard/recomendaciones#carbon-credits" 
+              className="btn btn-primary"
+              style={{ 
+                display: 'inline-flex', 
+                alignItems: 'center', 
+                gap: '8px', 
+                padding: '8px 18px',
+                fontSize: '0.85rem',
+                background: 'linear-gradient(135deg, #059669 0%, #10b981 100%)',
+                border: 'none',
+                color: '#ffffff',
+                borderRadius: '8px',
+                fontWeight: 600,
+                textDecoration: 'none',
+                boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)'
+              }}
+            >
+              <Leaf size={15} />
+              <span>Calcular Créditos de Carbono MRV</span>
+              <ArrowRight size={14} />
+            </Link>
+          </div>
         </div>
 
         <div className={styles.carbonMetricBox}>

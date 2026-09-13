@@ -69,6 +69,9 @@ export default function DashboardOverview() {
                   <span className={styles.pulseDot}></span> MapBiomas Colección 3 Activa
                 </span>
                 <span className="badge-pill badge-cyan">NASA POWER Agro-Climatología</span>
+                <span className="badge-pill badge-cyan" style={{ border: '1px solid rgba(56, 189, 248, 0.4)' }}>
+                  📡 Radar SAR Sentinel-1 (Sin Nubes)
+                </span>
               </div>
               <h1 className={styles.title}>Panel de Inteligencia Agro-Territorial</h1>
               <p className={styles.subtitle}>
@@ -99,6 +102,9 @@ export default function DashboardOverview() {
           <Link href="/dashboard/recomendaciones" className="btn-secondary">
             <Sparkles size={18} style={{ color: '#7c3aed' }} />
             <span>Simulador & IA</span>
+          </Link>
+          <Link href="/dashboard/iot" className="btn-secondary" style={{ borderColor: 'rgba(56, 189, 248, 0.4)', color: '#38bdf8' }}>
+            <span>🔬</span> Lab IoT (Pruebas)
           </Link>
         </div>
       </header>
@@ -255,6 +261,35 @@ export default function DashboardOverview() {
               <span>Consultar IA</span> <ArrowRight size={14} />
             </Link>
           </div>
+        </div>
+
+        {/* Callout: Laboratorio Agro-IoT en Ambiente Controlado */}
+        <div style={{
+          marginTop: '1.25rem',
+          padding: '1rem 1.25rem',
+          borderRadius: '12px',
+          background: 'rgba(56, 189, 248, 0.08)',
+          border: '1px solid rgba(56, 189, 248, 0.25)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '12px'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: '1 1 300px' }}>
+            <span style={{ fontSize: '1.6rem' }}>🔬</span>
+            <div>
+              <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#38bdf8' }}>
+                Laboratorio Agro-IoT: Investigación en Ambiente Controlado
+              </div>
+              <div style={{ fontSize: '0.78rem', color: '#94a3b8', lineHeight: 1.4 }}>
+                Valida sensores de bajo costo (&lt;$35 BYOD) y ensaya el algoritmo de microrriego predictivo acoplado al clima NASA POWER en un micro-bancal o huerto de prueba antes de escalar a campo abierto.
+              </div>
+            </div>
+          </div>
+          <Link href="/dashboard/iot" className="btn-secondary" style={{ fontSize: '0.8rem', padding: '7px 14px', borderColor: 'rgba(56, 189, 248, 0.5)', color: '#38bdf8', whiteSpace: 'nowrap' }}>
+            <span>Abrir Laboratorio IoT</span> <ArrowRight size={14} />
+          </Link>
         </div>
       </section>
 

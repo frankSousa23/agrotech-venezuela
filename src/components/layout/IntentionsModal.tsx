@@ -78,6 +78,14 @@ const INTENTIONS: IntentionItem[] = [
     title: 'Consultar al Ingeniero Virtual',
     subtitle: 'Hacer una pregunta libremente con voz o texto sobre mi cultivo',
     url: '/dashboard/recomendaciones?intent=voice'
+  },
+  {
+    id: 'intent-iot',
+    icon: '🔬',
+    bgColor: 'rgba(56, 189, 248, 0.15)',
+    title: 'Probar sensores y microrriego',
+    subtitle: 'Simulador de riego predictivo en maceta o bancal de prueba con ESP32',
+    url: '/dashboard/iot'
   }
 ];
 

@@ -13,6 +13,8 @@ import {
 import { estimateVenezuelaAgroClimate } from '@/lib/geo/nasaPowerService';
 import { calculateHydroThermalGdd } from '@/lib/geo/hydroThermalEngine';
 import CarbonCreditsCalculator from '@/components/agronomy/CarbonCreditsCalculator';
+import MachineryExportModal from '@/components/agronomy/MachineryExportModal';
+import { InMemParcel } from '@/app/api/parcels/route';
 import { useUIMode } from '@/lib/context/UIModeContext';
 import { 
   Sparkles, 
@@ -33,7 +35,8 @@ import {
   Waves,
   Map as MapIcon,
   Volume2,
-  VolumeX
+  VolumeX,
+  Tractor
 } from 'lucide-react';
 import EmptyStateCard from '@/components/ui/EmptyStateCard';
 import AgroTooltip from '@/components/ui/AgroTooltip';
@@ -122,6 +125,35 @@ function RecomendacionesContent() {
       { lat: centerLat, lng: centerLng, stateId: selectedState.id }
     );
   }, [simPh, simOM, simAreaHa, suitabilityResults, simYearsUse, centerLat, centerLng, selectedState.id]);
+
+  const [showMachineryModal, setShowMachineryModal] = useState(false);
+
+  const simulatedParcel: InMemParcel = useMemo(() => ({
+    id: `sim-${selectedState.id}-${Date.now()}`,
+    userId: 'usr-farmer-01',
+    name: `Lote Simulado (${selectedState.name})`,
+    areaHectares: simAreaHa,
+    stateId: selectedState.id,
+    municipalityId: 'capital',
+    polygonGeoJson: JSON.stringify({
+      type: 'Polygon',
+      coordinates: [[
+        [centerLng - 0.003, centerLat - 0.003],
+        [centerLng + 0.003, centerLat - 0.003],
+        [centerLng + 0.003, centerLat + 0.003],
+        [centerLng - 0.003, centerLat + 0.003],
+        [centerLng - 0.003, centerLat - 0.003],
+      ]]
+    }),
+    centerLat: centerLat,
+    centerLng: centerLng,
+    currentCrop: suitabilityResults[0]?.cropName || 'Maíz Blanco',
+    ph: simPh,
+    soilTexture: simTexture,
+    organicMatter: simOM,
+    createdAt: new Date().toISOString(),
+    updated_at: new Date().toISOString()
+  }), [selectedState.id, selectedState.name, centerLat, centerLng, simAreaHa, suitabilityResults, simPh, simTexture, simOM]);
 
   const handleRequestGeminiAdvice = async () => {
     setIsLoadingAi(true);
@@ -505,28 +537,50 @@ function RecomendacionesContent() {
                 Genera un dictamen técnico con Google Gemini cruzando el clima NASA POWER, el régimen hídrico y la trayectoria histórica de este lote.
               </p>
             </div>
-            <button 
-              id="btn_request_gemini_sim_advice"
-              className="btn-primary" 
-              onClick={handleRequestGeminiAdvice}
-              disabled={isLoadingAi}
-              style={{ 
-                background: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)', 
-                border: 'none',
-                padding: '10px 20px',
-                whiteSpace: 'nowrap',
-                borderRadius: '10px',
-                fontWeight: 700,
-                cursor: 'pointer',
-                color: '#fff',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}
-            >
-              <Sparkles size={16} />
-              <span>{isLoadingAi ? 'Generando dictamen...' : 'Consultar Gemini Territorial'}</span>
-            </button>
+            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+              <button 
+                type="button"
+                id="btn_export_machinery_sim"
+                onClick={() => setShowMachineryModal(true)}
+                className="btn-secondary"
+                style={{ 
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '10px 18px',
+                  borderRadius: '10px',
+                  fontWeight: 700,
+                  borderColor: 'rgba(56, 189, 248, 0.4)',
+                  color: '#38bdf8',
+                  cursor: 'pointer'
+                }}
+              >
+                <Tractor size={16} />
+                <span>Exportar a Maquinaria (SHP / KML)</span>
+              </button>
+              <button 
+                id="btn_request_gemini_sim_advice"
+                className="btn-primary" 
+                onClick={handleRequestGeminiAdvice}
+                disabled={isLoadingAi}
+                style={{ 
+                  background: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)', 
+                  border: 'none',
+                  padding: '10px 20px',
+                  whiteSpace: 'nowrap',
+                  borderRadius: '10px',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  color: '#fff',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}
+              >
+                <Sparkles size={16} />
+                <span>{isLoadingAi ? 'Generando dictamen...' : 'Consultar Gemini Territorial'}</span>
+              </button>
+            </div>
           </div>
 
           {aiAdvice && (
@@ -636,7 +690,7 @@ function RecomendacionesContent() {
         </div>
 
         {/* 🌿 Módulo de Certificación de Créditos de Carbono */}
-        <div style={{ marginTop: '20px' }}>
+        <div id="carbon-credits" style={{ marginTop: '20px', scrollMarginTop: '80px' }}>
           <CarbonCreditsCalculator
             initialAreaHa={simAreaHa}
             initialOrganicMatterPct={simOM}
@@ -697,6 +751,13 @@ function RecomendacionesContent() {
           </div>
         )}
       </section>
+      
+      {showMachineryModal && (
+        <MachineryExportModal
+          parcel={simulatedParcel}
+          onClose={() => setShowMachineryModal(false)}
+        />
+      )}
     </div>
   );
 }
