@@ -9,6 +9,7 @@ import QuickStartWizard from '@/components/ui/QuickStartWizard';
 import FarmerHomeDoors from '@/components/agronomy/FarmerHomeDoors';
 import IntentionsModal from '@/components/layout/IntentionsModal';
 import TerritorialPresetBar from '@/components/agronomy/TerritorialPresetBar';
+import OnboardingChecklistWidget from '@/components/dashboard/OnboardingChecklistWidget';
 import { useUIMode } from '@/lib/context/UIModeContext';
 import { 
   Compass, 
@@ -56,10 +57,15 @@ export default function DashboardOverview() {
       />
 
       {isFarmerMode ? (
-        <FarmerHomeDoors 
-          onOpenIntentions={() => setShowIntentions(true)} 
-          parcelsCount={parcelsCount}
-        />
+        <>
+          <div style={{ marginBottom: '1.25rem' }}>
+            <OnboardingChecklistWidget />
+          </div>
+          <FarmerHomeDoors 
+            onOpenIntentions={() => setShowIntentions(true)} 
+            parcelsCount={parcelsCount}
+          />
+        </>
       ) : (
         <>
           {/* Overview Header */}
@@ -110,8 +116,13 @@ export default function DashboardOverview() {
         </div>
       </header>
 
+      {/* Onboarding Progress Checklist */}
+      <div style={{ marginTop: '1.25rem', marginBottom: '1.25rem' }}>
+        <OnboardingChecklistWidget />
+      </div>
+
       {/* Selector de Escenarios Agroecológicos Emblemáticos en 1 Clic */}
-      <div style={{ marginTop: '1.25rem', marginBottom: '1.5rem' }}>
+      <div style={{ marginTop: '0.5rem', marginBottom: '1.5rem' }}>
         <TerritorialPresetBar navigateOnClick={true} />
       </div>
 

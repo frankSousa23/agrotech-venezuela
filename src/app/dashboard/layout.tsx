@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './layout.module.css';
 import { useAuth } from '@/lib/auth/authContext';
-import { DEMO_USERS } from '@/lib/auth/authUtils';
+import { DEMO_USERS, createGuestSession } from '@/lib/auth/authUtils';
 import ConnectivityStatusBadge from '@/components/layout/ConnectivityStatusBadge';
 import CommandPalette from '@/components/layout/CommandPalette';
 import SunlightThemeToggle from '@/components/layout/SunlightThemeToggle';
@@ -36,7 +36,8 @@ import {
   Workflow,
   Building2,
   UserPlus,
-  Leaf
+  Leaf,
+  HelpCircle
 } from 'lucide-react';
 
 interface NavItem {
@@ -74,6 +75,7 @@ const NAV_GROUPS: { title: string; items: NavItem[] }[] = [
 ];
 
 const ADVANCED_ITEMS: NavItem[] = [
+  { href: '/dashboard/manual', label: 'Manual & Guías', icon: HelpCircle, badge: 'Guía', highlight: true },
   { href: '/dashboard/postulacion', label: 'Ficha de Postulación', icon: Building2, badge: 'TRL 4' },
   { href: '/dashboard/estadisticas', label: 'Geoestadísticas', icon: BarChart3 },
   { href: '/dashboard/recomendaciones#carbon-credits', label: 'Créditos de Carbono', icon: Leaf, badge: 'MRV' },
@@ -93,7 +95,12 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
     window.location.href = '/auth/login';
   };
 
-  const handleSwitchRole = (targetRole: 'FARMER' | 'AGRONOMIST' | 'ADMIN') => {
+  const handleSwitchRole = (targetRole: 'FARMER' | 'AGRONOMIST' | 'ADMIN' | 'GUEST') => {
+    if (targetRole === 'GUEST') {
+      const guest = createGuestSession();
+      login(`demo_guest_${guest.id}`, guest);
+      return;
+    }
     const target = DEMO_USERS.find(u => u.role === targetRole);
     if (target) {
       login(`demo_token_${target.id}`, target);
@@ -283,7 +290,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
           {/* Selector Rápido de Roles (Compact Segmented Control) */}
           <div style={{
             display: 'flex',
-            gap: '3px',
+            gap: '2px',
             padding: '2px',
             background: 'rgba(15, 23, 42, 0.6)',
             borderRadius: '6px',
@@ -291,16 +298,17 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
           }}>
             <button
               type="button"
+              id="btn_role_farmer"
               onClick={() => handleSwitchRole('FARMER')}
               title="Cambiar a Productor"
               style={{
                 flex: 1,
-                padding: '2px 1px',
+                padding: '2px 0',
                 borderRadius: '4px',
                 border: user?.role === 'FARMER' && !isGuest ? '1px solid #16a34a' : 'none',
                 background: user?.role === 'FARMER' && !isGuest ? 'rgba(34, 197, 94, 0.25)' : 'transparent',
                 color: user?.role === 'FARMER' && !isGuest ? '#86efac' : '#94a3b8',
-                fontSize: '0.64rem',
+                fontSize: '0.62rem',
                 cursor: 'pointer',
                 fontWeight: 600,
                 textAlign: 'center'
@@ -310,16 +318,17 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
             </button>
             <button
               type="button"
+              id="btn_role_agronomist"
               onClick={() => handleSwitchRole('AGRONOMIST')}
               title="Cambiar a Ingeniero Agrónomo"
               style={{
                 flex: 1,
-                padding: '2px 1px',
+                padding: '2px 0',
                 borderRadius: '4px',
-                border: user?.role === 'AGRONOMIST' ? '1px solid #3b82f6' : 'none',
-                background: user?.role === 'AGRONOMIST' ? 'rgba(59, 130, 246, 0.25)' : 'transparent',
-                color: user?.role === 'AGRONOMIST' ? '#93c5fd' : '#94a3b8',
-                fontSize: '0.64rem',
+                border: user?.role === 'AGRONOMIST' && !isGuest ? '1px solid #3b82f6' : 'none',
+                background: user?.role === 'AGRONOMIST' && !isGuest ? 'rgba(59, 130, 246, 0.25)' : 'transparent',
+                color: user?.role === 'AGRONOMIST' && !isGuest ? '#93c5fd' : '#94a3b8',
+                fontSize: '0.62rem',
                 cursor: 'pointer',
                 fontWeight: 600,
                 textAlign: 'center'
@@ -329,22 +338,43 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
             </button>
             <button
               type="button"
+              id="btn_role_admin"
               onClick={() => handleSwitchRole('ADMIN')}
               title="Cambiar a Administrador"
               style={{
                 flex: 1,
-                padding: '2px 1px',
+                padding: '2px 0',
                 borderRadius: '4px',
-                border: user?.role === 'ADMIN' ? '1px solid #38bdf8' : 'none',
-                background: user?.role === 'ADMIN' ? 'rgba(56, 189, 248, 0.25)' : 'transparent',
-                color: user?.role === 'ADMIN' ? '#7dd3fc' : '#94a3b8',
-                fontSize: '0.64rem',
+                border: user?.role === 'ADMIN' && !isGuest ? '1px solid #38bdf8' : 'none',
+                background: user?.role === 'ADMIN' && !isGuest ? 'rgba(56, 189, 248, 0.25)' : 'transparent',
+                color: user?.role === 'ADMIN' && !isGuest ? '#7dd3fc' : '#94a3b8',
+                fontSize: '0.62rem',
                 cursor: 'pointer',
                 fontWeight: 600,
                 textAlign: 'center'
               }}
             >
               🛡️ Admin
+            </button>
+            <button
+              type="button"
+              id="btn_role_guest"
+              onClick={() => handleSwitchRole('GUEST')}
+              title="Cambiar a Modo Invitado (Sandbox)"
+              style={{
+                flex: 1,
+                padding: '2px 0',
+                borderRadius: '4px',
+                border: isGuest ? '1px solid #eab308' : 'none',
+                background: isGuest ? 'rgba(234, 179, 8, 0.25)' : 'transparent',
+                color: isGuest ? '#fde047' : '#94a3b8',
+                fontSize: '0.62rem',
+                cursor: 'pointer',
+                fontWeight: 600,
+                textAlign: 'center'
+              }}
+            >
+              🚀 Demo
             </button>
           </div>
         </div>

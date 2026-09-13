@@ -1,0 +1,200 @@
+.sheetContainer {
+  background: #ffffff;
+  color: #0f172a;
+  border: 2px solid #0f172a;
+  border-radius: 8px;
+  padding: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.actionToolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.printBtn {
+  background: #059669;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+
+.printBtn:hover {
+  background: #047857;
+}
+
+.sheetHeader {
+  border-bottom: 2px solid #0f172a;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.mainTitle {
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: #047857;
+  margin: 0 0 2px 0;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  font-size: 0.8rem;
+  color: #475569;
+  font-weight: 600;
+  margin: 0;
+}
+
+.headerMeta {
+  text-align: right;
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.gridContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cardBlock {
+  border: 1.5px solid #0f172a;
+  border-radius: 6px;
+  padding: 0.75rem;
+  background: #f8fafc;
+}
+
+.cardTitle {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 0.5rem 0;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #cbd5e1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+}
+
+.tableUnits {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.75rem;
+}
+
+.tableUnits th, .tableUnits td {
+  padding: 4px 6px;
+  border: 1px solid #cbd5e1;
+  text-align: left;
+}
+
+.tableUnits th {
+  background: #e2e8f0;
+  font-weight: 800;
+}
+
+.ruleList {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: #1e293b;
+}
+
+.ruleList li {
+  margin-bottom: 4px;
+}
+
+.fullWidthBlock {
+  border: 1.5px solid #0f172a;
+  border-radius: 6px;
+  padding: 0.75rem;
+  background: #f8fafc;
+  margin-bottom: 1rem;
+}
+
+.alertBox {
+  background: #fef3c7;
+  border: 1px dashed #d97706;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  color: #92400e;
+  margin-top: 6px;
+}
+
+.sheetFooter {
+  border-top: 1px solid #0f172a;
+  padding-top: 0.5rem;
+  font-size: 0.7rem;
+  color: #64748b;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Reglas Estrictas para Impresión en Cabina de Tractor */
+@media print {
+  @page {
+    size: portrait;
+    margin: 8mm;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  /* Ocultar barra de navegación, header y botones web */
+  :global(header),
+  :global(aside),
+  :global(nav),
+  :global(.no-print),
+  .actionToolbar {
+    display: none !important;
+  }
+
+  .sheetContainer {
+    border: 2px solid #000000 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .cardBlock, .fullWidthBlock {
+    background: #ffffff !important;
+    border: 1px solid #000000 !important;
+    page-break-inside: avoid;
+  }
+
+  .tableUnits th {
+    background: #f1f5f9 !important;
+    color: #000000 !important;
+  }
+
+  .mainTitle {
+    color: #000000 !important;
+  }
+}

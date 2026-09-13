@@ -1,8 +1,8 @@
 .floatingButton {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 1000;
+  bottom: max(24px, env(safe-area-inset-bottom, 24px));
+  right: max(24px, env(safe-area-inset-right, 24px));
+  z-index: 1050;
   background: linear-gradient(135deg, #059669 0%, #10b981 100%);
   color: #ffffff;
   border: 1px solid rgba(52, 211, 153, 0.4);
@@ -333,11 +333,26 @@
 
 @media (max-width: 640px) {
   .floatingButton {
-    bottom: 16px;
-    right: 16px;
+    bottom: max(16px, env(safe-area-inset-bottom, 16px));
+    right: max(16px, env(safe-area-inset-right, 16px));
     padding: 8px 14px;
   }
   .drawer {
     max-width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .floatingButton {
+    bottom: max(12px, env(safe-area-inset-bottom, 12px));
+    right: max(12px, env(safe-area-inset-right, 12px));
+    padding: 8px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+  }
+  .btnLabel {
+    display: none;
   }
 }
