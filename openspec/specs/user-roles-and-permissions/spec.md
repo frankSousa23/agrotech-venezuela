@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Provides comprehensive role-based access control (RBAC), administrative route guards, server-side API protection, and rapid role-switching utilities with isolated ephemeral sandboxes for seamless multi-profile validation.
+Provides comprehensive role-based access control (RBAC), administrative route guards, server-side API protection, rapid role-switching utilities with isolated ephemeral sandboxes, and role-adaptive cartographic ergonomics for seamless multi-profile validation.
 
 ## Requirements
 
@@ -38,3 +38,22 @@ The system SHALL isolate every guest user into an independent, ephemeral namespa
 #### Scenario: Blocking Guest Access to Real Producer Data
 - **WHEN** a guest user queries `/api/parcels`, `/api/field-logs`, or attempts to access administrative records
 - **THEN** the API serves strictly their own seeded sample parcels and blocks access to genuine producer accounts and sensitive database records.
+
+### Requirement: Role-Adaptive Cartographic and UI Ergonomics
+The platform interface and WebGIS viewers SHALL adapt their display density, vocabulary, and interactive tool availability dynamically based on the active user role (`FARMER`, `AGRONOMIST`/`TECH`, `AUDITOR`/`JURY`, `ADMIN`, `GUEST`), maintaining consistent role-adapted capabilities across both the primary WebGIS explorer (`/dashboard/mapa`) and embedded dashboard viewers.
+
+#### Scenario: Farmer Role Experience
+- **WHEN** user is logged in with `FARMER` role or operates in *Modo Productor Fácil*
+- **THEN** the map and parcel controls SHALL prioritize large touch targets (minimum 44px), 1-click automatic preset boundaries ("Tablón Auto"), vernacular terminology (sacos, tablones), and direct voice-assistance handoff.
+
+#### Scenario: Agronomist / Technical Role Experience
+- **WHEN** user is logged in with `AGRONOMIST` or `TECH` role
+- **THEN** the map SHALL expose advanced telemetry tools, Sentinel-1 SAR dual-polarization cross-validation layers, Kamprath soil chemistry dosers, and ESRI Shapefile/KML precision machinery export dialogs.
+
+#### Scenario: Auditor / Jury Role Experience
+- **WHEN** an evaluator or juror audits the platform
+- **THEN** the interface SHALL provide direct links to the certified 252-test matrix, TRL 4 software prototype dossier, OpenAPI Swagger explorer, and MapBiomas CC BY 4.0 data compliance certifications.
+
+#### Scenario: Role Parity Across Map Viewers
+- **WHEN** a user switches role (e.g. from FARMER to TECH) while inspecting any map view
+- **THEN** all map controls, layer toolbars, and contextual diagnostic badges SHALL update reactively to match the active role's operational scope without page reloads.

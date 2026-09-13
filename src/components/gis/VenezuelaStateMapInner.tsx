@@ -28,10 +28,10 @@ interface VenezuelaStateMapInnerProps {
   onSelectState: (stateId: string) => void;
 }
 
-// Límites geográficos oficiales de Venezuela WGS84 para confinamiento estricto
-const VENEZUELA_BOUNDS: L.LatLngBoundsLiteral = [
-  [0.6, -73.4],  // Suroeste (Amazonas / Frontera Colombia-Brasil)
-  [12.5, -59.8]  // Noreste (Fachada Atlántica / Paria / Delta)
+// Límites geográficos oficiales de Venezuela WGS84 con zona de amortiguamiento elástica
+export const VENEZUELA_BOUNDS: L.LatLngBoundsLiteral = [
+  [-1.0, -76.0],  // Suroeste amortiguado (Orinoquía / Amazonía / Frontera)
+  [16.0, -57.0]   // Noreste amortiguado (Mar Caribe / Fachada Atlántica / Delta)
 ];
 
 // Función auxiliar para calcular colores según la capa activa
@@ -117,12 +117,18 @@ export default function VenezuelaStateMapInner({
     return 8;
   }, [selectedStateId]);
 
-  // Capa base TileLayer URL (Sin marcas de agua)
+  // Capa base TileLayer URL (Sin marcas de agua y con soporte CartoDB Dark)
   const tileConfig = useMemo(() => {
     if (activeLayer === 'satellite') {
       return {
         url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
         attribution: '&copy; Esri &mdash; World Imagery (High Resolution)'
+      };
+    }
+    if (activeLayer === 'dark') {
+      return {
+        url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+        attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, &copy; OpenStreetMap contributors'
       };
     }
     return {
@@ -138,9 +144,9 @@ export default function VenezuelaStateMapInner({
     const map = L.map(containerRef.current, {
       center: mapCenter,
       zoom: mapZoom,
-      minZoom: 4.8,
+      minZoom: 4.5,
       maxBounds: VENEZUELA_BOUNDS,
-      maxBoundsViscosity: 1.0,
+      maxBoundsViscosity: 0.55,
       zoomControl: true,
       scrollWheelZoom: true
     });

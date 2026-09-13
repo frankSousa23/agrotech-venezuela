@@ -1,10 +1,4 @@
-# watermark-free-map-tiles Specification
-
-## Purpose
-
-Ensures all Leaflet map viewers utilize unmetered, high-resolution tile providers that render without diagonal "API KEY REQUIRED" watermarks or usage restrictions.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Watermark-Free Base Tiles
 The system SHALL use OpenStreetMap or Esri World Topo tiles for thematic layers, Esri World Dark Gray Canvas HD tiles for dark mode basemaps, and Esri World Imagery for satellite layers across all WebGIS views (Next.js and Streamlit Folium), strictly excluding tile endpoints that inject watermarks or require API keys.

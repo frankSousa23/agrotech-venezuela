@@ -46,9 +46,9 @@ def create_folium_map(
     ).add_to(m)
 
     folium.TileLayer(
-        tiles="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
-        attr="CartoDB Dark Matter",
-        name="Modo Oscuro CartoDB",
+        tiles="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+        attr="Esri World Dark Gray Canvas",
+        name="Modo Oscuro Esri HD",
         overlay=False,
         control=True,
     ).add_to(m)

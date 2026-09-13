@@ -33,6 +33,7 @@ export default function SunlightThemeToggle() {
     document.documentElement.setAttribute('data-theme', nextTheme);
     localStorage.setItem('agrotech-theme', nextTheme);
     setTheme(nextTheme);
+    window.dispatchEvent(new CustomEvent('agrotech-theme-change', { detail: { theme: nextTheme } }));
   };
 
   const getConfig = () => {

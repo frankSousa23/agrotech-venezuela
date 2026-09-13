@@ -12,7 +12,7 @@
 
 'use client';
 
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { VENEZUELA_STATES_DATA, StateGeoData } from '@/lib/geo/venezuelaData';
 import { estimateSarRadarBackscatter } from '@/lib/geo/sarRadarService';
@@ -87,6 +87,20 @@ export default function VenezuelaStateMapViewer({
       onStateSelect(stateId);
     }
   }, [onStateSelect]);
+
+  // Sincronización reactiva con tema global (SunlightThemeToggle)
+  useEffect(() => {
+    const handleThemeChange = (e: any) => {
+      const currentTheme = e.detail?.theme;
+      if (currentTheme === 'dark') {
+        setActiveLayer('dark');
+      } else if (currentTheme === 'sunlight' && activeLayer === 'dark') {
+        setActiveLayer('thematic');
+      }
+    };
+    window.addEventListener('agrotech-theme-change', handleThemeChange);
+    return () => window.removeEventListener('agrotech-theme-change', handleThemeChange);
+  }, [activeLayer]);
 
   // Categorización visual del pH
   const phStatus = useMemo(() => {
@@ -271,6 +285,23 @@ export default function VenezuelaStateMapViewer({
             }}
           >
             📡 Radar SAR (Sin Nubes)
+          </button>
+
+          <button
+            id="btn_layer_dark"
+            onClick={() => setActiveLayer('dark')}
+            style={{
+              padding: '5px 10px',
+              fontSize: '0.76rem',
+              borderRadius: '6px',
+              border: 'none',
+              background: activeLayer === 'dark' ? '#475569' : '#1e293b',
+              color: '#fff',
+              cursor: 'pointer',
+              fontWeight: activeLayer === 'dark' ? 700 : 400
+            }}
+          >
+            🌙 Modo Oscuro
           </button>
         </div>
       </div>

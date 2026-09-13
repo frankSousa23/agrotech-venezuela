@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { VENEZUELA_STATES_DATA, VENEZUELA_SOIL_POINTS } from '@/lib/geo/venezuelaData';
 import { calculatePolygonAreaHa } from '@/lib/geo/spatialUtils';
@@ -67,6 +67,20 @@ export default function MapBiomasViewer({ height }: MapBiomasViewerProps) {
   const drawnAreaHa = useMemo(() => {
     return calculatePolygonAreaHa(drawnPoints);
   }, [drawnPoints]);
+
+  // Sincronización reactiva con tema global (SunlightThemeToggle)
+  useEffect(() => {
+    const handleThemeChange = (e: any) => {
+      const currentTheme = e.detail?.theme;
+      if (currentTheme === 'dark') {
+        setSelectedLayer('dark');
+      } else if (currentTheme === 'sunlight' && selectedLayer === 'dark') {
+        setSelectedLayer('mapbiomas');
+      }
+    };
+    window.addEventListener('agrotech-theme-change', handleThemeChange);
+    return () => window.removeEventListener('agrotech-theme-change', handleThemeChange);
+  }, [selectedLayer]);
 
   return (
     <div style={{ 
@@ -163,6 +177,22 @@ export default function MapBiomasViewer({ height }: MapBiomasViewerProps) {
             }}
           >
             Lluvias NASA
+          </button>
+          <button 
+            id="btn_layer_dark"
+            onClick={() => setSelectedLayer('dark')}
+            style={{
+              padding: '4px 8px',
+              fontSize: '0.75rem',
+              borderRadius: '4px',
+              border: 'none',
+              background: selectedLayer === 'dark' ? '#475569' : '#334155',
+              color: '#fff',
+              cursor: 'pointer',
+              fontWeight: selectedLayer === 'dark' ? 700 : 400
+            }}
+          >
+            Modo Oscuro
           </button>
         </div>
 

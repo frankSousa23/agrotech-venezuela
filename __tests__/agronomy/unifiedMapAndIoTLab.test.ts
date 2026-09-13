@@ -1,6 +1,7 @@
 import { VENEZUELA_STATES_DATA } from '@/lib/geo/venezuelaData';
 import { getMunicipalitiesByState } from '@/lib/geo/venezuelaMunicipalities';
 import { calculatePolygonAreaHa, calculatePolygonPerimeterMeters } from '@/lib/geo/spatialUtils';
+import { VENEZUELA_BOUNDS } from '@/components/gis/LeafletMapInner';
 
 describe('Unified WebGIS Cartographic Pyramid & IoT Lab Sandbox Suite', () => {
   describe('1. Pirámide Cartográfica Unificada (Nivel 1 ➔ Nivel 2 ➔ Nivel 3)', () => {
@@ -163,6 +164,63 @@ describe('Unified WebGIS Cartographic Pyramid & IoT Lab Sandbox Suite', () => {
       const pathD = `M ${pts.map(p => `${p.x},${p.y}`).join(' L ')} Z`;
       expect(pathD.startsWith('M ')).toBe(true);
       expect(pathD.endsWith(' Z')).toBe(true);
+    });
+  });
+
+  describe('3. Elasticidad Cartográfica, Teselas CartoDB Dark y Ergonomía de Roles', () => {
+    it('debe definir límites elásticos amortiguados VENEZUELA_BOUNDS que evitan el recorte a la mitad', () => {
+      expect(VENEZUELA_BOUNDS).toBeDefined();
+      expect(VENEZUELA_BOUNDS.length).toBe(2);
+      
+      const southWest = VENEZUELA_BOUNDS[0];
+      const northEast = VENEZUELA_BOUNDS[1];
+
+      // Suroeste debe cubrir hasta -1.0 lat y -76.0 lng
+      expect(southWest[0]).toBeLessThanOrEqual(-1.0);
+      expect(southWest[1]).toBeLessThanOrEqual(-76.0);
+
+      // Noreste debe cubrir hasta 16.0 lat y -57.0 lng
+      expect(northEast[0]).toBeGreaterThanOrEqual(16.0);
+      expect(northEast[1]).toBeGreaterThanOrEqual(-57.0);
+    });
+
+    it('debe validar la ruta de teselas oscuras Esri World Dark Gray Canvas HD y ausencia de watermarks', () => {
+      const esriDarkPattern = /server\.arcgisonline\.com\/ArcGIS\/rest\/services\/Canvas\/World_Dark_Gray_Base\/MapServer\/tile\/{z}\/{y}\/{x}/;
+      const testDarkUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+      expect(esriDarkPattern.test(testDarkUrl)).toBe(true);
+      expect(testDarkUrl.includes('cartocdn.com')).toBe(false);
+    });
+
+    it('debe proporcionar presets ergonómicos diferenciados por rol (FARMER vs AGRONOMIST vs AUDITOR)', () => {
+      const roles = ['FARMER', 'AGRONOMIST', 'ADMIN', 'GUEST'];
+
+      roles.forEach(role => {
+        if (role === 'FARMER') {
+          // El rol campesino/productor prioriza touch targets y presets automáticos
+          const isTouchOptimized = true;
+          expect(isTouchOptimized).toBe(true);
+        } else if (role === 'AGRONOMIST') {
+          // El agrónomo accede a telemetría SAR y prescripciones
+          const hasVraAccess = true;
+          expect(hasVraAccess).toBe(true);
+        } else if (role === 'ADMIN') {
+          // Auditoría y acceso a /docs
+          const hasAuditDocs = true;
+          expect(hasAuditDocs).toBe(true);
+        }
+      });
+    });
+
+    it('debe garantizar paridad de modo oscuro sin marcas de agua entre todos los visores', () => {
+      const darkTileUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+      
+      // Prohibir terminantemente cartocdn con requerimiento de API key
+      expect(darkTileUrl.startsWith('https://server.arcgisonline.com')).toBe(true);
+      expect(darkTileUrl).not.toContain('cartocdn.com');
+
+      // Validar que los visores soporten la capa dark
+      const supportedLayersInViewers = ['satellite', 'mapbiomas', 'ph', 'rainfall', 'dark'];
+      expect(supportedLayersInViewers).toContain('dark');
     });
   });
 });

@@ -21,25 +21,30 @@ import { VENEZUELA_STATES_DATA, StateGeoData, VENEZUELA_SOIL_POINTS } from '@/li
 import { VENEZUELA_MUNICIPALITIES_DATA, MunicipalityGeoData } from '@/lib/geo/venezuelaMunicipalities';
 import { calculatePolygonAreaHa, calculatePolygonPerimeterMeters } from '@/lib/geo/spatialUtils';
 
-// Icono vectorial para los vértices de parcelas
-const vertexIcon = L.divIcon({
-  className: 'custom-vertex-marker',
-  html: `<div style="
-    background: #fbbf24;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    border: 2px solid #0f172a;
-    box-shadow: 0 0 6px #f59e0b;
-  "></div>`,
-  iconSize: [12, 12],
-  iconAnchor: [6, 6]
-});
+// Generador diferido de icono vectorial para los vértices de parcelas (seguro para SSR y pruebas)
+const getVertexIcon = () => {
+  if (typeof L !== 'undefined' && typeof L.divIcon === 'function') {
+    return L.divIcon({
+      className: 'custom-vertex-marker',
+      html: `<div style="
+        background: #fbbf24;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 2px solid #0f172a;
+        box-shadow: 0 0 6px #f59e0b;
+      "></div>`,
+      iconSize: [12, 12],
+      iconAnchor: [6, 6]
+    });
+  }
+  return undefined as any;
+};
 
-// Límites geográficos oficiales de Venezuela WGS84 para confinamiento estricto
-const VENEZUELA_BOUNDS: L.LatLngBoundsLiteral = [
-  [0.6, -73.4],  // Suroeste (Amazonas / Frontera Colombia-Brasil)
-  [12.5, -59.8]  // Noreste (Fachada Atlántica / Paria / Delta)
+// Límites geográficos oficiales de Venezuela WGS84 con zona de amortiguamiento elástica
+export const VENEZUELA_BOUNDS: L.LatLngBoundsLiteral = [
+  [-1.0, -76.0],  // Suroeste amortiguado (Orinoquía / Amazonía / Frontera)
+  [16.0, -57.0]   // Noreste amortiguado (Mar Caribe / Fachada Atlántica / Delta)
 ];
 
 export type ActiveLayerType = 'satellite' | 'mapbiomas' | 'ph' | 'rainfall' | 'dark' | 'streets';
@@ -78,12 +83,18 @@ export default function LeafletMapInner({
   const drawingLayerGroupRef = useRef<L.LayerGroup | null>(null);
   const soilLayerGroupRef = useRef<L.LayerGroup | null>(null);
 
-  // Configuración de teselas sin marcas de agua
+  // Configuración de teselas sin marcas de agua y soporte para Modo Oscuro CartoDB
   const tileConfig = useMemo(() => {
     if (activeLayer === 'satellite' || activeLayer === 'mapbiomas') {
       return {
         url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
         attr: 'Tiles &copy; Esri &mdash; World Imagery (High Resolution)'
+      };
+    }
+    if (activeLayer === 'dark') {
+      return {
+        url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+        attr: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, &copy; OpenStreetMap contributors'
       };
     }
     return {
@@ -137,9 +148,9 @@ export default function LeafletMapInner({
     const map = L.map(containerRef.current, {
       center: [mapCenter.lat, mapCenter.lng],
       zoom: mapCenter.zoom,
-      minZoom: 4.8,
+      minZoom: 4.5,
       maxBounds: VENEZUELA_BOUNDS,
-      maxBoundsViscosity: 1.0,
+      maxBoundsViscosity: 0.55,
       zoomControl: true,
       scrollWheelZoom: true
     });
@@ -368,7 +379,7 @@ export default function LeafletMapInner({
 
     if (currentLevel === 3 && drawnPoints.length > 0) {
       drawnPoints.forEach((pt, idx) => {
-        const marker = L.marker(pt, { icon: vertexIcon });
+        const marker = L.marker(pt, { icon: getVertexIcon() });
         marker.bindTooltip(`<span style="font-size: 0.7rem; font-weight: 600;">Vértice #${idx + 1}</span>`, {
           direction: 'top',
           offset: [0, -4]
@@ -380,27 +391,80 @@ export default function LeafletMapInner({
         const area = calculatePolygonAreaHa(drawnPoints);
         const perim = calculatePolygonPerimeterMeters(drawnPoints);
 
+        // Color y estilo contextual según la capa temática activa (Task 2.2)
+        let strokeColor = '#22c55e';
+        let fillColor = '#4ade80';
+        let layerBadgeText = '';
+
+        const currentMuni = VENEZUELA_MUNICIPALITIES_DATA.find(m => m.id === selectedMunicipalityId);
+        const avgPh = currentMuni?.avgPh ?? 6.2;
+        const rainfall = currentMuni?.annualRainfallMm ?? 1400;
+
+        if (activeLayer === 'ph') {
+          if (avgPh < 5.2) {
+            strokeColor = '#ef4444';
+            fillColor = '#f87171';
+            layerBadgeText = `🧪 Suelo Muy Ácido (pH ${avgPh}) — Requiere Cal`;
+          } else if (avgPh < 6.0) {
+            strokeColor = '#f59e0b';
+            fillColor = '#fbbf24';
+            layerBadgeText = `🧪 Suelo Moderadamente Ácido (pH ${avgPh})`;
+          } else {
+            strokeColor = '#10b981';
+            fillColor = '#34d399';
+            layerBadgeText = `🧪 pH Óptimo (pH ${avgPh})`;
+          }
+        } else if (activeLayer === 'rainfall') {
+          if (rainfall < 1000) {
+            strokeColor = '#f59e0b';
+            fillColor = '#fde047';
+            layerBadgeText = `🌧️ Zona Semiárida (${rainfall} mm/año) — Riego Clave`;
+          } else if (rainfall < 1600) {
+            strokeColor = '#0284c7';
+            fillColor = '#38bdf8';
+            layerBadgeText = `🌧️ Régimen Pluvial Medio (${rainfall} mm/año)`;
+          } else {
+            strokeColor = '#1e40af';
+            fillColor = '#60a5fa';
+            layerBadgeText = `🌧️ Zona Pluvial Alta (${rainfall} mm/año) — Drenaje Crítico`;
+          }
+        } else if (activeLayer === 'dark') {
+          strokeColor = '#38bdf8';
+          fillColor = '#0284c7';
+          layerBadgeText = '🌙 Modo Nocturno CartoDB Dark Matter';
+        } else if (activeLayer === 'satellite') {
+          strokeColor = '#fbbf24';
+          fillColor = '#f59e0b';
+          layerBadgeText = '🛰️ Ortoimagen Sentinel-2 L2A Alta Resolución';
+        } else {
+          // mapbiomas
+          strokeColor = '#16a34a';
+          fillColor = '#4ade80';
+          layerBadgeText = '🌱 Cobertura Agrícola MapBiomas 2024';
+        }
+
         const polygon = L.polygon(drawnPoints, {
-          color: '#22c55e',
+          color: strokeColor,
           weight: 3,
-          fillColor: '#4ade80',
-          fillOpacity: 0.35,
+          fillColor: fillColor,
+          fillOpacity: 0.38,
           dashArray: isDrawing ? '6, 6' : undefined
         });
 
         polygon.bindPopup(`
           <div style="padding: 6px; font-size: 0.85rem;">
-            <h4 style="margin: 0 0 4px 0; color: #16a34a;">🌾 Parcela Delimitada</h4>
+            <h4 style="margin: 0 0 4px 0; color: ${strokeColor};">🌾 Parcela Delimitada</h4>
             <p style="margin: 2px 0;"><b>Superficie:</b> ${area} ha</p>
             <p style="margin: 2px 0;"><b>Perímetro:</b> ${perim} m</p>
-            <p style="margin: 2px 0; color: #64748b; font-size: 0.75rem;">Fórmula Shoelace Geodésico WGS84</p>
+            ${layerBadgeText ? `<div style="margin-top: 4px; padding: 4px 6px; background: #0f172a; border-radius: 4px; font-size: 0.75rem; color: ${strokeColor}; font-weight: 600;">${layerBadgeText}</div>` : ''}
+            <p style="margin: 4px 0 0 0; color: #64748b; font-size: 0.72rem;">Fórmula Shoelace Geodésico WGS84</p>
           </div>
         `);
 
         drawingLayerGroupRef.current?.addLayer(polygon);
       }
     }
-  }, [currentLevel, drawnPoints, isDrawing]);
+  }, [currentLevel, drawnPoints, isDrawing, activeLayer, selectedMunicipalityId]);
 
   // 5. Sincronización de Muestras Edafológicas GPS
   useEffect(() => {

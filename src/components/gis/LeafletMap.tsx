@@ -41,15 +41,15 @@ function getTileConfig(layer: 'satellite' | 'mapbiomas' | 'ph' | 'rainfall') {
       };
     case 'mapbiomas':
       return {
-        url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-        attribution: 'CartoDB Voyager | MapBiomas Venezuela Colección 3',
-        subdomains: ['a', 'b', 'c', 'd'],
+        url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+        attribution: 'OpenStreetMap | MapBiomas Venezuela Colección 3',
+        subdomains: [] as string[],
       };
     case 'ph':
       return {
-        url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-        attribution: 'CartoDB Dark | Red Edafológica pH Agrotech',
-        subdomains: ['a', 'b', 'c', 'd'],
+        url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+        attribution: 'Esri World Dark Gray Canvas | Red Edafológica pH Agrotech',
+        subdomains: [] as string[],
       };
     case 'rainfall':
       return {
