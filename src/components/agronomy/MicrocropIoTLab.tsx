@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import styles from './MicrocropIoTLab.module.css';
 import SoilMoistureCard from '@/components/iot/SoilMoistureCard';
 import { SoilTextureType } from '@/lib/agronomy/pedotransferEngine';
@@ -23,6 +23,16 @@ import {
   Info,
   Sprout
 } from 'lucide-react';
+
+export interface HistoriadorPoint {
+  hour: number;
+  label: string;
+  moisture: number;
+  temperature: number;
+  isIrrigation: boolean;
+  isRain: boolean;
+  critical: number;
+}
 
 export interface MicrocropPreset {
   id: 'TOMATO' | 'CORN' | 'COFFEE';
@@ -92,6 +102,11 @@ export default function MicrocropIoTLab() {
   const [adcCurrent, setAdcCurrent] = useState<number>(2650);
   const [calibTexture, setCalibTexture] = useState<SoilTextureType>('arcilloso');
 
+  const [waterConsumedLiters, setWaterConsumedLiters] = useState<number>(3.4);
+  const [sensorFault, setSensorFault] = useState<boolean>(false);
+  const [stressActive, setStressActive] = useState<'HEATWAVE' | 'STORM' | 'FAULT' | null>(null);
+  const [hoveredHistHour, setHoveredHistHour] = useState<number | null>(null);
+
   // Estado de Transmisión E2E hacia FastAPI
   const [isTransmitting, setIsTransmitting] = useState<boolean>(false);
   const [transmissionResult, setTransmissionResult] = useState<{
@@ -121,7 +136,7 @@ export default function MicrocropIoTLab() {
     }
   }, [moisturePct, rainForecastMm, autoMode, activePreset, isDeficient, isRainImminent]);
 
-  // Si la válvula está abierta, la humedad se eleva gradualmente
+  // Si la válvula está abierta, la humedad se eleva gradualmente y se acumula caudal
   useEffect(() => {
     let interval: any = null;
     if (valveState === 'OPEN') {
@@ -133,6 +148,7 @@ export default function MicrocropIoTLab() {
           }
           return Number((prev + 1.2).toFixed(1));
         });
+        setWaterConsumedLiters(prev => Number((prev + 0.02).toFixed(2)));
       }, 800);
     }
     return () => clearInterval(interval);
@@ -149,6 +165,75 @@ export default function MicrocropIoTLab() {
   const handleToggleRainForecast = () => {
     setRainForecastMm(prev => prev > 0 ? 0.0 : 14.2);
   };
+
+  // Disparadores de Pruebas de Estrés en 1 Clic
+  const handleTriggerHeatwave = () => {
+    setSoilTempC(38.6);
+    setMoisturePct(19.2);
+    setRainForecastMm(0.0);
+    setSensorFault(false);
+    setStressActive('HEATWAVE');
+  };
+
+  const handleTriggerStorm = () => {
+    setRainForecastMm(24.5);
+    setSoilTempC(23.4);
+    setSensorFault(false);
+    setStressActive('STORM');
+  };
+
+  const handleTriggerSensorFault = () => {
+    setAdcCurrent(4095);
+    setSensorFault(true);
+    setStressActive('FAULT');
+  };
+
+  const handleResetLab = () => {
+    setMoisturePct(activePreset.criticalThreshold - 3);
+    setSoilTempC(27.2);
+    setRainForecastMm(0.0);
+    setAdcCurrent(2650);
+    setSensorFault(false);
+    setStressActive(null);
+  };
+
+  // Datos simulados de la serie temporal 24h para el Historiador
+  const historiadorData: HistoriadorPoint[] = useMemo(() => {
+    const hours: HistoriadorPoint[] = [];
+    const crit = activePreset.criticalThreshold;
+    for (let h = 0; h < 24; h++) {
+      const timeStr = `${String(h).padStart(2, '0')}:00`;
+      const tempFactor = Math.sin(((h - 8) / 24) * 2 * Math.PI);
+      const temp = Number((27.0 + tempFactor * 5.5).toFixed(1));
+
+      let baseMoisture = crit + 8;
+      if (h >= 10 && h <= 16) {
+        baseMoisture -= (h - 9) * 2.1;
+      } else if (h > 16 && h <= 20) {
+        baseMoisture = crit + 4;
+      } else if (h >= 6 && h <= 9) {
+        baseMoisture = crit + 7;
+      }
+
+      const isIrrigatingHour = (h === 7 || h === 17);
+      const hasRain = (rainForecastMm > 0 && h >= 14 && h <= 18);
+      
+      let moisture = isIrrigatingHour ? crit + 12 : baseMoisture;
+      if (hasRain) moisture += 14;
+      if (stressActive === 'HEATWAVE') moisture = Math.max(14, moisture - 12);
+
+      hours.push({
+        hour: h,
+        label: timeStr,
+        moisture: Number(Math.min(85, Math.max(12, moisture)).toFixed(1)),
+        temperature: temp,
+        isIrrigation: isIrrigatingHour,
+        isRain: hasRain,
+        critical: crit
+      });
+    }
+    return hours;
+  }, [activePreset, rainForecastMm, stressActive]);
 
   const handleTransmitTelemetry = async () => {
     setIsTransmitting(true);
@@ -397,6 +482,16 @@ void loop() {
             </div>
 
             <div className={styles.svgContainer}>
+              {/* HUD Digital de Caudalímetro en Vivo */}
+              <div className={styles.flowMeterHud}>
+                <span>💧 Caudal:</span>
+                <span className={valveState === 'OPEN' ? styles.flowRateActive : ''}>
+                  {valveState === 'OPEN' ? `${(activePreset.dripRateLph / 60).toFixed(2)} L/min` : '0.00 L/min'}
+                </span>
+                <span style={{ color: '#475569' }}>|</span>
+                <span>Consumo: <strong style={{ color: '#38bdf8' }}>{waterConsumedLiters.toFixed(2)} L</strong></span>
+              </div>
+
               <svg viewBox="0 0 600 375" style={{ width: '100%', height: '100%' }}>
                 <defs>
                   {/* Gradiente dinámico de suelo según humedad */}
@@ -413,7 +508,7 @@ void loop() {
 
                   {/* Halo de hidratación radicular */}
                   <radialGradient id="rootHydration" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stopColor="#38bdf8" stopOpacity={valveState === 'OPEN' ? '0.7' : moisturePct > 35 ? '0.3' : '0.05'} />
+                    <stop offset="0%" stopColor="#38bdf8" stopOpacity={valveState === 'OPEN' ? '0.75' : moisturePct > 35 ? '0.35' : '0.05'} />
                     <stop offset="100%" stopColor="#0284c7" stopOpacity="0" />
                   </radialGradient>
                 </defs>
@@ -445,10 +540,20 @@ void loop() {
                 <text x="15" y="245" fill="#64748b" fontSize="10">Zona Radicular Principal (10-25cm)</text>
 
                 {/* Halo de Hidratación en la raíz */}
-                <ellipse cx="300" cy="240" rx="140" ry="70" fill="url(#rootHydration)" />
+                <ellipse 
+                  cx="300" 
+                  cy="240" 
+                  rx="140" 
+                  ry="70" 
+                  fill="url(#rootHydration)" 
+                  className={valveState === 'OPEN' ? styles.rootHydrationActive : undefined} 
+                />
 
                 {/* 3. Tubo de Micro-Riego en Superficie */}
                 <line x1="40" y1="148" x2="560" y2="148" stroke="#0284c7" strokeWidth="6" strokeLinecap="round" />
+                {valveState === 'OPEN' && (
+                  <line x1="40" y1="148" x2="560" y2="148" stroke="#38bdf8" strokeWidth="3" strokeLinecap="round" className={styles.tubeWaterFlow} />
+                )}
                 {/* Gotero 1 */}
                 <rect x="230" y="146" width="10" height="8" rx="2" fill="#38bdf8" />
                 {/* Gotero 2 (Centro) */}
@@ -456,12 +561,17 @@ void loop() {
                 {/* Gotero 3 */}
                 <rect x="360" y="146" width="10" height="8" rx="2" fill="#38bdf8" />
 
-                {/* Gotas de Riego Animadas */}
+                {/* Gotas de Riego Animadas y Ondas de Humectación */}
                 {valveState === 'OPEN' && (
                   <g>
+                    {/* Gotas cayendo */}
                     <circle cx="235" cy="158" r="3.5" fill="#38bdf8" className={styles.dripDrop} />
                     <circle cx="300" cy="158" r="4" fill="#38bdf8" className={styles.dripDropDelayed} />
                     <circle cx="365" cy="158" r="3.5" fill="#38bdf8" className={styles.dripDrop} />
+                    {/* Ondas superficiales expansivas */}
+                    <ellipse cx="235" cy="154" rx="8" ry="2.5" fill="none" stroke="#38bdf8" strokeWidth="1.5" className={styles.waterRipple} />
+                    <ellipse cx="300" cy="154" rx="10" ry="3" fill="none" stroke="#38bdf8" strokeWidth="1.5" className={styles.waterRippleDelayed} />
+                    <ellipse cx="365" cy="154" rx="8" ry="2.5" fill="none" stroke="#38bdf8" strokeWidth="1.5" className={styles.waterRipple} />
                   </g>
                 )}
 
@@ -495,14 +605,18 @@ void loop() {
                 {/* 5. Sonda de Humedad Capacitiva en el Suelo */}
                 <g>
                   {/* Cuerpo PCB del sensor */}
-                  <rect x="420" y="160" width="16" height="75" rx="3" fill="#1e293b" stroke="#38bdf8" strokeWidth="1.5" />
+                  <rect x="420" y="160" width="16" height="75" rx="3" fill="#1e293b" stroke={sensorFault ? '#ef4444' : '#38bdf8'} strokeWidth="1.5" />
                   {/* Puntas de medición */}
                   <line x1="424" y1="235" x2="424" y2="280" stroke="#cbd5e1" strokeWidth="2.5" />
                   <line x1="432" y1="235" x2="432" y2="280" stroke="#cbd5e1" strokeWidth="2.5" />
                   {/* Cable hacia el ESP32 */}
-                  <path d="M428 160 Q440 130 480 120" stroke="#38bdf8" strokeWidth="2" fill="none" strokeDasharray="3 3" />
-                  <text x="445" y="180" fill="#38bdf8" fontSize="10" fontWeight="bold">Sonda VWC</text>
-                  <text x="445" y="195" fill="#f8fafc" fontSize="12" fontWeight="bold">{moisturePct}%</text>
+                  <path d="M428 160 Q440 130 480 120" stroke={sensorFault ? '#ef4444' : '#38bdf8'} strokeWidth="2" fill="none" strokeDasharray="3 3" />
+                  <text x="445" y="180" fill={sensorFault ? '#f87171' : '#38bdf8'} fontSize="10" fontWeight="bold">
+                    {sensorFault ? '⚠️ Fallo Sonda' : 'Sonda VWC'}
+                  </text>
+                  <text x="445" y="195" fill={sensorFault ? '#ef4444' : '#f8fafc'} fontSize="12" fontWeight="bold">
+                    {sensorFault ? 'ADC > 4000' : `${moisturePct}%`}
+                  </text>
                 </g>
 
                 {/* 6. Nodo Controlador ESP32 en Poste */}
@@ -635,6 +749,65 @@ void loop() {
               />
             </div>
 
+            {/* Disparadores de Estrés y Simulación Rápida en 1 Clic */}
+            <div className={styles.stressSection}>
+              <div className={styles.stressTitle}>
+                <Zap size={14} color="#f59e0b" /> Banco de Pruebas: Disparadores de Estrés (1 Clic)
+              </div>
+              <div className={styles.stressGrid}>
+                <button
+                  type="button"
+                  id="btn_stress_heatwave"
+                  onClick={handleTriggerHeatwave}
+                  className={`${styles.stressBtn} ${styles.stressBtnAmber}`}
+                  title="Simular ola de calor y transpiración acelerada"
+                >
+                  <span>☀️</span> Ola Calor (+38°C)
+                </button>
+                <button
+                  type="button"
+                  id="btn_stress_storm"
+                  onClick={handleTriggerStorm}
+                  className={`${styles.stressBtn} ${styles.stressBtnBlue}`}
+                  title="Simular tormenta NASA POWER con corte de riego automático"
+                >
+                  <span>⛈️</span> Tormenta NASA (25mm)
+                </button>
+                <button
+                  type="button"
+                  id="btn_stress_fault"
+                  onClick={handleTriggerSensorFault}
+                  className={`${styles.stressBtn} ${styles.stressBtnRed}`}
+                  title="Simular desconexión de sonda (circuito abierto ADC 4095)"
+                >
+                  <span>⚡</span> Sonda Abierta (ADC 4095)
+                </button>
+                <button
+                  type="button"
+                  id="btn_stress_reset"
+                  onClick={handleResetLab}
+                  className={styles.stressBtn}
+                  title="Restablecer valores nominales del laboratorio"
+                >
+                  <span>🔄</span> Restablecer Banco
+                </button>
+              </div>
+              {stressActive && (
+                <div style={{
+                  fontSize: '0.73rem',
+                  padding: '4px 8px',
+                  borderRadius: '6px',
+                  background: 'rgba(15, 23, 42, 0.7)',
+                  color: stressActive === 'FAULT' ? '#f87171' : stressActive === 'HEATWAVE' ? '#fbbf24' : '#38bdf8',
+                  marginTop: '2px'
+                }}>
+                  {stressActive === 'HEATWAVE' && '🔥 Simulación activa: Estrés térmico extremo (+38.6°C). Suelo en estrés hídrico severo (19.2%).'}
+                  {stressActive === 'STORM' && '🌧️ Simulación activa: Tormenta satelital (24.5 mm). Supresión inteligente de riego activada.'}
+                  {stressActive === 'FAULT' && '⚠️ Simulación activa: Desconexión de sonda (ADC saturado en 4095). Relé forzado a apagado.'}
+                </div>
+              )}
+            </div>
+
             {/* Botones de Acción de Laboratorio */}
             <div className={styles.actionButtonRow}>
               <button
@@ -757,6 +930,195 @@ void loop() {
               <span className={styles.kpiLabel}><Zap size={16} color="#38bdf8" /> Estado de la Batería</span>
               <div className={styles.kpiValue} style={{ color: '#38bdf8' }}>94% (4.15V)</div>
               <div className={styles.kpiMeta}>Carga solar estabilizada</div>
+            </div>
+          </div>
+
+          {/* Historiador Interactivo Temporal de 24 Horas */}
+          <div className={styles.historiadorCard}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
+              <div>
+                <h4 style={{ margin: 0, color: '#f8fafc', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  📈 Historiador Temporal de Telemetría (Últimas 24 Horas)
+                </h4>
+                <p style={{ margin: '3px 0 0 0', fontSize: '0.78rem', color: '#94a3b8' }}>
+                  Oscilación diurna de humedad edáfica (VWC%) contrastada con umbral crítico ({activePreset.criticalThreshold}%), pulsos de riego y eventos satelitales NASA POWER.
+                </p>
+              </div>
+              <div className={styles.historiadorLegend}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                  <span style={{ width: '12px', height: '3px', background: '#38bdf8', borderRadius: '2px' }}></span> VWC (%)
+                </span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                  <span style={{ width: '12px', height: '0px', borderTop: '2px dashed #f59e0b' }}></span> Umbral Crítico ({activePreset.criticalThreshold}%)
+                </span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                  <span style={{ width: '8px', height: '8px', background: '#22c55e', borderRadius: '2px' }}></span> Pulso Riego
+                </span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                  <span style={{ width: '8px', height: '8px', background: '#0284c7', borderRadius: '2px' }}></span> Lluvia NASA
+                </span>
+              </div>
+            </div>
+
+            {/* Gráfico Vectorial SVG del Historiador */}
+            <div className={styles.historiadorSvgContainer}>
+              <svg viewBox="0 0 600 200" style={{ width: '100%', height: '100%' }}>
+                <defs>
+                  <linearGradient id="histGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.4" />
+                    <stop offset="100%" stopColor="#0284c7" stopOpacity="0.02" />
+                  </linearGradient>
+                </defs>
+
+                {/* Líneas de Guía Horizontales (%) */}
+                <line x1="40" y1="61.25" x2="580" y2="61.25" stroke="rgba(255,255,255,0.06)" strokeDasharray="3 3" />
+                <text x="32" y="64" fill="#64748b" fontSize="9" textAnchor="end">75%</text>
+
+                <line x1="40" y1="97.5" x2="580" y2="97.5" stroke="rgba(255,255,255,0.06)" strokeDasharray="3 3" />
+                <text x="32" y="100" fill="#64748b" fontSize="9" textAnchor="end">50%</text>
+
+                <line x1="40" y1="133.75" x2="580" y2="133.75" stroke="rgba(255,255,255,0.06)" strokeDasharray="3 3" />
+                <text x="32" y="137" fill="#64748b" fontSize="9" textAnchor="end">25%</text>
+
+                {/* Eje X base */}
+                <line x1="40" y1="170" x2="580" y2="170" stroke="rgba(255,255,255,0.15)" />
+
+                {/* Umbral Crítico de Marchitez (Línea discontinua ámbar) */}
+                {(() => {
+                  const yCrit = 170 - (activePreset.criticalThreshold / 100) * 145;
+                  return (
+                    <g>
+                      <line x1="40" y1={yCrit} x2="580" y2={yCrit} stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="5 5" />
+                      <text x="578" y={yCrit - 4} fill="#f59e0b" fontSize="9" textAnchor="end" fontWeight="bold">
+                        Umbral: {activePreset.criticalThreshold}%
+                      </text>
+                    </g>
+                  );
+                })()}
+
+                {/* Área bajo la curva de humedad */}
+                {(() => {
+                  const points = historiadorData.map((d, i) => `${40 + (i * 540) / 23},${170 - (d.moisture / 100) * 145}`);
+                  const areaD = `M 40,170 L ${points.join(' L ')} L 580,170 Z`;
+                  const lineD = `M ${points.join(' L ')}`;
+                  return (
+                    <g>
+                      <path d={areaD} fill="url(#histGradient)" />
+                      <path d={lineD} fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </g>
+                  );
+                })()}
+
+                {/* Barras/Puntos de Eventos Especiales (Riego y Lluvia) */}
+                {historiadorData.map((d, i) => {
+                  const cx = 40 + (i * 540) / 23;
+                  const cy = 170 - (d.moisture / 100) * 145;
+                  return (
+                    <g key={d.hour}>
+                      {d.isIrrigation && (
+                        <g>
+                          <rect x={cx - 3} y="150" width="6" height="20" rx="2" fill="#22c55e" opacity="0.6" />
+                          <circle cx={cx} cy={cy} r="4.5" fill="#22c55e" stroke="#0f172a" strokeWidth="1.5" />
+                        </g>
+                      )}
+                      {d.isRain && (
+                        <g>
+                          <rect x={cx - 3} y="150" width="6" height="20" rx="2" fill="#0284c7" opacity="0.7" />
+                          <circle cx={cx} cy={cy} r="4.5" fill="#0284c7" stroke="#0f172a" strokeWidth="1.5" />
+                        </g>
+                      )}
+                      {/* Círculo discreto por cada hora */}
+                      <circle cx={cx} cy={cy} r={hoveredHistHour === i ? "6" : "2.5"} fill={hoveredHistHour === i ? "#ffffff" : "#38bdf8"} />
+                    </g>
+                  );
+                })}
+
+                {/* Etiquetas horarias del Eje X */}
+                {[0, 4, 8, 12, 16, 20, 23].map(h => {
+                  const x = 40 + (h * 540) / 23;
+                  return (
+                    <text key={h} x={x} y="186" fill="#64748b" fontSize="9" textAnchor="middle">
+                      {String(h).padStart(2, '0')}:00
+                    </text>
+                  );
+                })}
+
+                {/* Zonas de captura táctil / mouse interactivo para tooltips */}
+                {historiadorData.map((d, i) => {
+                  const colW = 540 / 23;
+                  const x = 40 + (i * 540) / 23 - colW / 2;
+                  return (
+                    <rect
+                      key={`hit-${d.hour}`}
+                      x={x}
+                      y="10"
+                      width={colW}
+                      height="170"
+                      fill="transparent"
+                      style={{ cursor: 'pointer' }}
+                      onMouseEnter={() => setHoveredHistHour(i)}
+                      onClick={() => setHoveredHistHour(i)}
+                    />
+                  );
+                })}
+
+                {/* Cursor e Información Flotante cuando hay un punto activo */}
+                {hoveredHistHour !== null && historiadorData[hoveredHistHour] && (() => {
+                  const d = historiadorData[hoveredHistHour];
+                  const cx = 40 + (hoveredHistHour * 540) / 23;
+                  const cy = 170 - (d.moisture / 100) * 145;
+                  const tipX = cx > 450 ? cx - 140 : cx + 10;
+                  const tipY = Math.max(20, Math.min(110, cy - 25));
+
+                  return (
+                    <g>
+                      {/* Línea vertical de inspección */}
+                      <line x1={cx} y1="20" x2={cx} y2="170" stroke="rgba(255,255,255,0.4)" strokeDasharray="3 3" />
+                      {/* Anillo de enfoque */}
+                      <circle cx={cx} cy={cy} r="8" fill="none" stroke="#38bdf8" strokeWidth="2" />
+                      
+                      {/* Tooltip SVG */}
+                      <g transform={`translate(${tipX}, ${tipY})`}>
+                        <rect width="130" height="58" rx="6" fill="#0f172a" stroke="#38bdf8" strokeWidth="1" opacity="0.95" />
+                        <text x="8" y="15" fill="#94a3b8" fontSize="9" fontWeight="bold">Hora: {d.label}</text>
+                        <text x="8" y="30" fill="#38bdf8" fontSize="10" fontWeight="bold">Humedad: {d.moisture}% VWC</text>
+                        <text x="8" y="44" fill="#cbd5e1" fontSize="9">Temp: {d.temperature} °C</text>
+                        <text x="8" y="54" fill={d.isIrrigation ? '#4ade80' : d.isRain ? '#38bdf8' : '#94a3b8'} fontSize="8" fontWeight="bold">
+                          {d.isIrrigation ? '💧 Pulso Riego' : d.isRain ? '🌧️ Lluvia NASA' : '⏸️ Normal'}
+                        </text>
+                      </g>
+                    </g>
+                  );
+                })()}
+              </svg>
+            </div>
+
+            {/* Métricas de Balance Hídrico Acumulado en 24h */}
+            <div className={styles.historiadorMetricsGrid}>
+              <div style={{ background: 'rgba(30, 41, 59, 0.4)', padding: '8px 12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <span style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Mínima 24h</span>
+                <div style={{ fontSize: '1rem', fontWeight: 700, color: '#f87171' }}>
+                  {Math.min(...historiadorData.map(d => d.moisture))}% VWC
+                </div>
+              </div>
+              <div style={{ background: 'rgba(30, 41, 59, 0.4)', padding: '8px 12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <span style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Máxima 24h</span>
+                <div style={{ fontSize: '1rem', fontWeight: 700, color: '#38bdf8' }}>
+                  {Math.max(...historiadorData.map(d => d.moisture))}% VWC
+                </div>
+              </div>
+              <div style={{ background: 'rgba(30, 41, 59, 0.4)', padding: '8px 12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <span style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Pulsos Ejecutados</span>
+                <div style={{ fontSize: '1rem', fontWeight: 700, color: '#4ade80' }}>
+                  2 Ciclos (07:00 / 17:00)
+                </div>
+              </div>
+              <div style={{ background: 'rgba(30, 41, 59, 0.4)', padding: '8px 12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <span style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Eficiencia Hídrica</span>
+                <div style={{ fontSize: '1rem', fontWeight: 700, color: '#fde047' }}>
+                  98.5% (Cero escorrentía)
+                </div>
+              </div>
             </div>
           </div>
         </div>

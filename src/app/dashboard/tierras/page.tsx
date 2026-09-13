@@ -284,26 +284,44 @@ export default function TierrasPage() {
                     </Link>
 
                     <Link 
+                      href={`/dashboard/recomendaciones?parcelId=${p.id}&stateId=${p.stateId}&crop=${encodeURIComponent(p.currentCrop || 'Maíz Blanco')}&area=${p.areaHectares}#carbon-credits`}
+                      className={styles.actionBtn}
+                      style={{ background: 'rgba(16, 185, 129, 0.15)', border: '1px solid rgba(16, 185, 129, 0.4)', color: '#34d399', flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}
+                      title="Calcular bonos de carbono y reducción de emisiones Verra VCS para esta parcela"
+                    >
+                      <Sprout size={14} /> Carbono MRV
+                    </Link>
+
+                    <Link 
+                      href={`/dashboard/iot?parcelId=${p.id}&parcelName=${encodeURIComponent(p.name)}`}
+                      className={styles.actionBtn}
+                      style={{ background: 'rgba(168, 85, 247, 0.15)', border: '1px solid rgba(168, 85, 247, 0.4)', color: '#c084fc', flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}
+                      title="Monitorear gemelo IoT y telemetría in-situ de esta parcela"
+                    >
+                      <Radio size={14} /> Lab IoT
+                    </Link>
+
+                    <Link 
                       href={`/dashboard/mapa?state=${p.stateId}&level=3`} 
                       className={styles.actionBtn}
                       style={{ flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}
                     >
-                      <Map size={14} /> Ver en WebGIS
+                      <Map size={14} /> WebGIS
                     </Link>
 
                     <button 
                       onClick={() => setSelectedParcelForMachinery(p)}
                       className={styles.actionBtn}
-                      style={{ background: 'rgba(234, 179, 8, 0.15)', border: '1px solid rgba(234, 179, 8, 0.4)', color: '#facc15', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px', cursor: 'pointer' }}
+                      style={{ background: 'rgba(234, 179, 8, 0.15)', border: '1px solid rgba(234, 179, 8, 0.4)', color: '#facc15', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px', cursor: 'pointer', flex: 1 }}
                       title="Exportar archivo VRA para tractor GPS, dron o ficha analógica"
                     >
                       <Tractor size={14} /> Maquinaria & Dron
                     </button>
 
                     <Link 
-                      href={`/dashboard/bitacora?parcelId=${p.id}`} 
+                      href={`/dashboard/bitacora?parcelId=${p.id}&parcelName=${encodeURIComponent(p.name)}`} 
                       className={styles.actionBtn}
-                      style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}
+                      style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px', flex: 1 }}
                     >
                       <BookOpen size={14} /> Bitácora
                     </Link>

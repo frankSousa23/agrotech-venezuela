@@ -15,6 +15,7 @@ import HelpModal from '@/components/layout/HelpModal';
 import BackButton from '@/components/ui/BackButton';
 import DemoTourModal from '@/components/layout/DemoTourModal';
 import IntentionsModal from '@/components/layout/IntentionsModal';
+import AgronomicGlossaryDrawer from '@/components/layout/AgronomicGlossaryDrawer';
 import { 
   LayoutDashboard, 
   Map as MapIcon, 
@@ -598,6 +599,9 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
         <div className={styles.contentWrapper}>
           {children}
         </div>
+
+        {/* Drawer Flotante de Glosario de Campo & Diccionario Edafológico */}
+        <AgronomicGlossaryDrawer />
       </main>
     </div>
   );

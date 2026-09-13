@@ -14,6 +14,8 @@ import { estimateVenezuelaAgroClimate } from '@/lib/geo/nasaPowerService';
 import { calculateHydroThermalGdd } from '@/lib/geo/hydroThermalEngine';
 import CarbonCreditsCalculator from '@/components/agronomy/CarbonCreditsCalculator';
 import MachineryExportModal from '@/components/agronomy/MachineryExportModal';
+import TerritorialPresetBar, { TerritorialPreset } from '@/components/agronomy/TerritorialPresetBar';
+import ImpactRoiWidget from '@/components/agronomy/ImpactRoiWidget';
 import { InMemParcel } from '@/app/api/parcels/route';
 import { useUIMode } from '@/lib/context/UIModeContext';
 import { 
@@ -51,6 +53,7 @@ function RecomendacionesContent() {
   const textureQuery = searchParams.get('soilTexture');
   const cropQuery = searchParams.get('crop');
   const parcelNameQuery = searchParams.get('parcelName');
+  const areaQuery = searchParams.get('area');
 
   const [recommendations, setRecommendations] = useState<any[]>([]);
   const [parcels, setParcels] = useState<any[]>([]);
@@ -63,7 +66,7 @@ function RecomendacionesContent() {
   const [simOM, setSimOM] = useState<number>(3.2);
   const [simTexture, setSimTexture] = useState<string>(textureQuery ? decodeURIComponent(textureQuery) : 'Franco-limoso');
   const [hintCrop, setHintCrop] = useState<string | null>(cropQuery ? decodeURIComponent(cropQuery) : null);
-  const [simAreaHa, setSimAreaHa] = useState<number>(10);
+  const [simAreaHa, setSimAreaHa] = useState<number>(areaQuery ? parseFloat(areaQuery) : 10);
   const [simYearsUse, setSimYearsUse] = useState<number>(20);
 
   // Gemini Live Advisor en simulador
@@ -254,6 +257,19 @@ function RecomendacionesContent() {
           )}
         </div>
       </header>
+
+      {/* Selector de Escenarios Agroecológicos Emblemáticos en 1 Clic */}
+      <TerritorialPresetBar 
+        activePresetId={selectedStateId}
+        onSelectPreset={(preset) => {
+          setSelectedStateId(preset.stateId);
+          setSimPh(preset.ph);
+          setSimOM(preset.organicMatterPct);
+          setSimTexture(preset.soilTexture);
+          setHintCrop(preset.crop);
+          setAiAdvice(null);
+        }}
+      />
 
       {/* Simulador Interactivo */}
       <section className={`${styles.simulatorCard} glass-panel`}>
@@ -698,6 +714,12 @@ function RecomendacionesContent() {
             parcelName={`Finca en ${selectedState.name}`}
           />
         </div>
+
+        {/* 📊 Simulador de Retorno de Inversión (ROI) y Prácticas Split-Screen */}
+        <ImpactRoiWidget
+          initialAreaHa={simAreaHa}
+          cropName={hintCrop || suitabilityResults[0]?.cropName || 'Maíz Blanco'}
+        />
       </section>
 
       {/* Registro Histórico / Base de Datos */}

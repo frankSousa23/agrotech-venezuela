@@ -1,8 +1,7 @@
 'use client';
 
-import { Suspense, useState } from 'react';
+import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import VenezuelaStateMapViewer from '@/components/gis/VenezuelaStateMapViewer';
 import MultiLevelMapViewer, { MapLevel } from '@/components/gis/MultiLevelMapViewer';
 import styles from './page.module.css';
 import { Map, Layers, Sparkles } from 'lucide-react';
@@ -12,12 +11,19 @@ function MapaContent() {
   const stateParam = searchParams.get('state') || 'portuguesa';
   const levelParam = parseInt(searchParams.get('level') || '1', 10) as MapLevel;
   const intentParam = searchParams.get('intent');
-  const initialMode = (searchParams.get('mode') === 'multilevel' || intentParam === 'draw') ? 'multilevel' : 'state';
-  const [activeMode, setActiveMode] = useState<'state' | 'multilevel'>(initialMode);
+
+  // Pirámide cartográfica unificada continua:
+  // Si el usuario viene a trazar parcela (intent=draw) iniciamos en Nivel 3.
+  // Si especificó un nivel válido (1-3), lo respetamos. Si vino con ?state= sin nivel, iniciamos en Nivel 2.
+  const resolvedLevel: MapLevel = intentParam === 'draw' 
+    ? 3 
+    : (levelParam >= 1 && levelParam <= 3) 
+      ? levelParam 
+      : (searchParams.has('state') ? 2 : 1);
 
   return (
     <div className={styles.mapViewerWrapper}>
-      {/* Selector de Modo de Visualización */}
+      {/* Indicador Superior de Jerarquía Cartográfica Unificada */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
@@ -33,62 +39,21 @@ function MapaContent() {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: '#94a3b8' }}>
           <Layers size={16} color="#22c55e" />
-          <span style={{ fontWeight: 600, color: '#f8fafc' }}>Modo Cartográfico:</span>
+          <span style={{ fontWeight: 600, color: '#f8fafc' }}>Pirámide Cartográfica Unificada:</span>
+          <span style={{ color: '#cbd5e1', fontSize: '0.8rem' }}>
+            1. Nacional (24 Estados) ──► 2. Municipal (Polos Agrícolas) ──► 3. Micro-Parcela Sentinel-2
+          </span>
         </div>
 
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <button
-            id="btn_mode_state_explorer"
-            onClick={() => setActiveMode('state')}
-            style={{
-              padding: '6px 14px',
-              borderRadius: '8px',
-              border: 'none',
-              background: activeMode === 'state' ? '#16a34a' : '#1e293b',
-              color: '#fff',
-              fontSize: '0.82rem',
-              fontWeight: activeMode === 'state' ? 700 : 500,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              transition: 'all 0.2s'
-            }}
-          >
-            🇻🇪 Explorador Estatal (24 Estados)
-          </button>
-
-          <button
-            id="btn_mode_multilevel"
-            onClick={() => setActiveMode('multilevel')}
-            style={{
-              padding: '6px 14px',
-              borderRadius: '8px',
-              border: 'none',
-              background: activeMode === 'multilevel' ? '#2563eb' : '#1e293b',
-              color: '#fff',
-              fontSize: '0.82rem',
-              fontWeight: activeMode === 'multilevel' ? 700 : 500,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              transition: 'all 0.2s'
-            }}
-          >
-            🛰️ Multi-Escala & Delimitación de Parcelas (Niveles 1-2-3)
-          </button>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', color: '#38bdf8', background: 'rgba(56, 189, 248, 0.12)', padding: '4px 10px', borderRadius: '9999px', border: '1px solid rgba(56, 189, 248, 0.3)' }}>
+          <Sparkles size={12} /> Navegación Continua Multi-Escala
         </div>
       </div>
 
-      {activeMode === 'state' ? (
-        <VenezuelaStateMapViewer initialStateId={stateParam} />
-      ) : (
-        <MultiLevelMapViewer 
-          initialLevel={(levelParam >= 1 && levelParam <= 3) ? levelParam : 1} 
-          initialStateId={stateParam} 
-        />
-      )}
+      <MultiLevelMapViewer 
+        initialLevel={resolvedLevel} 
+        initialStateId={stateParam} 
+      />
     </div>
   );
 }

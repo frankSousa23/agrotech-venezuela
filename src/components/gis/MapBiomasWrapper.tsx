@@ -21,6 +21,6 @@ const MapBiomasViewer = dynamic(() => import('./MapBiomasViewer'), {
   ),
 });
 
-export default function MapBiomasWrapper() {
-  return <MapBiomasViewer />;
+export default function MapBiomasWrapper({ height }: { height?: string }) {
+  return <MapBiomasViewer height={height} />;
 }

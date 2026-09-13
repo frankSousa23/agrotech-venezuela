@@ -167,11 +167,16 @@ export default function LeafletMapInner({
       }
     });
 
-    // ResizeObserver reactivo para iframe
+    // ResizeObserver reactivo para iframe y pantallas responsivas
     const resizeObserver = new ResizeObserver(() => {
       map.invalidateSize();
     });
     resizeObserver.observe(containerRef.current);
+
+    const handleOrientationChange = () => {
+      setTimeout(() => map.invalidateSize(), 200);
+    };
+    window.addEventListener('orientationchange', handleOrientationChange);
 
     const t1 = setTimeout(() => map.invalidateSize(), 100);
     const t2 = setTimeout(() => map.invalidateSize(), 500);
@@ -179,6 +184,7 @@ export default function LeafletMapInner({
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
+      window.removeEventListener('orientationchange', handleOrientationChange);
       resizeObserver.disconnect();
       map.remove();
       mapInstanceRef.current = null;
@@ -189,9 +195,12 @@ export default function LeafletMapInner({
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Mantener flag global de dibujo sincronizado
+  // Mantener flag global de dibujo sincronizado y touch-action adaptativo
   useEffect(() => {
     (window as any).__isDrawingMode = isDrawing;
+    if (containerRef.current) {
+      containerRef.current.style.touchAction = isDrawing ? 'none' : 'pan-y';
+    }
   }, [isDrawing]);
 
   // 2. Sincronización de Capa de Teselas
@@ -230,9 +239,30 @@ export default function LeafletMapInner({
           <div style="padding: 4px; font-size: 0.82rem;">
             <b style="color: #16a34a;">🇻🇪 ${state.name}</b> (${state.region})<br />
             🌱 <b>Cultivos:</b> ${state.mainCrops.slice(0, 3).join(', ')}<br />
-            🧪 <b>pH Promedio:</b> ${state.averagePh} | 🌧️ <b>Lluvia:</b> ${state.annualRainfallMm} mm
+            🧪 <b>pH Promedio:</b> ${state.averagePh} | 🌧️ <b>Lluvia:</b> ${state.annualRainfallMm} mm<br />
+            <span style="color: #38bdf8; font-size: 0.75rem;">👆 Haz clic para explorar municipios</span>
           </div>
         `, { sticky: true });
+
+        polygon.on('mouseover', () => {
+          if (!isSelected) {
+            polygon.setStyle({
+              fillOpacity: 0.55,
+              weight: 2.5,
+              color: '#38bdf8'
+            });
+          }
+        });
+
+        polygon.on('mouseout', () => {
+          if (!isSelected) {
+            polygon.setStyle({
+              fillOpacity: 0.22,
+              weight: 1.5,
+              color: color
+            });
+          }
+        });
 
         polygon.on('click', () => onSelectState(state.id));
         vectorLayerGroupRef.current?.addLayer(polygon);
@@ -424,7 +454,7 @@ export default function LeafletMapInner({
       style={{ 
         width: '100%', 
         height: '100%', 
-        minHeight: '620px', 
+        minHeight: '380px', 
         background: '#0b1329',
         borderRadius: '12px',
         overflow: 'hidden'

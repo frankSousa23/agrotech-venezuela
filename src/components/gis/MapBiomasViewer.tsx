@@ -26,7 +26,11 @@ const LeafletMapInner = dynamic(() => import('./LeafletMapInner'), {
   )
 });
 
-export default function MapBiomasViewer() {
+interface MapBiomasViewerProps {
+  height?: string;
+}
+
+export default function MapBiomasViewer({ height }: MapBiomasViewerProps) {
   const [selectedState, setSelectedState] = useState<string>('all');
   const [selectedLayer, setSelectedLayer] = useState<ActiveLayerType>('mapbiomas');
   const [isDrawing, setIsDrawing] = useState<boolean>(false);
@@ -65,7 +69,14 @@ export default function MapBiomasViewer() {
   }, [drawnPoints]);
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '520px', borderRadius: '12px', overflow: 'hidden', background: '#0b1329' }}>
+    <div style={{ 
+      position: 'relative', 
+      width: '100%', 
+      height: height || 'clamp(380px, 48vh, 480px)', 
+      borderRadius: '12px', 
+      overflow: 'hidden', 
+      background: '#0b1329' 
+    }}>
       {/* Controles Flotantes del WebGIS (Desplazados a la derecha de los botones de zoom) */}
       <div style={{
         position: 'absolute',

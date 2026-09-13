@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useAuth } from '@/lib/auth/authContext';
 import styles from './page.module.css';
 import { InMemFieldLog } from '@/app/api/field-logs/route';
@@ -28,16 +29,20 @@ import {
 import { useVoiceAssistant } from '@/lib/hooks/useVoiceAssistant';
 import { parseVernacularSpeech } from '@/lib/farmer/vernacularParser';
 
-export default function BitacoraPage() {
+function BitacoraContent() {
   const { user } = useAuth();
   const toast = useToast();
+  const searchParams = useSearchParams();
+  const queryParcelId = searchParams.get('parcelId');
+
   const [logs, setLogs] = useState<InMemFieldLog[]>([]);
   const [parcels, setParcels] = useState<InMemParcel[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [filterParcelId, setFilterParcelId] = useState<string | null>(queryParcelId);
 
   // Form states
-  const [parcelId, setParcelId] = useState('');
+  const [parcelId, setParcelId] = useState(queryParcelId || '');
   const [logType, setLogType] = useState<'SIEMBRA' | 'ENCALADO' | 'FERTILIZACION' | 'RIEGO' | 'COSECHA' | 'OBSERVACION'>('SIEMBRA');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -130,13 +135,25 @@ export default function BitacoraPage() {
       setLogs(mergedLogs);
       const pList = Array.isArray(parcelsData) ? parcelsData : [];
       setParcels(pList);
-      if (pList.length > 0 && !parcelId) {
-        setParcelId(pList[0].id);
+      if (pList.length > 0) {
+        if (queryParcelId && pList.some(p => p.id === queryParcelId)) {
+          setParcelId(queryParcelId);
+          setFilterParcelId(queryParcelId);
+        } else if (!parcelId) {
+          setParcelId(pList[0].id);
+        }
       }
       setLoading(false);
     })
     .catch(() => setLoading(false));
   };
+
+  useEffect(() => {
+    if (queryParcelId) {
+      setFilterParcelId(queryParcelId);
+      setParcelId(queryParcelId);
+    }
+  }, [queryParcelId]);
 
   useEffect(() => {
     fetchData();
@@ -397,6 +414,44 @@ export default function BitacoraPage() {
         </div>
       </div>
 
+      {/* Filtro Activo de Parcela */}
+      {filterParcelId && (
+        <div style={{
+          background: 'rgba(56, 189, 248, 0.12)',
+          border: '1px solid rgba(56, 189, 248, 0.3)',
+          borderRadius: '10px',
+          padding: '10px 16px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: '1rem',
+          color: '#e0f2fe',
+          fontSize: '0.85rem'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span>📍 Filtrando por parcela:</span>
+            <b style={{ color: '#38bdf8' }}>{parcels.find(p => p.id === filterParcelId)?.name || filterParcelId}</b>
+            <span style={{ color: '#94a3b8', fontSize: '0.8rem' }}>({logs.filter(l => l.parcelId === filterParcelId).length} registros)</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setFilterParcelId(null)}
+            style={{
+              background: 'rgba(56, 189, 248, 0.2)',
+              border: '1px solid rgba(56, 189, 248, 0.5)',
+              color: '#38bdf8',
+              borderRadius: '6px',
+              padding: '4px 10px',
+              fontSize: '0.75rem',
+              cursor: 'pointer',
+              fontWeight: 600
+            }}
+          >
+            ✕ Mostrar todas las parcelas
+          </button>
+        </div>
+      )}
+
       {/* Listado de Entradas de la Bitácora */}
       <div className={styles.timeline}>
         {loading ? (
@@ -405,12 +460,15 @@ export default function BitacoraPage() {
             <ShimmerSkeleton height="140px" borderRadius="12px" />
             <ShimmerSkeleton height="140px" borderRadius="12px" />
           </div>
-        ) : logs.length === 0 ? (
+        ) : (filterParcelId ? logs.filter(l => l.parcelId === filterParcelId) : logs).length === 0 ? (
           <EmptyStateCard
             icon={BookOpen}
             iconColor="#38bdf8"
-            title="Cuaderno de Campo sin Labores"
-            description="Registra la siembra, encalado dolomítico, fertilización NPK o cosecha de tus parcelas para monitorear el rendimiento en Ton/ha."
+            title={filterParcelId ? "Sin labores para esta parcela" : "Cuaderno de Campo sin Labores"}
+            description={filterParcelId 
+              ? `No se han registrado labores aún para la parcela seleccionada (${parcels.find(p => p.id === filterParcelId)?.name || filterParcelId}).`
+              : "Registra la siembra, encalado dolomítico, fertilización NPK o cosecha de tus parcelas para monitorear el rendimiento en Ton/ha."
+            }
             steps={[
               { number: 1, text: '🌱 Selecciona la parcela o tablón de tu finca' },
               { number: 2, text: '⚖️ Indica el tipo de labor y la dosis/insumo aplicado' },
@@ -420,7 +478,7 @@ export default function BitacoraPage() {
             onActionClick={() => setShowModal(true)}
           />
         ) : (
-          logs.map(log => {
+          (filterParcelId ? logs.filter(l => l.parcelId === filterParcelId) : logs).map(log => {
             const badge = getBadgeColor(log.logType);
             const parcelObj = parcels.find(p => p.id === log.parcelId);
             return (
@@ -642,5 +700,13 @@ export default function BitacoraPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function BitacoraPage() {
+  return (
+    <Suspense fallback={<div style={{ padding: '2rem', color: '#94a3b8' }}>Cargando bitácora de campo...</div>}>
+      <BitacoraContent />
+    </Suspense>
   );
 }

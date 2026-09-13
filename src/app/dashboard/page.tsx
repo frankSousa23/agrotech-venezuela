@@ -8,6 +8,7 @@ import AgroTooltip from '@/components/ui/AgroTooltip';
 import QuickStartWizard from '@/components/ui/QuickStartWizard';
 import FarmerHomeDoors from '@/components/agronomy/FarmerHomeDoors';
 import IntentionsModal from '@/components/layout/IntentionsModal';
+import TerritorialPresetBar from '@/components/agronomy/TerritorialPresetBar';
 import { useUIMode } from '@/lib/context/UIModeContext';
 import { 
   Compass, 
@@ -108,6 +109,11 @@ export default function DashboardOverview() {
           </Link>
         </div>
       </header>
+
+      {/* Selector de Escenarios Agroecológicos Emblemáticos en 1 Clic */}
+      <div style={{ marginTop: '1.25rem', marginBottom: '1.5rem' }}>
+        <TerritorialPresetBar navigateOnClick={true} />
+      </div>
 
       {/* Primary KPI Grid */}
       <div className={styles.statsGrid}>
