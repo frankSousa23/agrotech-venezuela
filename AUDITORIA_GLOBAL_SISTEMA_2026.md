@@ -17,10 +17,10 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
                       MATRIZ DE SALUD DEL SISTEMA (100% OPERATIVO)
 ========================================================================================
  [✓] Verificación Estática TypeScript:    0 Errores (Modo Estricto / npx tsc --noEmit)
- [✓] Frontend & WebGIS Suite (Jest):      213 Tests Pasando (31 Test Suites)
+ [✓] Frontend & WebGIS Suite (Jest):      224 Tests Pasando (33 Test Suites)
  [✓] Backend Espacial & ML (Pytest):      54 Tests Pasando (17 Módulos)
- [✓] Suite Unificada Completa:            267 Tests Automatizados (100% Passing)
- [✓] Next.js App Router (Turbopack):      31 Rutas Compiladas Limpiamente (0 Fallos)
+ [✓] Suite Unificada Completa:            278 Tests Automatizados (100% Passing)
+ [✓] Next.js App Router (Turbopack):      32 Rutas Compiladas Limpiamente (0 Fallos)
  [✓] Endpoints de Backend (FastAPI):      39 Endpoints OpenAPI 3.0 (/docs y /api-docs)
  [✓] Cobertura Geográfica Territorial:    24 Estados + 335 Municipios Venezolanos
  [✓] Cadenas Agrícolas Estratégicas:      8 Cadenas Nacionales (Cereales, Musáceas, etc.)
@@ -29,6 +29,10 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
  [✓] Herramienta Ejecutiva de Testing:    npm run test:summary (Matriz ASCII nativa)
 ========================================================================================
 ```
+
+### 🗺️ Infografía Oficial de Auditoría: Ciclo Completo de Datos en 5 Etapas
+
+![Flujo de Trabajo de Inteligencia Agrícola de Precisión](public/images/flujo_inteligencia_agricola.png)
 
 ---
 

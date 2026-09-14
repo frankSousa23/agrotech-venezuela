@@ -291,7 +291,32 @@ export default function ParcelDiagnosticModal({ parcel, onClose }: ParcelDiagnos
               </div>
             </div>
           </div>
-          <button className={styles.closeButton} id="btn_close_diagnostic_modal" onClick={onClose}>✕</button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <a 
+              href={`/dashboard/recomendaciones?area=${parcel.areaHectares}&crop=${encodeURIComponent(selectedCrop)}&parcelName=${encodeURIComponent(parcel.name || 'Parcela')}&ph=${avgPh}&soilTexture=${encodeURIComponent(texture)}#impact_roi_widget`}
+              id="btn_modal_header_calculate_roi"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '5px',
+                background: 'rgba(5, 150, 105, 0.25)',
+                border: '1px solid #10b981',
+                color: '#34d399',
+                padding: '6px 12px',
+                borderRadius: '8px',
+                fontSize: '0.76rem',
+                fontWeight: 700,
+                textDecoration: 'none',
+                cursor: 'pointer',
+                whiteSpace: 'nowrap'
+              }}
+              title="Calcular Retorno de Inversión (ROI) operativo y ahorro en insumos para esta parcela"
+            >
+              <DollarSign size={13} />
+              <span>Calcular ROI en Finca</span>
+            </a>
+            <button className={styles.closeButton} id="btn_close_diagnostic_modal" onClick={onClose}>✕</button>
+          </div>
         </div>
 
         {/* Banner Escudo del Orinoco si aplica */}

@@ -8,9 +8,17 @@
 - **Proyecto**: Agrotech Venezuela
 - **Sector**: AgTech, Inteligencia Edafo-Climática, Visión Satelital (WebGIS) y Prototipado Agro-IoT BYOD.
 - **Convocatoria Oficial**: Segunda Edición del Premio MapBiomas Venezuela 2026 — **Categoría General** (Artículo Técnico)
-- **Madurez Operacional**: **TRL 4** (Prototipo funcional de software validado en entorno de desarrollo y simulación local con datos de Portuguesa, Zulia y Monagas; validado con 252 pruebas automatizadas: 198 Jest + 54 Pytest; con hoja de ruta hacia TRL 5 y TRL 6).
+- **Madurez Operacional**: **TRL 4** (Prototipo funcional de software validado en entorno de desarrollo y simulación local con datos de Portuguesa, Zulia y Monagas; validado con 278 pruebas automatizadas: 224 Jest + 54 Pytest; con hoja de ruta hacia TRL 5 y TRL 6).
 
 [⬅️ Ir al README Principal](README.md) | [🛠️ Ver Guía de Desarrollo & Despliegue](DEVELOPING.md) | [🏛️ Ver Memorando Oficial](docs/MEMORANDO_POSTULACION.md)
+
+---
+
+## 🔄 Flujo de Trabajo de Inteligencia Agrícola de Precisión
+
+![Flujo de Trabajo de Inteligencia Agrícola de Precisión](public/images/flujo_inteligencia_agricola.png)
+
+*El ciclo integral de valor de Agrotech Venezuela conecta la memoria territorial de 40 años de MapBiomas y el radar SAR con la economía operativa real y la maquinaria de campo en 5 etapas secuenciales: 1) Localización geodésica Shoelace WGS84, 2) Cruce satelital multi-capa all-weather, 3) Diagnóstico edáfico y prescripción química regionalizada, 4) Economía de campo real (mecanizada y familiar) y 5) Salida operativa tri-modal y automatización IoT.*
 
 ---
 

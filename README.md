@@ -6,7 +6,7 @@
 [![Next.js 16](https://img.shields.io/badge/Next.js-16%20(Turbopack)-black.svg)](https://nextjs.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-2.0-009688.svg)](https://fastapi.tiangolo.com/)
 [![Python 3.13](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
-[![Tests: 267 Passing](https://img.shields.io/badge/Tests-267%20Passing-brightgreen.svg)]()
+[![Tests: 278 Passing](https://img.shields.io/badge/Tests-278%20Passing-brightgreen.svg)]()
 [![TRL: 4](https://img.shields.io/badge/TRL-4%20(Prototipo%20Funcional)-blue.svg)]()
 [![MapBiomas Col 3.0](https://img.shields.io/badge/MapBiomas-Colección%203.0%20(1985--2024)-amber.svg)](https://venezuela.mapbiomas.org)
 
@@ -18,16 +18,32 @@
 
 La plataforma transforma los **40 años de trayectoria de MapBiomas Venezuela (1985–2024)**, las imágenes ópticas **Sentinel-2 L2A**, el radar de microondas **Sentinel-1 SAR** y la climatología **NASA POWER** en **diagnósticos edáficos accionables, predicción fenológica y prescripciones directas para el agricultor**, superando la barrera entre la ciencia espacial y la realidad del campo venezolano.
 
+### 🔄 Ciclo Integral de Datos: Del Satélite a la Caja del Productor
+
+![Flujo de Trabajo de Inteligencia Agrícola de Precisión](public/images/flujo_inteligencia_agricola.png)
+
 ```
- ┌──────────────────────────┐      ┌──────────────────────────┐      ┌──────────────────────────┐
- │   OBSERVACIÓN ESPACIAL   │      │   CEREBRO ALGORÍTMICO    │      │    ACCIÓN EN CAMPO Y     │
- │  (MapBiomas, SAR, NASA)  │ ───▶ │   (Fórmulas, ML e IA)    │ ───▶ │    RETORNO PRODUCTIVO    │
- └──────────────────────────┘      └──────────────────────────┘      └──────────────────────────┘
-   • 40 Años MapBiomas Col 3         • Shoelace Geodésico WGS84        • Modo Productor Fácil (4 Puertas)
-   • Sentinel-1 SAR All-Weather      • Modelo Kamprath Acidez Al³⁺     • Dictado por Voz & Medidas Campesinas
-   • Balance Hídrico NASA POWER      • Saxton-Rawls PAW Microrriego    • Prescripciones VRA para Maquinaria
-   • 24 Estados & 335 Municipios     • Grados Día (GDD) y Cosecha ML   • Bitácora PWA Offline en 2G/EDGE
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│                       FLUJO DE TRABAJO DE INTELIGENCIA AGRÍCOLA DE PRECISIÓN               │
+├──────────────────────┬──────────────────────┬──────────────────────┬────────────────────────┤
+│ 1. LOCALIZACIÓN &    │ 2. CRUCE SATELITAL & │ 3. DIAGNÓSTICO &     │ 4. ECONOMÍA DE CAMPO & │
+│    ENTRADA           │    CLIMÁTICO         │    PRESCRIPCIÓN      │    RETORNO OPERATIVO   │
+│ • Selector Presets   │ • MapBiomas 40 Años  │ • Kamprath (Al³⁺)    │ • Perfil Mecanizado    │
+│ • Shoelace WGS84 ha  │ • SAR Sentinel-1 dB  │ • Cal Dolomítica     │ • Pequeño Productor    │
+│ • Perímetro elipsoide│ • Saxton-Rawls PAW   │ • Yeso Agrícola      │ • Sacos 50kg + Jornal  │
+│                      │ • NASA POWER P-ETc   │ • Grados Día (GDD)   │ • ESG Carbon Aislado   │
+├──────────────────────┴──────────────────────┴──────────────────────┴────────────────────────┤
+│ 5. SALIDA OPERATIVA & EJECUCIÓN EN CAMPO:                                                   │
+│ • Tractores GPS (Shapefile VRA UTM 19N)   • Drones Agrícolas (Planes KML/KMZ)               │
+│ • Ficha de Cabina Analógica 1 Página      • Riego Automatizado (Firmware ESP32 / IoT)       │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
+
+1. **Localización & Entrada**: Selección por presets territoriales (Turén, Calabozo, etc.) o delimitación libre de parcelas mediante polígonos vectoriales. Cálculo esferoidal geodésico Shoelace WGS84 (área en hectáreas y perímetro en metros sin distorsión proyectiva).
+2. **Cruce Satelital & Climático Multi-Capa**: Coberturas históricas de 40 años MapBiomas (Col. 3.0), persistencia de agua superficial MapBiomas Agua, retrodispersión radar Sentinel-1 SAR (5.4 GHz, penetra nubes), radiación solar y balance hídrico NASA POWER ($P - ET_c$) y agua útil edáfica Saxton-Rawls (PAW).
+3. **Diagnóstico & Prescripción Química**: Neutralización de acidez y aluminio tóxico en Sabanas Ácidas (Kamprath), corrección de balance Ca:Mg en Sur del Lago (Cal Dolomítica), remediación de suelos salino-sódicos en Lara/Quíbor (Yeso Agrícola) y acumulación térmica Grados Día ($GDD_{10}^{30}$) para proyección fenológica de cosecha.
+4. **Economía de Campo Real & Retorno Operativo**: Doble estructura de costos reales: perfil mecanizado (diésel L/ha + VRA a granel) y perfil pequeño productor (sacos de 50 kg + jornales manuales), traducible al dialecto de campo (sacos y tablones). Simulación ESG de créditos de carbono (IPCC Tier 2 / Verra VCS) desacoplada del flujo de caja operativo de la finca.
+5. **Salida Operativa & Ejecución**: Descargas multiformato para cualquier realidad de maquinaria: Shapefiles VRA en UTM 19N WGS84 para tractores guiados por GPS, planes de vuelo KML/KMZ para drones, fichas analógicas de cabina de 1 página para operarios manuales y firmware C++ autogenerado para microrriego automatizado con ESP32 / IoT.
 
 ---
 
@@ -88,12 +104,12 @@ Abre **`http://localhost:3000`** en tu navegador para interactuar con la platafo
 
 ---
 
-## 🧪 Calidad de Software & Validación Automatizada (267 Tests)
+## 🧪 Calidad de Software & Validación Automatizada (278 Tests)
 
-El código fuente cuenta con una suite rigurosa de **267 pruebas automatizadas (100% passing)** ejecutadas antes de cada versión:
+El código fuente cuenta con una suite rigurosa de **278 pruebas automatizadas (100% passing)** ejecutadas antes de cada versión:
 
 ```bash
-# Ejecutar verificación completa (213 tests Jest + 54 tests Pytest)
+# Ejecutar verificación completa (224 tests Jest + 54 tests Pytest)
 npm run test:all
 
 # Matriz ejecutiva visual de pruebas (resumen categorizado)

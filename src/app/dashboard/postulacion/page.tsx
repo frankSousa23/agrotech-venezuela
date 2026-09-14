@@ -138,6 +138,47 @@ export default function PostulacionPage() {
         </div>
       </div>
 
+      {/* 🔄 Infografía Oficial: Ciclo de Datos en 5 Etapas */}
+      <section className={styles.section} style={{ border: '1px solid rgba(56, 189, 248, 0.35)', background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(8, 47, 73, 0.3))' }}>
+        <div className={styles.sectionHeader}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span className="badge-pill badge-cyan">
+              <Cpu size={13} /> Arquitectura de Precisión
+            </span>
+            <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
+              Ciclo Integral de Datos (5 Etapas)
+            </span>
+          </div>
+          <h2 className={styles.sectionTitle} style={{ color: '#f8fafc', marginTop: '4px' }}>
+            <Layers size={22} color="#38bdf8" /> Flujo de Trabajo de Inteligencia Agrícola de Precisión
+          </h2>
+          <span style={{ fontSize: '0.85rem', color: '#cbd5e1' }}>
+            Pipeline técnico integral: desde la delimitación geodésica Shoelace WGS84 y el cruce satelital multi-capa (MapBiomas 40 años + SAR Sentinel-1 dB all-weather), hasta la prescripción química regionalizada, el costeo operativo real (mecanizado vs. pequeños productores) y la salida tri-modal para maquinaria e IoT.
+          </span>
+        </div>
+
+        <div style={{
+          marginTop: '1rem',
+          borderRadius: '12px',
+          overflow: 'hidden',
+          border: '1px solid rgba(56, 189, 248, 0.25)',
+          background: '#090d16',
+          boxShadow: '0 12px 32px rgba(0,0,0,0.5)'
+        }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img 
+            src="/images/flujo_inteligencia_agricola.png" 
+            alt="Flujo de Trabajo de Inteligencia Agrícola de Precisión - Agrotech Venezuela"
+            style={{
+              width: '100%',
+              height: 'auto',
+              display: 'block',
+              objectFit: 'contain'
+            }}
+          />
+        </div>
+      </section>
+
       {/* 💰 Sección 1: Viabilidad Comercial, Impacto Económico & Modelos de Negocio B2B */}
       <section className={styles.section} style={{ border: '1px solid rgba(34, 197, 94, 0.3)', background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(20, 83, 45, 0.15))' }}>
         <div className={styles.sectionHeader}>
