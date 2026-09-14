@@ -26,7 +26,8 @@ import {
   Eye,
   Cpu,
   Radio,
-  AlertTriangle
+  AlertTriangle,
+  DollarSign
 } from 'lucide-react';
 
 export default function TierrasPage() {
@@ -281,6 +282,16 @@ export default function TierrasPage() {
                       title="Obtener prescripción agronómica detallada con Gemini AI"
                     >
                       <Sparkles size={14} /> Prescripción IA
+                    </Link>
+
+                    <Link 
+                      href={`/dashboard/recomendaciones?parcelId=${p.id}&stateId=${p.stateId}&crop=${encodeURIComponent(p.currentCrop || 'Maíz Blanco')}&area=${p.areaHectares}&parcelName=${encodeURIComponent(p.name)}#impact_roi_widget`}
+                      className={styles.actionBtn}
+                      style={{ background: 'rgba(52, 211, 153, 0.2)', border: '1px solid rgba(52, 211, 153, 0.5)', color: '#6ee7b7', flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}
+                      title="Calcular Retorno de Inversión (ROI) operativo y ahorro en insumos de esta parcela"
+                      id={`btn_roi_${p.id}`}
+                    >
+                      <DollarSign size={14} /> ROI Finca
                     </Link>
 
                     <Link 

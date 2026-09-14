@@ -38,7 +38,8 @@ import {
   Map as MapIcon,
   Volume2,
   VolumeX,
-  Tractor
+  Tractor,
+  DollarSign
 } from 'lucide-react';
 import EmptyStateCard from '@/components/ui/EmptyStateCard';
 import AgroTooltip from '@/components/ui/AgroTooltip';
@@ -482,6 +483,34 @@ function RecomendacionesContent() {
                       <AlertTriangle size={12} /> {crop.limitingFactor}
                     </div>
                   )}
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setHintCrop(crop.cropName);
+                      document.getElementById('impact_roi_widget')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    style={{
+                      marginTop: '8px',
+                      width: '100%',
+                      background: 'rgba(52, 211, 153, 0.12)',
+                      border: '1px solid rgba(52, 211, 153, 0.3)',
+                      color: '#34d399',
+                      fontSize: '0.72rem',
+                      fontWeight: 700,
+                      padding: '5px 8px',
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '5px'
+                    }}
+                    title={`Calcular Retorno de Inversión para ${crop.cropName}`}
+                  >
+                    <DollarSign size={13} />
+                    <span>Calcular ROI ({crop.cropName.split(' ')[0]})</span>
+                  </button>
                 </div>
               ))}
             </div>
@@ -719,6 +748,13 @@ function RecomendacionesContent() {
         <ImpactRoiWidget
           initialAreaHa={simAreaHa}
           cropName={hintCrop || suitabilityResults[0]?.cropName || 'Maíz Blanco'}
+          initialParcel={parcelNameQuery ? {
+            name: decodeURIComponent(parcelNameQuery),
+            areaHa: simAreaHa,
+            crop: hintCrop || suitabilityResults[0]?.cropName || 'Maíz Blanco',
+            ph: simPh,
+            texture: simTexture,
+          } : undefined}
         />
       </section>
 
@@ -768,6 +804,33 @@ function RecomendacionesContent() {
                     <strong>Región:</strong> {rec.soil.region?.name || 'Región Agrícola'}
                   </p>
                 </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setHintCrop(rec.crop.name);
+                    document.getElementById('impact_roi_widget')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  style={{
+                    marginTop: '10px',
+                    width: '100%',
+                    background: 'rgba(56, 189, 248, 0.12)',
+                    border: '1px solid rgba(56, 189, 248, 0.3)',
+                    color: '#38bdf8',
+                    fontSize: '0.75rem',
+                    fontWeight: 600,
+                    padding: '6px 10px',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '6px'
+                  }}
+                >
+                  <DollarSign size={14} />
+                  <span>Calcular Retorno de Inversión (ROI)</span>
+                </button>
               </div>
             ))}
           </div>

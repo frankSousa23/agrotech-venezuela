@@ -1,10 +1,4 @@
-# ecosystem-impact-and-roi-simulator Specification
-
-## Purpose
-
-Provides interactive regenerative vs traditional management split-screen comparisons and an economic ROI calculator modeling fertilizer savings, yield gains, and certified carbon credit revenues.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Regenerative Impact Comparison and ROI Calculator
 The system SHALL provide an interactive comparison component contrasting traditional uncalibrated agricultural practices against Agrotech regenerative intelligence, with dynamic operational ROI calculations based on cultivated area strictly decoupled from carbon credit monetization.
@@ -20,6 +14,8 @@ The system SHALL provide an interactive comparison component contrasting traditi
 #### Scenario: Split-Screen Practice Comparison
 - **WHEN** user views the traditional vs Agrotech comparison
 - **THEN** the interface SHALL render side-by-side metric cards detailing cost per hectare, soil degradation risks, and regenerative net operational margin benefits.
+
+## ADDED Requirements
 
 ### Requirement: Dual-Track Costing Profiles and Dynamic Parcel Ingestion
 The system SHALL provide selectable operational costing profiles tailored to farm mechanization level and allow dynamic parameter ingestion from real user parcels.

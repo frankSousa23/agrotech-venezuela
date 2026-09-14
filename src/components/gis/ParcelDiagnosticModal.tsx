@@ -15,6 +15,7 @@ import {
 import { estimateVenezuelaAgroClimate } from '@/lib/geo/nasaPowerService';
 import { evaluateMapBiomasDiscrepancy } from '@/lib/geo/discrepancyService';
 import { useUIMode } from '@/lib/context/UIModeContext';
+import { DollarSign } from 'lucide-react';
 
 interface ParcelDiagnosticModalProps {
   parcel: ParcelGeometry;
@@ -369,6 +370,31 @@ export default function ParcelDiagnosticModal({ parcel, onClose }: ParcelDiagnos
           >
             🤖 Asistente Gemini Territorial
           </button>
+          
+          <a 
+            href={`/dashboard/recomendaciones?area=${parcel.areaHectares}&crop=${encodeURIComponent(selectedCrop)}&parcelName=${encodeURIComponent(parcel.name || 'Parcela')}&ph=${avgPh}&soilTexture=${encodeURIComponent(texture)}#impact_roi_widget`}
+            id="btn_modal_calculate_roi"
+            style={{
+              marginLeft: 'auto',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              background: 'rgba(5, 150, 105, 0.25)',
+              border: '1px solid #10b981',
+              color: '#34d399',
+              padding: '6px 14px',
+              borderRadius: '8px',
+              fontSize: '0.78rem',
+              fontWeight: 700,
+              textDecoration: 'none',
+              transition: 'all 0.2s ease',
+              cursor: 'pointer'
+            }}
+            title="Calcular Retorno de Inversión (ROI) y ahorro de insumos para esta parcela"
+          >
+            <DollarSign size={14} />
+            <span>Calcular ROI en Finca</span>
+          </a>
         </div>
 
         {/* Cuerpo del Modal */}
