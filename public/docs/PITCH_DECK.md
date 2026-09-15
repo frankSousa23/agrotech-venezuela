@@ -14,6 +14,14 @@
 
 ---
 
+## 🔄 Flujo de Trabajo de Inteligencia Agrícola de Precisión
+
+![Flujo de Trabajo de Inteligencia Agrícola de Precisión](public/images/flujo_inteligencia_agricola.png)
+
+*El ciclo integral de valor de Agrotech Venezuela conecta la memoria territorial de 40 años de MapBiomas y el radar SAR con la economía operativa real y la maquinaria de campo en 5 etapas secuenciales: 1) Localización geodésica Shoelace WGS84, 2) Cruce satelital multi-capa all-weather, 3) Diagnóstico edáfico y prescripción química regionalizada, 4) Economía de campo real (mecanizada y familiar) y 5) Salida operativa tri-modal y automatización IoT.*
+
+---
+
 ## 💰 1. Proyecciones de Impacto Económico y Retorno de Inversión Estimado (ROI Rural)
 
 El valor fundamental de Agrotech Venezuela se sustenta en la optimización analítica de recursos para el agricultor y la soberanía alimentaria:

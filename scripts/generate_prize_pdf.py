@@ -217,7 +217,7 @@ def validate_and_compile_dossier():
 
 ## 9. Certificación Institucional y Declaración de Postulación
 
-El presente expediente técnico-científico consolida la candidatura oficial de **Agrotech Venezuela** a la **Segunda Edición del Premio MapBiomas Venezuela 2026** en las categorías *General* y *Políticas Públicas, Gestión Ambiental y Comunitaria*. Se certifica que todo el software es de código abierto (Licencia MIT), los algoritmos son reproducibles, los datos territoriales cumplen estrictamente con la licencia CC BY 4.0 de MapBiomas Venezuela, y la plataforma opera en nivel de madurez **TRL 4** (Prototipo Funcional de Software Validado en Entorno de Desarrollo y Simulación Local) validada mediante **252 pruebas automatizadas** (198 Jest + 54 Pytest, 100% aprobadas).
+El presente expediente técnico-científico consolida la candidatura oficial de **Agrotech Venezuela** a la **Segunda Edición del Premio MapBiomas Venezuela 2026** en las categorías *General* y *Políticas Públicas, Gestión Ambiental y Comunitaria*. Se certifica que todo el software es de código abierto (Licencia MIT), los algoritmos son reproducibles, los datos territoriales cumplen estrictamente con la licencia CC BY 4.0 de MapBiomas Venezuela, y la plataforma opera en nivel de madurez **TRL 4** (Prototipo Funcional de Software Validado en Entorno de Desarrollo y Simulación Local) validada mediante **278 pruebas automatizadas** (224 Jest + 54 Pytest, 100% aprobadas).
 
 | Postulante e Investigador Principal | Institución / Laboratorio | Convocatoria Oficial | Estatus Tecnológico |
 | :--- | :--- | :--- | :---: |

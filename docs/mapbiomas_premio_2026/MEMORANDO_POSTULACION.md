@@ -5,7 +5,7 @@
 - **Ecosistema**: Agrotech Venezuela
 - **Nicho Tecnológico**: AgTech, Modelado de Carbono Orgánico (MRV prospectivo), Observación Satelital (WebGIS Multi-Escala) y Prototipado Agro-IoT BYOD.
 - **Convocatoria**: Segunda Edición del Premio MapBiomas Venezuela 2026 — **Categoría General** (Artículo Técnico)
-- **Nivel de Madurez Tecnológica**: **TRL 4** (Prototipo funcional de software validado en entorno de desarrollo y simulación local con datos espaciales reales y 252 pruebas automatizadas: 198 Jest + 54 Pytest; con hoja de ruta hacia TRL 5/6).
+- **Nivel de Madurez Tecnológica**: **TRL 4** (Prototipo funcional de software validado en entorno de desarrollo y simulación local con datos espaciales reales y 278 pruebas automatizadas: 224 Jest + 54 Pytest; con hoja de ruta hacia TRL 5/6).
 - **Licencia**: Código bajo MIT License (Copyright 2026 Frank Sousa) / Datos de Cobertura bajo Creative Commons Atribución 4.0 Internacional (CC BY 4.0 - MapBiomas Venezuela).
 
 [⬅️ Ir al README Principal](../README.md) | [🛠️ Ver Guía de Desarrollo & Arquitectura](../DEVELOPING.md) | [📊 Ver Pitch Deck](../PITCH_DECK.md)
@@ -59,16 +59,16 @@ El módulo de **Créditos de Carbono y MRV** (`CarbonCreditsCalculator.tsx`) y e
 ## 🚀 4. Nivel de Madurez Tecnológica (TRL 4) y Calidad de Software Certificada
 
 El sistema se sitúa en **TRL 4 (Prototipo funcional de software validado en entorno de desarrollo y simulación local con datos geoespaciales reales de Portuguesa, Zulia y Monagas)**:
-- **Plataforma WebGIS Funcional**: Next.js 16 App Router con compilador Turbopack y 31 rutas de producción optimizadas.
+- **Plataforma WebGIS Funcional**: Next.js 16 App Router con compilador Turbopack y 32 rutas de producción optimizadas.
 - **Cobertura Territorial Integral**: 24 estados y 335 municipios de Venezuela con datos agroecológicos y edafológicos calibrados.
 - **Doble Modo de Interfaz (Dual-Mode UI)**: *Modo Productor Fácil* con 4 puertas táctiles, vocabulario de campo y dictado por voz nativo, alternable a *Modo Técnico* para ingenieros y comités evaluadores.
 - **Asesoría IA Adaptativa (Dual-Tone)**: La IA ("El Compadre Agrónomo") adapta dinámicamente su vocabulario según la interfaz activa, hablando en sacos y días de sol para agricultores, y en ecuaciones edafológicas para técnicos.
 - **IA On-Demand & FinOps Cero Deuda**: Gemini 1.5 Flash activado bajo demanda mediante la cuota gratuita de Google AI Studio (15 RPM / 1.500 RPD) para asistencia cualitativa y vernacular, mientras los cálculos agronómicos de rutina (Kamprath, Shoelace, Saxton-Rawls) se resuelven en motores locales deterministas a costo marginal cero ($0.00).
 - **Neutralidad de Hardware (BYOD)**: Enfoque 100% Software-First. El laboratorio IoT es un sandbox experimental y educativo; la plataforma no fabrica hardware ni requiere sensores físicos en campo para operar.
-- **Calidad de Software Certificada**: **252 pruebas automatizadas (198 Jest + 54 Pytest, 100% aprobadas)**, 0 errores de compilación TypeScript.
+- **Calidad de Software Certificada**: **278 pruebas automatizadas (224 Jest + 54 Pytest, 100% aprobadas)**, 0 errores de compilación TypeScript.
 
 ### Hoja de Ruta de Escalabilidad (Roadmap TRL 4 → TRL 6)
-1. **TRL 4 (Actual)**: Prototipo funcional completo verificado en local con 252 pruebas automatizadas y datos satelitales históricos.
+1. **TRL 4 (Actual)**: Prototipo funcional completo verificado en local con 278 pruebas automatizadas y datos satelitales históricos.
 2. **TRL 5 (Fase Siguiente)**: Despliegue en servidor cloud con canal piloto multiusuario.
 3. **TRL 6 (Validación en Campo)**: Pruebas piloto participativas en parcelas reales en colaboración con cooperativas agrícolas de Portuguesa y Guárico.
 
@@ -125,7 +125,7 @@ Calibrada regionalmente para texturas venezolanas (Arenoso θ_crit = 9,0%, Franc
 
 ## 🏗️ Apéndice B: Arquitectura Tecnológica y Microservicios
 
-- **WebGIS Frontend**: Next.js 16 (App Router con Turbopack, 31 rutas de producción), React 19, Leaflet nativo puro con ciclo de vida `useRef`, CSS Modules Glassmorphism, PWA con IndexedDB y resolución determinista de conflictos en `/api/parcels/conflicts`.
+- **WebGIS Frontend**: Next.js 16 (App Router con Turbopack, 32 rutas de producción), React 19, Leaflet nativo puro con ciclo de vida `useRef`, CSS Modules Glassmorphism, PWA con IndexedDB y resolución determinista de conflictos en `/api/parcels/conflicts`.
 - **Backend Espacial**: Python 3.13, FastAPI con OpenAPI 3.0, Scikit-Learn, NumPy, cliente NASA POWER, caché geodésica SQLite en modo WAL (< 5ms de latencia).
 - **Inteligencia Artificial & FinOps**: Google Gemini 1.5 Flash activado bajo demanda con cuota gratuita de Google AI Studio y motores heurísticos locales deterministas a costo marginal cero ($0.00).
 - **Prescripción Tri-Modal para Maquinaria**: Paquetes ESRI Shapefile con atributos VRA (`RATE_LIME`, `RATE_NPK`, `AREA_HA` en UTM 19N WGS84) para consolas GPS John Deere/Trimble, planes de vuelo KML para drones y fichas analógicas de cabina.
@@ -148,4 +148,4 @@ El presente memorando valida formalmente la postulación técnica e instituciona
 
 | Postulante y Responsable Técnico | Categoría | Estatus del Ecosistema | Fecha de Emisión |
 | :--- | :--- | :--- | :---: |
-| **Ing. Frank Alfonso Sousa Mota** | **Categoría General** (Artículo Técnico) | **TRL 4 Validado en Desarrollo (252 tests)** | Septiembre 2026 |
+| **Ing. Frank Alfonso Sousa Mota** | **Categoría General** (Artículo Técnico) | **TRL 4 Validado en Desarrollo (278 tests)** | Septiembre 2026 |
