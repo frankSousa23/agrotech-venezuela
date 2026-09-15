@@ -149,7 +149,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
           </button>
           <FarmerModeToggle iconOnly />
           <DemoTourModal iconOnly />
-          <SunlightThemeToggle />
+          <SunlightThemeToggle iconOnly />
           <button 
             onClick={handleLogout}
             title="Cerrar Sesión"

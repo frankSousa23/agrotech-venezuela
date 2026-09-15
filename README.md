@@ -118,7 +118,7 @@ npm run test:summary
 # Verificación de tipos TypeScript estricto (0 errores)
 npm run typecheck
 
-# Compilación limpia de producción (31 rutas Next.js 16)
+# Compilación limpia de producción (32 rutas Next.js 16)
 npm run build
 ```
 

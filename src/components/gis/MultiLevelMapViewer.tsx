@@ -1256,7 +1256,7 @@ export default function MultiLevelMapViewer({
               justifyContent: 'space-between',
               gap: '6px'
             }}>
-              <span>⚖️ <b>Modo Auditor / Jurado:</b> 252 tests verificados | Prototipo TRL 4.</span>
+              <span>⚖️ <b>Modo Auditor / Jurado:</b> 278 tests verificados | Prototipo TRL 4.</span>
               <a href="http://localhost:8000/docs" target="_blank" rel="noopener noreferrer" style={{ color: '#c084fc', fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>
                 Swagger /docs
               </a>

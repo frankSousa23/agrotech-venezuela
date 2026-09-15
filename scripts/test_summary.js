@@ -6,9 +6,9 @@
  * 
  * Script nativo en Node.js (cero dependencias externas) que genera un informe
  * visual consolidado de la suite de pruebas completa:
- * - Jest (213 pruebas en 31 suites de frontend, agronomía, geoespacial y UI)
+ * - Jest (224 pruebas en 33 suites de frontend, agronomía, geoespacial y UI)
  * - Pytest (54 pruebas en 17 módulos de backend FastAPI, ML, SAR y satélites)
- * Total: 267 pruebas automatizadas con 100% de cobertura y paso limpio.
+ * Total: 278 pruebas automatizadas con 100% de cobertura y paso limpio.
  */
 
 const fs = require('fs');
@@ -37,7 +37,8 @@ const frontendSuites = [
       { name: 'carbon-groundtruth.test.ts', tests: 3, focus: 'Stock SOC 0-30cm, secuestro IPCC Tier 2 y créditos Verra VCS' },
       { name: 'soils.test.ts', tests: 2, focus: 'Neutralización Kamprath (Al3+ sabanas) y corrección yeso Quíbor' },
       { name: 'crops.test.ts', tests: 2, focus: 'Catálogo agronómico de cereales, leguminosas y frutales tropicales' },
-      { name: 'recomendaciones.test.ts', tests: 5, focus: 'Prescripciones de fertilización NPK y enmiendas órgano-minerales' }
+      { name: 'recomendaciones.test.ts', tests: 5, focus: 'Prescripciones de fertilización NPK y enmiendas órgano-minerales' },
+      { name: 'roiCostEngine.test.ts', tests: 5, focus: 'Motor de costeo operativo (mecanizado diésel/VRA vs pequeño productor sacos/jornales)' }
     ]
   },
   {
@@ -78,7 +79,8 @@ const frontendSuites = [
       { name: 'workflow.test.ts', tests: 2, focus: 'Flujo extremo a extremo: dibujo ➔ prescripción ➔ exportación' },
       { name: 'comprehensive-audit.test.ts', tests: 8, focus: 'Auditoría integral del sistema y tolerancia a fallos' },
       { name: 'mapbiomas-discrepancy-and-pedagogy.test.ts', tests: 11, focus: 'Alertas de discrepancia MapBiomas 1985-2024 y pedagogía' },
-      { name: 'manual-and-onboarding.test.ts', tests: 11, focus: 'Manual agronómico 7 capítulos, 4 roles, onboarding 4 hitos y sandbox efímero de invitado' }
+      { name: 'manual-and-onboarding.test.ts', tests: 11, focus: 'Manual agronómico 7 capítulos, 4 roles, onboarding 4 hitos y sandbox efímero de invitado' },
+      { name: 'ImpactRoiWidget.test.ts', tests: 6, focus: 'Simulador interactivo de ROI desacoplado de carbono y conmutador de perfil' }
     ]
   }
 ];
@@ -155,7 +157,7 @@ function printSummary(frontendTotal, backendTotal, frontendSuiteCount) {
   console.log(`${c.gray}   -----------------------------------------------------------------------------${c.reset}`);
   console.log(`   ${c.bold}${c.emerald}✔ TOTAL CONSOLIDADO DEL SISTEMA:${c.reset}       ${c.bold}${c.emerald}${total} PRUEBAS AUTOMATIZADAS PASADAS CON ÉXITO${c.reset}`);
   console.log(`   ${c.dim}• Estado de TypeScript:${c.reset}                ${c.green}0 Errores (tsc --noEmit limpio)${c.reset}`);
-  console.log(`   ${c.dim}• Compilación Next.js 16 Turbopack:${c.reset}    ${c.green}31 Rutas de Producción Verificadas${c.reset}`);
+  console.log(`   ${c.dim}• Compilación Next.js 16 Turbopack:${c.reset}    ${c.green}32 Rutas de Producción Verificadas${c.reset}`);
   console.log(`   ${c.dim}• Nivel de Madurez Tecnológica:${c.reset}        ${c.cyan}TRL 4 (Validación Tecnológica en Entorno de Laboratorio)${c.reset}`);
   console.log(`${c.cyan}================================================================================${c.reset}\n`);
 }

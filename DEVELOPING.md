@@ -139,24 +139,24 @@ cp .env.production.example .env.production
 
 ---
 
-## 🧪 4. Suite Completa de Pruebas y Verificación (267 Tests)
+## 🧪 4. Suite Completa de Pruebas y Verificación (278 Tests)
 
 El proyecto cuenta con una cobertura exhaustiva de pruebas unitarias, de integración, geoespaciales y de accesibilidad. Antes de realizar cualquier pull request o commit a `main`, se debe verificar la suite completa:
 
 ```bash
-# 1. Pruebas Frontend Jest (213 tests en 31 suites: WebGIS, SAR Radar, GDD, Auth, UX Rural, IoT, Pedotransfer, Conflict Quarantine, Carbon MRV, Vernacular Voice Parser, Machinery Exporter, Manual & Onboarding):
+# 1. Pruebas Frontend Jest (224 tests en 33 suites: WebGIS, SAR Radar, GDD, Auth, UX Rural, IoT, Pedotransfer, Conflict Quarantine, Carbon MRV, Vernacular Voice Parser, Machinery Exporter, Manual & Onboarding, ROI Decoupled & Costing):
 npm test
 
 # 2. Verificación Estática TypeScript (0 errores obligatorios):
 npm run typecheck
 
-# 3. Compilación de Producción Next.js 16 Turbopack (31 rutas limpias):
+# 3. Compilación de Producción Next.js 16 Turbopack (32 rutas limpias):
 npm run build
 
 # 4. Pruebas Backend Pytest (54 tests: FastAPI, ML Cosecha, GDD, Shoelace, Caché, Saxton-Rawls, Oráculo SAR):
 npm run test:backend
 
-# 5. Suite Automatizada Unificada (267 de 267 tests aprobados):
+# 5. Suite Automatizada Unificada (278 de 278 tests aprobados):
 npm run test:all
 
 # 6. Matriz Ejecutiva Visual de Pruebas (Resumen ASCII categorizado):

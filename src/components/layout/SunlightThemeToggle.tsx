@@ -14,7 +14,11 @@ import { Sun, Moon, SunMedium } from 'lucide-react';
 
 type Theme = 'light' | 'dark' | 'sunlight';
 
-export default function SunlightThemeToggle() {
+interface SunlightThemeToggleProps {
+  iconOnly?: boolean;
+}
+
+export default function SunlightThemeToggle({ iconOnly = false }: SunlightThemeToggleProps) {
   const [theme, setTheme] = useState<Theme>('light');
 
   useEffect(() => {
@@ -79,18 +83,21 @@ export default function SunlightThemeToggle() {
         color: config.color,
         border: config.border,
         borderRadius: '8px',
-        padding: '6px 10px',
+        padding: iconOnly ? '6px' : '6px 10px',
         fontSize: '0.78rem',
         fontWeight: 600,
         cursor: 'pointer',
         transition: 'all 0.2s ease',
-        minWidth: '110px',
+        minWidth: iconOnly ? '32px' : '110px',
+        width: iconOnly ? '32px' : 'auto',
+        height: iconOnly ? '32px' : 'auto',
         justifyContent: 'center'
       }}
-      title='Cambiar apariencia visual'
+      title={`Cambiar apariencia visual (${config.label})`}
+      aria-label={`Cambiar apariencia visual (${config.label})`}
     >
       {config.icon}
-      <span>{config.label}</span>
+      {!iconOnly && <span>{config.label}</span>}
     </button>
   );
 }

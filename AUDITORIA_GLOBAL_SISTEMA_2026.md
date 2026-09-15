@@ -71,7 +71,7 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
   - `README.md` estructurado como resumen ejecutivo ágil de ~126 líneas, con arquitectura visual ASCII y 3 pilares estratégicos.
   - `DEVELOPING.md` como guía exhaustiva de ingeniería que aísla los requerimientos técnicos de instalación, microservicios Docker, pipelines de testing y convenciones geoespaciales.
 - **Ficha Técnica & Expediente de Postulación (`/dashboard/postulacion`)**:
-  - Sincronizado a **TRL 4** y **252 Tests Automatizados Pasando (198 Jest + 54 Pytest)**.
+  - Sincronizado a **TRL 4** y **278 Tests Automatizados Pasando (224 Jest + 54 Pytest)**.
   - Tour Demostrativo interactivo de 5 pasos para evaluadores técnicos del jurado.
   - Sandbox didáctico Agro-IoT desacoplado bajo premisa BYOD (sin manufactura ni dependencia de hardware).
   - Descarga y visualización de memorandos técnicos enlazados a `public/docs/MEMORANDO_POSTULACION.md` y su PDF compilado.
@@ -79,48 +79,50 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 
 ---
 
-## 📊 3. Desglose Detallado de Pruebas Automatizadas (267 Tests)
+## 📊 3. Desglose Detallado de Pruebas Automatizadas (278 Tests)
 
-### A. Frontend, Agronomía & WebGIS Suite (Jest — 213 Tests en 31 Suites)
+### A. Frontend, Agronomía & WebGIS Suite (Jest — 224 Tests en 33 Suites)
 
-#### Agronomía & Física Edafológica (23 tests)
+#### Agronomía & Física Edafológica (28 tests)
 1. `__tests__/agronomy/pedotransfer.test.ts` (11 tests) — Curvas de Saxton-Rawls, cálculo de PAW % y disparo de riego (<50%).
 2. `__tests__/agronomy/carbon-groundtruth.test.ts` (3 tests) — Stock SOC 0-30cm, secuestro IPCC Tier 2 y oráculo satelital SAR.
 3. `__tests__/api/soils.test.ts` (2 tests) — Parámetros edáficos (pH, CIC, saturación de bases, texturas regionales).
 4. `__tests__/api/crops.test.ts` (2 tests) — Catálogo de 42 cultivos tropicales y las 8 cadenas estratégicas.
 5. `__tests__/api/recomendaciones.test.ts` (5 tests) — Motor de prescripción de fertilización NPK y enmiendas (Kamprath, dolomita, yeso).
+6. `__tests__/agronomy/roiCostEngine.test.ts` (5 tests) — Motor de costeo operativo (mecanizado diésel/VRA vs pequeños productores con sacos y jornales).
 
 #### Geoespacial, WebGIS & Sensores (51 tests)
-6. `__tests__/api/spatial.test.ts` (11 tests) — Shoelace geodésico WGS84, Haversine y point-in-polygon Ray-Casting.
-7. `__tests__/api/geo.test.ts` (4 tests) — Geometrías estatales, reproyecciones cartográficas y capas vectoriales.
-8. `__tests__/api/municipalities.test.ts` (4 tests) — Resolución municipal de los 335 municipios de Venezuela.
-9. `__tests__/api/native-gis-lifecycle.test.ts` (6 tests) — Ciclo de vida de Leaflet puro (`L.map`) con `useRef` y `ssr: false`.
-10. `__tests__/api/map-viewer.test.ts` (14 tests) — Renderizado interactivo de capas raster, micro-parcelas y leyendas MapBiomas.
-11. `__tests__/agronomy/unifiedMapAndIoTLab.test.ts` (12 tests) — Pirámide cartográfica unificada 3 niveles, Shoelace WGS84, caudalímetro IoT y modelo diurno 24h.
+7. `__tests__/api/spatial.test.ts` (11 tests) — Shoelace geodésico WGS84, Haversine y point-in-polygon Ray-Casting.
+8. `__tests__/api/geo.test.ts` (4 tests) — Geometrías estatales, reproyecciones cartográficas y capas vectoriales.
+9. `__tests__/api/municipalities.test.ts` (4 tests) — Resolución municipal de los 335 municipios de Venezuela.
+10. `__tests__/api/native-gis-lifecycle.test.ts` (6 tests) — Ciclo de vida de Leaflet puro (`L.map`) con `useRef` y `ssr: false`.
+11. `__tests__/api/map-viewer.test.ts` (14 tests) — Renderizado interactivo de capas raster, micro-parcelas y leyendas MapBiomas.
+12. `__tests__/agronomy/unifiedMapAndIoTLab.test.ts` (12 tests) — Pirámide cartográfica unificada 3 niveles, Shoelace WGS84, caudalímetro IoT y modelo diurno 24h.
 
 #### IoT, Telemetría & Resiliencia Offline (25 tests)
-11. `__tests__/api/iot-telemetry-route.test.ts` (5 tests) — Ingesta POST `/api/iot/telemetry` y validación de payloads ESP32.
-12. `__tests__/api/iot-lab.test.ts` (4 tests) — Laboratorio experimental de telemetría IoT y micro-sensores agrícolas.
-13. `__tests__/api/parcels-conflict.test.ts` (5 tests) — Detección HTTP 409, versionado monotónico y cola de cuarentena.
-14. `__tests__/api/parcel-conflict-modal.test.ts` (3 tests) — Modal interactivo de resolución de conflictos en doble modo.
-15. `__tests__/api/guest-concurrency.test.ts` (3 tests) — Pruebas de concurrencia y no-colisión de usuarios demo.
-16. `__tests__/api/parcels-and-diary.test.ts` (5 tests) — Delimitador de parcelas y bitácora de labores agronómicas.
+13. `__tests__/api/iot-telemetry-route.test.ts` (5 tests) — Ingesta POST `/api/iot/telemetry` y validación de payloads ESP32.
+14. `__tests__/api/iot-lab.test.ts` (4 tests) — Laboratorio experimental de telemetría IoT y micro-sensores agrícolas.
+15. `__tests__/api/parcels-conflict.test.ts` (5 tests) — Detección HTTP 409, versionado monotónico y cola de cuarentena.
+16. `__tests__/api/parcel-conflict-modal.test.ts` (3 tests) — Modal interactivo de resolución de conflictos en doble modo.
+17. `__tests__/api/guest-concurrency.test.ts` (3 tests) — Pruebas de concurrencia y no-colisión de usuarios demo.
+18. `__tests__/api/parcels-and-diary.test.ts` (5 tests) — Delimitador de parcelas y bitácora de labores agronómicas.
 
-#### Usabilidad Rural Dual-Mode, Manual & Onboarding, Seguridad & Sistema (114 tests)
-17. `__tests__/api/vernacular-parser.test.ts` (10 tests) — Parser de voz campesina y normalización de unidades métricas criollas.
-18. `__tests__/api/farmer-ux-and-intentions.test.ts` (17 tests) — Flujos de usuario del Modo Productor y dictado por voz.
-19. `__tests__/api/machinery-exporter.test.ts` (3 tests) — Generador tri-modal de prescripciones VRA para tractores GPS, drones y cabina.
-20. `__tests__/api/command-palette-and-search.test.ts` (5 tests) — Paleta de comandos interactiva (Ctrl+K) y búsqueda geoespacial rápida.
-21. `__tests__/api/theme-and-contrast.test.ts` (6 tests) — Modos de visualización (Oscuro, Claro, Pleno Sol).
-22. `__tests__/api/routing-and-redirects.test.ts` (7 tests) — Integridad de las rutas de Next.js y redirecciones protegidas.
-23. `__tests__/api/auth.test.ts` (9 tests) — Autenticación JWT, registro, login y validación de credenciales por rol.
-24. `__tests__/api/security-and-dossier.test.ts` (20 tests) — Hardening RBAC, aislamiento de sesiones y verificación de dossier.
-25. `__tests__/api/relations.test.ts` (3 tests) — Relaciones agronómicas entre suelos, clima y cultivos.
-27. `__tests__/api/import-export.test.ts` (2 tests) — Importación y exportación de polígonos GeoJSON para maquinaria con GPS.
-28. `__tests__/api/workflow.test.ts` (2 tests) — Flujo integral de usuario (desde login hasta delimitación y reporte).
-29. `__tests__/api/comprehensive-audit.test.ts` (8 tests) — Auditoría integral de componentes y persistencia.
-30. `__tests__/api/mapbiomas-discrepancy-and-pedagogy.test.ts` (11 tests) — Detección de discrepancias con MapBiomas 1985-2024, rigor pedagógico y alertas.
-31. `__tests__/manual-and-onboarding.test.ts` (11 tests) — Manual agronómico 7 capítulos, filtrado por 4 roles (FARMER/AGRONOMIST/ADMIN/GUEST), onboarding 4 hitos y sandbox efímero de invitado.
+#### Usabilidad Rural Dual-Mode, Manual & Onboarding, Seguridad & Sistema (120 tests)
+19. `__tests__/api/vernacular-parser.test.ts` (10 tests) — Parser de voz campesina y normalización de unidades métricas criollas.
+20. `__tests__/api/farmer-ux-and-intentions.test.ts` (17 tests) — Flujos de usuario del Modo Productor y dictado por voz.
+21. `__tests__/api/machinery-exporter.test.ts` (3 tests) — Generador tri-modal de prescripciones VRA para tractores GPS, drones y cabina.
+22. `__tests__/api/command-palette-and-search.test.ts` (5 tests) — Paleta de comandos interactiva (Ctrl+K) y búsqueda geoespacial rápida.
+23. `__tests__/api/theme-and-contrast.test.ts` (6 tests) — Modos de visualización (Oscuro, Claro, Pleno Sol).
+24. `__tests__/api/routing-and-redirects.test.ts` (7 tests) — Integridad de las rutas de Next.js y redirecciones protegidas.
+25. `__tests__/api/auth.test.ts` (9 tests) — Autenticación JWT, registro, login y validación de credenciales por rol.
+26. `__tests__/api/security-and-dossier.test.ts` (20 tests) — Hardening RBAC, aislamiento de sesiones y verificación de dossier.
+27. `__tests__/api/relations.test.ts` (3 tests) — Relaciones agronómicas entre suelos, clima y cultivos.
+28. `__tests__/api/import-export.test.ts` (2 tests) — Importación y exportación de polígonos GeoJSON para maquinaria con GPS.
+29. `__tests__/api/workflow.test.ts` (2 tests) — Flujo integral de usuario (desde login hasta delimitación y reporte).
+30. `__tests__/api/comprehensive-audit.test.ts` (8 tests) — Auditoría integral de componentes y persistencia.
+31. `__tests__/api/mapbiomas-discrepancy-and-pedagogy.test.ts` (11 tests) — Detección de discrepancias con MapBiomas 1985-2024, rigor pedagógico y alertas.
+32. `__tests__/manual-and-onboarding.test.ts` (11 tests) — Manual agronómico 7 capítulos, filtrado por 4 roles (FARMER/AGRONOMIST/ADMIN/GUEST), onboarding 4 hitos y sandbox efímero de invitado.
+33. `__tests__/agronomy/ImpactRoiWidget.test.ts` (6 tests) — Simulador interactivo de ROI desacoplado de carbono con conmutador de perfil agronómico.
 
 ---
 
@@ -151,7 +153,7 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 
 ---
 
-## 🌐 4. Catálogo Exhaustivo de Rutas Compiladas en Next.js (31 Rutas de Producción Turbopack)
+## 🌐 4. Catálogo Exhaustivo de Rutas Compiladas en Next.js (32 Rutas de Producción Turbopack)
 
 | # | Tipo | Ruta | Propósito en el Ecosistema |
 | :-: | :--- | :--- | :--- |
@@ -193,9 +195,9 @@ Se certifica que la plataforma **Agrotech Venezuela** ha completado satisfactori
 
 El ecosistema **Agrotech Venezuela** se encuentra en estado **100% verde, integrado y verificado**, cumpliendo con los más exigentes estándares de la industria del software geoespacial y agronómico:
 
-1. **Cero regresiones**: 267 de 267 tests automatizados pasando sin advertencias (213 Jest + 54 Pytest).
+1. **Cero regresiones**: 278 de 278 tests automatizados pasando sin advertencias (224 Jest + 54 Pytest).
 2. **Cero errores de compilación**: Modo estricto de TypeScript superado al 100% (`tsc --noEmit`).
-3. **Producción lista para despliegue**: 31 rutas estáticas y dinámicas optimizadas mediante Next.js 16 Turbopack.
+3. **Producción lista para despliegue**: 32 rutas estáticas y dinámicas optimizadas mediante Next.js 16 Turbopack.
 4. **Sincronización institucional absoluta**: Toda la documentación pública (`README.md`, `DEVELOPING.md`, `MEMORANDO_POSTULACION.md`, `AUDITORIA_GLOBAL_SISTEMA_2026.md`) refleja fielmente el nivel de madurez **TRL 4** y las capacidades técnicas comprobables de la plataforma.
 
 **Certificado por:**  

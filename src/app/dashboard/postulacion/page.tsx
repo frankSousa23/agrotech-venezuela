@@ -50,7 +50,7 @@ export default function PostulacionPage() {
             <Award size={13} /> Categoría General (Artículo Técnico)
           </span>
           <span className="badge-pill badge-emerald">
-            <CheckCircle2 size={13} /> 252 Tests Automatizados Pasando (198 Jest + 54 Pytest)
+            <CheckCircle2 size={13} /> 278 Tests Automatizados Pasando (224 Jest + 54 Pytest)
           </span>
           <span className="badge-pill badge-cyan">
             <Globe size={13} /> 24 Estados & 335 Municipios Activos
@@ -449,7 +449,7 @@ export default function PostulacionPage() {
                 Artículo Técnico: Arquitectura y Algoritmos
               </h3>
               <p style={{ fontSize: '0.82rem', color: '#94a3b8', margin: 0, lineHeight: 1.4 }}>
-                Manuscrito formal de validación técnica TRL 4 (252 tests), arquitectura WebGIS Next.js 16/FastAPI, penetración radar SAR Banda C, formulación Shoelace WGS84, escenarios de simulación y hoja de ruta TRL 5/6.
+                Manuscrito formal de validación técnica TRL 4 (278 tests), arquitectura WebGIS Next.js 16/FastAPI, penetración radar SAR Banda C, formulación Shoelace WGS84, escenarios de simulación y hoja de ruta TRL 5/6.
               </p>
             </div>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
@@ -548,14 +548,14 @@ export default function PostulacionPage() {
                 <FlaskConical size={20} color="#10b981" />
                 <span style={{ fontSize: '0.92rem', fontWeight: 700, color: '#f8fafc' }}>Artículo Técnico Arbitrable</span>
               </div>
-              <span className="badge-pill badge-cyan" style={{ fontSize: '0.7rem' }}>TRL 4 Validado (252 Tests)</span>
+              <span className="badge-pill badge-cyan" style={{ fontSize: '0.7rem' }}>TRL 4 Validado (278 Tests)</span>
             </div>
             <p style={{ fontSize: '0.8rem', color: '#cbd5e1', margin: 0, lineHeight: 1.45 }}>
               Gemelo Digital Agronómico, Teledetección Multi-Escala e IA Prescriptiva. Incluye Oráculo SAR Sentinel-1 all-weather, Shoelace esferoidal, pedocalibración Saxton-Rawls, memoria de 40 años MapBiomas y escenarios de simulación en Turén y Calabozo.
             </p>
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', fontSize: '0.7rem', color: '#94a3b8' }}>
               <span>• ~3.200 palabras (&lt; 10k)</span>
-              <span>• 252 tests passing (198 Jest + 54 Pytest)</span>
+              <span>• 278 tests passing (224 Jest + 54 Pytest)</span>
               <span>• Frank Alfonso Sousa Mota (UNERG)</span>
             </div>
             <div style={{ display: 'flex', gap: '8px', marginTop: 'auto', paddingTop: '8px' }}>
@@ -675,7 +675,7 @@ export default function PostulacionPage() {
             </p>
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', fontSize: '0.7rem', color: '#94a3b8' }}>
               <span>• 100% Ponderado</span>
-              <span>• 252 tests</span>
+              <span>• 278 tests</span>
               <span>• Anexo II MapBiomas</span>
             </div>
             <div style={{ display: 'flex', gap: '8px', marginTop: 'auto', paddingTop: '8px' }}>
