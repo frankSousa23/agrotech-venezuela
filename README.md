@@ -236,7 +236,7 @@ Este proyecto se postula formalmente en la **Segunda Edición del Premio MapBiom
 - **Categoría**: **Categoría General** (postulación unificada e individual).
 - **Formato**: **Artículo Técnico** (arquitectura de software, algoritmos y teledetección espacial, ~3.200 palabras).
 - **Madurez**: **TRL 4** (*Prototipo Funcional de Software Validado en Entorno de Desarrollo y Simulación Local*), con hoja de ruta hacia TRL 5/6.
-- **Ruta de Auditoría para el Jurado**: 👉 **[Guía Rápida de Auditoría para Evaluadores (docs/GUIA_EVALUADOR.md)](docs/GUIA_EVALUADOR.md)** con el desglose directo de los 7 criterios oficiales del baremo frente al código fuente, ecuaciones y tests.
+- **Ruta de Auditoría para el Jurado**: 👉 **[Guía Rápida de Auditoría para Evaluadores (docs/GUIA_EVALUADOR.md)](docs/GUIA_EVALUADOR.md)** con el desglose directo de los 6 criterios oficiales del baremo (Anexo II, 100%) frente al código fuente, ecuaciones y tests.
 
 ### 📚 Expediente Oficial de Postulación (Apertura en 1 Clic en GitHub)
 

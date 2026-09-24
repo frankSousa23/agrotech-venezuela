@@ -122,7 +122,7 @@ Bienvenido a la **Galería Visual de Operación** de **Agrotech Venezuela**. Est
 - **Acceso Directo al Expediente MapBiomas 2026:**
   - *Bases Oficiales de la Convocatoria* (10 págs.).
   - *Aclaratorias & Preguntas Frecuentes* (6 págs., 20 respuestas oficiales).
-  - *Autoevaluación Anexo II — Matriz de Cumplimiento de Criterios* (Evaluación de los 7 criterios).
+  - *Matriz de Cumplimiento de Criterios (Anexo II)* (Presentación técnica frente a los 6 criterios oficiales del baremo).
   - *Artículo Técnico Formal* con arquitectura, algoritmos, formulación matemática y validación TRL 4.
 
 ---

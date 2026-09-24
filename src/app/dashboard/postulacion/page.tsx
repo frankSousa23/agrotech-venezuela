@@ -396,7 +396,7 @@ export default function PostulacionPage() {
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
                 <span style={{ fontSize: '0.72rem', background: 'rgba(34, 197, 94, 0.2)', color: '#4ade80', padding: '2px 8px', borderRadius: '6px', fontWeight: 700 }}>
-                  Autoevaluación Anexo II
+                  Criterios Oficiales Anexo II
                 </span>
                 <CheckSquare size={16} color="#4ade80" />
               </div>
@@ -668,10 +668,10 @@ export default function PostulacionPage() {
                 <CheckSquare size={20} color="#a855f7" />
                 <span style={{ fontSize: '0.92rem', fontWeight: 700, color: '#f8fafc' }}>Matriz de Criterios (Anexo II)</span>
               </div>
-              <span className="badge-pill badge-purple" style={{ fontSize: '0.7rem' }}>Evaluación 5/5</span>
+              <span className="badge-pill badge-purple" style={{ fontSize: '0.7rem' }}>Baremo Oficial 100%</span>
             </div>
             <p style={{ fontSize: '0.8rem', color: '#cbd5e1', margin: 0, lineHeight: 1.45 }}>
-              Auditoría y autoevaluación punto por punto de los 6 criterios del jurado: Complejidad (20%), Originalidad (20%), Claridad (15%), Resultados (20%), Aporte Social (20%) y MapBiomas (5%).
+              Demostración y desglose punto por punto frente a los 6 criterios del jurado: Complejidad (20%), Originalidad (20%), Claridad (15%), Resultados (20%), Aporte Social (20%) y MapBiomas (5%).
             </p>
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', fontSize: '0.7rem', color: '#94a3b8' }}>
               <span>• 100% Ponderado</span>

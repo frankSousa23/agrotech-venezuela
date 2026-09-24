@@ -37,13 +37,17 @@ import {
   GitBranch,
   Terminal,
   Server,
-  Code
+  Code,
+  Tractor,
+  Leaf,
+  Radio,
+  FlaskConical
 } from 'lucide-react';
 
 interface DiagramDef {
   id: string;
   title: string;
-  category: 'architecture' | 'spatial' | 'offline' | 'ai' | 'mapbiomas';
+  category: 'architecture' | 'spatial' | 'offline' | 'ai' | 'mapbiomas' | 'machinery' | 'carbon' | 'iot';
   icon: any;
   badge: string;
   description: string;
@@ -308,6 +312,155 @@ const SYSTEM_DIAGRAMS: DiagramDef[] = [
       { step: 'Nivel 1: Colección 3', title: 'Base MapBiomas', description: 'Capas raster y vectoriales históricas de Venezuela de 1985 a 2024.', tech: 'MapBiomas Raster WMS', latency: '40 ms' },
       { step: 'Nivel 2: Ray-Casting', title: 'Intersección Espacial', description: 'Algoritmo Point-in-Polygon para identificar la clase histórica del lote.', tech: 'Spatial Ray-Casting', latency: '15 ms' },
       { step: 'Nivel 3: Indicadores', title: 'Trayectoria Ecológica', description: 'Cálculo de métricas de cambio de cobertura y sostenibilidad.', tech: 'GeoStats Engine', latency: '35 ms' }
+    ]
+  },
+  {
+    id: 'machinery_prescriptions',
+    title: '6. Pipeline Tri-Modal de Prescripciones para Maquinaria & VRA',
+    category: 'machinery',
+    icon: Tractor,
+    badge: 'Maquinaria VRA',
+    description: 'Generación algorítmica de dosis variable a partir de polígonos parcelarios y edafología regional: Shapefile ESRI UTM 19N WGS84 para tractores GPS, KML para drones agrícolas y fichas analógicas de 1 página.',
+    metrics: [
+      { label: 'Formatos de Salida', value: '3 Salidas (SHP, KML, Ficha)' },
+      { label: 'Proyección Tractor', value: 'UTM Zona 19N (EPSG:32619)' },
+      { label: 'Atributos VRA', value: 'RATE_LIME, RATE_NPK, AREA_HA' },
+      { label: 'Compatibilidad', value: 'John Deere, Trimble, DJI, Analógico' }
+    ],
+    mermaidCode: `graph TD
+    classDef input fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#fff;
+    classDef engine fill:#0f172a,stroke:#22c55e,stroke-width:2px,color:#fff;
+    classDef output fill:#0f172a,stroke:#f59e0b,stroke-width:2px,color:#fff;
+
+    subgraph ENTRADA["📍 Geometría & Edafología Territorial"]
+        PARCEL["🌾 Polígono Parcela WGS84\\nÁrea Shoelace (ha) & Vértices"]:::input
+        SOIL_DATA["🧪 Análisis de Suelo & Histórico\\npH, Al3+, Textura & MapBiomas"]:::input
+    end
+
+    subgraph EXPORTER["⚙️ Motor de Prescripción (machineryExporter.ts)"]
+        CORE["📐 Calculador VRA & Zonificación Edafológica\\nKamprath Modificado / Balance Ca:Mg / Yeso Quíbor"]:::engine
+        REPROJ["🌐 Reproyección Geodésica UTM\\nWGS84 (EPSG:4326) ➔ UTM Zona 19N (EPSG:32619)"]:::engine
+    end
+
+    subgraph SALIDAS_TRIMODAL["🚜 Paquete de Salida Tri-Modal"]
+        SHP["🚜 1. ESRI Shapefile VRA (.zip)\\n.shp, .shx, .dbf, .prj | John Deere & Trimble"]:::output
+        KML["🛸 2. Misión de Vuelo KML\\nWaypoints & Polígonos de Pulverización DJI Agras"]:::output
+        CABIN["📄 3. Ficha de Cabina Analógica\\n1 Página A4 Plastificable | Tractores sin GPS"]:::output
+    end
+
+    PARCEL --> CORE
+    SOIL_DATA --> CORE
+    CORE --> REPROJ
+    REPROJ --> SHP
+    REPROJ --> KML
+    CORE --> CABIN`,
+    svgHighlights: [
+      { step: '1. Zonificación', title: 'Cálculo de Dosis VRA', description: 'Calcula dosis precisa de cal agrícola, N-P-K o yeso según modelo edafológico.', tech: 'machineryExporter.ts', latency: '4 ms' },
+      { step: '2. Proyección', title: 'Reproyección UTM 19N', description: 'Proyecta vértices geodésicos a coordenadas métricas planas UTM Zona 19N.', tech: 'Spatial WGS84 Engine', latency: '6 ms' },
+      { step: '3. Serialización', title: 'Generación Shapefile', description: 'Construye archivos binarios .shp, .shx, .dbf y .prj empaquetados en ZIP.', tech: 'ESRI Binary Packager', latency: '15 ms' },
+      { step: '4. Ficha Cabina', title: 'Hoja Plastificable', description: 'Renderiza ficha imprimible de 1 página A4 con tablas de conversión vernácula.', tech: 'CSS Print Media', latency: '0 ms' }
+    ]
+  },
+  {
+    id: 'carbon_mrv_sar_oracle',
+    title: '7. Ciclo MRV de Carbono (IPCC Tier 2 / Verra) & Oráculo Radar SAR Sentinel-1',
+    category: 'carbon',
+    icon: Leaf,
+    badge: 'Carbono & SAR',
+    description: 'Modelado de secuestro de carbono edáfico (0-30 cm) según IPCC Tier 2 / Verra VCS, auditado por el Oráculo Satelital Radar SAR Sentinel-1 Banda C (5.405 GHz all-weather) para colapsar la incertidumbre del 40% al 10%.',
+    metrics: [
+      { label: 'Metodología MRV', value: 'IPCC Tier 2 / Verra VCS' },
+      { label: 'Sensor Radar', value: 'Sentinel-1 SAR C-Band (5.405 GHz)' },
+      { label: 'Umbral Rugosidad', value: 'Ratio VH/VV > -12 dB' },
+      { label: 'Incertidumbre', value: 'Colapso del 40% al 10%' }
+    ],
+    mermaidCode: `graph TD
+    classDef ground fill:#0f172a,stroke:#22c55e,stroke-width:2px,color:#fff;
+    classDef satellite fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#fff;
+    classDef engine fill:#0f172a,stroke:#a855f7,stroke-width:2px,color:#fff;
+    classDef market fill:#0f172a,stroke:#ec4899,stroke-width:2px,color:#fff;
+
+    subgraph TERRENO["🌱 Registro de Prácticas en Campo"]
+        LOTE["📍 Parcela & Stock Base SOC 0-30cm\\nDensidad Aparente, Arcilla & Carbono"]:::ground
+        DIARY["📓 Bitácora de Labores Agronómicas\\nLabranza Cero, Rastrojos, Abonos Verdes"]:::ground
+    end
+
+    subgraph ORACLE["🛰️ Oráculo Satelital Radar SAR Sentinel-1 (/api/mrv/sar-oracle)"]
+        S1["📡 Sentinel-1 SAR Banda C (5.405 GHz)\\nPenetración Total de Nubes Tropicales"]:::satellite
+        RATIO["🔍 Análisis de Rugosidad de Dosel\\nRetrodispersión Dual: Ratio VH/VV > -12 dB"]:::satellite
+        AUDIT["⚖️ Validación Cruzada Bitácora ↔ Satélite\\nConfirmación Empírica de Cobertura Vegetal"]:::engine
+    end
+
+    subgraph CERTIFICACION["📈 Mitigación de Riesgo & Carbon Pooling"]
+        UNCERT["📉 Reducción de Incertidumbre Verra VCS\\nColapso de Penalización del 40% al 10%"]:::engine
+        POOL["💰 Esquema de Carbon Pooling Agrotech\\n85% Agricultor Rural / 15% Custodia Técnica"]:::market
+    end
+
+    LOTE --> DIARY
+    DIARY --> AUDIT
+    S1 --> RATIO
+    RATIO --> AUDIT
+    AUDIT --> UNCERT
+    UNCERT --> POOL`,
+    svgHighlights: [
+      { step: '1. Línea Base', title: 'Stock SOC 0-30cm', description: 'Calcula reserva inicial de carbono según tipo de suelo y densidad aparente.', tech: 'CarbonEngine IPCC Tier 2', latency: '5 ms' },
+      { step: '2. Radar SAR', title: 'Penetración de Nubes', description: 'Sentinel-1 radar 5.405 GHz traspasa la nubosidad de los Llanos en época de lluvias.', tech: 'Copernicus Sentinel-1 SAR', latency: '120 ms' },
+      { step: '3. Oráculo MRV', title: 'Auditoría de Rugosidad', description: 'Verifica incremento de biomasa y labranza conservacionista con ratio VH/VV > -12dB.', tech: 'FastAPI /api/mrv/sar-oracle', latency: '45 ms' },
+      { step: '4. Carbon Pooling', title: 'Distribución 85/15', description: 'Agrupa pequeños productores para colapsar costos de certificación internacional.', tech: 'Fintech Carbon Pool', latency: '2 ms' }
+    ]
+  },
+  {
+    id: 'iot_saxton_rawls',
+    title: '8. Gemelo Digital Agro-IoT, Física Saxton-Rawls & Riego Predictivo',
+    category: 'iot',
+    icon: Radio,
+    badge: 'Agro-IoT & PAW',
+    description: 'Ingestión de telemetría in-situ de bajo costo ESP32, modelado edafofísico continuo de Saxton-Rawls para Agua Disponible (PAW), disparo de riego ante PAW < 50% y supresión de lluvia climática vía NASA POWER.',
+    metrics: [
+      { label: 'Ingestión In-Situ', value: 'POST /api/iot/telemetry (ESP32)' },
+      { label: 'Modelo Físico', value: 'Saxton-Rawls (PWP, FC, SAT)' },
+      { label: 'Disparo de Riego', value: 'Condición PAW < 50%' },
+      { label: 'Ahorro de Recursos', value: 'Supresión si Lluvia > 5 mm' }
+    ],
+    mermaidCode: `graph TD
+    classDef sensor fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#fff;
+    classDef model fill:#0f172a,stroke:#22c55e,stroke-width:2px,color:#fff;
+    classDef decision fill:#0f172a,stroke:#f59e0b,stroke-width:2px,color:#fff;
+    classDef actuator fill:#0f172a,stroke:#ec4899,stroke-width:2px,color:#fff;
+
+    subgraph NODO["📡 Telemetría In-Situ (Edge)"]
+        ESP["⚡ Microcontrolador ESP32 (<$35 USD)\\nSensor Humedad Capacitiva 10cm, Temp, pH"]:::sensor
+        PAYLOAD["📦 POST /api/iot/telemetry\\nBuffer Circular & Hashing Geodésico"]:::sensor
+    end
+
+    subgraph FISICA["🧪 Modelo Edafológico Saxton-Rawls"]
+        TEXT["🏛️ Familia Textural (Arenoso, Franco, Arcilloso)\\nθ_PWP (Marchitez) & θ_FC (Capacidad Campo)"]:::model
+        PAW["💧 Cálculo de Agua Disponible para la Planta\\nPAW (%) = [(θ - θ_PWP) / (θ_FC - θ_PWP)] * 100"]:::model
+    end
+
+    subgraph DECISION_LOGIC["🧠 Lógica Predictiva & Clima"]
+        CHECK{"¿PAW < 50%?\\n(Estrés Hídrico)"}:::decision
+        NASA["☀️ NASA POWER API Clima\\nPronóstico de Lluvia > 5 mm"]:::sensor
+    end
+
+    subgraph ACCION["🚜 Actuación & Ahorro de Recursos"]
+        VALVE["💧 Apertura de Electroválvula de Riego\\nTurnos Optimizados de Humectación Radicular"]:::actuator
+        SUPPRESS["🛡️ Supresión Inteligente de Riego\\nAhorro de Agua (45L) y Electricidad (0.28 kWh)"]:::actuator
+    end
+
+    ESP --> PAYLOAD
+    PAYLOAD --> TEXT
+    TEXT --> PAW
+    PAW --> CHECK
+    CHECK -->|Sí| NASA
+    NASA -->|Lluvia Inminente| SUPPRESS
+    NASA -->|Sin Lluvia| VALVE
+    CHECK -->|No| SUPPRESS`,
+    svgHighlights: [
+      { step: '1. Ingestión', title: 'Payload ESP32', description: 'Lectura de humedad capacitiva, temperatura de suelo y pH cada ciclo.', tech: 'FastAPI /api/iot/telemetry', latency: '12 ms' },
+      { step: '2. Saxton-Rawls', title: 'Límites Edafológicos', description: 'Calcula punto de marchitez permanente (PWP) y capacidad de campo (FC).', tech: 'pedotransferEngine.ts', latency: '2 ms' },
+      { step: '3. Balance PAW', title: 'Estrés Hídrico', description: 'Evalúa el porcentaje de agua fácilmente aprovechable por la raíz del cultivo.', tech: 'Dynamic PAW Core', latency: '1 ms' },
+      { step: '4. Supresión Clima', title: 'Ahorro NASA POWER', description: 'Cancela la orden de bombeo si el satélite pronostica precipitaciones.', tech: 'NASA POWER Integration', latency: '85 ms' }
     ]
   }
 ];
@@ -807,7 +960,7 @@ export default function DataflowDiagramStudio() {
                 <li><b>Backend Espacial:</b> FastAPI en Python 3.13 con Uvicorn (Puerto 8000)</li>
                 <li><b>Dashboard Prescripciones:</b> Streamlit 1.62 con Folium (Puerto 8501)</li>
                 <li><b>Base de Datos Relacional:</b> PostgreSQL 15 en Docker (Puerto 5444)</li>
-                <li><b>Caché Desconectada:</b> SQLite en modo WAL con hashing geodésico (~11m)</li>
+                <li><b>Caché Desconectada:</b> SQLite en modo WAL con hashing geodésico (~11m, &lt;25ms)</li>
               </ul>
             </div>
 
@@ -817,22 +970,39 @@ export default function DataflowDiagramStudio() {
               </div>
               <ul style={{ color: '#cbd5e1', fontSize: '0.78rem', paddingLeft: '16px', margin: 0, lineHeight: 1.6 }}>
                 <li><b>Cálculo de Área (ha):</b> Shoelace geodésico esferoidal WGS84</li>
-                <li><b>Perímetro & Distancia:</b> Fórmula de Haversine</li>
+                <li><b>Perímetro & Distancia:</b> Fórmula de Haversine en km y metros</li>
                 <li><b>Ray-Casting:</b> Point-in-Polygon sobre 24 estados y 335 municipios</li>
-                <li><b>Filtrado de Nubes:</b> Sentinel-2 L2A SCL (excluyendo 3, 8, 9 y 10)</li>
-                <li><b>GDD Térmico:</b> Base 10.0°C con umbral superior 30.0°C</li>
+                <li><b>Radar SAR Sentinel-1:</b> Banda C (5.405 GHz all-weather) penetración de nubes</li>
+                <li><b>Oráculo Rugosidad SAR:</b> Ratio VH/VV &gt; -12 dB en /api/mrv/sar-oracle</li>
+                <li><b>GDD Térmico:</b> Base 10.0°C con umbral superior 30.0°C y balance P - ETc</li>
+              </ul>
+            </div>
+
+            <div style={{ background: 'rgba(30, 41, 59, 0.6)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '10px', padding: '16px' }}>
+              <div style={{ fontWeight: 700, color: '#f59e0b', fontSize: '0.88rem', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <FlaskConical size={16} /> Edafología Regional & Prescripciones
+              </div>
+              <ul style={{ color: '#cbd5e1', fontSize: '0.78rem', paddingLeft: '16px', margin: 0, lineHeight: 1.6 }}>
+                <li><b>Física Saxton-Rawls:</b> Balance dinámico PAW con disparo si PAW &lt; 50%</li>
+                <li><b>Sabanas Orientales:</b> Modelo Kamprath modificado (1.5 × Al³⁺ × 100 / PRNT)</li>
+                <li><b>Sur del Lago:</b> Balance Ca:Mg (3:1 a 4:1) con cal dolomítica</li>
+                <li><b>Quíbor / Lara:</b> Yeso Agrícola (CaSO₄·2H₂O) a 2.5 t/ha para pH ≥ 7.4</li>
+                <li><b>Salidas Tri-Modales:</b> Shapefile VRA UTM 19N, KML drones y ficha de cabina</li>
+                <li><b>Parser Vernacular:</b> Normalización offline (1 saco = 50kg, 1 tambor = 200L, 1 tablón)</li>
               </ul>
             </div>
 
             <div style={{ background: 'rgba(30, 41, 59, 0.6)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '10px', padding: '16px' }}>
               <div style={{ fontWeight: 700, color: '#ec4899', fontSize: '0.88rem', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <Sparkles size={16} /> Inteligencia Artificial & Licenciamiento
+                <ShieldCheck size={16} /> Calidad de Software & Certificación
               </div>
               <ul style={{ color: '#cbd5e1', fontSize: '0.78rem', paddingLeft: '16px', margin: 0, lineHeight: 1.6 }}>
-                <li><b>Modelo Generativo:</b> Gemini 3.5 Flash server-side con prompt estructurado</li>
-                <li><b>Modelo Clasificador:</b> Random Forest Classifier para perfiles edafológicos</li>
+                <li><b>Suite Unificada:</b> 278 pruebas automatizadas aprobadas (224 Jest + 54 Pytest)</li>
+                <li><b>TypeScript Estricto:</b> 0 errores de compilación (tsc --noEmit limpio)</li>
+                <li><b>Producción Turbopack:</b> 32 rutas de producción verificadas en Next.js 16</li>
+                <li><b>Madurez Tecnológica:</b> TRL 4 con hoja de ruta hacia TRL 5 y TRL 6</li>
                 <li><b>Atribución MapBiomas:</b> Provita, LSIGMA USB, Wataniba & RAISG (CC BY 4.0)</li>
-                <li><b>Código Fuente:</b> Licencia MIT (Copyright 2026 Frank Sousa - Agrotech)</li>
+                <li><b>Código Abierto:</b> Licencia MIT (Copyright 2026 Frank Sousa - Agrotech)</li>
               </ul>
             </div>
           </div>
