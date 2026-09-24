@@ -54,7 +54,9 @@ El sistema se estructura como una arquitectura de microservicios de código abie
 | :--- | :--- | :--- |
 | • **MapBiomas Venezuela Col. 3.0** (1985–2024, 40 años)<br>• **Sentinel-1 SAR** Banda C (5.405 GHz, VV/VH)<br>• **Sentinel-2 L2A** Multiespectral (Escenas SCL)<br>• **NASA POWER** (Radiación solar, Temp, Ppt)<br>• **Telemetría IoT Educativa BYOD** (Sandbox `/api/iot`) | • **Shoelace Esferoidal WGS84** (Área elipsoidal)<br>• **Pedocalibración PAW %** (Saxton-Rawls regional)<br>• **Kamprath Modificado** (Corrección de Al³⁺)<br>• **Módulo MRV de Carbono** (Algoritmo IPCC Tier 2)<br>• **Balance Hidrotérmico GDD** (Base 10°C / Techo 30°C) | • **Modo Productor Fácil** (Voz y 4 puertas táctiles)<br>• **Prescripción Tri-Modal** (VRA SHP, KML, Fichas)<br>• **Modelado de Agregación "Carbon Pooling"**<br>• **Bitácora de Campo** (Parser vernacular criollo)<br>• **Resiliencia Offline** (SQLite WAL / IndexedDB) |
 
-<p class="caption"><strong>Figura 1: Arquitectura de integración y flujo de procesamiento de Agrotech Venezuela</strong> — <em>Pipeline desde la ingesta de datos satelitales y climáticos, pasando por el motor matemático edafológico local, hasta los canales de prescripción y accesibilidad rural.</em></p>
+![Figura 1: Flujo de Trabajo de Inteligencia Agrícola de Precisión - Agrotech Venezuela](/images/flujo_inteligencia_agricola.png)
+
+<p class="caption"><strong>Figura 1: Arquitectura de integración y flujo de procesamiento de Agrotech Venezuela</strong> — <em>Ciclo completo de datos en 5 fases: 1) Localización geodésica Shoelace WGS84, 2) Cruce satelital multi-capa (MapBiomas 40 años, SAR Sentinel-1 dB all-weather y NASA POWER), 3) Diagnóstico edáfico y prescripción química regionalizada (Kamprath, Cal dolomítica, Yeso y GDD), 4) Economía de campo real (mecanizado vs. pequeños productores con costeo en sacos y jornales) y 5) Salida operativa tri-modal para maquinaria y automatización de microrriego IoT.</em></p>
 
 ### 2.1 Memoria Espacial de 40 Años con MapBiomas Venezuela
 A través de la Colección 3.0 de MapBiomas Venezuela, la plataforma analiza la trayectoria histórica de uso de suelo en cada lote:
