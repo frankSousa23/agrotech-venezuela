@@ -8,20 +8,22 @@ Esta guía proporciona a los miembros del comité técnico evaluador y jurados d
 
 ---
 
+<a id="indice"></a>
 ## 📑 Índice de Navegación por Criterio Oficial (Bases Anexo II)
 
 | Criterio Oficial del Premio | Ponderación | Componentes Técnicos Sometidos a Evaluación | Pruebas Automatizadas Verificables | Enlace Directo |
 | :--- | :---: | :--- | :--- | :---: |
-| **1. Complejidad Técnica** | **20%** | WebGIS 3 Niveles, Radar SAR Banda C, Shoelace WGS84, Saxton-Rawls, Oráculo MRV | `spatial.test.ts`, `pedotransfer.test.ts`, `test_risk_and_carbon.py` | [Auditar](#1-complejidad-técnica-ponderación-20) |
-| **2. Originalidad e Innovación** | **20%** | De Observación a Prescripción Química (Kamprath/Dolomita/Yeso), Dual-Mode UI, Maquinaria VRA | `soils.test.ts`, `recomendaciones.test.ts`, `machinery-exporter.test.ts` | [Auditar](#2-originalidad-e-innovación-metodológica-ponderación-20) |
-| **3. Claridad y Estructura** | **15%** | Next.js 16 Turbopack (32 rutas), Tour Demo Interactivo, OpenAPI 3.0, KaTeX | `routing-and-redirects.test.ts`, `security-and-dossier.test.ts` | [Auditar](#3-claridad-estructura-y-presentación-ponderación-15) |
-| **4. Resultados, Discusión y Conclusiones** | **20%** | Escenarios Turén / Calabozo, Costeo ROI Desacoplado, Cuarentena HTTP 409 | `roiCostEngine.test.ts`, `ImpactRoiWidget.test.ts`, `parcels-conflict.test.ts` | [Auditar](#4-resultados-discusión-y-conclusiones-ponderación-20) |
-| **5. Aporte General y Social** | **20%** | Modo Productor Fácil (4 Puertas), Voz Web Speech Nativa, Parser Vernáculo, Resiliencia 2G | `vernacular-parser.test.ts`, `farmer-ux-and-intentions.test.ts`, `parcels-and-diary.test.ts` | [Auditar](#5-aporte-general-y-social-inclusión-rural-ponderación-20) |
-| **6. Aporte a MapBiomas Venezuela** | **5%** | Operacionalización de Colección 3.0 (1985–2024) para Maquinaria y Validación de Campo | `mapbiomas-discrepancy-and-pedagogy.test.ts`, `test_mapbiomas_discrepancy.py` | [Auditar](#6-aporte-directo-a-mapbiomas-venezuela-ponderación-5) |
-| **Total Ponderado Oficial** | **100%** | **Sustentado en 278 Pruebas Automatizadas (224 Jest + 54 Pytest) y Licencia MIT** | `npm run test:all` | [Verificación](#7-rigor-científico-testing-y-reproducibilidad-experimental) |
+| **1. Complejidad Técnica** | **20%** | WebGIS 3 Niveles ([`VenezuelaStateMapInner.tsx`](../src/components/gis/VenezuelaStateMapInner.tsx)), Radar SAR ([`sarRadarService.ts`](../src/lib/geo/sarRadarService.ts)), Shoelace WGS84 ([`spatialUtils.ts`](../src/lib/geo/spatialUtils.ts)), Saxton-Rawls ([`pedotransferEngine.ts`](../src/lib/agronomy/pedotransferEngine.ts)), Oráculo MRV ([`risk_and_carbon_engine.py`](../backend/src/risk_and_carbon_engine.py)) | [`spatial.test.ts`](../__tests__/api/spatial.test.ts)<br>[`pedotransfer.test.ts`](../__tests__/agronomy/pedotransfer.test.ts)<br>[`test_risk_and_carbon.py`](../backend/tests/test_risk_and_carbon.py) | [Ver Detalle ↓](#criterio-1) |
+| **2. Originalidad e Innovación** | **20%** | Prescripción Química Kamprath/Dolomita/Yeso ([`spatialUtils.ts`](../src/lib/geo/spatialUtils.ts)), Dual-Mode UI ([`UIModeContext.tsx`](../src/lib/context/UIModeContext.tsx), [`FarmerModeToggle.tsx`](../src/components/layout/FarmerModeToggle.tsx)), Maquinaria VRA ([`machineryExporter.ts`](../src/lib/geo/machineryExporter.ts)) | [`soils.test.ts`](../__tests__/api/soils.test.ts)<br>[`recomendaciones.test.ts`](../__tests__/api/recomendaciones.test.ts)<br>[`machinery-exporter.test.ts`](../__tests__/api/machinery-exporter.test.ts) | [Ver Detalle ↓](#criterio-2) |
+| **3. Claridad y Estructura** | **15%** | Next.js 16 Turbopack (32 rutas), Tour Demo Interactivo ([`postulacion/page.tsx`](../src/app/dashboard/postulacion/page.tsx)), OpenAPI 3.0 ([`main.py`](../backend/src/main.py)), KaTeX | [`routing-and-redirects.test.ts`](../__tests__/api/routing-and-redirects.test.ts)<br>[`security-and-dossier.test.ts`](../__tests__/api/security-and-dossier.test.ts)<br>[`native-gis-lifecycle.test.ts`](../__tests__/api/native-gis-lifecycle.test.ts) | [Ver Detalle ↓](#criterio-3) |
+| **4. Resultados, Discusión y Conclusiones** | **20%** | Escenarios Turén / Calabozo, Costeo ROI Desacoplado ([`roiCostEngine.ts`](../src/lib/agronomy/roiCostEngine.ts), [`ImpactRoiWidget.tsx`](../src/components/agronomy/ImpactRoiWidget.tsx)), Cuarentena HTTP 409 ([`ParcelConflictModal.tsx`](../src/components/tierras/ParcelConflictModal.tsx)) | [`roiCostEngine.test.ts`](../__tests__/agronomy/roiCostEngine.test.ts)<br>[`ImpactRoiWidget.test.ts`](../__tests__/agronomy/ImpactRoiWidget.test.ts)<br>[`parcels-conflict.test.ts`](../__tests__/api/parcels-conflict.test.ts) | [Ver Detalle ↓](#criterio-4) |
+| **5. Aporte General y Social** | **20%** | Modo Productor Fácil (4 Puertas), Voz Web Speech Nativa, Parser Vernáculo ([`vernacularParser.ts`](../src/lib/farmer/vernacularParser.ts)), Resiliencia 2G ([`fieldDiaryStorage.ts`](../src/lib/diary/fieldDiaryStorage.ts)) | [`vernacular-parser.test.ts`](../__tests__/api/vernacular-parser.test.ts)<br>[`farmer-ux-and-intentions.test.ts`](../__tests__/api/farmer-ux-and-intentions.test.ts)<br>[`parcels-and-diary.test.ts`](../__tests__/api/parcels-and-diary.test.ts) | [Ver Detalle ↓](#criterio-5) |
+| **6. Aporte a MapBiomas Venezuela** | **5%** | Operacionalización de Colección 3.0 (1985–2024) para Maquinaria ([`mapbiomasTrajectory.ts`](../src/lib/geo/mapbiomasTrajectory.ts), [`mapbiomas_analyzer.py`](../backend/src/mapbiomas_analyzer.py)) y Validación de Campo | [`mapbiomas-discrepancy-and-pedagogy.test.ts`](../__tests__/api/mapbiomas-discrepancy-and-pedagogy.test.ts)<br>[`test_mapbiomas_discrepancy.py`](../backend/tests/test_mapbiomas_discrepancy.py) | [Ver Detalle ↓](#criterio-6) |
+| **Total Ponderado Oficial** | **100%** | **Sustentado en 278 Pruebas Automatizadas (224 Jest + 54 Pytest) y Licencia MIT** | `npm run test:all` | [Verificación ↓](#rigor-tecnico) |
 
 ---
 
+<a id="criterio-1"></a>
 ## 1. Complejidad Técnica (Ponderación: 20%)
 
 ### 🔬 Fundamentos y Algoritmos Implementados:
@@ -45,8 +47,11 @@ Esta guía proporciona a los miembros del comité técnico evaluador y jurados d
    - Ruta API: [`src/app/api/mrv/sar-oracle/route.ts`](../src/app/api/mrv/sar-oracle/route.ts) y [`backend/src/risk_and_carbon_engine.py`](../backend/src/risk_and_carbon_engine.py)
    - Test suites: [`__tests__/agronomy/carbon-groundtruth.test.ts`](../__tests__/agronomy/carbon-groundtruth.test.ts) y [`backend/tests/test_risk_and_carbon.py`](../backend/tests/test_risk_and_carbon.py)
 
+[Volver al Índice ↑](#indice)
+
 ---
 
+<a id="criterio-2"></a>
 ## 2. Originalidad e Innovación Metodológica (Ponderación: 20%)
 
 ### 💡 Elementos Inéditos en el Ecosistema Nacional:
@@ -68,8 +73,11 @@ Esta guía proporciona a los miembros del comité técnico evaluador y jurados d
 4. **Modelo de Agregación Regional (Carbon Pooling)**:
    - Digitalización conceptual para agrupar pequeños predios (<50 ha) y hacer viable la certificación de carbono Verra VCS distribuyendo el 85% del dividendo al productor.
 
+[Volver al Índice ↑](#indice)
+
 ---
 
+<a id="criterio-3"></a>
 ## 3. Claridad, Estructura y Presentación (Ponderación: 15%)
 
 ### 🏛️ Arquitectura Limpia y Rendimiento WebGIS:
@@ -78,15 +86,18 @@ Esta guía proporciona a los miembros del comité técnico evaluador y jurados d
    - Test suite de enrutamiento: [`__tests__/api/routing-and-redirects.test.ts`](../__tests__/api/routing-and-redirects.test.ts)
 2. **Ciclo de Vida Leaflet Seguro**:
    - Implementación pura con Leaflet nativo (`L.map`) encapsulado en `useRef` para prevenir fugas de memoria y pantallas blancas en React 19:
-   - Archivo fuente: [`src/components/maps/VenezuelaStateMapInner.tsx`](../src/components/maps/VenezuelaStateMapInner.tsx)
+   - Archivo fuente: [`src/components/gis/VenezuelaStateMapInner.tsx`](../src/components/gis/VenezuelaStateMapInner.tsx)
    - Test suite: [`__tests__/api/native-gis-lifecycle.test.ts`](../__tests__/api/native-gis-lifecycle.test.ts)
 3. **Documentación de APIs bajo OpenAPI / Swagger 3.0**:
    - Especificación completa accesible en `/docs` del backend FastAPI (`backend/src/main.py`) y visor interno en `/api-docs`.
 4. **Formulación Matemática en Vivo**:
    - Ecuaciones renderizadas en KaTeX con tipografía legible tanto en modo oscuro como en modo alto contraste solar.
 
+[Volver al Índice ↑](#indice)
+
 ---
 
+<a id="criterio-4"></a>
 ## 4. Resultados, Discusión y Conclusiones (Ponderación: 20%)
 
 ### 📊 Desacoplamiento Financiero y Validación Agronómica:
@@ -103,11 +114,14 @@ Esta guía proporciona a los miembros del comité técnico evaluador y jurados d
 3. **Resolución Determinista de Conflictos Offline**:
    - Versionado monotónico y cuarentena en `/api/parcels/conflicts` para resolver colisiones concurrentes en campo:
    - Archivo fuente: [`src/app/api/parcels/conflicts/route.ts`](../src/app/api/parcels/conflicts/route.ts)
-   - Componente modal: [`src/components/gis/ParcelConflictModal.tsx`](../src/components/gis/ParcelConflictModal.tsx)
+   - Componente modal: [`src/components/tierras/ParcelConflictModal.tsx`](../src/components/tierras/ParcelConflictModal.tsx)
    - Test suites: [`__tests__/api/parcels-conflict.test.ts`](../__tests__/api/parcels-conflict.test.ts) y [`__tests__/api/parcel-conflict-modal.test.ts`](../__tests__/api/parcel-conflict-modal.test.ts)
+
+[Volver al Índice ↑](#indice)
 
 ---
 
+<a id="criterio-5"></a>
 ## 5. Aporte General y Social (Inclusión Rural) (Ponderación: 20%)
 
 ### 🤝 Democratización y Accesibilidad Campesina:
@@ -126,8 +140,11 @@ Esta guía proporciona a los miembros del comité técnico evaluador y jurados d
    - Archivos fuente: [`src/lib/diary/fieldDiaryStorage.ts`](../src/lib/diary/fieldDiaryStorage.ts) y [`src/components/layout/ConnectivityStatusBadge.tsx`](../src/components/layout/ConnectivityStatusBadge.tsx)
    - Test suite: [`__tests__/api/parcels-and-diary.test.ts`](../__tests__/api/parcels-and-diary.test.ts)
 
+[Volver al Índice ↑](#indice)
+
 ---
 
+<a id="criterio-6"></a>
 ## 6. Aporte Directo a MapBiomas Venezuela (Ponderación: 5%)
 
 ### 🛰️ Operacionalización Productiva de Colección 3.0 (1985–2024):
@@ -140,8 +157,11 @@ Esta guía proporciona a los miembros del comité técnico evaluador y jurados d
 3. **Cita y Atribución Rigurosa**:
    - Reconocimiento explícito a la Red MapBiomas Venezuela (Provita, LSIGMA USB, Wataniba y RAISG) bajo licencia **Creative Commons Atribución 4.0 Internacional (CC BY 4.0)** en interfaces, mapas y documentación.
 
+[Volver al Índice ↑](#indice)
+
 ---
 
+<a id="rigor-tecnico"></a>
 ## 7. Rigor Científico, Testing y Reproducibilidad Experimental
 
 ### 🧪 Verificación Automatizada Inmediata (278 Tests Pasando al 100%):
@@ -164,6 +184,8 @@ npm run typecheck
 # 5. Compilación de Producción Next.js 16 Turbopack (32 rutas limpias)
 npm run build
 ```
+
+[Volver al Índice ↑](#indice)
 
 ---
 

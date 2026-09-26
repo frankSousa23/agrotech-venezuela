@@ -8,7 +8,7 @@
 - **Nivel de Madurez Tecnológica**: **TRL 4** (Prototipo funcional de software validado en entorno de desarrollo y simulación local con datos espaciales reales y 278 pruebas automatizadas: 224 Jest + 54 Pytest; con hoja de ruta hacia TRL 5/6).
 - **Licencia**: Código bajo MIT License (Copyright 2026 Frank Sousa) / Datos de Cobertura bajo Creative Commons Atribución 4.0 Internacional (CC BY 4.0 - MapBiomas Venezuela).
 
-[⬅️ Ir al README Principal](../README.md) | [🛠️ Ver Guía de Desarrollo & Arquitectura](../DEVELOPING.md) | [📊 Ver Pitch Deck](../PITCH_DECK.md)
+[⬅️ Ir al README Principal](../../README.md) | [🛠️ Ver Guía de Desarrollo & Arquitectura](../../DEVELOPING.md) | [📊 Ver Pitch Deck](PITCH_DECK.md)
 
 ---
 
