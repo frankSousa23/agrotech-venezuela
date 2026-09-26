@@ -6,7 +6,7 @@
 [![Next.js 16](https://img.shields.io/badge/Next.js-16%20(Turbopack)-black.svg)](https://nextjs.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-2.0-009688.svg)](https://fastapi.tiangolo.com/)
 [![Python 3.13](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
-[![Tests: 278 Passing](https://img.shields.io/badge/Tests-278%20Passing-brightgreen.svg)]()
+[![Tests: 290 Passing](https://img.shields.io/badge/Tests-290%20Passing-brightgreen.svg)]()
 [![TRL: 4](https://img.shields.io/badge/TRL-4%20(Prototipo%20Funcional)-blue.svg)]()
 [![MapBiomas Col 3.0](https://img.shields.io/badge/MapBiomas-Colección%203.0%20(1985--2024)-amber.svg)](https://venezuela.mapbiomas.org)
 
@@ -122,12 +122,12 @@ Abre **`http://localhost:3000`** en tu navegador para interactuar con la platafo
 
 ---
 
-## 🧪 Calidad de Software & Validación Automatizada (278 Tests)
+## 🧪 Calidad de Software & Validación Automatizada (290 Tests)
 
-El código fuente cuenta con una suite rigurosa de **278 pruebas automatizadas (100% passing)** ejecutadas antes de cada versión:
+El código fuente cuenta con una suite rigurosa de **290 pruebas automatizadas (100% passing)** ejecutadas antes de cada versión:
 
 ```bash
-# Ejecutar verificación completa (224 tests Jest + 54 tests Pytest)
+# Ejecutar verificación completa (236 tests Jest + 54 tests Pytest)
 npm run test:all
 
 # Matriz ejecutiva visual de pruebas (resumen categorizado)
@@ -136,24 +136,24 @@ npm run test:summary
 # Verificación de tipos TypeScript estricto (0 errores)
 npm run typecheck
 
-# Compilación limpia de producción (32 rutas Next.js 16)
+# Compilación limpia de producción (35 rutas Next.js 16)
 npm run build
 ```
 
 <details>
-<summary><b>🔍 Ver Desglose Completo de las 278 Pruebas Automatizadas por Subsistema (Clic para expandir)</b></summary>
+<summary><b>🔍 Ver Desglose Completo de las 290 Pruebas Automatizadas por Subsistema (Clic para expandir)</b></summary>
 
 ```text
-▶ SUITE DE FRONTEND WEBGIS, ARQUITECTURA & AGRO-SISTEMAS [Jest (Next.js 16 / React 19) — 224 pruebas en 33 suites]
+▶ SUITE DE FRONTEND WEBGIS, ARQUITECTURA & AGRO-SISTEMAS [Jest (Next.js 16 / React 19) — 236 pruebas en 33 suites]
 ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 
   Agronomía & Física Edafológica
     ✔ PASS  pedotransfer.test.ts               │ 11 tests │ Calibración Saxton-Rawls, PAW (<50% riego) y texturas regionales
     ✔ PASS  carbon-groundtruth.test.ts         │  3 tests │ Stock SOC 0-30cm, secuestro IPCC Tier 2 y créditos Verra VCS
-    ✔ PASS  soils.test.ts                      │  2 tests │ Neutralización Kamprath (Al3+ sabanas) y corrección yeso Quíbor
+    ✔ PASS  soils.test.ts                      │  6 tests │ Neutralización Kamprath (Al3+ sabanas), corrección yeso Quíbor y endpoints REST
     ✔ PASS  crops.test.ts                      │  2 tests │ Catálogo agronómico de cereales, leguminosas y frutales tropicales
-    ✔ PASS  recomendaciones.test.ts            │  5 tests │ Prescripciones de fertilización NPK y enmiendas órgano-minerales
-    ✔ PASS  roiCostEngine.test.ts              │  5 tests │ Motor de costeo operativo (mecanizado diésel/VRA vs pequeño productor sacos/jornales)
+    ✔ PASS  recomendaciones.test.ts            │  7 tests │ Prescripciones de fertilización NPK, enmiendas órgano-minerales y API RBAC
+    ✔ PASS  roiCostEngine.test.ts              │  6 tests │ Motor de costeo operativo (mecanizado diésel/VRA vs pequeño productor sacos/jornales)
 
   Geoespacial, WebGIS & Sensores
     ✔ PASS  spatial.test.ts                    │ 11 tests │ Shoelace geodésico WGS84, Haversine y point-in-polygon Ray-Casting
@@ -175,9 +175,9 @@ npm run build
     ✔ PASS  vernacular-parser.test.ts          │ 10 tests │ Normalización de unidades vernáculas (saco, tambor, tablón, caneca)
     ✔ PASS  farmer-ux-and-intentions.test.ts   │ 17 tests │ Modo Productor Fácil, 4 compuertas y dictado por voz Web Speech
     ✔ PASS  machinery-exporter.test.ts         │  3 tests │ Generación ESRI Shapefile VRA, KML para drones y fichas de cabina
-    ✔ PASS  command-palette-and-search.test.ts │  5 tests │ Búsqueda instantánea Ctrl+K en parcelas, estados y cultivos
+    ✔ PASS  command-palette-and-search.test.ts │  7 tests │ Búsqueda instantánea Ctrl+K con React Portal, polos agrícolas y móvil
     ✔ PASS  theme-and-contrast.test.ts         │  6 tests │ Accesibilidad visual alto contraste para trabajo bajo sol llanero
-    ✔ PASS  routing-and-redirects.test.ts      │  7 tests │ Enrutamiento resiliente y navegación Next.js App Router
+    ✔ PASS  routing-and-redirects.test.ts      │ 11 tests │ Enrutamiento resiliente, redirecciones /visor y /costos, export stats y 404
     ✔ PASS  auth.test.ts                       │  9 tests │ Autenticación con roles (Productor, Técnico, Auditor, Jurado)
     ✔ PASS  security-and-dossier.test.ts       │ 20 tests │ Sanitización de inputs, protección CSRF y descarga de dossier
     ✔ PASS  relations.test.ts                  │  3 tests │ Integridad referencial y relaciones entre entidades del modelo
@@ -186,7 +186,7 @@ npm run build
     ✔ PASS  comprehensive-audit.test.ts        │  8 tests │ Auditoría integral del sistema y tolerancia a fallos
     ✔ PASS  mapbiomas-discrepancy-and-pedagogy.test.ts │ 11 tests │ Alertas de discrepancia MapBiomas 1985-2024 y pedagogía
     ✔ PASS  manual-and-onboarding.test.ts      │ 11 tests │ Manual agronómico 7 capítulos, 4 roles, onboarding 4 hitos y sandbox efímero de invitado
-    ✔ PASS  ImpactRoiWidget.test.ts            │  6 tests │ Simulador interactivo de ROI desacoplado de carbono y conmutador de perfil
+    ✔ PASS  ImpactRoiWidget.test.ts            │  5 tests │ Simulador interactivo de ROI desacoplado de carbono y conmutador de perfil
 
 ▶ SUITE DE BACKEND ESPACIAL, ML, IA & RADAR SAR [Pytest (Python 3.13) — 54 pruebas en 17 módulos]
 ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
@@ -217,12 +217,12 @@ npm run build
 ================================================================================
    RESUMEN GENERAL DE VERIFICACIÓN Y CALIDAD DE SOFTWARE
 ================================================================================
-   ✔ Frontend WebGIS & Agronomía (Jest):   224 pruebas en 33 suites  [100% OK]
+   ✔ Frontend WebGIS & Agronomía (Jest):   236 pruebas en 33 suites  [100% OK]
    ✔ Backend Espacial, ML & SAR (Pytest):  54 pruebas en 17 módulos [100% OK]
    -----------------------------------------------------------------------------
-   ✔ TOTAL CONSOLIDADO DEL SISTEMA:       278 PRUEBAS AUTOMATIZADAS PASADAS CON ÉXITO
+   ✔ TOTAL CONSOLIDADO DEL SISTEMA:       290 PRUEBAS AUTOMATIZADAS PASADAS CON ÉXITO
    • Estado de TypeScript:                0 Errores (tsc --noEmit limpio)
-   • Compilación Next.js 16 Turbopack:    32 Rutas de Producción Verificadas
+   • Compilación Next.js 16 Turbopack:    35 Rutas de Producción Verificadas
    • Nivel de Madurez Tecnológica:        TRL 4 (Validación Tecnológica en Entorno de Laboratorio)
 ================================================================================
 ```

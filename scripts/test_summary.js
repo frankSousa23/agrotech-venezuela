@@ -6,9 +6,9 @@
  * 
  * Script nativo en Node.js (cero dependencias externas) que genera un informe
  * visual consolidado de la suite de pruebas completa:
- * - Jest (224 pruebas en 33 suites de frontend, agronomía, geoespacial y UI)
+ * - Jest (236 pruebas en 33 suites de frontend, agronomía, geoespacial y UI)
  * - Pytest (54 pruebas en 17 módulos de backend FastAPI, ML, SAR y satélites)
- * Total: 278 pruebas automatizadas con 100% de cobertura y paso limpio.
+ * Total: 290 pruebas automatizadas con 100% de cobertura y paso limpio.
  */
 
 const fs = require('fs');
@@ -35,10 +35,10 @@ const frontendSuites = [
     suites: [
       { name: 'pedotransfer.test.ts', tests: 11, focus: 'Calibración Saxton-Rawls, PAW (<50% riego) y texturas regionales' },
       { name: 'carbon-groundtruth.test.ts', tests: 3, focus: 'Stock SOC 0-30cm, secuestro IPCC Tier 2 y créditos Verra VCS' },
-      { name: 'soils.test.ts', tests: 2, focus: 'Neutralización Kamprath (Al3+ sabanas) y corrección yeso Quíbor' },
+      { name: 'soils.test.ts', tests: 6, focus: 'Neutralización Kamprath (Al3+ sabanas), corrección yeso Quíbor y endpoints REST' },
       { name: 'crops.test.ts', tests: 2, focus: 'Catálogo agronómico de cereales, leguminosas y frutales tropicales' },
-      { name: 'recomendaciones.test.ts', tests: 5, focus: 'Prescripciones de fertilización NPK y enmiendas órgano-minerales' },
-      { name: 'roiCostEngine.test.ts', tests: 5, focus: 'Motor de costeo operativo (mecanizado diésel/VRA vs pequeño productor sacos/jornales)' }
+      { name: 'recomendaciones.test.ts', tests: 7, focus: 'Prescripciones de fertilización NPK, enmiendas órgano-minerales y API RBAC' },
+      { name: 'roiCostEngine.test.ts', tests: 6, focus: 'Motor de costeo operativo (mecanizado diésel/VRA vs pequeño productor sacos/jornales)' }
     ]
   },
   {
@@ -69,9 +69,9 @@ const frontendSuites = [
       { name: 'vernacular-parser.test.ts', tests: 10, focus: 'Normalización de unidades vernáculas (saco, tambor, tablón, caneca)' },
       { name: 'farmer-ux-and-intentions.test.ts', tests: 17, focus: 'Modo Productor Fácil, 4 compuertas y dictado por voz Web Speech' },
       { name: 'machinery-exporter.test.ts', tests: 3, focus: 'Generación ESRI Shapefile VRA, KML para drones y fichas de cabina' },
-      { name: 'command-palette-and-search.test.ts', tests: 5, focus: 'Búsqueda instantánea Ctrl+K en parcelas, estados y cultivos' },
+      { name: 'command-palette-and-search.test.ts', tests: 7, focus: 'Búsqueda instantánea Ctrl+K con React Portal, polos agrícolas y móvil' },
       { name: 'theme-and-contrast.test.ts', tests: 6, focus: 'Accesibilidad visual alto contraste para trabajo bajo sol llanero' },
-      { name: 'routing-and-redirects.test.ts', tests: 7, focus: 'Enrutamiento resiliente y navegación Next.js App Router' },
+      { name: 'routing-and-redirects.test.ts', tests: 11, focus: 'Enrutamiento resiliente, redirecciones /visor y /costos, export stats y 404' },
       { name: 'auth.test.ts', tests: 9, focus: 'Autenticación con roles (Productor, Técnico, Auditor, Jurado)' },
       { name: 'security-and-dossier.test.ts', tests: 20, focus: 'Sanitización de inputs, protección CSRF y descarga de dossier' },
       { name: 'relations.test.ts', tests: 3, focus: 'Integridad referencial y relaciones entre entidades del modelo' },
@@ -80,7 +80,7 @@ const frontendSuites = [
       { name: 'comprehensive-audit.test.ts', tests: 8, focus: 'Auditoría integral del sistema y tolerancia a fallos' },
       { name: 'mapbiomas-discrepancy-and-pedagogy.test.ts', tests: 11, focus: 'Alertas de discrepancia MapBiomas 1985-2024 y pedagogía' },
       { name: 'manual-and-onboarding.test.ts', tests: 11, focus: 'Manual agronómico 7 capítulos, 4 roles, onboarding 4 hitos y sandbox efímero de invitado' },
-      { name: 'ImpactRoiWidget.test.ts', tests: 6, focus: 'Simulador interactivo de ROI desacoplado de carbono y conmutador de perfil' }
+      { name: 'ImpactRoiWidget.test.ts', tests: 5, focus: 'Simulador interactivo de ROI desacoplado de carbono y conmutador de perfil' }
     ]
   }
 ];
@@ -157,7 +157,7 @@ function printSummary(frontendTotal, backendTotal, frontendSuiteCount) {
   console.log(`${c.gray}   -----------------------------------------------------------------------------${c.reset}`);
   console.log(`   ${c.bold}${c.emerald}✔ TOTAL CONSOLIDADO DEL SISTEMA:${c.reset}       ${c.bold}${c.emerald}${total} PRUEBAS AUTOMATIZADAS PASADAS CON ÉXITO${c.reset}`);
   console.log(`   ${c.dim}• Estado de TypeScript:${c.reset}                ${c.green}0 Errores (tsc --noEmit limpio)${c.reset}`);
-  console.log(`   ${c.dim}• Compilación Next.js 16 Turbopack:${c.reset}    ${c.green}32 Rutas de Producción Verificadas${c.reset}`);
+  console.log(`   ${c.dim}• Compilación Next.js 16 Turbopack:${c.reset}    ${c.green}35 Rutas de Producción Verificadas${c.reset}`);
   console.log(`   ${c.dim}• Nivel de Madurez Tecnológica:${c.reset}        ${c.cyan}TRL 4 (Validación Tecnológica en Entorno de Laboratorio)${c.reset}`);
   console.log(`${c.cyan}================================================================================${c.reset}\n`);
 }

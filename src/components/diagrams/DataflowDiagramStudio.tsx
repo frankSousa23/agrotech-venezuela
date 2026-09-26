@@ -997,9 +997,9 @@ export default function DataflowDiagramStudio() {
                 <ShieldCheck size={16} /> Calidad de Software & Certificación
               </div>
               <ul style={{ color: '#cbd5e1', fontSize: '0.78rem', paddingLeft: '16px', margin: 0, lineHeight: 1.6 }}>
-                <li><b>Suite Unificada:</b> 278 pruebas automatizadas aprobadas (224 Jest + 54 Pytest)</li>
+                <li><b>Suite Unificada:</b> 290 pruebas automatizadas aprobadas (236 Jest + 54 Pytest)</li>
                 <li><b>TypeScript Estricto:</b> 0 errores de compilación (tsc --noEmit limpio)</li>
-                <li><b>Producción Turbopack:</b> 32 rutas de producción verificadas en Next.js 16</li>
+                <li><b>Producción Turbopack:</b> 35 rutas de producción verificadas en Next.js 16</li>
                 <li><b>Madurez Tecnológica:</b> TRL 4 con hoja de ruta hacia TRL 5 y TRL 6</li>
                 <li><b>Atribución MapBiomas:</b> Provita, LSIGMA USB, Wataniba & RAISG (CC BY 4.0)</li>
                 <li><b>Código Abierto:</b> Licencia MIT (Copyright 2026 Frank Sousa - Agrotech)</li>

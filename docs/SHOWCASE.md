@@ -131,8 +131,8 @@ Bienvenido a la **Galería Visual de Operación** de **Agrotech Venezuela**. Est
 
 | Dimensión | Especificación Técnica | Estado de Verificación |
 | :--- | :--- | :---: |
-| **Pruebas Automatizadas** | 278 pruebas (224 Jest en 33 suites + 54 Pytest en 17 módulos) | `100% PASS` |
-| **Compilación Next.js 16** | 32 rutas de producción generadas de forma estática y dinámica | `CLEAN BUILD` |
+| **Pruebas Automatizadas** | 290 pruebas (236 Jest en 33 suites + 54 Pytest en 17 módulos) | `100% PASS` |
+| **Compilación Next.js 16** | 35 rutas de producción generadas de forma estática y dinámica | `CLEAN BUILD` |
 | **Rigor de Tipado** | TypeScript modo estricto en toda la base de código | `0 ERRORES` |
 | **Licenciamiento** | Código abierto bajo Licencia MIT con atribución CC BY 4.0 | `CERTIFICADO` |
 | **Soberanía & Costo Cloud** | 0 dependencias pagas obligatorias, SQLite WAL + IndexedDB offline | `RESILIENTE` |

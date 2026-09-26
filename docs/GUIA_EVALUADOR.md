@@ -15,11 +15,11 @@ Esta guía proporciona a los miembros del comité técnico evaluador y jurados d
 | :--- | :---: | :--- | :--- | :---: |
 | **1. Complejidad Técnica** | **20%** | WebGIS 3 Niveles ([`VenezuelaStateMapInner.tsx`](../src/components/gis/VenezuelaStateMapInner.tsx)), Radar SAR ([`sarRadarService.ts`](../src/lib/geo/sarRadarService.ts)), Shoelace WGS84 ([`spatialUtils.ts`](../src/lib/geo/spatialUtils.ts)), Saxton-Rawls ([`pedotransferEngine.ts`](../src/lib/agronomy/pedotransferEngine.ts)), Oráculo MRV ([`risk_and_carbon_engine.py`](../backend/src/risk_and_carbon_engine.py)) | [`spatial.test.ts`](../__tests__/api/spatial.test.ts)<br>[`pedotransfer.test.ts`](../__tests__/agronomy/pedotransfer.test.ts)<br>[`test_risk_and_carbon.py`](../backend/tests/test_risk_and_carbon.py) | [Ver Detalle ↓](#criterio-1) |
 | **2. Originalidad e Innovación** | **20%** | Prescripción Química Kamprath/Dolomita/Yeso ([`spatialUtils.ts`](../src/lib/geo/spatialUtils.ts)), Dual-Mode UI ([`UIModeContext.tsx`](../src/lib/context/UIModeContext.tsx), [`FarmerModeToggle.tsx`](../src/components/layout/FarmerModeToggle.tsx)), Maquinaria VRA ([`machineryExporter.ts`](../src/lib/geo/machineryExporter.ts)) | [`soils.test.ts`](../__tests__/api/soils.test.ts)<br>[`recomendaciones.test.ts`](../__tests__/api/recomendaciones.test.ts)<br>[`machinery-exporter.test.ts`](../__tests__/api/machinery-exporter.test.ts) | [Ver Detalle ↓](#criterio-2) |
-| **3. Claridad y Estructura** | **15%** | Next.js 16 Turbopack (32 rutas), Tour Demo Interactivo ([`postulacion/page.tsx`](../src/app/dashboard/postulacion/page.tsx)), OpenAPI 3.0 ([`main.py`](../backend/src/main.py)), KaTeX | [`routing-and-redirects.test.ts`](../__tests__/api/routing-and-redirects.test.ts)<br>[`security-and-dossier.test.ts`](../__tests__/api/security-and-dossier.test.ts)<br>[`native-gis-lifecycle.test.ts`](../__tests__/api/native-gis-lifecycle.test.ts) | [Ver Detalle ↓](#criterio-3) |
+| **3. Claridad y Estructura** | **15%** | Next.js 16 Turbopack (35 rutas), Tour Demo Interactivo ([`postulacion/page.tsx`](../src/app/dashboard/postulacion/page.tsx)), OpenAPI 3.0 ([`main.py`](../backend/src/main.py)), KaTeX | [`routing-and-redirects.test.ts`](../__tests__/api/routing-and-redirects.test.ts)<br>[`security-and-dossier.test.ts`](../__tests__/api/security-and-dossier.test.ts)<br>[`native-gis-lifecycle.test.ts`](../__tests__/api/native-gis-lifecycle.test.ts) | [Ver Detalle ↓](#criterio-3) |
 | **4. Resultados, Discusión y Conclusiones** | **20%** | Escenarios Turén / Calabozo, Costeo ROI Desacoplado ([`roiCostEngine.ts`](../src/lib/agronomy/roiCostEngine.ts), [`ImpactRoiWidget.tsx`](../src/components/agronomy/ImpactRoiWidget.tsx)), Cuarentena HTTP 409 ([`ParcelConflictModal.tsx`](../src/components/tierras/ParcelConflictModal.tsx)) | [`roiCostEngine.test.ts`](../__tests__/agronomy/roiCostEngine.test.ts)<br>[`ImpactRoiWidget.test.ts`](../__tests__/agronomy/ImpactRoiWidget.test.ts)<br>[`parcels-conflict.test.ts`](../__tests__/api/parcels-conflict.test.ts) | [Ver Detalle ↓](#criterio-4) |
 | **5. Aporte General y Social** | **20%** | Modo Productor Fácil (4 Puertas), Voz Web Speech Nativa, Parser Vernáculo ([`vernacularParser.ts`](../src/lib/farmer/vernacularParser.ts)), Resiliencia 2G ([`fieldDiaryStorage.ts`](../src/lib/diary/fieldDiaryStorage.ts)) | [`vernacular-parser.test.ts`](../__tests__/api/vernacular-parser.test.ts)<br>[`farmer-ux-and-intentions.test.ts`](../__tests__/api/farmer-ux-and-intentions.test.ts)<br>[`parcels-and-diary.test.ts`](../__tests__/api/parcels-and-diary.test.ts) | [Ver Detalle ↓](#criterio-5) |
 | **6. Aporte a MapBiomas Venezuela** | **5%** | Operacionalización de Colección 3.0 (1985–2024) para Maquinaria ([`mapbiomasTrajectory.ts`](../src/lib/geo/mapbiomasTrajectory.ts), [`mapbiomas_analyzer.py`](../backend/src/mapbiomas_analyzer.py)) y Validación de Campo | [`mapbiomas-discrepancy-and-pedagogy.test.ts`](../__tests__/api/mapbiomas-discrepancy-and-pedagogy.test.ts)<br>[`test_mapbiomas_discrepancy.py`](../backend/tests/test_mapbiomas_discrepancy.py) | [Ver Detalle ↓](#criterio-6) |
-| **Total Ponderado Oficial** | **100%** | **Sustentado en 278 Pruebas Automatizadas (224 Jest + 54 Pytest) y Licencia MIT** | `npm run test:all` | [Verificación ↓](#rigor-tecnico) |
+| **Total Ponderado Oficial** | **100%** | **Sustentado en 290 Pruebas Automatizadas (236 Jest + 54 Pytest) y Licencia MIT** | `npm run test:all` | [Verificación ↓](#rigor-tecnico) |
 
 ---
 
@@ -82,7 +82,7 @@ Esta guía proporciona a los miembros del comité técnico evaluador y jurados d
 
 ### 🏛️ Arquitectura Limpia y Rendimiento WebGIS:
 1. **Next.js 16 App Router con Turbopack**:
-   - 32 rutas de producción generadas de forma limpia (0 warnings de compilación).
+   - 35 rutas de producción generadas de forma limpia (0 warnings de compilación).
    - Test suite de enrutamiento: [`__tests__/api/routing-and-redirects.test.ts`](../__tests__/api/routing-and-redirects.test.ts)
 2. **Ciclo de Vida Leaflet Seguro**:
    - Implementación pura con Leaflet nativo (`L.map`) encapsulado en `useRef` para prevenir fugas de memoria y pantallas blancas en React 19:
@@ -164,12 +164,12 @@ Esta guía proporciona a los miembros del comité técnico evaluador y jurados d
 <a id="rigor-tecnico"></a>
 ## 7. Rigor Científico, Testing y Reproducibilidad Experimental
 
-### 🧪 Verificación Automatizada Inmediata (278 Tests Pasando al 100%):
+### 🧪 Verificación Automatizada Inmediata (290 Tests Pasando al 100%):
 
 La solidez técnica del proyecto no se fundamenta en afirmaciones declarativas, sino en una **batería de pruebas automatizadas reproducibles** que cualquier miembro del jurado puede ejecutar localmente tras clonar el repositorio:
 
 ```bash
-# 1. Ejecutar las 224 pruebas unitarias y de integración de Frontend (Jest)
+# 1. Ejecutar las 236 pruebas unitarias y de integración de Frontend (Jest)
 npm test
 
 # 2. Generar el reporte categorizado por subsistemas
@@ -181,7 +181,7 @@ npm run test:backend
 # 4. Verificación de Tipos TypeScript (0 errores obligatorios)
 npm run typecheck
 
-# 5. Compilación de Producción Next.js 16 Turbopack (32 rutas limpias)
+# 5. Compilación de Producción Next.js 16 Turbopack (35 rutas limpias)
 npm run build
 ```
 
