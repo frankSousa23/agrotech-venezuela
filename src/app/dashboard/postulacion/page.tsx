@@ -169,6 +169,8 @@ export default function PostulacionPage() {
           <img 
             src="/images/flujo_inteligencia_agricola.png" 
             alt="Flujo de Trabajo de Inteligencia Agrícola de Precisión - Agrotech Venezuela"
+            loading="lazy"
+            decoding="async"
             style={{
               width: '100%',
               height: 'auto',
@@ -180,7 +182,7 @@ export default function PostulacionPage() {
       </section>
 
       {/* 💰 Sección 1: Viabilidad Comercial, Impacto Económico & Modelos de Negocio B2B */}
-      <section className={styles.section} style={{ border: '1px solid rgba(34, 197, 94, 0.3)', background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(20, 83, 45, 0.15))' }}>
+      <section id="impacto-economico" className={styles.section} style={{ border: '1px solid rgba(34, 197, 94, 0.3)', background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(20, 83, 45, 0.15))' }}>
         <div className={styles.sectionHeader}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span className="badge-pill badge-emerald">

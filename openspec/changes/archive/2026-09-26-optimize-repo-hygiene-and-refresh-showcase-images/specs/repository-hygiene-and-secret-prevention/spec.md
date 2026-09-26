@@ -1,10 +1,6 @@
-# repository-hygiene-and-secret-prevention Specification
+# Spec Delta
 
-## Purpose
-
-Establishes strict repository hygiene rules, universal environment file exclusions, and automated scanning to permanently prevent secrets, certificates, and binary artifacts from entering Git history.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Universal Environment and Secret Patterns in Gitignore
 The project repository SHALL configure `.gitignore` with broad wildcard patterns that prevent staging any environment file, cryptographic key, digital certificate, database credential, package manager token, or intermediate multimedia render artifacts (`slides_png/`, `*.webm`, `*.mov`, `*.tmp`, `*.bak`).
@@ -21,16 +17,11 @@ The project repository SHALL configure `.gitignore` with broad wildcard patterns
 - **WHEN** a script generates intermediate slide frames in `slides_png/` or creates local `*.webm`/`*.mov` renders
 - **THEN** Git ignores the folder and media files by default, preventing repository bloat while preserving local generation capability.
 
+## ADDED Requirements
+
 ### Requirement: Redundant Binary Asset Purge
 The repository SHALL maintain zero unreferenced binary asset duplicates, ensuring all documentation and web pages reference a single canonical asset path and eliminating redundant clones.
 
 #### Scenario: Referencing Precision Agriculture Workflow Diagram
 - **WHEN** documentation pages or frontend views display the 5-stage precision agriculture workflow infographic
 - **THEN** they reference the single canonical asset `public/images/flujo_inteligencia_agricola.png` with zero orphaned `.jpg` duplicate files remaining in the repository tree.
-
-### Requirement: Automated Secret Scanning in Continuous Integration
-The continuous integration pipeline SHALL execute an automated secret-scanning audit step on all pushes and pull requests to block commits containing sensitive strings.
-
-#### Scenario: Pull request with hardcoded secret
-- **WHEN** a pull request or branch push contains high-entropy API keys or private credentials
-- **THEN** the CI workflow fails the build and flags the offending commit before merging to `main`.

@@ -59,3 +59,8 @@ env/
 *.sqlite3
 backend/agrotech_spatial_cache.db*
 *.mp4
+*.webm
+*.mov
+slides_png/
+*.tmp
+*.bak
