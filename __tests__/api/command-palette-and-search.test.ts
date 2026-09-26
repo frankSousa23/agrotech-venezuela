@@ -95,6 +95,48 @@ describe('🔍 Command Palette & Omnibox Search Engine', () => {
     expect(stateNames).toContain('Guárico');
   });
 
+  test('debe indexar polos agrícolas estratégicos venezolanos (Turén, Calabozo, Quíbor, Sur del Lago)', () => {
+    const polesCatalog = [
+      { title: '🇻🇪 Turén (Portuguesa)', subtitle: 'Granero de Venezuela • Maíz blanco/amarillo, ajonjolí y suelos aluviales' },
+      { title: '🇻🇪 Calabozo (Guárico)', subtitle: 'Sistema de Riego del Río Guárico • Principal polo arrocero y vertisoles' },
+      { title: '🇻🇪 Valle de Quíbor (Lara)', subtitle: 'Polo hortícola • Cebolla, tomate, pimentón y suelos alcalino-sódicos' },
+      { title: '🇻🇪 Sur del Lago (Zulia)', subtitle: 'Cuenca lechera • Plátano, palma aceitera y cacao Criollo Porcelana' },
+    ];
+
+    const resTuren = searchItems('turen', polesCatalog);
+    expect(resTuren.length).toBe(1);
+    expect(resTuren[0].title).toContain('Turén');
+
+    const resQuibor = searchItems('quibor', polesCatalog);
+    expect(resQuibor.length).toBe(1);
+    expect(resQuibor[0].subtitle).toContain('alcalino-sódicos');
+
+    const resCalabozo = searchItems('arrocero', polesCatalog);
+    expect(resCalabozo.length).toBe(1);
+    expect(resCalabozo[0].title).toContain('Calabozo');
+  });
+
+  test('debe indexar módulos de documentación, manuales y perfiles de suelo', () => {
+    const extendedModules = [
+      { title: '📘 Manual de Usuario & Guías de Campo', subtitle: '10 Capítulos ilustrados' },
+      { title: '🏆 Ficha de Postulación MapBiomas', subtitle: '40 años de cobertura y madurez TRL 4' },
+      { title: '🔬 Perfiles Edafológicos & Muestras', subtitle: 'Química del suelo, pH y materia orgánica' },
+      { title: '📄 Documentación Swagger OpenAPI 3.0', subtitle: 'Especificación técnica de endpoints REST' }
+    ];
+
+    const resManual = searchItems('manual', extendedModules);
+    expect(resManual.length).toBe(1);
+    expect(resManual[0].title).toContain('Manual de Usuario');
+
+    const resSuelos = searchItems('edafologicos', extendedModules);
+    expect(resSuelos.length).toBe(1);
+    expect(resSuelos[0].title).toContain('Perfiles Edafológicos');
+
+    const resSwagger = searchItems('swagger', extendedModules);
+    expect(resSwagger.length).toBe(1);
+    expect(resSwagger[0].title).toContain('Swagger OpenAPI');
+  });
+
   test('debe manejar consultas vacías o con espacios sin lanzar excepciones', () => {
     const emptyQuery = searchItems('   ', toolsCatalog);
     expect(emptyQuery.length).toBe(toolsCatalog.length);

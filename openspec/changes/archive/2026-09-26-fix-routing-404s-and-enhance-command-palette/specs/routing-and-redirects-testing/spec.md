@@ -1,10 +1,6 @@
-# routing-and-redirects-testing Specification
+# Spec Delta: routing-and-redirects-testing
 
-## Purpose
-
-Tests Next.js routing configuration, friendly aliases, and OpenAPI documentation endpoint validation.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Redirect Resolution
 The test suite SHALL verify that routing redirects defined in `next.config.ts` correctly point aliases (`/mapa`, `/mapas`, `/docs`, `/swagger`, `/dashboard/visor`, `/visor`, `/dashboard/costos`, `/costos`, `/registro`, `/login`, and root module shortcuts) to their canonical paths.
@@ -20,6 +16,8 @@ The test suite SHALL verify that routing redirects defined in `next.config.ts` c
 #### Scenario: Redirecting legacy registration path
 - **WHEN** user requests "/registro"
 - **THEN** response redirects to "/auth/register".
+
+## ADDED Requirements
 
 ### Requirement: Branded Custom 404 Experience
 The system SHALL provide a branded `src/app/not-found.tsx` with AgroTech glassmorphism design, navigation recovery options, and a direct trigger for the global search palette.

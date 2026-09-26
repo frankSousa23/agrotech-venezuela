@@ -1,10 +1,6 @@
-# command-palette-and-quick-jump Specification
+# Spec Delta: command-palette-and-quick-jump
 
-## Purpose
-
-Provides a global command palette triggered by keyboard shortcut or top navbar button to enable fast searching and direct navigation across states, crops, parcels, and tools.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Global Command Palette Interaction
 The system SHALL provide a modal dialog accessible via `Ctrl+K` (or `Cmd+K`), an omnibar trigger button in the desktop utility bar, a dedicated mobile search trigger button in the mobile navigation bar, and an open event dispatcher. The modal overlay MUST be rendered using React Portal mounted directly to `document.body` to guarantee unconstrained viewport positioning and prevent occlusion by parent stacking contexts or backdrop filters.
@@ -24,6 +20,8 @@ The system SHALL provide a modal dialog accessible via `Ctrl+K` (or `Cmd+K`), an
 #### Scenario: Unobstructed Overlay Rendering Over Map Panes
 - **WHEN** the command palette is opened while on `/dashboard/mapa` with active Leaflet layers and controls
 - **THEN** the modal backdrop and dialog render strictly above all Leaflet map panes, control containers, and drawers.
+
+## ADDED Requirements
 
 ### Requirement: Categorized Filtering and Expanded Agricultural Catalog
 The system SHALL index all primary platform modules (including Manual, Postulación, Arquitectura, Swagger API Docs, Suelos), key Venezuelan agricultural poles (including Turén, Calabozo, Quíbor, Santa Bárbara del Zulia), and provide category filtering chips.

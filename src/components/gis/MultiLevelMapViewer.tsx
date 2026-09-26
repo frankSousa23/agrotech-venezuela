@@ -1277,7 +1277,7 @@ export default function MultiLevelMapViewer({
               gap: '6px'
             }}>
               <span>🧪 <b>Modo Invitado (Sandbox):</b> Explora libremente la delimitación.</span>
-              <Link href="/registro" style={{ color: '#fbbf24', fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>
+              <Link href="/auth/register" style={{ color: '#fbbf24', fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>
                 Registrar
               </Link>
             </div>

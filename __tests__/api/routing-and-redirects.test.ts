@@ -55,6 +55,57 @@ describe('🔀 Next.js 16 Routing, Aliases & Redirects Configuration', () => {
     }
   });
 
+  test('debe redirigir /visor y /dashboard/visor hacia /dashboard/mapa', async () => {
+    if (nextConfig.redirects) {
+      const redirects = await nextConfig.redirects();
+      const visor = redirects.find(r => r.source === '/visor');
+      const dVisor = redirects.find(r => r.source === '/dashboard/visor');
+
+      expect(visor?.destination).toBe('/dashboard/mapa');
+      expect(dVisor?.destination).toBe('/dashboard/mapa');
+    }
+  });
+
+  test('debe redirigir /costos y /dashboard/costos hacia /dashboard/tierras', async () => {
+    if (nextConfig.redirects) {
+      const redirects = await nextConfig.redirects();
+      const costos = redirects.find(r => r.source === '/costos');
+      const dCostos = redirects.find(r => r.source === '/dashboard/costos');
+
+      expect(costos?.destination).toBe('/dashboard/tierras');
+      expect(dCostos?.destination).toBe('/dashboard/tierras');
+    }
+  });
+
+  test('debe redirigir rutas de autenticación /registro, /register y /login', async () => {
+    if (nextConfig.redirects) {
+      const redirects = await nextConfig.redirects();
+      const reg1 = redirects.find(r => r.source === '/registro');
+      const reg2 = redirects.find(r => r.source === '/register');
+      const log1 = redirects.find(r => r.source === '/login');
+
+      expect(reg1?.destination).toBe('/auth/register');
+      expect(reg2?.destination).toBe('/auth/register');
+      expect(log1?.destination).toBe('/auth/login');
+    }
+  });
+
+  test('debe redirigir atajos de nivel raíz hacia sus rutas correspondientes en /dashboard', async () => {
+    if (nextConfig.redirects) {
+      const redirects = await nextConfig.redirects();
+      const rootModules = [
+        'tierras', 'bitacora', 'recomendaciones', 'suelos',
+        'cultivos', 'iot', 'estadisticas', 'admin', 'manual', 'postulacion', 'arquitectura'
+      ];
+
+      rootModules.forEach(mod => {
+        const found = redirects.find(r => r.source === `/${mod}`);
+        expect(found).toBeDefined();
+        expect(found?.destination).toBe(`/dashboard/${mod}`);
+      });
+    }
+  });
+
   test('debe validar la existencia y consistencia de las 7 rutas maestras del ecosistema', () => {
     const coreRoutes = [
       '/dashboard',

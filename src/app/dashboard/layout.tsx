@@ -37,7 +37,8 @@ import {
   Building2,
   UserPlus,
   Leaf,
-  HelpCircle
+  HelpCircle,
+  Search
 } from 'lucide-react';
 
 interface NavItem {
@@ -127,6 +128,30 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
           </Link>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <button
+            type="button"
+            onClick={() => {
+              if (typeof window !== 'undefined') {
+                window.dispatchEvent(new CustomEvent('open-command-palette'));
+              }
+            }}
+            style={{
+              background: 'rgba(56, 189, 248, 0.15)',
+              border: '1px solid rgba(56, 189, 248, 0.4)',
+              color: '#38bdf8',
+              width: '32px',
+              height: '32px',
+              borderRadius: '6px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer'
+            }}
+            title="Buscar en AgroTech (Ctrl + K)"
+            aria-label="Abrir buscador en AgroTech"
+          >
+            <Search size={16} />
+          </button>
           <button
             type="button"
             onClick={() => setIntentionsOpen(true)}

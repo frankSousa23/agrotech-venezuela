@@ -49,4 +49,35 @@ describe('Recommendations & Liming Engine Tests', () => {
     const regionalPoolGrossUsd = Math.round(annualCo2eHa * 5000 * creditPriceUsd);
     expect(regionalPoolGrossUsd).toBeGreaterThan(200000); // > $200k USD/año transables
   });
+
+  it('GET /api/recomendaciones debe retornar la matriz de compatibilidad cultivo-suelo', async () => {
+    const { GET: getRecs } = await import('@/app/api/recomendaciones/route');
+    const res = await getRecs();
+    expect(res.status).toBe(200);
+    const data = await res.json();
+    expect(Array.isArray(data)).toBe(true);
+    expect(data.length).toBeGreaterThanOrEqual(4);
+    const maiz = data.find((c: any) => c.cropId === 'maiz');
+    expect(maiz).toBeDefined();
+    expect(maiz.optimalPhRange).toEqual([5.8, 6.8]);
+  });
+
+  it('GET /api/export/stats debe generar una exportación válida en CSV y JSON', async () => {
+    const { GET: getStats } = await import('@/app/api/export/stats/route');
+    
+    // Test CSV format
+    const resCsv = await getStats(new Request('http://localhost/api/export/stats?format=csv'));
+    expect(resCsv.status).toBe(200);
+    expect(resCsv.headers.get('Content-Type')).toContain('text/csv');
+    const textCsv = await resCsv.text();
+    expect(textCsv).toContain('Nombre_Lote');
+    expect(textCsv).toContain('Turén');
+
+    // Test JSON format
+    const resJson = await getStats(new Request('http://localhost/api/export/stats?format=json'));
+    expect(resJson.status).toBe(200);
+    const dataJson = await resJson.json();
+    expect(dataJson.totalProfiles).toBeGreaterThanOrEqual(5);
+    expect(Array.isArray(dataJson.soils)).toBe(true);
+  });
 });
