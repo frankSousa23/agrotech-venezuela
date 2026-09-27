@@ -58,6 +58,9 @@ export default function PostulacionPage() {
           <span className="badge-pill badge-cyan" style={{ border: '1px solid rgba(56, 189, 248, 0.4)', color: '#38bdf8' }}>
             <Compass size={13} /> Tour Demo 5 Pasos Disponible
           </span>
+          <span className="badge-pill badge-emerald" style={{ border: '1px solid rgba(74, 222, 128, 0.4)', color: '#4ade80' }}>
+            <Sparkles size={13} /> Memoria Creativa & Estándares PDF
+          </span>
         </div>
 
         <h1 className={styles.title}>
@@ -101,6 +104,14 @@ export default function PostulacionPage() {
             >
               <FileText size={15} /> Memorando Oficial (PDF)
             </a>
+            <Link 
+              href="/docs/PROCESO_CREATIVO_Y_MEMORIA_DE_INGENIERIA.md" 
+              target="_blank"
+              className="btn-secondary"
+              style={{ borderColor: 'rgba(74, 222, 128, 0.4)', color: '#4ade80', fontSize: '0.8rem', padding: '6px 12px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+            >
+              <BookOpen size={15} /> Memoria de Autor & Estándares PDF
+            </Link>
             <Link 
               href="/api-docs" 
               className="btn-secondary"
@@ -511,6 +522,51 @@ export default function PostulacionPage() {
               <a 
                 href="/docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md" 
                 download="DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md"
+                className="btn-primary" 
+                style={{ fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+              >
+                <Download size={14} /> Descargar
+              </a>
+            </div>
+          </div>
+
+          {/* Tarjeta 6: Memoria del Proceso Creativo & Estándares PDF */}
+          <div style={{
+            background: 'rgba(15, 23, 42, 0.75)',
+            border: '1px solid rgba(74, 222, 128, 0.35)',
+            borderRadius: '12px',
+            padding: '1.25rem',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            gap: '0.8rem'
+          }}>
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                <span style={{ fontSize: '0.72rem', background: 'rgba(34, 197, 94, 0.2)', color: '#4ade80', padding: '2px 8px', borderRadius: '6px', fontWeight: 700 }}>
+                  Memoria de Autor & Formatos PDF
+                </span>
+                <Sparkles size={16} color="#4ade80" />
+              </div>
+              <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#fff', margin: '0 0 0.4rem 0' }}>
+                Memoria Creativa & Estándares de Compilación PDF
+              </h3>
+              <p style={{ fontSize: '0.82rem', color: '#94a3b8', margin: 0, lineHeight: 1.4 }}>
+                La voz humana de Frank Sousa como desarrollador único: génesis académica con la cátedra de edafología (UNERG), certificado oficial en MapBiomas (40 años), producción vegetal y pasturas, forja rigurosa en Antigravity (292 tests), evolución IoT desde ensayos con Arduino hacia grandes cosechas, y directrices PDF (ISO A4, 15mm, 300 DPI).
+              </p>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Link 
+                href="/docs/PROCESO_CREATIVO_Y_MEMORIA_DE_INGENIERIA.md" 
+                target="_blank"
+                className="btn-secondary" 
+                style={{ flex: 1, justifyContent: 'center', fontSize: '0.78rem', padding: '6px 10px' }}
+              >
+                <FileText size={14} /> Ver Memoria
+              </Link>
+              <a 
+                href="/docs/PROCESO_CREATIVO_Y_MEMORIA_DE_INGENIERIA.md" 
+                download="PROCESO_CREATIVO_Y_MEMORIA_DE_INGENIERIA.md"
                 className="btn-primary" 
                 style={{ fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
               >

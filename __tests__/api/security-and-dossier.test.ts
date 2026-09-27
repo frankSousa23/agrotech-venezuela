@@ -178,6 +178,29 @@ describe('Security Hardening, Guest Sandbox Isolation & Award Dossier Suite', ()
           expect(content).toContain('NASA');
           expect(content).toContain('MapBiomas');
           expect(content).toContain('CC BY 4.0');
+          expect(content).toContain('PROCESO_CREATIVO_Y_MEMORIA_DE_INGENIERIA.md');
+
+          // Verifica la existencia, tamaño y términos de la Memoria del Proceso Creativo & Estándares PDF
+          const memoirPath = path.join(publicDocsDir, 'PROCESO_CREATIVO_Y_MEMORIA_DE_INGENIERIA.md');
+          expect(fs.existsSync(memoirPath)).toBe(true);
+          const memoirStats = fs.statSync(memoirPath);
+          expect(memoirStats.size).toBeGreaterThan(4000); // Supera holgadamente los 4 KB
+          const memoirContent = fs.readFileSync(memoirPath, 'utf8');
+          expect(memoirContent).toContain('Frank Sousa');
+          expect(memoirContent).toContain('Antigravity');
+          expect(memoirContent).toContain('Gemini');
+          expect(memoirContent).toContain('Google Maps');
+          expect(memoirContent).toContain('Sentinel-1');
+          expect(memoirContent).toContain('292');
+          expect(memoirContent).toContain('ISO A4');
+          expect(memoirContent).toContain('15 mm');
+
+          // Hitos humanos, académicos e IoT agregados
+          expect(memoirContent.toLowerCase()).toContain('edafología');
+          expect(memoirContent.toLowerCase()).toContain('certificado');
+          expect(memoirContent.toLowerCase()).toContain('producción vegetal');
+          expect(memoirContent).toContain('Arduino');
+          expect(memoirContent.toLowerCase()).toContain('desarrollador único');
         }
       });
     });

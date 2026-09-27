@@ -251,6 +251,7 @@ Los 7 documentos oficiales compilados del expediente pueden leerse directamente 
 | **Pitch Deck Ejecutivo de Presentación** | PDF Compilado | 12 diap. | [📊 Ver Pitch Deck](docs/mapbiomas_premio_2026/Pitch_Deck_Agrotech_Venezuela_2026.pdf) |
 | **Guía del Postulante & Metodología** | PDF Compilado | 6 págs | [📖 Leer Guía de Postulación](docs/mapbiomas_premio_2026/Guia_Postulacion_MapBiomas_2026.pdf) |
 | **Anexo I — Declaración Jurada de Autoría y Licenciamiento** | PDF Firmado | 2 págs | [✍️ Ver Declaración Jurada](docs/mapbiomas_premio_2026/Anexo_I_Declaracion_Jurada_Frank_Sousa.pdf) |
+| **Memoria Creativa & Estándares PDF** | Markdown / PDF | ~12 págs | [🌾 Leer Memoria de Autor](docs/PROCESO_CREATIVO_Y_MEMORIA_DE_INGENIERIA.md) |
 
 *(El expediente también cuenta con versiones editables en Markdown dentro de [`docs/mapbiomas_premio_2026/`](docs/mapbiomas_premio_2026/) y un hub interactivo en la app local en `/dashboard/postulacion`).*
 
@@ -278,4 +279,5 @@ Agrotech Venezuela opera bajo normativas internacionales de acceso abierto y pol
 - **Modelos Edafológicos y Geodésicos**: Kamprath, Saxton-Rawls (USDA/ARS), Shoelace WGS84 e IPCC Tier 2 / Verra VCS (Dominio público científico).
 - **Inteligencia Artificial Contextual**: Google Gemini 1.5 Flash bajo **Google AI Studio Terms of Service** (Free Tier).
 
-👉 *Consulte el documento canónico integral de gobernanza, flujo de datos y proceso creativo:* **[Gobernanza de Datos, Procedencia Tecnológica y Marco Legal (docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md)](docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md)**.
+👉 *Consulte el documento canónico integral de gobernanza, flujo de datos y procedencia legal:* **[Gobernanza de Datos, Procedencia Tecnológica y Marco Legal (docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md)](docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md)**.  
+👉 *Consulte la memoria íntima de ingeniería, proceso creativo con Gemini en Antigravity y parámetros técnicos de compilación PDF:* **[Memoria del Proceso Creativo y Estándares PDF (docs/PROCESO_CREATIVO_Y_MEMORIA_DE_INGENIERIA.md)](docs/PROCESO_CREATIVO_Y_MEMORIA_DE_INGENIERIA.md)**.

@@ -64,6 +64,8 @@
 - **Base Jurídica**: Licencia **Creative Commons Atribución 4.0 Internacional (CC BY 4.0)**.
 - **Atribución Formal Requerida**:
   > *"Datos de cobertura y uso del suelo provistos por MapBiomas Venezuela (Colección 3.0, 1985–2024), iniciativa desarrollada por Provita, el Laboratorio de Sensores Remotos y SIG de la Universidad Simón Bolívar (LSIGMA USB), Asociación Civil Wataniba y la Red Amazónica de Información Socioambiental Georreferenciada (RAISG) — https://venezuela.mapbiomas.org/."*
+- **Acreditación y Capacitación Oficial del Autor**:
+  El autor principal, Frank Alfonso Sousa Mota, participó y completó satisfactoriamente el taller oficial de capacitación sobre la plataforma MapBiomas Venezuela, obteniendo el **certificado oficial de asistencia** expedido por los coordinadores de la iniciativa. Esta capacitación directa respalda la idoneidad metodológica del procesamiento de las capas históricas de 40 años (1985–2024) y su integración computacional soberana en Agrotech Venezuela como desarrollador único.
 - **Justificación y Uso Técnico**:
   Agrotech supera el uso meramente descriptivo de MapBiomas. Convierte 40 años de transiciones ecológicas en **diagnósticos edáficos cuantitativos**:
   - Si una parcela clasificada como *Pastura* durante 15 años es rotada a *Agricultura Anual (Maíz)* en 2024, el algoritmo detecta un alto riesgo de **piso de arado y compactación por pisoteo de ganado**, emitiendo una recomendación de descompactación mecánica (subsolador a 40 cm) previa a la siembra.
@@ -190,6 +192,14 @@ El autor declara solemnemente que toda la información satelital, meteorológica
 1. Respeta las atribuciones, términos de servicio y legislaciones de las agencias espaciales e instituciones de investigación originarias (ESA Copernicus, NASA, Red MapBiomas Venezuela).
 2. Es 100% reproducible en cualquier computadora estándar mediante comandos documentados y código abierto alojado en GitHub.
 3. Se somete íntegramente al veredicto técnico y la evaluación del Comité Calificador del **Premio MapBiomas Venezuela 2026**.
+
+---
+
+## 🌾 6. Memoria Creativa y Estándares de Compilación PDF
+
+Para profundizar en la dimensión humana del proyecto, la génesis académica vinculada a la cátedra de edafología, la acreditación oficial del autor en el taller MapBiomas, el rol soberano del desarrollador único (filtrando, moldeando y podando sugerencias de la IA), la evolución IoT desde ensayos con Arduino hacia grandes cosechas, y la especificación técnica de parámetros de compilación de documentos PDF oficiales (ISO A4, 15mm, CSS anticorte de página y renderizado 300 DPI):
+
+👉 **[Consulte la Memoria de Ingeniería y Proceso Creativo Completa (docs/PROCESO_CREATIVO_Y_MEMORIA_DE_INGENIERIA.md)](PROCESO_CREATIVO_Y_MEMORIA_DE_INGENIERIA.md)**.
 
 <div style="margin-top: 25px;">
   <p><strong>Frank Alfonso Sousa Mota</strong><br>
