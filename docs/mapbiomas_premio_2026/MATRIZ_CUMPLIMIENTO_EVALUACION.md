@@ -4,7 +4,7 @@
 **Postulante y Desarrollador Principal**: Frank Alfonso Sousa Mota (Ing. en Informática, UNERG 2025 — San Juan de los Morros, Estado Guárico, Venezuela)  
 **Contacto Institucional**: [frankalfonso1988@gmail.com](mailto:frankalfonso1988@gmail.com) | [LinkedIn](https://linkedin.com/in/frank-alfonso-sousa-mota-32ba9971) | [GitHub: @frankSousa23](https://github.com/frankSousa23)  
 **Categoría de Postulación**: **Categoría General** (Artículo Técnico / Software Libre y Plataformas Espaciales)  
-**Nivel de Madurez Tecnológica**: **TRL 4** (Prototipo Funcional de Software Validado en Entorno de Desarrollo y Simulación Local mediante 290 Pruebas Automatizadas)  
+**Nivel de Madurez Tecnológica**: **TRL 4** (Prototipo Funcional de Software Validado en Entorno de Desarrollo y Simulación Local mediante 292 Pruebas Automatizadas)  
 **Licenciamiento**: MIT License (Código abierto en GitHub) / CC BY 4.0 (Datos MapBiomas Venezuela)  
 **Fecha de Emisión**: Septiembre 2026  
 
@@ -17,13 +17,13 @@
 
 | Criterio Oficial (Anexo II) | Ponderación Oficial | Evidencias y Funcionalidades Sometidas a Consideración del Jurado |
 | :--- | :---: | :--- |
-| **1. Complejidad Técnica** | **20%** | Integración de 40 años de MapBiomas (Col. 3) + Radar SAR Sentinel-1 Banda C (VV/VH all-weather) + Fórmulas Geodésicas Shoelace WGS84 + Modelo Saxton-Rawls PAW IoT + Oráculo Satelital SAR MRV + **290 Tests Automatizados (236 Jest + 54 Pytest)**. |
+| **1. Complejidad Técnica** | **20%** | Integración de 40 años de MapBiomas (Col. 3) + Radar SAR Sentinel-1 Banda C (VV/VH all-weather) + Fórmulas Geodésicas Shoelace WGS84 + Modelo Saxton-Rawls PAW IoT + Oráculo Satelital SAR MRV + **292 Tests Automatizados (237 Jest + 55 Pytest)**. |
 | **2. Originalidad e Innovación** | **20%** | Primer Gemelo Digital Agronómico venezolano de software libre que transforma series históricas en prescripciones edáficas cuantitativas con IA prescriptiva (Kamprath modificado, cal dolomítica y yeso agrícola), agregación *Carbon Pooling* y arquitectura *Dual-Mode UI*. |
 | **3. Claridad y Estructura** | **15%** | Arquitectura Next.js 16 con Turbopack (35 rutas limpias), CSS Glassmorphism, Tour Demostrativo guiado en 5 pasos, APIs REST documentadas en OpenAPI/Swagger 3.0 y formulación matemática en LaTeX/KaTeX desplegada en vivo. |
 | **4. Resultados, Discusión y Conclusiones** | **20%** | Modelado computacional de escenarios agrícolas representativos (Turén en maíz y Calabozo en arroz), proyectando un potencial de ROI rural estimado de hasta 3.8x, con estimación prospectiva de carbono orgánico (IPCC Tier 2) y oráculo SAR que reduce la incertidumbre al 10%. |
 | **5. Aporte General y Social** | **20%** | Democratización tecnológica para el pequeño agricultor sin costo, interfaz rural campesina gobernada por voz y dialecto criollo (*Modo Productor Fácil*), resiliencia offline en redes 2G/EDGE (QoS 2 canales) y alineación con ODS 1, 2, 12, 13 y 15. |
 | **6. Aporte a MapBiomas Venezuela** | **5%** | Puesta en valor operativo de la serie 1985–2024 para decisiones microeconómicas en el surco, verificación de campo de coberturas y exportación tri-modal para maquinaria (Shapefiles VRA, KML y fichas analógicas). |
-| **Total del Baremo Oficial** | **100%** | **Candidatura formalmente sometida con suite completa de 290 pruebas automatizadas aprobadas y código abierto MIT** |
+| **Total del Baremo Oficial** | **100%** | **Candidatura formalmente sometida con suite completa de 292 pruebas automatizadas aprobadas y código abierto MIT** |
 
 ---
 
@@ -37,7 +37,7 @@
   3. **Pedocalibración Dinámica Edafológica Saxton-Rawls & Sandbox IoT BYOD**: Estimación de Agua Disponible (PAW) calibrada regionalmente para texturas arenosas (θ_crit = 9,0%), francas (θ_crit = 20,0%) y arcillosas (θ_crit = 35,0%) con sandbox educativo de experimentación BYOD en `/api/iot/telemetry` (100% software-first, sin exigencia de sensores comerciales obligatorios).
   4. **Motor Hidrotérmico GDD y Evapotranspiración**: Algoritmo de balance hídrico mensual (P − ET_c) acoplado a series agroclimáticas NASA POWER con base térmica 10°C y techo 30°C (`src/lib/geo/hydroThermalEngine.ts`).
   5. **Oráculo Satelital Radar SAR para MRV de Carbono**: Algoritmo en `/api/mrv/sar-oracle` que evalúa rugosidad del dosel (σ°_VH / σ°_VV > −12.0 dB) reduciendo la incertidumbre Verra VCS del 40% al 10%.
-  6. **Respaldo y Certificación de Software**: Suite automatizada de **290 pruebas unitarias y de integración (236 Jest en frontend WebGIS + 54 Pytest en backend espacial y ML, 100% aprobadas)**, con 0 errores de tipado TypeScript.
+  6. **Respaldo y Certificación de Software**: Suite automatizada de **292 pruebas unitarias y de integración (237 Jest en frontend WebGIS + 55 Pytest en backend espacial y ML, 100% aprobadas)**, con 0 errores de tipado TypeScript.
   7. **IA On-Demand & Arquitectura Cero Deuda en la Nube**: Modelo híbrido con Google Gemini 1.5 Flash on-demand (Free Tier de Google AI Studio) para asistencia contextual/vernacular y motores deterministas locales (Kamprath, Shoelace, Saxton-Rawls) resueltos a costo marginal cero ($0.00).
 
 ---
@@ -95,7 +95,7 @@
 
 | Criterio Oficial del Baremo | Ponderación Oficial | Resumen de Evidencias Técnicas Comprobables en el Repositorio |
 | :--- | :---: | :--- |
-| 1. Complejidad Técnica | 20% | 290 tests automatizados (100% OK), radar SAR Sentinel-1, Shoelace WGS84, Saxton-Rawls PAW. |
+| 1. Complejidad Técnica | 20% | 292 tests automatizados (100% OK), radar SAR Sentinel-1, Shoelace WGS84, Saxton-Rawls PAW. |
 | 2. Originalidad e Innovación | 20% | Prescripción edáfica cuantitativa de 40 años (Kamprath/Dolomita/Yeso), Dual-Mode UI y VRA. |
 | 3. Claridad y Estructura | 15% | Next.js 16 Turbopack (35 rutas limpias), OpenAPI 3.0 interactivo, KaTeX y tour de 5 min. |
 | 4. Resultados y Discusión | 20% | Escenarios computacionales Turén/Calabozo, ROI rural desacoplado y oráculo SAR MRV. |

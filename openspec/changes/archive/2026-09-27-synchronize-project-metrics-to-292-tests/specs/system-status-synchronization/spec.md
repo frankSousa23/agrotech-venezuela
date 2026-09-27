@@ -1,10 +1,6 @@
-# system-status-synchronization Specification
+# Spec Delta
 
-## Purpose
-
-Ensures consistent, synchronized project metrics and capabilities across all documentation, guidelines, and technical UI surfaces of the Agrotech Venezuela platform.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Cross-System Metric Accuracy
 The system and project documentation SHALL consistently reflect the verified quality metrics: TRL 4 maturity (*Prototipo Funcional de Software en Entorno de Desarrollo Local*), Categoría General postulation, **292 automated tests passing (237 Jest + 55 Pytest across 33 test suites and 17 backend modules)**, **35 clean Next.js 16 production routes**, and 0 TypeScript compilation errors across all public-facing, offline dossier, and in-app technical materials (`README.md`, `DEVELOPING.md`, `AGENTS.md`, `AUDITORIA_GLOBAL_SISTEMA_2026.md`, `PITCH_DECK.md`, `docs/MEMORANDO_POSTULACION.md`, `public/docs/MEMORANDO_POSTULACION.md`, `public/docs/ARTICULO_TECNICO_DRAFT.md`, `public/docs/MATRIZ_CUMPLIMIENTO_EVALUACION.md`, `public/docs/GUIA_POSTULACION.md`, `docs/mapbiomas_premio_2026/POSTULACION_EXPEDIENTE_PREMIO_2026.md`, `docs/mapbiomas_premio_2026/ARTICULO_TECNICO_DRAFT.md`, `docs/mapbiomas_premio_2026/MEMORANDO_POSTULACION.md`, `docs/mapbiomas_premio_2026/PITCH_DECK.md`, `docs/mapbiomas_premio_2026/MATRIZ_CUMPLIMIENTO_EVALUACION.md`, `docs/mapbiomas_premio_2026/GUIA_POSTULACION.md`, `scripts/generate_prize_pdf.py`, and `/dashboard/postulacion`). The documentation SHALL also surface the interactive agronomic manual route (`/dashboard/manual`), the precision agriculture workflow infographic, and the decoupled ROI operational costing for both mechanized and smallholder profiles as part of the platform's featured capabilities.

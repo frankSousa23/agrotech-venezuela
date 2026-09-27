@@ -6,7 +6,7 @@
 [![Next.js 16](https://img.shields.io/badge/Next.js-16%20(Turbopack)-black.svg)](https://nextjs.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-2.0-009688.svg)](https://fastapi.tiangolo.com/)
 [![Python 3.13](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
-[![Tests: 290 Passing](https://img.shields.io/badge/Tests-290%20Passing-brightgreen.svg)]()
+[![Tests: 292 Passing](https://img.shields.io/badge/Tests-292%20Passing-brightgreen.svg)]()
 [![TRL: 4](https://img.shields.io/badge/TRL-4%20(Prototipo%20Funcional)-blue.svg)]()
 [![MapBiomas Col 3.0](https://img.shields.io/badge/MapBiomas-Colección%203.0%20(1985--2024)-amber.svg)](https://venezuela.mapbiomas.org)
 
@@ -122,12 +122,12 @@ Abre **`http://localhost:3000`** en tu navegador para interactuar con la platafo
 
 ---
 
-## 🧪 Calidad de Software & Validación Automatizada (290 Tests)
+## 🧪 Calidad de Software & Validación Automatizada (292 Tests)
 
-El código fuente cuenta con una suite rigurosa de **290 pruebas automatizadas (100% passing)** ejecutadas antes de cada versión:
+El código fuente cuenta con una suite rigurosa de **292 pruebas automatizadas (100% passing)** ejecutadas antes de cada versión:
 
 ```bash
-# Ejecutar verificación completa (236 tests Jest + 54 tests Pytest)
+# Ejecutar verificación completa (237 tests Jest + 55 tests Pytest)
 npm run test:all
 
 # Matriz ejecutiva visual de pruebas (resumen categorizado)
@@ -141,10 +141,10 @@ npm run build
 ```
 
 <details>
-<summary><b>🔍 Ver Desglose Completo de las 290 Pruebas Automatizadas por Subsistema (Clic para expandir)</b></summary>
+<summary><b>🔍 Ver Desglose Completo de las 292 Pruebas Automatizadas por Subsistema (Clic para expandir)</b></summary>
 
 ```text
-▶ SUITE DE FRONTEND WEBGIS, ARQUITECTURA & AGRO-SISTEMAS [Jest (Next.js 16 / React 19) — 236 pruebas en 33 suites]
+▶ SUITE DE FRONTEND WEBGIS, ARQUITECTURA & AGRO-SISTEMAS [Jest (Next.js 16 / React 19) — 237 pruebas en 33 suites]
 ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 
   Agronomía & Física Edafológica
@@ -179,7 +179,7 @@ npm run build
     ✔ PASS  theme-and-contrast.test.ts         │  6 tests │ Accesibilidad visual alto contraste para trabajo bajo sol llanero
     ✔ PASS  routing-and-redirects.test.ts      │ 11 tests │ Enrutamiento resiliente, redirecciones /visor y /costos, export stats y 404
     ✔ PASS  auth.test.ts                       │  9 tests │ Autenticación con roles (Productor, Técnico, Auditor, Jurado)
-    ✔ PASS  security-and-dossier.test.ts       │ 20 tests │ Sanitización de inputs, protección CSRF y descarga de dossier
+    ✔ PASS  security-and-dossier.test.ts       │ 21 tests │ Sanitización de inputs, protección CSRF y descarga de dossier
     ✔ PASS  relations.test.ts                  │  3 tests │ Integridad referencial y relaciones entre entidades del modelo
     ✔ PASS  import-export.test.ts              │  2 tests │ Serialización GeoJSON, CSV y compatibilidad con maquinaria
     ✔ PASS  workflow.test.ts                   │  2 tests │ Flujo extremo a extremo: dibujo ➔ prescripción ➔ exportación
@@ -205,7 +205,7 @@ npm run build
     ✔ PASS  test_gemini_advisor.py             │  2 tests │ Asesor agronómico con Google Gemini API y grounding territorial
 
   Servicios FastAPI, IoT & Resiliencia
-    ✔ PASS  test_api_endpoints.py              │  7 tests │ Enrutamiento REST FastAPI, esquemas Pydantic y OpenAPI 3.0
+    ✔ PASS  test_api_endpoints.py              │  8 tests │ Enrutamiento REST FastAPI, esquemas Pydantic y OpenAPI 3.0
     ✔ PASS  test_cache_manager.py              │  1 tests │ Caché SQLite WAL con hash geodésico a 4 decimales (~11m)
     ✔ PASS  test_iot_manager.py                │  5 tests │ Gestor de telemetría IoT y buffer circular de observaciones
     ✔ PASS  test_viz_and_reports.py            │  3 tests │ Generación de gráficos climáticos y reportes de prescripción
@@ -217,10 +217,10 @@ npm run build
 ================================================================================
    RESUMEN GENERAL DE VERIFICACIÓN Y CALIDAD DE SOFTWARE
 ================================================================================
-   ✔ Frontend WebGIS & Agronomía (Jest):   236 pruebas en 33 suites  [100% OK]
-   ✔ Backend Espacial, ML & SAR (Pytest):  54 pruebas en 17 módulos [100% OK]
+   ✔ Frontend WebGIS & Agronomía (Jest):   237 pruebas en 33 suites  [100% OK]
+   ✔ Backend Espacial, ML & SAR (Pytest):  55 pruebas en 17 módulos [100% OK]
    -----------------------------------------------------------------------------
-   ✔ TOTAL CONSOLIDADO DEL SISTEMA:       290 PRUEBAS AUTOMATIZADAS PASADAS CON ÉXITO
+   ✔ TOTAL CONSOLIDADO DEL SISTEMA:       292 PRUEBAS AUTOMATIZADAS PASADAS CON ÉXITO
    • Estado de TypeScript:                0 Errores (tsc --noEmit limpio)
    • Compilación Next.js 16 Turbopack:    35 Rutas de Producción Verificadas
    • Nivel de Madurez Tecnológica:        TRL 4 (Validación Tecnológica en Entorno de Laboratorio)

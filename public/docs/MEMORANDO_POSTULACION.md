@@ -5,7 +5,7 @@
 - **Ecosistema**: Agrotech Venezuela
 - **Nicho Tecnológico**: AgTech, Modelado de Carbono Orgánico (MRV prospectivo), Observación Satelital (WebGIS Multi-Escala) y Prototipado Agro-IoT BYOD.
 - **Convocatoria**: Segunda Edición del Premio MapBiomas Venezuela 2026 — **Categoría General** (Artículo Técnico)
-- **Nivel de Madurez Tecnológica**: **TRL 4** (Prototipo funcional de software validado en entorno de desarrollo y simulación local con datos espaciales reales y 290 pruebas automatizadas: 236 Jest + 54 Pytest; con hoja de ruta hacia TRL 5/6).
+- **Nivel de Madurez Tecnológica**: **TRL 4** (Prototipo funcional de software validado en entorno de desarrollo y simulación local con datos espaciales reales y 292 pruebas automatizadas: 237 Jest + 55 Pytest; con hoja de ruta hacia TRL 5/6).
 - **Licencia**: Código bajo MIT License (Copyright 2026 Frank Sousa) / Datos de Cobertura bajo Creative Commons Atribución 4.0 Internacional (CC BY 4.0 - MapBiomas Venezuela).
 
 [⬅️ Ir al README Principal](../../README.md) | [🛠️ Ver Guía de Desarrollo & Arquitectura](../../DEVELOPING.md) | [📊 Ver Pitch Deck](PITCH_DECK.md)
@@ -65,10 +65,10 @@ El sistema se sitúa en **TRL 4 (Prototipo funcional de software validado en ent
 - **Asesoría IA Adaptativa (Dual-Tone)**: La IA ("El Compadre Agrónomo") adapta dinámicamente su vocabulario según la interfaz activa, hablando en sacos y días de sol para agricultores, y en ecuaciones edafológicas para técnicos.
 - **IA On-Demand & FinOps Cero Deuda**: Gemini 1.5 Flash activado bajo demanda mediante la cuota gratuita de Google AI Studio (15 RPM / 1.500 RPD) para asistencia cualitativa y vernacular, mientras los cálculos agronómicos de rutina (Kamprath, Shoelace, Saxton-Rawls) se resuelven en motores locales deterministas a costo marginal cero ($0.00).
 - **Neutralidad de Hardware (BYOD)**: Enfoque 100% Software-First. El laboratorio IoT es un sandbox experimental y educativo; la plataforma no fabrica hardware ni requiere sensores físicos en campo para operar.
-- **Calidad de Software Certificada**: **290 pruebas automatizadas (236 Jest + 54 Pytest, 100% aprobadas)**, 0 errores de compilación TypeScript.
+- **Calidad de Software Certificada**: **292 pruebas automatizadas (237 Jest + 55 Pytest, 100% aprobadas)**, 0 errores de compilación TypeScript.
 
 ### Hoja de Ruta de Escalabilidad (Roadmap TRL 4 → TRL 6)
-1. **TRL 4 (Actual)**: Prototipo funcional completo verificado en local con 290 pruebas automatizadas y datos satelitales históricos.
+1. **TRL 4 (Actual)**: Prototipo funcional completo verificado en local con 292 pruebas automatizadas y datos satelitales históricos.
 2. **TRL 5 (Fase Siguiente)**: Despliegue en servidor cloud con canal piloto multiusuario.
 3. **TRL 6 (Validación en Campo)**: Pruebas piloto participativas en parcelas reales en colaboración con cooperativas agrícolas de Portuguesa y Guárico.
 

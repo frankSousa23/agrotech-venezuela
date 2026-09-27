@@ -5,7 +5,7 @@
 **Afiliación**: ¹ Ingeniero en Informática (2025), Universidad Nacional Experimental de los Llanos Centrales Rómulo Gallegos (UNERG), San Juan de los Morros, Estado Guárico, Venezuela  
 **Contacto**: [frankalfonso1988@gmail.com](mailto:frankalfonso1988@gmail.com) | [GitHub: @frankSousa23](https://github.com/frankSousa23) | [LinkedIn](https://linkedin.com/in/frank-alfonso-sousa-mota-32ba9971)  
 **Convocatoria**: Segunda Edición del Premio MapBiomas Venezuela 2026 — Categoría General (Artículo Técnico)  
-**Nivel de Madurez Tecnológica**: **TRL 4** (Prototipo funcional validado localmente con datos reales y 290 pruebas automatizadas)  
+**Nivel de Madurez Tecnológica**: **TRL 4** (Prototipo funcional validado localmente con datos reales y 292 pruebas automatizadas)  
 **Fecha de Emisión**: Septiembre de 2026  
 
 ---
