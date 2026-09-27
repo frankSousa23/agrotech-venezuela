@@ -787,6 +787,7 @@ export default function Home() {
                 <li><a href="https://dataspace.copernicus.eu" target="_blank" rel="noopener noreferrer">Copernicus Sentinel-1/2</a></li>
                 <li><Link href="/api-docs">Documentación OpenAPI 3.0</Link></li>
                 <li><Link href="/dashboard/arquitectura">Diagrama de Microservicios</Link></li>
+                <li><Link href="/docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md" target="_blank" style={{ color: '#38bdf8', fontWeight: 600 }}>Marco Legal & Procedencia (UE/NASA/CC)</Link></li>
               </ul>
             </div>
 

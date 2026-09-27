@@ -473,6 +473,51 @@ export default function PostulacionPage() {
               </a>
             </div>
           </div>
+
+          {/* Tarjeta 5: Gobernanza de Datos, Permisos & Marco Legal */}
+          <div style={{
+            background: 'rgba(15, 23, 42, 0.75)',
+            border: '1px solid rgba(14, 165, 233, 0.35)',
+            borderRadius: '12px',
+            padding: '1.25rem',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            gap: '0.8rem'
+          }}>
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                <span style={{ fontSize: '0.72rem', background: 'rgba(14, 165, 233, 0.2)', color: '#38bdf8', padding: '2px 8px', borderRadius: '6px', fontWeight: 700 }}>
+                  Gobernanza & Marco Legal
+                </span>
+                <ShieldCheck size={16} color="#38bdf8" />
+              </div>
+              <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#fff', margin: '0 0 0.4rem 0' }}>
+                Procedencia de Datos, Permisos & Flujo del Sistema
+              </h3>
+              <p style={{ fontSize: '0.82rem', color: '#94a3b8', margin: 0, lineHeight: 1.4 }}>
+                Acreditación jurídica y técnica de las 5 fuentes primarias: Copernicus Sentinel-1/2 (UE 1159/2013), NASA POWER/SRTM (NPD 2230.1), MapBiomas 3.0 (CC BY 4.0), modelos edafológicos abiertos y proceso creativo de 5 etapas.
+              </p>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Link 
+                href="/docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md" 
+                target="_blank"
+                className="btn-secondary" 
+                style={{ flex: 1, justifyContent: 'center', fontSize: '0.78rem', padding: '6px 10px' }}
+              >
+                <FileText size={14} /> Ver Marco Legal
+              </Link>
+              <a 
+                href="/docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md" 
+                download="DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md"
+                className="btn-primary" 
+                style={{ fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+              >
+                <Download size={14} /> Descargar
+              </a>
+            </div>
+          </div>
         </div>
 
         {/* Barra de Acciones Globales de Exportación */}
@@ -773,6 +818,47 @@ export default function PostulacionPage() {
               </a>
               <a
                 href="/docs/PITCH_DECK.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary"
+                style={{ fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+              >
+                <FileText size={14} /> Markdown
+              </a>
+            </div>
+          </div>
+
+          {/* Doc 7: Gobernanza de Datos, Procedencia y Proceso Creativo */}
+          <div style={{ background: 'rgba(15, 23, 42, 0.75)', border: '1px solid rgba(14, 165, 233, 0.35)', borderRadius: '12px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <ShieldCheck size={20} color="#38bdf8" />
+                <span style={{ fontSize: '0.92rem', fontWeight: 700, color: '#f8fafc' }}>Gobernanza de Datos & Marco Legal</span>
+              </div>
+              <span className="badge-pill badge-cyan" style={{ fontSize: '0.7rem' }}>Copernicus • NASA • MapBiomas</span>
+            </div>
+            <p style={{ fontSize: '0.8rem', color: '#cbd5e1', margin: 0, lineHeight: 1.45 }}>
+              Desglose exhaustivo de licencias, políticas de datos abiertos, marco legal aplicable (Reglamento UE 1159/2013, NPD 2230.1, CC BY 4.0), relato del proceso creativo frente a cuellos de botella venezolanos y flujo sistémico E2E de 5 etapas.
+            </p>
+            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', fontSize: '0.7rem', color: '#94a3b8' }}>
+              <span>• Sentinel-1/2 ESA</span>
+              <span>• NASA POWER/SRTM</span>
+              <span>• MapBiomas V3</span>
+              <span>• Flujo E2E Mermaid</span>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', marginTop: 'auto', paddingTop: '8px' }}>
+              <a
+                href="/docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                download="DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md"
+                className="btn-primary"
+                style={{ flex: 1, justifyContent: 'center', fontSize: '0.78rem', padding: '6px 10px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+              >
+                <Download size={14} /> Descargar Doc
+              </a>
+              <a
+                href="/docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary"

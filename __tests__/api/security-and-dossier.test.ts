@@ -152,6 +152,7 @@ describe('Security Hardening, Guest Sandbox Isolation & Award Dossier Suite', ()
       'PREGUNTAS_FRECUENTES_PREMIO_2026.md',
       'MATRIZ_CUMPLIMIENTO_EVALUACION.md',
       'ARTICULO_TECNICO_DRAFT.md',
+      'DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md',
       'Bases_Premio_MapBiomas_Venezuela_2026.pdf',
       'Preguntas_Frecuentes_Premio_MapBiomas_2026.pdf',
       'Guia_Postulacion_MapBiomas_2026.pdf',
@@ -169,6 +170,14 @@ describe('Security Hardening, Guest Sandbox Isolation & Award Dossier Suite', ()
           const content = fs.readFileSync(filePath, 'utf8');
           expect(content).toContain('290 pruebas automatizadas');
           expect(content).toContain('35 rutas');
+        }
+        if (fileName === 'DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md') {
+          const content = fs.readFileSync(filePath, 'utf8');
+          expect(content).toContain('Copernicus');
+          expect(content).toContain('1159/2013');
+          expect(content).toContain('NASA');
+          expect(content).toContain('MapBiomas');
+          expect(content).toContain('CC BY 4.0');
         }
       });
     });

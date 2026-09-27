@@ -182,6 +182,9 @@ npm run test:summary
 
 ---
 
-## 📜 Licenciamiento
+## 📜 Gobernanza, Licenciamiento y Procedencia Legal
 - Código fuente: **Licencia MIT** (Copyright © 2026 Frank Sousa - Agrotech Venezuela).
-- Datos de cobertura vegetal: **MapBiomas Venezuela** bajo licencia **CC BY 4.0**.
+- Datos satelitales radar SAR y ópticos: **Copernicus Sentinel-1 / Sentinel-2 (ESA)** bajo **Reglamento Delegado (UE) Nº 1159/2013**.
+- Datos agroclimáticos y topográficos: **NASA POWER & SRTM** bajo **NASA Earth Science Data Policy (NPD 2230.1 / SPD-41A)**.
+- Datos de cobertura vegetal histórica: **MapBiomas Venezuela** (Provita, LSIGMA USB, Wataniba y RAISG) bajo licencia **CC BY 4.0**.
+- Marco canónico completo, permisos y flujo creativo: 👉 [`docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md`](docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md).

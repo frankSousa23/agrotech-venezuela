@@ -268,8 +268,14 @@ Los 7 documentos oficiales compilados del expediente pueden leerse directamente 
 
 ---
 
-## 📜 Licencia y Atribución de Datos
+## 📜 Gobernanza de Datos, Procedencia y Marco Legal Internacional
 
+Agrotech Venezuela opera bajo normativas internacionales de acceso abierto y políticas públicas espaciales:
 - **Código Fuente**: Licencia **MIT** (Copyright © 2026 Frank Sousa - Agrotech Venezuela).
-- **Cobertura de la Tierra**: **MapBiomas Venezuela** (Provita, LSIGMA USB, Wataniba y RAISG), bajo licencia **Creative Commons CC BY 4.0**.
-- **Agroclimatología**: **NASA POWER Project**, Langley Research Center.
+- **Radar SAR Sentinel-1 & Óptico Sentinel-2**: Agencia Espacial Europea (ESA) / Comisión Europea bajo el **Reglamento Delegado (UE) Nº 1159/2013** (*Copernicus Open Access Data Policy*). Atribución canónica: *"Contains modified Copernicus Sentinel data [2026]"*.
+- **Agroclimatología y Topografía (POWER, SRTM, GPM)**: **NASA Earth Science Data Policy** (Directivas NPD 2230.1 y SPD-41A), acceso público irrestricto sin aranceles.
+- **Cobertura Histórica de la Tierra (1985–2024)**: **MapBiomas Venezuela** (Provita, LSIGMA USB, Wataniba y RAISG), bajo licencia **Creative Commons Atribución 4.0 Internacional (CC BY 4.0)**.
+- **Modelos Edafológicos y Geodésicos**: Kamprath, Saxton-Rawls (USDA/ARS), Shoelace WGS84 e IPCC Tier 2 / Verra VCS (Dominio público científico).
+- **Inteligencia Artificial Contextual**: Google Gemini 1.5 Flash bajo **Google AI Studio Terms of Service** (Free Tier).
+
+👉 *Consulte el documento canónico integral de gobernanza, flujo de datos y proceso creativo:* **[Gobernanza de Datos, Procedencia Tecnológica y Marco Legal (docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md)](docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md)**.
