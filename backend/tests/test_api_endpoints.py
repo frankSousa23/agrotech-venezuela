@@ -65,3 +65,33 @@ def test_mapbiomas_discrepancy_endpoint():
     assert "ground_truth_status" in data
     assert "mapbiomas_baseline" in data
 
+
+def test_openapi_metadata_and_legal_governance():
+    """Valida que la especificación OpenAPI 3.0 (/openapi.json) exponga la metadata de gobernanza y datos abiertos."""
+    response = client.get("/openapi.json")
+    assert response.status_code == 200
+    spec = response.json()
+    assert spec["openapi"].startswith("3.")
+
+    info = spec["info"]
+    assert "Agrotech Venezuela" in info["title"]
+    assert info["version"] == "2.0.0"
+
+    # Verificación de licencias y contacto
+    assert "license" in info
+    assert "MIT" in info["license"]["name"]
+    assert "Copernicus" in info["license"]["name"]
+    assert "NASA" in info["license"]["name"]
+    assert "termsOfService" in info
+    assert "DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md" in info["termsOfService"]
+
+    # Verificación de menciones normativas en la descripción
+    description = info.get("description", "")
+    assert "Sentinel-1 SAR" in description
+    assert "1159/2013" in description
+    assert "NASA POWER" in description
+    assert "NPD 2230.1" in description
+    assert "MapBiomas" in description
+    assert "CC BY 4.0" in description
+
+

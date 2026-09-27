@@ -76,7 +76,11 @@ npm run test:all
 
 ---
 
-## 📜 4. Licenciamiento y Atribución
+## 📜 4. Licenciamiento, Gobernanza y Atribución
 
-- Código fuente bajo **Licencia MIT** (Copyright 2026 Frank Sousa - Agrotech Venezuela).
-- Los datos de cobertura vegetal referencian a **MapBiomas Venezuela** (Provita, LSIGMA USB, Wataniba y RAISG) bajo licencia **Creative Commons Atribución 4.0 Internacional (CC BY 4.0)**.
+- **Código fuente**: Licencia **MIT** (Copyright © 2026 Frank Sousa - Agrotech Venezuela).
+- **Radar SAR Sentinel-1 & Óptico Sentinel-2**: Agencia Espacial Europea (ESA) / Comisión Europea bajo el **Reglamento Delegado (UE) Nº 1159/2013** (*Copernicus Open Access Data Policy*). Atribución obligatoria: *"Contains modified Copernicus Sentinel data [2026]"*.
+- **Agroclimatología y Topografía (POWER, SRTM, GPM)**: **NASA Earth Science Data Policy** (Directivas **NPD 2230.1** y **SPD-41A**), acceso público abierto sin aranceles.
+- **Cobertura Histórica de la Tierra (1985–2024)**: **MapBiomas Venezuela** (Provita, LSIGMA USB, Wataniba y RAISG) bajo licencia **Creative Commons Atribución 4.0 Internacional (CC BY 4.0)**.
+- **Modelos Edafológicos y Geodésicos**: Dominio público científico (Kamprath, Saxton-Rawls USDA/ARS, Shoelace WGS84, IPCC Tier 2 / Verra VCS).
+- **Marco Canónico y Procedencia Legal**: Registro formal y flujo de 5 etapas en 👉 [`docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md`](docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md).

@@ -6,9 +6,9 @@
  * 
  * Script nativo en Node.js (cero dependencias externas) que genera un informe
  * visual consolidado de la suite de pruebas completa:
- * - Jest (236 pruebas en 33 suites de frontend, agronomía, geoespacial y UI)
- * - Pytest (54 pruebas en 17 módulos de backend FastAPI, ML, SAR y satélites)
- * Total: 290 pruebas automatizadas con 100% de cobertura y paso limpio.
+ * - Jest (237 pruebas en 33 suites de frontend, agronomía, geoespacial y UI)
+ * - Pytest (55 pruebas en 17 módulos de backend FastAPI, ML, SAR y satélites)
+ * Total: 292 pruebas automatizadas con 100% de cobertura y paso limpio.
  */
 
 const fs = require('fs');
@@ -73,7 +73,7 @@ const frontendSuites = [
       { name: 'theme-and-contrast.test.ts', tests: 6, focus: 'Accesibilidad visual alto contraste para trabajo bajo sol llanero' },
       { name: 'routing-and-redirects.test.ts', tests: 11, focus: 'Enrutamiento resiliente, redirecciones /visor y /costos, export stats y 404' },
       { name: 'auth.test.ts', tests: 9, focus: 'Autenticación con roles (Productor, Técnico, Auditor, Jurado)' },
-      { name: 'security-and-dossier.test.ts', tests: 20, focus: 'Sanitización de inputs, protección CSRF y descarga de dossier' },
+      { name: 'security-and-dossier.test.ts', tests: 21, focus: 'Sanitización de inputs, CSRF, descarga de dossier y marco legal canónico' },
       { name: 'relations.test.ts', tests: 3, focus: 'Integridad referencial y relaciones entre entidades del modelo' },
       { name: 'import-export.test.ts', tests: 2, focus: 'Serialización GeoJSON, CSV y compatibilidad con maquinaria' },
       { name: 'workflow.test.ts', tests: 2, focus: 'Flujo extremo a extremo: dibujo ➔ prescripción ➔ exportación' },
@@ -108,7 +108,7 @@ const backendModules = [
   {
     category: 'Servicios FastAPI, IoT & Resiliencia',
     modules: [
-      { name: 'test_api_endpoints.py', tests: 7, focus: 'Enrutamiento REST FastAPI, esquemas Pydantic y OpenAPI 3.0' },
+      { name: 'test_api_endpoints.py', tests: 8, focus: 'Enrutamiento REST FastAPI, esquemas Pydantic y especificación OpenAPI 3.0' },
       { name: 'test_cache_manager.py', tests: 1, focus: 'Caché SQLite WAL con hash geodésico a 4 decimales (~11m)' },
       { name: 'test_iot_manager.py', tests: 5, focus: 'Gestor de telemetría IoT y buffer circular de observaciones' },
       { name: 'test_viz_and_reports.py', tests: 3, focus: 'Generación de gráficos climáticos y reportes de prescripción' },

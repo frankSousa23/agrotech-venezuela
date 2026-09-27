@@ -43,3 +43,42 @@ Agrotech Venezuela no redistribuye ni modifica los datos originales de MapBiomas
 
 All scientific credits, original rasters, and classification methodologies of MapBiomas
 belong to their respective authors and institutions under the CC BY 4.0 license.
+
+---
+
+### Third-Party Earth Observation Data Attribution (ESA Copernicus Sentinel-1 & Sentinel-2)
+
+This software accesses, processes, and displays Earth observation radar and optical data
+from the **Copernicus Programme**, operated by the European Space Agency (ESA) and the
+European Commission, governed by **Commission Delegated Regulation (EU) No 1159/2013**
+establishing a free, full, and open data access policy.
+
+- **Mandatory Attribution**: *"Contains modified Copernicus Sentinel data [2026]"*.
+- **Sensors Used**:
+  - **Sentinel-1 SAR**: C-Band Synthetic Aperture Radar (5.405 GHz) dual-polarization (VV/VH)
+    for all-weather cloud-penetrating moisture saturation and canopy structural roughness.
+  - **Sentinel-2 MSI**: Multispectral Level-2A surface reflectance (10m/20m) for vegetative
+    indices (NDVI, EVI, NDWI) with Scene Classification Layer (SCL) cloud filtering.
+- **European Space Agency / Copernicus Dataspace Portal**: https://dataspace.copernicus.eu
+
+---
+
+### Third-Party Agroclimatic & Topographic Attribution (NASA POWER, SRTM & GPM)
+
+This project integrates open agroclimatological, digital elevation, and precipitation products
+provided by the **National Aeronautics and Space Administration (NASA)** under the
+**NASA Earth Science Data Policy** (Directives **NPD 2230.1** and **SPD-41A**):
+
+- **NASA POWER Project**: Prediction of Worldwide Energy Resources, NASA Langley Research Center
+  (solar radiation, temperature series, humidity, and Growing Degree Days calculation).
+- **NASA SRTM & GPM**: Shuttle Radar Topography Mission digital elevation models (30m) and
+  Global Precipitation Measurement constellation real-time rainfall data.
+- **NASA Earthdata / POWER Portal**: https://power.larc.nasa.gov
+
+---
+
+### Canonical Governance & Legal Framework Documentation
+
+For complete legal provenance tables, governing regulations, permitted usages, the creative process narrative, and end-to-end system architecture diagrams, consult the project's official governance registry:
+👉 [`docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md`](docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md) (and its public web mirror at `public/docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md`).
+

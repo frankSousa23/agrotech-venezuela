@@ -25,7 +25,9 @@ import {
   Radio,
   ArrowRight,
   CheckCircle2,
-  Code2
+  Code2,
+  FileText,
+  Download
 } from 'lucide-react';
 
 export default function ApiDocsPage() {
@@ -164,6 +166,64 @@ export default function ApiDocsPage() {
           >
             <Code2 size={15} />
             <span>Descargar openapi.json</span>
+          </a>
+        </div>
+      </div>
+
+      {/* 📜 Banner de Gobernanza de Datos & Marco Legal de APIs */}
+      <div style={{
+        background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(14, 116, 144, 0.15))',
+        border: '1px solid rgba(56, 189, 248, 0.25)',
+        borderRadius: '14px',
+        padding: '1.25rem 1.5rem',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        gap: '1rem'
+      }}>
+        <div style={{ flex: 1, minWidth: '300px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+            <span style={{
+              background: 'rgba(14, 165, 233, 0.2)',
+              color: '#38bdf8',
+              padding: '2px 8px',
+              borderRadius: '6px',
+              fontSize: '0.72rem',
+              fontWeight: 700,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '4px'
+            }}>
+              <ShieldCheck size={13} /> Gobernanza & Procedencia Legal
+            </span>
+            <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
+              Copernicus (UE 1159/2013) • NASA (NPD 2230.1) • MapBiomas (CC BY 4.0)
+            </span>
+          </div>
+          <h3 style={{ margin: 0, fontSize: '1rem', color: '#fff', fontWeight: 700 }}>
+            Políticas de Acceso Abierto & Términos de Servicio de los Endpoints
+          </h3>
+          <p style={{ margin: '4px 0 0 0', fontSize: '0.82rem', color: '#cbd5e1', lineHeight: 1.4 }}>
+            Los 39 endpoints operan bajo mandatos internacionales de ciencia abierta y soberanía territorial: radar SAR all-weather ESA, agroclima NASA POWER, memoria histórica de 40 años MapBiomas y algoritmos de dominio público (Shoelace WGS84, Saxton-Rawls, Kamprath).
+          </p>
+        </div>
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          <Link
+            href="/docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md"
+            target="_blank"
+            className="btn-secondary"
+            style={{ fontSize: '0.8rem', padding: '8px 14px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+          >
+            <FileText size={14} /> Ver Marco Legal
+          </Link>
+          <a
+            href="/docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md"
+            download="DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md"
+            className="btn-primary"
+            style={{ fontSize: '0.8rem', padding: '8px 14px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+          >
+            <Download size={14} /> Descargar Doc
           </a>
         </div>
       </div>

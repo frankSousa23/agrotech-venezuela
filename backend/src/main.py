@@ -65,10 +65,39 @@ async def lifespan(app: FastAPI):
     task.cancel()
 
 
+API_DESCRIPTION = """
+### Agrotech Venezuela — Motor Backend Espacial, Agronomía Predictiva & IA
+
+API REST y de Inteligencia Artificial para la soberanía productiva y el monitoreo agro-territorial de Venezuela:
+- **Teledetección Satelital y Radar**:
+  - **Copernicus Sentinel-1 SAR** (Banda C 5.405 GHz) para penetración de nubes y humedad edáfica bajo **Reglamento Delegado (UE) Nº 1159/2013** (*Contains modified Copernicus Sentinel data [2026]*).
+  - **Copernicus Sentinel-2 L2A** para vigor fotosintético (NDVI, EVI, NDWI) con máscara de nubes SCL.
+- **Agroclimatología y Topografía**:
+  - **NASA POWER Project & SRTM** bajo la **NASA Earth Science Data Policy (NPD 2230.1 / SPD-41A)** para GDD, precipitación y balance hídrico diario.
+- **Memoria Histórica de Uso del Suelo**:
+  - **MapBiomas Venezuela Colección 3.0 (1985–2024)** bajo licencia **Creative Commons CC BY 4.0** (Provita, LSIGMA USB, Wataniba y RAISG).
+- **Modelos Biofísicos Abiertos**:
+  - Shoelace geodésico WGS84, Saxton-Rawls (PAW), Kamprath (sabanas ácidas) e IPCC Tier 2 / Verra VCS (SOC carbono).
+- **Asesoría Asistida por IA**:
+  - Google Gemini 1.5 Flash bajo Google AI Studio Terms of Service con grounding territorial.
+
+👉 *Registro de gobernanza canónico completo:* [`docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md`](https://github.com/frankSousa23/agrotech-venezuela/blob/main/docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md)
+"""
+
 app = FastAPI(
     title="Agrotech Venezuela - Spatial, ML & Gemini AI Backend Engine",
     version="2.0.0",
-    description="API REST y de Inteligencia Artificial para ingesta satelital (MapBiomas, Sentinel-2, NASA POWER), Machine Learning agronómico y orquestación con Google Gemini.",
+    description=API_DESCRIPTION,
+    terms_of_service="https://github.com/frankSousa23/agrotech-venezuela/blob/main/docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md",
+    contact={
+        "name": "Frank Alfonso Sousa Mota",
+        "email": "frankalfonso1988@gmail.com",
+        "url": "https://github.com/frankSousa23/agrotech-venezuela",
+    },
+    license_info={
+        "name": "MIT License & Open Science Data Policies (Copernicus EU 1159/2013 | NASA NPD 2230.1 | CC BY 4.0)",
+        "url": "https://opensource.org/licenses/MIT",
+    },
     lifespan=lifespan,
 )
 
