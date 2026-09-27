@@ -170,6 +170,9 @@ describe('Security Hardening, Guest Sandbox Isolation & Award Dossier Suite', ()
           const content = fs.readFileSync(filePath, 'utf8');
           expect(content).toContain('292 pruebas automatizadas');
           expect(content).toContain('35 rutas');
+          expect(content).toContain('Auditoría de la Trayectoria de Desarrollo');
+          expect(content).toContain('5 Eras');
+          expect(content).toContain('solo developer');
         }
         if (fileName === 'DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md') {
           const content = fs.readFileSync(filePath, 'utf8');

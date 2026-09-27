@@ -288,6 +288,110 @@ export default function PostulacionPage() {
         </div>
       </section>
 
+      {/* Auditoría de la Trayectoria de Desarrollo: De la Cátedra Universitaria al Prototipo TRL 4 (5 Eras) */}
+      <section className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', flexWrap: 'wrap', gap: '8px' }}>
+            <h2 className={styles.sectionTitle} style={{ margin: 0 }}>
+              <Activity size={22} color="#38bdf8" /> Auditoría de Trayectoria: Las 5 Eras del Desarrollo
+            </h2>
+            <span style={{ fontSize: '0.75rem', background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', padding: '4px 10px', borderRadius: '20px', border: '1px solid rgba(56, 189, 248, 0.3)', fontWeight: 600 }}>
+              Solo Developer • Vacaciones Laborales • 292 Tests PASS
+            </span>
+          </div>
+          <span style={{ fontSize: '0.82rem', color: '#94a3b8', marginTop: '4px', display: 'block' }}>
+            Síntesis cronológica y técnica del esfuerzo de Frank Sousa: de la cátedra de edafología (UNERG) y la certificación oficial MapBiomas a un ecosistema soberano TRL 4 auditado sin regresiones.
+          </span>
+        </div>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '12px',
+          marginTop: '1rem'
+        }}>
+          {/* Era 1: Semilla Académica & Certificación MapBiomas */}
+          <div style={{ background: 'rgba(15, 23, 42, 0.65)', border: '1px solid rgba(245, 158, 11, 0.35)', borderRadius: '12px', padding: '14px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: '0.72rem', background: 'rgba(245, 158, 11, 0.2)', color: '#fbbf24', padding: '2px 8px', borderRadius: '6px', fontWeight: 700 }}>
+                Era 1: Génesis Académica
+              </span>
+              <FlaskConical size={16} color="#fbbf24" />
+            </div>
+            <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#fff', margin: 0 }}>
+              1. Edafología UNERG & Taller MapBiomas
+            </h4>
+            <p style={{ fontSize: '0.78rem', color: '#cbd5e1', margin: 0, lineHeight: 1.45 }}>
+              Iniciativa nacida junto a un grupo de investigación y la cátedra de edafología (UNERG Guárico). Visión dual: producción vegetal (cereales/hortalizas) y nutrición de pasturas ganaderas. Asistencia formal y obtención de <strong>certificado oficial</strong> en el taller de MapBiomas Venezuela (40 años de datos).
+            </p>
+          </div>
+
+          {/* Era 2: Choque Tropical & Soberanía Satelital */}
+          <div style={{ background: 'rgba(15, 23, 42, 0.65)', border: '1px solid rgba(56, 189, 248, 0.35)', borderRadius: '12px', padding: '14px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: '0.72rem', background: 'rgba(56, 189, 248, 0.2)', color: '#38bdf8', padding: '2px 8px', borderRadius: '6px', fontWeight: 700 }}>
+                Era 2: Desafío Tropical
+              </span>
+              <Radio size={16} color="#38bdf8" />
+            </div>
+            <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#fff', margin: 0 }}>
+              2. Radar SAR Sentinel-1 & WebGIS Puro
+            </h4>
+            <p style={{ fontSize: '0.78rem', color: '#cbd5e1', margin: 0, lineHeight: 1.45 }}>
+              Descarte de Google Maps ante la muralla de nubes tropicales (&gt;75% en invierno). Adopción de microondas Radar SAR Banda C (5.405 GHz) para penetrar tormentas y medir humedad volumétrica. Sustitución de librerías comerciales por WebGIS nativo Leaflet acoplado a React 19 con <code>useRef</code>.
+            </p>
+          </div>
+
+          {/* Era 3: Inclusión Rural Radical & Voz Campesina */}
+          <div style={{ background: 'rgba(15, 23, 42, 0.65)', border: '1px solid rgba(74, 222, 128, 0.35)', borderRadius: '12px', padding: '14px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: '0.72rem', background: 'rgba(74, 222, 128, 0.2)', color: '#4ade80', padding: '2px 8px', borderRadius: '6px', fontWeight: 700 }}>
+                Era 3: Inclusión Rural
+              </span>
+              <Sparkles size={16} color="#4ade80" />
+            </div>
+            <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#fff', margin: 0 }}>
+              3. Dual-Mode UI & Parser Vernáculo
+            </h4>
+            <p style={{ fontSize: '0.78rem', color: '#cbd5e1', margin: 0, lineHeight: 1.45 }}>
+              Arquitectura Dual-Mode: 4 compuertas táctiles gigantes (80px), dictado por voz nativo con Web Speech API y normalización semántica offline de unidades tradicionales (sacos de 50 kg, tambores de 200 L, canecas de 20 L y tablones de 1 ha) acoplado a SQLite WAL (&lt;25 ms).
+            </p>
+          </div>
+
+          {/* Era 4: Blindaje Científico, Maquinaria & Procedencia */}
+          <div style={{ background: 'rgba(15, 23, 42, 0.65)', border: '1px solid rgba(192, 132, 252, 0.35)', borderRadius: '12px', padding: '14px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: '0.72rem', background: 'rgba(192, 132, 252, 0.2)', color: '#c084fc', padding: '2px 8px', borderRadius: '6px', fontWeight: 700 }}>
+                Era 4: Edafología & Maquinaria
+              </span>
+              <ShieldCheck size={16} color="#c084fc" />
+            </div>
+            <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#fff', margin: 0 }}>
+              4. Calibración Regional & Salidas Tri-Modales
+            </h4>
+            <p style={{ fontSize: '0.78rem', color: '#cbd5e1', margin: 0, lineHeight: 1.45 }}>
+              Modelo Kamprath modificado (sabanas ácidas), cal dolomítica (Sur del Lago), yeso agrícola (Quíbor) y retención Saxton-Rawls USDA. Exportador tri-modal para maquinaria (Shapefiles UTM 19N, KML drones, fichas analógicas) y procedencia legal (Copernicus, NASA, MapBiomas CC BY 4.0).
+            </p>
+          </div>
+
+          {/* Era 5: Síntesis de Calidad TRL 4 & Forja en Antigravity */}
+          <div style={{ background: 'rgba(15, 23, 42, 0.65)', border: '1px solid rgba(45, 212, 191, 0.35)', borderRadius: '12px', padding: '14px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: '0.72rem', background: 'rgba(45, 212, 191, 0.2)', color: '#2dd4bf', padding: '2px 8px', borderRadius: '6px', fontWeight: 700 }}>
+                Era 5: Madurez Industrial
+              </span>
+              <CheckCircle2 size={16} color="#2dd4bf" />
+            </div>
+            <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#fff', margin: 0 }}>
+              5. TRL 4: 292 Tests & Cero Regresiones
+            </h4>
+            <p style={{ fontSize: '0.78rem', color: '#cbd5e1', margin: 0, lineHeight: 1.45 }}>
+              Forja en Google Antigravity con Gemini como copiloto. Rol de Frank Sousa como filtro soberano implacable (podando código inflado). 292 pruebas automatizadas consecutivas (237 Jest + 55 Pytest, 100% PASS), 0 errores TypeScript, 35 rutas de producción y costo operativo $0.00 USD/mes.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Expediente Oficial Premio MapBiomas Venezuela 2026 & Descargas */}
       <section className={styles.section}>
         <div className={styles.sectionHeader}>

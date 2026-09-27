@@ -8,7 +8,7 @@
 - **Nivel de Madurez Tecnológica**: **TRL 4** (Prototipo funcional de software validado en entorno de desarrollo y simulación local con datos espaciales reales y 292 pruebas automatizadas: 237 Jest + 55 Pytest; con hoja de ruta hacia TRL 5/6).
 - **Licencia**: Código bajo MIT License (Copyright 2026 Frank Sousa) / Datos de Cobertura bajo Creative Commons Atribución 4.0 Internacional (CC BY 4.0 - MapBiomas Venezuela).
 
-[⬅️ Ir al README Principal](../../README.md) | [🛠️ Ver Guía de Desarrollo & Arquitectura](../../DEVELOPING.md) | [📊 Ver Pitch Deck](PITCH_DECK.md)
+[⬅️ Ir al README Principal](../README.md) | [🛠️ Ver Guía de Desarrollo & Arquitectura](../DEVELOPING.md) | [📊 Ver Pitch Deck](../PITCH_DECK.md)
 
 ---
 
@@ -71,6 +71,14 @@ El sistema se sitúa en **TRL 4 (Prototipo funcional de software validado en ent
 1. **TRL 4 (Actual)**: Prototipo funcional completo verificado en local con 292 pruebas automatizadas y datos satelitales históricos.
 2. **TRL 5 (Fase Siguiente)**: Despliegue en servidor cloud con canal piloto multiusuario.
 3. **TRL 6 (Validación en Campo)**: Pruebas piloto participativas en parcelas reales en colaboración con cooperativas agrícolas de Portuguesa y Guárico.
+
+### 4.1 Auditoría de la Trayectoria de Desarrollo: Las 5 Eras del Ciclo Evolutivo
+Agrotech Venezuela fue concebido, diseñado y construido de forma soberana por un **desarrollador único** (*solo developer*, Frank Sousa) durante sus vacaciones laborales, forjando el sistema a lo largo de 5 eras de desarrollo auditadas:
+1. **Era 1 — La Semilla Académica & Certificación MapBiomas**: Génesis con la cátedra de edafología (UNERG), dualidad entre producción vegetal (maíz/arroz) y pasturas/forrajes pecuarios, y acreditación con **certificado oficial** en el taller de la plataforma MapBiomas (40 años de trayectoria).
+2. **Era 2 — El Choque Tropical & Soberanía Satelital**: Descarte de Google Maps ante la muralla del 75% de nubosidad tropical, adopción del radar SAR Sentinel-1 Banda C (5.405 GHz) para atravesar tormentas y desarrollo de WebGIS nativo en Leaflet con React 19 (`useRef`).
+3. **Era 3 — Inclusión Rural Radical & Voz Campesina**: Arquitectura Dual-Mode UI (4 puertas táctiles gigantes de 80px), dictado por voz nativo con Web Speech API, y parser vernáculo que normaliza sacos (50 kg), tambores (200 L), canecas (20 L) y tablones (1 ha) con caché offline SQLite WAL (<25 ms).
+4. **Era 4 — Blindaje Científico, Maquinaria & Procedencia Legal**: Calibraciones edafológicas regionales (Kamprath modificado, cal dolomítica, yeso agrícola), Saxton-Rawls PAW, exportador tri-modal para maquinaria (Shapefiles UTM 19N, KML drones, fichas analógicas) y marco legal internacional de procedencia (Copernicus, NASA, MapBiomas CC BY 4.0).
+5. **Era 5 — La Síntesis de Calidad TRL 4 & Antigravity Forge**: Pair-programming con Gemini bajo supervisión implacable del autor (filtrando y podando código inflado), 292 pruebas automatizadas consecutivas (237 Jest + 55 Pytest, 100% PASS), 0 errores TypeScript, 35 rutas y costo operativo $0.00 USD/mes.
 
 ---
 
@@ -148,4 +156,4 @@ El presente memorando valida formalmente la postulación técnica e instituciona
 
 | Postulante y Responsable Técnico | Categoría | Estatus del Ecosistema | Fecha de Emisión |
 | :--- | :--- | :--- | :---: |
-| **Ing. Frank Alfonso Sousa Mota** | **Categoría General** (Artículo Técnico) | **TRL 4 Validado en Desarrollo (278 tests)** | Septiembre 2026 |
+| **Ing. Frank Alfonso Sousa Mota** | **Categoría General** (Artículo Técnico) | **TRL 4 Validado en Desarrollo (292 tests)** | Septiembre 2026 |
