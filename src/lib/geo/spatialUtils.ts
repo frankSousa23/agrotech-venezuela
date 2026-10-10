@@ -484,7 +484,10 @@ export function calculateSoilAmendments(
 
   const lat = regionalContext?.lat;
   const lng = regionalContext?.lng;
-  const stateId = regionalContext?.stateId?.toLowerCase() || '';
+  const stateId = (regionalContext?.stateId || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
 
   // 1. Detección de Valle de Quíbor / Lara / Falcón (Suelos Áridos / Sódicos / Calcáreos)
   const isLaraSemiarid = stateId === 'lara' || stateId === 'falcon' || 
@@ -663,4 +666,37 @@ export function calculatePointSuitability(lat: number, lng: number, ph: number, 
     amendmentCategory: amendments.amendmentCategory
   };
 }
+
+/**
+ * Evalúa si un punto geográfico [lat, lon] WGS84 se encuentra dentro de un polígono GeoJSON.
+ * Soporta geometrías simples (anillo exterior) y complejas (array de anillos).
+ */
+export function isPointInPolygonWGS84(
+  lat: number,
+  lon: number,
+  polygonCoords: number[][][] | number[][]
+): boolean {
+  if (!polygonCoords || polygonCoords.length === 0) return false;
+  const ring = Array.isArray(polygonCoords[0]) && Array.isArray(polygonCoords[0][0])
+    ? (polygonCoords as number[][][])[0]
+    : (polygonCoords as number[][]);
+  return isPointInPolygon([lat, lon], ring);
+}
+
+/**
+ * Wrapper de prescripción edafológica regional Kamprath / Yeso con memoria territorial
+ */
+export function calculateRegionalLimingNeed(
+  ph: number,
+  organicMatter: number,
+  stateOrContext: string | RegionalEdaphicContext,
+  areaHectares: number = 1.0,
+  options?: { exchangeableAlMe?: number; lat?: number; lng?: number }
+): SoilAmendmentRecommendation {
+  const regionalContext: RegionalEdaphicContext = typeof stateOrContext === 'string'
+    ? { stateId: stateOrContext, exchangeableAlMe: options?.exchangeableAlMe, lat: options?.lat, lng: options?.lng }
+    : { ...stateOrContext, exchangeableAlMe: options?.exchangeableAlMe ?? stateOrContext.exchangeableAlMe };
+  return calculateSoilAmendments(ph, organicMatter, areaHectares, 'Maíz', 0, regionalContext);
+}
+
 

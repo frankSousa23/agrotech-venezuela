@@ -14,6 +14,18 @@ export async function GET(req: Request) {
       });
     }
 
+    if (format === 'geojson') {
+      const { buildSoilGeoJsonFeatureCollection } = await import('@/app/api/v1/soil/export/geojson/route');
+      const geoJson = buildSoilGeoJsonFeatureCollection();
+      return new Response(JSON.stringify(geoJson, null, 2), {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/geo+json; charset=utf-8',
+          'Content-Disposition': `attachment; filename="agrotech_soils_${new Date().toISOString().split('T')[0]}.geojson"`
+        }
+      });
+    }
+
     // Default to CSV export (also compatible with Excel via standard delimiter)
     const headers = [
       'ID',
