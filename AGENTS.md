@@ -50,6 +50,7 @@ Este documento define los estándares arquitectónicos, convenciones de código 
 - **Resolución Determinista de Conflictos Offline**: Versionado monotónico (`version`) y timestamp (`updated_at`) en geometrías de parcelas. Colisiones concurrentes devuelven HTTP 409 y se almacenan en la cola de cuarentena `/api/parcels/conflicts` para resolución guiada (`ParcelConflictModal.tsx`) en Modo Productor (vernacular) o Modo Técnico (diff métrico).
 - **Pedocalibración Dinámica Edafológica & PAW**: Modelo Saxton-Rawls regionalizado (Arenoso $\theta_{crit}=9\%$, Franco $\theta_{crit}=20\%$, Arcilloso $\theta_{crit}=35\%$). Ingestión IoT en `/api/iot/telemetry` condicionada a $\text{PAW} < 50\%$ para activación de riego.
 - **Oráculo Satelital Radar SAR Sentinel-1 para MRV**: Verificación de rugosidad estructural del dosel ($\sigma^\circ_{VH}/\sigma^\circ_{VV} > -12\text{ dB}$) en `/api/mrv/sar-oracle` acoplada a la Bitácora de Campo, reduciendo la incertidumbre Verra VCS del 40% al 10%.
+- **Complementariedad y Módulo de Suelos para MapBiomas Venezuela**: Agrotech Venezuela está arquitectónicamente prediseñado como el prototipo operacional (TRL 4) de código abierto para complementar la Colección 3.0 de MapBiomas Venezuela, conectando 40 años de matrices de transición de cobertura vegetal con física de suelos (Saxton-Rawls), enmiendas químicas (Kamprath), radar SAR all-weather y prescripciones agronómicas de campo para producción vegetal y forrajera.
 
 ---
 

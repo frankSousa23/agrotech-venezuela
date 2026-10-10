@@ -173,6 +173,8 @@ describe('Security Hardening, Guest Sandbox Isolation & Award Dossier Suite', ()
           expect(content).toContain('Auditoría de la Trayectoria de Desarrollo');
           expect(content).toContain('5 Eras');
           expect(content).toContain('solo developer');
+          expect(content).toContain('Módulo de Suelos de MapBiomas Venezuela');
+          expect(content).toContain('MapBiomas Suelos');
         }
         if (fileName === 'DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md') {
           const content = fs.readFileSync(filePath, 'utf8');
@@ -204,6 +206,8 @@ describe('Security Hardening, Guest Sandbox Isolation & Award Dossier Suite', ()
           expect(memoirContent.toLowerCase()).toContain('producción vegetal');
           expect(memoirContent).toContain('Arduino');
           expect(memoirContent.toLowerCase()).toContain('desarrollador único');
+          expect(memoirContent).toContain('MapBiomas Suelos');
+          expect(memoirContent).toContain('Módulo de Suelos');
         }
       });
     });

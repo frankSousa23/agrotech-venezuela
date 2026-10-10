@@ -49,6 +49,9 @@ export default function PostulacionPage() {
           <span className="badge-pill badge-emerald">
             <Award size={13} /> Categoría General (Artículo Técnico)
           </span>
+          <span className="badge-pill badge-emerald" style={{ border: '1px solid rgba(16, 185, 129, 0.6)', background: 'rgba(6, 78, 59, 0.35)', color: '#6ee7b7' }}>
+            <FlaskConical size={13} /> Prototipo Operacional — Módulo de Suelos MapBiomas Venezuela
+          </span>
           <span className="badge-pill badge-emerald">
             <CheckCircle2 size={13} /> 292 Tests Automatizados Pasando (237 Jest + 55 Pytest)
           </span>
@@ -148,6 +151,69 @@ export default function PostulacionPage() {
           </div>
         </div>
       </div>
+
+      {/* 🛰️ Complementariedad Estratégica: Prototipo Fundacional para MapBiomas Suelos Venezuela */}
+      <section className={styles.section} style={{ border: '1px solid rgba(16, 185, 129, 0.4)', background: 'linear-gradient(135deg, rgba(6, 78, 59, 0.25), rgba(15, 23, 42, 0.9))' }}>
+        <div className={styles.sectionHeader}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+            <span className="badge-pill badge-emerald" style={{ background: 'rgba(5, 150, 105, 0.3)', border: '1px solid #10b981', color: '#a7f3d0' }}>
+              <FlaskConical size={13} /> Misión Fundacional
+            </span>
+            <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
+              Complementariedad con la Red MapBiomas
+            </span>
+          </div>
+          <h2 className={styles.sectionTitle} style={{ color: '#f8fafc', marginTop: '4px' }}>
+            <TreePine size={22} color="#34d399" /> Prototipo Operacional para el Módulo de Suelos de MapBiomas Venezuela
+          </h2>
+          <span style={{ fontSize: '0.85rem', color: '#cbd5e1' }}>
+            MapBiomas Venezuela mapea con rigor 40 años de dinámicas de superficie (1985–2024). Agrotech Venezuela fue conceptualizado desde sus cimientos académicos en edafología para cerrar la brecha subsuperficial: traducir cada píxel de transición de cobertura en física y química de suelos para la producción vegetal y forrajera.
+          </span>
+        </div>
+
+        {/* Pipeline de Complementariedad */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '14px',
+          marginTop: '1.25rem'
+        }}>
+          <div style={{ background: 'rgba(15, 23, 42, 0.65)', border: '1px solid rgba(56, 189, 248, 0.3)', borderRadius: '12px', padding: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+              <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: 'rgba(56, 189, 248, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#38bdf8', fontWeight: 800, fontSize: '0.85rem' }}>1</div>
+              <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#f8fafc' }}>40 Años MapBiomas LULC</span>
+            </div>
+            <p style={{ fontSize: '0.8rem', color: '#94a3b8', margin: 0, lineHeight: 1.5 }}>
+              Ingestión histórica de transiciones de cobertura (bosque nativo → sabana → pastizal → agricultura intensiva) desde 1985 hasta 2024 (Colección 3.0), detectando pérdida acumulada de biomasa y compactación de suelo.
+            </p>
+          </div>
+
+          <div style={{ background: 'rgba(15, 23, 42, 0.65)', border: '1px solid rgba(16, 185, 129, 0.3)', borderRadius: '12px', padding: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+              <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: 'rgba(16, 185, 129, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#34d399', fontWeight: 800, fontSize: '0.85rem' }}>2</div>
+              <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#f8fafc' }}>Inferencia Edafológica & PAW</span>
+            </div>
+            <p style={{ fontSize: '0.8rem', color: '#94a3b8', margin: 0, lineHeight: 1.5 }}>
+              Calibración físico-química Saxton-Rawls USDA regionalizada y Kamprath (Al³⁺): 1,245 perfiles edafológicos georreferenciados para predecir agua disponible en suelo, saturación ácida y necesidad de enmiendas.
+            </p>
+          </div>
+
+          <div style={{ background: 'rgba(15, 23, 42, 0.65)', border: '1px solid rgba(245, 158, 11, 0.3)', borderRadius: '12px', padding: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+              <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: 'rgba(245, 158, 11, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fbbf24', fontWeight: 800, fontSize: '0.85rem' }}>3</div>
+              <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#f8fafc' }}>Prescripción Tri-Modal en Campo</span>
+            </div>
+            <p style={{ fontSize: '0.8rem', color: '#94a3b8', margin: 0, lineHeight: 1.5 }}>
+              Salida operativa lista para el campo: Shapefile UTM 19N para tractores GPS, misiones de vuelo KML para drones fumigadores, y fichas táctiles analógicas de 1 página para productores sin conectividad.
+            </p>
+          </div>
+        </div>
+
+        {/* Cita Institucional */}
+        <div style={{ marginTop: '1rem', padding: '12px 16px', background: 'rgba(6, 78, 59, 0.3)', borderLeft: '4px solid #10b981', borderRadius: '0 8px 8px 0', fontSize: '0.82rem', color: '#a7f3d0' }}>
+          <strong>Aporte Estratégico al Consorcio MapBiomas:</strong> Agrotech Venezuela ofrece el código fuente abierto (MIT), la arquitectura de datos y la validación en campo (TRL 4) lista para integrarse formalmente como el futuro <em>Módulo de Suelos de MapBiomas Venezuela</em>, emulando iniciativas hermanas de la Red RAISG/MapBiomas en la cuenca amazónica.
+        </div>
+      </section>
 
       {/* 🔄 Infografía Oficial: Ciclo de Datos en 5 Etapas */}
       <section className={styles.section} style={{ border: '1px solid rgba(56, 189, 248, 0.35)', background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(8, 47, 73, 0.3))' }}>

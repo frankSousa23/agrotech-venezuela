@@ -21,6 +21,11 @@ La agricultura en Venezuela y la cuenca tropical enfrenta una paradoja estructur
 
 **Agrotech Venezuela** democratiza la agricultura de precisión transformando coordenadas GPS en un **Gemelo Digital instantáneo**, combinando prescripción edafológica en sacos accesibles, un modelo de investigación económica de **Agregación de Carbono (Carbon Pooling)**, un sandbox didáctico Agro-IoT BYOD y un protocolo de sincronización rural **QoS** que opera sin colapsar bajo señales celulares 2G/EDGE.
 
+### 1.1 Misión Estratégica: Prototipo Operacional para el Módulo de Suelos de MapBiomas Venezuela (*MapBiomas Suelos*)
+A nivel regional, la red MapBiomas ha evolucionado hacia módulos temáticos biogeoquímicos especializados (como *MapBiomas Solo* en Brasil y *MapBiomas Fogo*). En Venezuela, la Colección 3.0 (1985–2024) ha logrado un mapeo extraordinario de 40 años de cobertura y uso del suelo (LULC), pero la iniciativa nacional aún carece de un **Módulo de Suelos** que traduzca esas 4 décadas de transiciones de cobertura en balances edafológicos subsuperficiales.
+
+**Agrotech Venezuela fue conceptualizado e implementado con ese propósito fundacional:** servir como el **prototipo operacional de código abierto (TRL 4) prediseñado para complementar y convertirse en el futuro Módulo de Suelos de MapBiomas Venezuela**. La plataforma conecta 40 años de datos satelitales históricos con modelos edafológicos deterministas (Kamprath para neutralización de acidez y Al³⁺, Saxton-Rawls USDA para curvas de retención hídrica PAW, oráculo satelital radar Sentinel-1 SAR y 1.245 perfiles edafológicos calibrados), cubriendo de forma sinérgica tanto la producción vegetal de ciclo corto (cereales, leguminosas, hortalizas) como la nutrición de pastizales y forrajes ganaderos.
+
 ---
 
 ## 💰 2. Proyección de Viabilidad Económica y Modelado de Retorno de Inversión (ROI)
@@ -74,7 +79,7 @@ El sistema se sitúa en **TRL 4 (Prototipo funcional de software validado en ent
 
 ### 4.1 Auditoría de la Trayectoria de Desarrollo: Las 5 Eras del Ciclo Evolutivo
 Agrotech Venezuela fue concebido, diseñado y construido de forma soberana por un **desarrollador único** (*solo developer*, Frank Sousa) durante sus vacaciones laborales, forjando el sistema a lo largo de 5 eras de desarrollo auditadas:
-1. **Era 1 — La Semilla Académica & Certificación MapBiomas**: Génesis con la cátedra de edafología (UNERG), dualidad entre producción vegetal (maíz/arroz) y pasturas/forrajes pecuarios, y acreditación con **certificado oficial** en el taller de la plataforma MapBiomas (40 años de trayectoria).
+1. **Era 1 — La Semilla Académica & Certificación MapBiomas**: Génesis con la cátedra de edafología agronómica (UNERG), dualidad entre producción vegetal (maíz/arroz) y pasturas/forrajes pecuarios, y acreditación con **certificado oficial** en el taller de la plataforma MapBiomas (40 años de trayectoria), concibiendo el proyecto como el prototipo fundacional para dotar a MapBiomas Venezuela de su futuro Módulo de Suelos.
 2. **Era 2 — El Choque Tropical & Soberanía Satelital**: Descarte de Google Maps ante la muralla del 75% de nubosidad tropical, adopción del radar SAR Sentinel-1 Banda C (5.405 GHz) para atravesar tormentas y desarrollo de WebGIS nativo en Leaflet con React 19 (`useRef`).
 3. **Era 3 — Inclusión Rural Radical & Voz Campesina**: Arquitectura Dual-Mode UI (4 puertas táctiles gigantes de 80px), dictado por voz nativo con Web Speech API, y parser vernáculo que normaliza sacos (50 kg), tambores (200 L), canecas (20 L) y tablones (1 ha) con caché offline SQLite WAL (<25 ms).
 4. **Era 4 — Blindaje Científico, Maquinaria & Procedencia Legal**: Calibraciones edafológicas regionales (Kamprath modificado, cal dolomítica, yeso agrícola), Saxton-Rawls PAW, exportador tri-modal para maquinaria (Shapefiles UTM 19N, KML drones, fichas analógicas) y marco legal internacional de procedencia (Copernicus, NASA, MapBiomas CC BY 4.0).
