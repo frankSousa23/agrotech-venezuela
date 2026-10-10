@@ -18,11 +18,11 @@
 | Criterio Oficial (Anexo II) | Ponderación Oficial | Evidencias y Funcionalidades Sometidas a Consideración del Jurado |
 | :--- | :---: | :--- |
 | **1. Complejidad Técnica** | **20%** | Integración de 40 años de MapBiomas (Col. 3) + Radar SAR Sentinel-1 Banda C (VV/VH all-weather) + Fórmulas Geodésicas Shoelace WGS84 + Modelo Saxton-Rawls PAW IoT + Oráculo Satelital SAR MRV + **292 Tests Automatizados (237 Jest + 55 Pytest)**. |
-| **2. Originalidad e Innovación** | **20%** | Primer Gemelo Digital Agronómico venezolano de software libre que transforma series históricas en prescripciones edáficas cuantitativas con IA prescriptiva (Kamprath modificado, cal dolomítica y yeso agrícola), agregación *Carbon Pooling* y arquitectura *Dual-Mode UI*. |
+| **2. Originalidad e Innovación** | **20%** | Primer Gemelo Digital Agronómico venezolano y prototipo fundacional de código abierto para el **Módulo de Suelos de MapBiomas**, transformando series históricas en prescripciones edáficas cuantitativas con IA prescriptiva (Kamprath modificado, cal dolomítica y yeso agrícola), agregación *Carbon Pooling* y arquitectura *Dual-Mode UI*. |
 | **3. Claridad y Estructura** | **15%** | Arquitectura Next.js 16 con Turbopack (35 rutas limpias), CSS Glassmorphism, Tour Demostrativo guiado en 5 pasos, APIs REST documentadas en OpenAPI/Swagger 3.0 y formulación matemática en LaTeX/KaTeX desplegada en vivo. |
 | **4. Resultados, Discusión y Conclusiones** | **20%** | Modelado computacional de escenarios agrícolas representativos (Turén en maíz y Calabozo en arroz), proyectando un potencial de ROI rural estimado de hasta 3.8x, con estimación prospectiva de carbono orgánico (IPCC Tier 2) y oráculo SAR que reduce la incertidumbre al 10%. |
 | **5. Aporte General y Social** | **20%** | Democratización tecnológica para el pequeño agricultor sin costo, interfaz rural campesina gobernada por voz y dialecto criollo (*Modo Productor Fácil*), resiliencia offline en redes 2G/EDGE (QoS 2 canales) y alineación con ODS 1, 2, 12, 13 y 15. |
-| **6. Aporte a MapBiomas Venezuela** | **5%** | Puesta en valor operativo de la serie 1985–2024 para decisiones microeconómicas en el surco, verificación de campo de coberturas y exportación tri-modal para maquinaria (Shapefiles VRA, KML y fichas analógicas). |
+| **6. Aporte a MapBiomas Venezuela** | **5%** | Prototipo funcional y arquitectura para el **Módulo de Suelos de MapBiomas Venezuela** (TRL 4, 1.245 perfiles edafológicos), puesta en valor operativo de la serie 1985–2024 para decisiones microeconómicas en el surco, verificación de campo y exportación tri-modal para maquinaria (Shapefiles VRA, KML y fichas analógicas). |
 | **Total del Baremo Oficial** | **100%** | **Candidatura formalmente sometida con suite completa de 292 pruebas automatizadas aprobadas y código abierto MIT** |
 
 ---
@@ -49,6 +49,7 @@
   2. **Dual-Mode UI (Innovación de Accesibilidad Rural)**: Alternancia instantánea entre *Modo Productor Fácil* (4 puertas táctiles, dictado por voz Web Speech API y glosario vernáculo venezolano que normaliza sacos, tambores, canecas y tablones) y *Modo Técnico* para ingenieros y científicos.
   3. **Prescripción Tri-Modal para Maquinaria Agrícola**: Generación simultánea de paquetes ESRI Shapefile con atributos de tasa variable (VRA: `RATE_LIME`, `RATE_NPK`) para tractores GPS, misiones KML para drones pulverizadores y fichas de cabina analógicas de 1 página (`src/lib/geo/machineryExporter.ts`).
   4. **Agrotech Carbon Pooling**: Modelo Fintech conceptual que digitaliza la agregación regional de pequeños productores (< 50 ha) para alcanzar escala Verra VCS, proyectando que el 85% de los dividendos retorne directamente al campesino.
+  5. **Prototipo Fundacional para MapBiomas Suelos**: Primer prototipo de código abierto prediseñado con arquitectura desacoplada para dotar a MapBiomas Venezuela de un Módulo de Suelos, acoplando transiciones multidecadales de cobertura con la física edafológica Saxton-Rawls y calibraciones edáficas de campo.
 
 ---
 
@@ -88,6 +89,7 @@
   1. **Apropiación Productiva de los Datos**: Demuestra que los datos de MapBiomas no solo sirven para inventarios macroecológicos, sino para la toma de decisiones microeconómicas directas de siembra y fertilización.
   2. **Verificación en Tierra (Ground Truth)**: La Bitácora de Campo campesina permite registrar observaciones de cobertura in-situ que pueden servir como retroalimentación para futuras colecciones de MapBiomas.
   3. **Educación y Conciencia Territorial**: El campesino descubre la historia ecológica de su propio suelo en los últimos 40 años, entendiendo el vínculo directo entre conservación y productividad.
+  4. **Aporte Estructural: Semilla Lista para el Módulo de Suelos de MapBiomas**: Entrega formal a la comunidad de MapBiomas Venezuela (Provita, LSIGMA USB, Wataniba, RAISG) de una arquitectura de código abierto probada (TRL 4, 292 tests automáticos), 1.245 perfiles edafológicos calibrados, curvas de agua disponible Saxton-Rawls y pipeline de exportación VRA (Shapefile, KML y analógico) listo para operar como la extensión edafológica de la plataforma nacional.
 
 ---
 
@@ -96,11 +98,11 @@
 | Criterio Oficial del Baremo | Ponderación Oficial | Resumen de Evidencias Técnicas Comprobables en el Repositorio |
 | :--- | :---: | :--- |
 | 1. Complejidad Técnica | 20% | 292 tests automatizados (100% OK), radar SAR Sentinel-1, Shoelace WGS84, Saxton-Rawls PAW. |
-| 2. Originalidad e Innovación | 20% | Prescripción edáfica cuantitativa de 40 años (Kamprath/Dolomita/Yeso), Dual-Mode UI y VRA. |
+| 2. Originalidad e Innovación | 20% | Prototipo del Módulo de Suelos MapBiomas, prescripción edáfica cuantitativa de 40 años (Kamprath/Dolomita/Yeso), Dual-Mode UI y VRA. |
 | 3. Claridad y Estructura | 15% | Next.js 16 Turbopack (35 rutas limpias), OpenAPI 3.0 interactivo, KaTeX y tour de 5 min. |
 | 4. Resultados y Discusión | 20% | Escenarios computacionales Turén/Calabozo, ROI rural desacoplado y oráculo SAR MRV. |
 | 5. Aporte Social y Ambiental | 20% | Modo Productor Fácil con 4 puertas, voz criolla campesina, resiliencia 2G y alineación ODS. |
-| 6. Aporte a MapBiomas | 5% | Puesta en valor microeconómica de Colección 3.0 en cabina de tractor y ground truth en campo. |
+| 6. Aporte a MapBiomas | 5% | Entrega de arquitectura y código (TRL 4) para el Módulo de Suelos MapBiomas, puesta en valor microeconómica de Colección 3.0 y ground truth en campo. |
 | **Total del Baremo Oficial** | **100%** | **Candidatura formalmente sometida a la consideración soberana del Jurado Calificador** |
 
 <p class="caption"><strong>Tabla: Síntesis de evidencias técnicas del expediente</strong> — <em>Mapeo objetivo de requisitos y funcionalidades según los baremos oficiales de la Segunda Edición del Premio MapBiomas Venezuela 2026 para la Categoría General.</em></p>

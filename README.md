@@ -9,6 +9,7 @@
 [![Tests: 292 Passing](https://img.shields.io/badge/Tests-292%20Passing-brightgreen.svg)]()
 [![TRL: 4](https://img.shields.io/badge/TRL-4%20(Prototipo%20Funcional)-blue.svg)]()
 [![MapBiomas Col 3.0](https://img.shields.io/badge/MapBiomas-Colección%203.0%20(1985--2024)-amber.svg)](https://venezuela.mapbiomas.org)
+[![MapBiomas Suelos: TRL 4](https://img.shields.io/badge/MapBiomas%20Suelos-Prototipo%20Operacional%20TRL%204-emerald.svg)](https://venezuela.mapbiomas.org)
 
 ---
 
@@ -17,6 +18,8 @@
 **Agrotech Venezuela** es un proyecto de software libre e independiente desarrollado por **Frank Alfonso Sousa Mota** (Ingeniero en Informática UNERG 2025, San Juan de los Morros, Estado Guárico). 
 
 La plataforma transforma los **40 años de trayectoria de MapBiomas Venezuela (1985–2024)**, las imágenes ópticas **Sentinel-2 L2A**, el radar de microondas **Sentinel-1 SAR** y la climatología **NASA POWER** en **diagnósticos edáficos accionables, predicción fenológica y prescripciones directas para el agricultor**, superando la barrera entre la ciencia espacial y la realidad del campo venezolano.
+
+> 🌱 **Prototipo Operacional para MapBiomas Suelos**: Agrotech está concebido y validado (TRL 4) como el prototipo fundacional de código abierto para dotar a la plataforma MapBiomas Venezuela de un **Módulo de Suelos**, vinculando 40 años de matrices de transición de cobertura con la física edafológica subsuperficial (Saxton-Rawls), enmiendas químicas (Kamprath), radar SAR all-weather y prescripciones de dosis variable (VRA) para producción vegetal y forrajera.
 
 ### 🔄 Ciclo Integral de Datos: Del Satélite a la Caja del Productor
 
@@ -235,6 +238,7 @@ npm run build
 Este proyecto se postula formalmente en la **Segunda Edición del Premio MapBiomas Venezuela**:
 - **Categoría**: **Categoría General** (postulación unificada e individual).
 - **Formato**: **Artículo Técnico** (arquitectura de software, algoritmos y teledetección espacial, ~3.200 palabras).
+- **Propósito Institucional**: **Prototipo Operacional para el Módulo de Suelos de MapBiomas Venezuela** (TRL 4), aportando código abierto MIT, calibración de 1.245 perfiles edafológicos y prescripción VRA a la red nacional.
 - **Madurez**: **TRL 4** (*Prototipo Funcional de Software Validado en Entorno de Desarrollo y Simulación Local*), con hoja de ruta hacia TRL 5/6.
 - **Ruta de Auditoría para el Jurado**: 👉 **[Guía Rápida de Auditoría para Evaluadores (docs/GUIA_EVALUADOR.md)](docs/GUIA_EVALUADOR.md)** con el desglose directo de los 6 criterios oficiales del baremo (Anexo II, 100%) frente al código fuente, ecuaciones y tests.
 

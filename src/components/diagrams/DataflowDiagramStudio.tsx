@@ -270,15 +270,15 @@ const SYSTEM_DIAGRAMS: DiagramDef[] = [
   },
   {
     id: 'mapbiomas_integration',
-    title: '5. Matriz de Integración de Cobertura Vegetal MapBiomas Venezuela',
+    title: '5. Matriz de Integración de Cobertura Vegetal & Módulo de Suelos MapBiomas',
     category: 'mapbiomas',
     icon: Database,
-    badge: 'MapBiomas Col. 3',
-    description: 'Estructura de series temporales de 40 años (1985-2024) de uso y cobertura del suelo en Venezuela elaborada por Provita, LSIGMA USB, Wataniba y RAISG bajo licencia CC BY 4.0.',
+    badge: 'MapBiomas Col. 3 & Suelos',
+    description: 'Estructura de series temporales de 40 años (1985-2024) de uso y cobertura del suelo en Venezuela y su derivación operacional hacia el Módulo de Suelos de MapBiomas Venezuela (TRL 4).',
     metrics: [
       { label: 'Serie Histórica', value: '40 Años (1985 - 2024)' },
       { label: 'Resolución', value: '30m Landsat / 10m Sentinel' },
-      { label: 'Clases LULC', value: 'Bosque, Sabana, Agro, Agua, Urbano' },
+      { label: 'Módulo de Suelos', value: 'Prototipo Operacional TRL 4' },
       { label: 'Licencia', value: 'CC BY 4.0 Internacional' }
     ],
     mermaidCode: `graph LR
@@ -299,19 +299,26 @@ const SYSTEM_DIAGRAMS: DiagramDef[] = [
         APT["🌾 Índice de Aptitud Agrícola Regenerativa"]
     end
 
+    subgraph PROTOTIPO["🌱 Prototipo Operacional MapBiomas"]
+        SOIL_MOD["🌱 Módulo de Suelos MapBiomas (TRL 4)\\nFísica Saxton-Rawls + Enmienda Kamprath\\nPrescripción VRA & Telemetría IoT"]
+    end
+
     MB_BOSQUE --> QUERY
     MB_SABANA --> QUERY
-    MB_AGRO --> QUERY
     MB_AGRO --> QUERY
     MB_AGUA --> QUERY
 
     QUERY --> TREND
     QUERY --> DEFOR
-    QUERY --> APT`,
+    QUERY --> APT
+
+    TREND --> SOIL_MOD
+    APT --> SOIL_MOD`,
     svgHighlights: [
       { step: 'Nivel 1: Colección 3', title: 'Base MapBiomas', description: 'Capas raster y vectoriales históricas de Venezuela de 1985 a 2024.', tech: 'MapBiomas Raster WMS', latency: '40 ms' },
       { step: 'Nivel 2: Ray-Casting', title: 'Intersección Espacial', description: 'Algoritmo Point-in-Polygon para identificar la clase histórica del lote.', tech: 'Spatial Ray-Casting', latency: '15 ms' },
-      { step: 'Nivel 3: Indicadores', title: 'Trayectoria Ecológica', description: 'Cálculo de métricas de cambio de cobertura y sostenibilidad.', tech: 'GeoStats Engine', latency: '35 ms' }
+      { step: 'Nivel 3: Indicadores', title: 'Trayectoria Ecológica', description: 'Cálculo de métricas de cambio de cobertura y sostenibilidad.', tech: 'GeoStats Engine', latency: '35 ms' },
+      { step: 'Nivel 4: Suelos TRL 4', title: 'Módulo de Suelos', description: 'Derivación operacional hacia física de suelos, enmiendas Kamprath y VRA.', tech: 'Saxton-Rawls / Kamprath', latency: '20 ms' }
     ]
   },
   {

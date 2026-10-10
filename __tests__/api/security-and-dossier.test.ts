@@ -176,6 +176,18 @@ describe('Security Hardening, Guest Sandbox Isolation & Award Dossier Suite', ()
           expect(content).toContain('Módulo de Suelos de MapBiomas Venezuela');
           expect(content).toContain('MapBiomas Suelos');
         }
+        if (fileName === 'MATRIZ_CUMPLIMIENTO_EVALUACION.md') {
+          const content = fs.readFileSync(filePath, 'utf8');
+          expect(content).toContain('Módulo de Suelos');
+          expect(content).toContain('MapBiomas Suelos');
+          expect(content).toContain('1.245 perfiles');
+        }
+        if (fileName === 'ARTICULO_TECNICO_DRAFT.md') {
+          const content = fs.readFileSync(filePath, 'utf8');
+          expect(content).toContain('Módulo de Suelos');
+          expect(content).toContain('MapBiomas Venezuela');
+          expect(content).toContain('prototipo operacional (TRL 4)');
+        }
         if (fileName === 'DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md') {
           const content = fs.readFileSync(filePath, 'utf8');
           expect(content).toContain('Copernicus');
@@ -210,6 +222,20 @@ describe('Security Hardening, Guest Sandbox Isolation & Award Dossier Suite', ()
           expect(memoirContent).toContain('Módulo de Suelos');
         }
       });
+    });
+
+    it('debe contener la presentación del Módulo de Suelos para MapBiomas en la página de inicio (src/app/page.tsx)', () => {
+      const pagePath = path.join(process.cwd(), 'src', 'app', 'page.tsx');
+      const pageContent = fs.readFileSync(pagePath, 'utf8');
+      expect(pageContent).toContain('Prototipo Operacional para MapBiomas Suelos Venezuela');
+      expect(pageContent).toContain('Módulo de Suelos para MapBiomas Venezuela');
+    });
+
+    it('debe contener la insignia y presentación de MapBiomas Suelos en README.md', () => {
+      const readmePath = path.join(process.cwd(), 'README.md');
+      const readmeContent = fs.readFileSync(readmePath, 'utf8');
+      expect(readmeContent).toContain('MapBiomas Suelos');
+      expect(readmeContent).toContain('Módulo de Suelos');
     });
   });
 

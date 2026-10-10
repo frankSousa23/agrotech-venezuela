@@ -60,13 +60,14 @@ export default function SuelosPage() {
     <div className={styles.container}>
       <header className={styles.header}>
         <div>
-          <div style={{ display: 'flex', gap: '8px', marginBottom: '6px' }}>
+          <div style={{ display: 'flex', gap: '8px', marginBottom: '6px', flexWrap: 'wrap' }}>
             <span className="badge-pill badge-amber">Edafología Nacional</span>
             <span className="badge-pill badge-emerald">1,245 Perfiles Georreferenciados</span>
+            <span className="badge-pill badge-cyan">Capa Base • Módulo de Suelos MapBiomas</span>
           </div>
           <h1 className={styles.title}>Perfiles Edafológicos & Muestras de Suelo</h1>
           <p className={styles.subtitle}>
-            Registro de fertilidad química, pH, textura y niveles de Materia Orgánica en las regiones agrícolas de Venezuela.
+            Registro de fertilidad química, pH, textura, curvas Saxton-Rawls y Materia Orgánica en las regiones agrícolas de Venezuela; prediseñado como la base edafológica para el Módulo de Suelos de MapBiomas.
           </p>
         </div>
 
