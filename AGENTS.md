@@ -59,7 +59,7 @@ Este documento define los estándares arquitectónicos, convenciones de código 
 Antes de realizar cualquier commit a la rama `main`, se **deben** ejecutar y pasar ambas suites de pruebas automatizadas:
 
 ```bash
-# 1. Pruebas de Frontend WebGIS, SAR Radar, GDD, Auth, Security, Diary, Spatial, Routing, Search, IoT, Pedotransfer, Conflict Quarantine, Carbon MRV, Vernacular, Machinery, Manual/Onboarding & ROI Decoupled (Jest — 237 tests en 33 suites)
+# 1. Pruebas de Frontend WebGIS, SAR Radar, GDD, Auth, Security, Diary, Spatial, Routing, Search, IoT, Pedotransfer, Conflict Quarantine, Carbon MRV, Vernacular, Machinery, Manual/Onboarding & ROI Decoupled (Jest — 239 tests en 33 suites)
 npm test
 
 # 2. Verificación de Tipos TypeScript (0 errores obligatorios)
@@ -71,7 +71,7 @@ npm run build
 # 4. Pruebas de Backend Espacial, ML, IA, Saxton-Rawls y Oráculo SAR (Pytest — 55 tests)
 npm run test:backend
 
-# 5. Suite Unificada Automatizada Completa (292 tests)
+# 5. Suite Unificada Automatizada Completa (294 tests)
 npm run test:all
 ```
 

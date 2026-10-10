@@ -19,7 +19,7 @@ Esta guía proporciona a los miembros del comité técnico evaluador y jurados d
 | **4. Resultados, Discusión y Conclusiones** | **20%** | Escenarios Turén / Calabozo, Costeo ROI Desacoplado ([`roiCostEngine.ts`](../src/lib/agronomy/roiCostEngine.ts), [`ImpactRoiWidget.tsx`](../src/components/agronomy/ImpactRoiWidget.tsx)), Cuarentena HTTP 409 ([`ParcelConflictModal.tsx`](../src/components/tierras/ParcelConflictModal.tsx)) | [`roiCostEngine.test.ts`](../__tests__/agronomy/roiCostEngine.test.ts)<br>[`ImpactRoiWidget.test.ts`](../__tests__/agronomy/ImpactRoiWidget.test.ts)<br>[`parcels-conflict.test.ts`](../__tests__/api/parcels-conflict.test.ts) | [Ver Detalle ↓](#criterio-4) |
 | **5. Aporte General y Social** | **20%** | Modo Productor Fácil (4 Puertas), Voz Web Speech Nativa, Parser Vernáculo ([`vernacularParser.ts`](../src/lib/farmer/vernacularParser.ts)), Resiliencia 2G ([`fieldDiaryStorage.ts`](../src/lib/diary/fieldDiaryStorage.ts)) | [`vernacular-parser.test.ts`](../__tests__/api/vernacular-parser.test.ts)<br>[`farmer-ux-and-intentions.test.ts`](../__tests__/api/farmer-ux-and-intentions.test.ts)<br>[`parcels-and-diary.test.ts`](../__tests__/api/parcels-and-diary.test.ts) | [Ver Detalle ↓](#criterio-5) |
 | **6. Aporte a MapBiomas Venezuela** | **5%** | Operacionalización de Colección 3.0 (1985–2024) para Maquinaria ([`mapbiomasTrajectory.ts`](../src/lib/geo/mapbiomasTrajectory.ts), [`mapbiomas_analyzer.py`](../backend/src/mapbiomas_analyzer.py)) y Validación de Campo | [`mapbiomas-discrepancy-and-pedagogy.test.ts`](../__tests__/api/mapbiomas-discrepancy-and-pedagogy.test.ts)<br>[`test_mapbiomas_discrepancy.py`](../backend/tests/test_mapbiomas_discrepancy.py) | [Ver Detalle ↓](#criterio-6) |
-| **Total Ponderado Oficial** | **100%** | **Sustentado en 290 Pruebas Automatizadas (236 Jest + 54 Pytest) y Licencia MIT** | `npm run test:all` | [Verificación ↓](#rigor-tecnico) |
+| **Total Ponderado Oficial** | **100%** | **Sustentado en 294 Pruebas Automatizadas (239 Jest + 55 Pytest) y Licencia MIT** | `npm run test:all` | [Verificación ↓](#rigor-tecnico) |
 
 ---
 
@@ -164,18 +164,18 @@ Esta guía proporciona a los miembros del comité técnico evaluador y jurados d
 <a id="rigor-tecnico"></a>
 ## 7. Rigor Científico, Testing y Reproducibilidad Experimental
 
-### 🧪 Verificación Automatizada Inmediata (290 Tests Pasando al 100%):
+### 🧪 Verificación Automatizada Inmediata (294 Tests Pasando al 100%):
 
 La solidez técnica del proyecto no se fundamenta en afirmaciones declarativas, sino en una **batería de pruebas automatizadas reproducibles** que cualquier miembro del jurado puede ejecutar localmente tras clonar el repositorio:
 
 ```bash
-# 1. Ejecutar las 236 pruebas unitarias y de integración de Frontend (Jest)
+# 1. Ejecutar las 239 pruebas unitarias y de integración de Frontend (Jest)
 npm test
 
 # 2. Generar el reporte categorizado por subsistemas
 npm run test:summary
 
-# 3. Ejecutar las 54 pruebas de Backend Espacial, ML, Saxton-Rawls y Oráculo SAR (Pytest)
+# 3. Ejecutar las 55 pruebas de Backend Espacial, ML, Saxton-Rawls y Oráculo SAR (Pytest)
 npm run test:backend
 
 # 4. Verificación de Tipos TypeScript (0 errores obligatorios)
