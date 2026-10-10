@@ -19,7 +19,7 @@
 
 La plataforma transforma los **40 años de trayectoria de MapBiomas Venezuela (1985–2024)**, las imágenes ópticas **Sentinel-2 L2A**, el radar de microondas **Sentinel-1 SAR** y la climatología **NASA POWER** en **diagnósticos edáficos accionables, predicción fenológica y prescripciones directas para el agricultor**, superando la barrera entre la ciencia espacial y la realidad del campo venezolano.
 
-> 🌱 **Prototipo Operacional para MapBiomas Suelos**: Agrotech está concebido y validado (TRL 4) como el prototipo fundacional de código abierto para dotar a la plataforma MapBiomas Venezuela de un **Módulo de Suelos**, vinculando 40 años de matrices de transición de cobertura con la física edafológica subsuperficial (Saxton-Rawls), enmiendas químicas (Kamprath), radar SAR all-weather y prescripciones de dosis variable (VRA) para producción vegetal y forrajera.
+> 🌱 **Ecosistema Agrotech & Módulo de Suelos para MapBiomas**: Como plataforma integral de inteligencia territorial, WebGIS e IoT, Agrotech Venezuela fue arquitectónicamente prediseñado y validado (TRL 4) con una estructura de código abierto que permite su adopción directa como el **Módulo de Suelos de MapBiomas Venezuela**, vinculando 40 años de matrices de transición de cobertura con la física edafológica subsuperficial (Saxton-Rawls), enmiendas químicas (Kamprath), radar SAR all-weather y prescripciones de dosis variable (VRA) para cultivos y pasturas.
 
 ### 🔄 Ciclo Integral de Datos: Del Satélite a la Caja del Productor
 

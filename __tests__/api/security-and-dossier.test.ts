@@ -227,8 +227,8 @@ describe('Security Hardening, Guest Sandbox Isolation & Award Dossier Suite', ()
     it('debe contener la presentación del Módulo de Suelos para MapBiomas en la página de inicio (src/app/page.tsx)', () => {
       const pagePath = path.join(process.cwd(), 'src', 'app', 'page.tsx');
       const pageContent = fs.readFileSync(pagePath, 'utf8');
-      expect(pageContent).toContain('Prototipo Operacional para MapBiomas Suelos Venezuela');
-      expect(pageContent).toContain('Módulo de Suelos para MapBiomas Venezuela');
+      expect(pageContent).toContain('Agrotech Venezuela • Inteligencia Territorial & Módulo de Suelos MapBiomas');
+      expect(pageContent).toContain('Módulo de Suelos de MapBiomas Venezuela');
     });
 
     it('debe contener la insignia y presentación de MapBiomas Suelos en README.md', () => {

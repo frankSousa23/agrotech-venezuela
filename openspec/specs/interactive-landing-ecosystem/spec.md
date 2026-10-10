@@ -40,12 +40,12 @@ The root landing page SHALL provide structured navigation organized into semanti
 - **THEN** the top navigation bar collapses the links into the mobile hamburger drawer and displays a compact primary CTA.
 
 ### Requirement: Landing Page MapBiomas Soil Module Framing
-The root landing page (`src/app/page.tsx`) SHALL prominently showcase Agrotech Venezuela's foundational role as the operational Soil Module prototype for MapBiomas Venezuela within its hero award badge and subtitle, highlighting the integration between multidecadal satellite series and sub-surface soil physics.
+The root landing page (`src/app/page.tsx`) SHALL prominently showcase Agrotech Venezuela's identity as a comprehensive agricultural intelligence platform and its operational capability to serve as the Soil Module prototype for MapBiomas Venezuela within its hero award badge and subtitle.
 
 #### Scenario: Viewing Landing Page Hero Badge
 - **WHEN** a user or evaluator visits the root route ('/')
-- **THEN** the hero award badge indicates 'Prototipo Operacional para MapBiomas Suelos Venezuela • TRL 4 (292 Tests)' with immediate visual distinction.
+- **THEN** the hero award badge indicates 'Agrotech Venezuela • Inteligencia Territorial & Módulo de Suelos MapBiomas (TRL 4)' with immediate visual distinction.
 
 #### Scenario: Viewing Landing Page Subtitle Mission
 - **WHEN** inspecting the hero subtitle text
-- **THEN** the copy explicitly defines the system's purpose of translating 40 years of MapBiomas land cover history into soil physics and agronomic prescriptions for crops and livestock pastures.
+- **THEN** the copy explicitly defines Agrotech Venezuela as the comprehensive precision agro-intelligence platform that integrates 40 years of MapBiomas land cover history into soil physics and agronomic prescriptions, engineered to also operate as the Soil Module for MapBiomas Venezuela.

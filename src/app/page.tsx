@@ -230,7 +230,7 @@ export default function Home() {
           <div className={styles.heroContent}>
             <div className={styles.awardBadge}>
               <Sparkles size={16} className={styles.awardIcon} />
-              <span>Prototipo Operacional para MapBiomas Suelos Venezuela • TRL 4 (292 Tests)</span>
+              <span>Agrotech Venezuela • Inteligencia Territorial & Módulo de Suelos MapBiomas (TRL 4)</span>
             </div>
 
             <h1 className={styles.heroTitle}>
@@ -238,7 +238,7 @@ export default function Home() {
             </h1>
 
             <p className={styles.heroSubtitle}>
-              La primera solución integral de <strong>Soberanía Agroalimentaria e Inteligencia Territorial</strong> prediseñada como el <strong>Módulo de Suelos para MapBiomas Venezuela</strong>: traduce <strong>40 años de trayectoria histórica de coberturas (Colección 3 & Agua)</strong> en física edafológica subsuperficial, penetración de nubes con <strong>Radar SAR Sentinel-1 Banda C</strong>, climatología <strong>NASA POWER</strong>, gemelo digital <strong>IoT con ESP32</strong> y prescripción agronómica de precisión con <strong>Google Gemini AI</strong> para cultivos y pasturas.
+              La plataforma integral de <strong>Soberanía Agroalimentaria e Inteligencia Territorial</strong> que fusiona <strong>40 años de trayectoria histórica de MapBiomas (Colección 3 & Agua)</strong>, penetración de nubes con <strong>Radar SAR Sentinel-1 Banda C</strong>, climatología <strong>NASA POWER</strong>, gemelo digital <strong>IoT con ESP32</strong> y prescripción edafológica con <strong>Google Gemini AI</strong> para cultivos y pasturas; prediseñada además para operar como el <strong>Módulo de Suelos de MapBiomas Venezuela</strong>.
             </p>
 
             <div className={styles.heroCtas}>
