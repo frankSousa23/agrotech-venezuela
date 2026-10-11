@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import styles from './page.module.css';
 import SoilModal from '@/components/forms/SoilModal';
 import SoilRetentionCurveCanvas from '@/components/soils/SoilRetentionCurveCanvas';
 import SoilSimulationSliders, { SoilSimulationParams } from '@/components/soils/SoilSimulationSliders';
 import MapBiomasExportHub from '@/components/soils/MapBiomasExportHub';
-import { REGIONAL_SOIL_HYDRAULICS, calculatePAW, SoilTextureType } from '@/lib/agronomy/pedotransferEngine';
+import { REGIONAL_SOIL_HYDRAULICS, calculatePAW, normalizeSoilTexture, SoilTextureType } from '@/lib/agronomy/pedotransferEngine';
 import { calculateRegionalLimingNeed } from '@/lib/geo/spatialUtils';
 import { 
   FlaskConical, 
@@ -21,23 +22,40 @@ import {
   Code
 } from 'lucide-react';
 
-export default function SuelosPage() {
-  const [activeTab, setActiveTab] = useState<'catalog' | 'simulator' | 'export_hub'>('catalog');
+function SuelosContent() {
+  const searchParams = useSearchParams();
+  const tabParam = searchParams.get('tab');
+  const initialTab = (tabParam === 'simulator' || tabParam === 'export_hub' || tabParam === 'catalog')
+    ? tabParam
+    : 'catalog';
+
+  const [activeTab, setActiveTab] = useState<'catalog' | 'simulator' | 'export_hub'>(initialTab);
   const [soils, setSoils] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [phFilter, setPhFilter] = useState('all');
 
-  // Estado del simulador interactivo Saxton-Rawls
-  const [simParams, setSimParams] = useState<SoilSimulationParams>({
-    sandPct: 40,
-    clayPct: 20,
-    ph: 6.2,
-    organicMatterPct: 3.2,
-    exchangeableAlMe: 0.1,
-    currentMoisturePct: 24,
-    texture: 'franco'
+  // Estado del simulador interactivo Saxton-Rawls con lectura de query params
+  const [simParams, setSimParams] = useState<SoilSimulationParams>(() => {
+    const rawTexture = searchParams.get('texture') || '';
+    const normTexture: SoilTextureType = rawTexture ? normalizeSoilTexture(rawTexture) : 'franco';
+    const phVal = searchParams.get('ph') ? parseFloat(searchParams.get('ph')!) : 6.2;
+    const omVal = searchParams.get('om') ? parseFloat(searchParams.get('om')!) : 3.2;
+    const alVal = searchParams.get('al') ? parseFloat(searchParams.get('al')!) : 0.1;
+    const sandVal = searchParams.get('sand') ? parseFloat(searchParams.get('sand')!) : (normTexture === 'arenoso' ? 82 : normTexture === 'arcilloso' ? 15 : 40);
+    const clayVal = searchParams.get('clay') ? parseFloat(searchParams.get('clay')!) : (normTexture === 'arenoso' ? 8 : normTexture === 'arcilloso' ? 55 : 20);
+    const moistureVal = normTexture === 'arenoso' ? 10 : normTexture === 'arcilloso' ? 38 : 24;
+
+    return {
+      sandPct: isNaN(sandVal) ? 40 : sandVal,
+      clayPct: isNaN(clayVal) ? 20 : clayVal,
+      ph: isNaN(phVal) ? 6.2 : phVal,
+      organicMatterPct: isNaN(omVal) ? 3.2 : omVal,
+      exchangeableAlMe: isNaN(alVal) ? 0.1 : alVal,
+      currentMoisturePct: moistureVal,
+      texture: normTexture
+    };
   });
 
   const fetchSoils = () => {
@@ -359,5 +377,17 @@ export default function SuelosPage() {
         />
       )}
     </div>
+  );
+}
+
+export default function SuelosPage() {
+  return (
+    <Suspense fallback={
+      <div style={{ padding: '3rem', textAlign: 'center', color: '#10b981', background: '#0b1329', borderRadius: '16px' }}>
+        🔬 Cargando Estación Edafológica y Módulo de Suelos...
+      </div>
+    }>
+      <SuelosContent />
+    </Suspense>
   );
 }

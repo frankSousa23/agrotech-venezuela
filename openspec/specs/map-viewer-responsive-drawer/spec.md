@@ -27,3 +27,14 @@ The multi-scale map viewer (`MultiLevelMapViewer`) SHALL render an explicit, pro
 #### Scenario: Returning from State Level 2 to National Level 1
 - **WHEN** user is inspecting Level 2 (Estado) and taps "Volver al Mapa Nacional"
 - **THEN** the viewer camera resets to Level 1 (Venezuela global).
+
+### Requirement: Soil Study Quick-Actions in Map Popups and Panels
+The WebGIS map viewer and parcel diagnostic modal SHALL provide interactive action links allowing users to transition directly to the Saxton-Rawls pF retention curve simulator in `/dashboard/suelos`, carrying the active soil sample attributes, municipal dominant texture, or parcel diagnostic parameters.
+
+#### Scenario: Clicking soil marker popup action link
+- **WHEN** user clicks a soil point marker on the WebGIS map and clicks the simulator action link in the popup
+- **THEN** system navigates to `/dashboard/suelos?tab=simulator` pre-filled with the sample's texture, pH, and organic matter values.
+
+#### Scenario: Quick action from municipal panel or parcel diagnostic modal
+- **WHEN** user selects a municipality in the WebGIS viewer or opens the parcel diagnostic modal
+- **THEN** the UI provides an explicit action button to simulate soil physics and retention for the selected zone in `/dashboard/suelos`.

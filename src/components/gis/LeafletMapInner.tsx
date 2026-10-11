@@ -488,13 +488,21 @@ export default function LeafletMapInner({
           radius: 4.5
         });
 
+        const textureParam = encodeURIComponent(pt.texture);
         marker.bindPopup(`
-          <div style="padding: 6px; font-size: 0.8rem; min-width: 180px;">
+          <div style="padding: 6px; font-size: 0.8rem; min-width: 190px;">
             <b style="color: #0284c7;">🧪 Muestra GPS #${pt.id}</b><br />
             <b>pH:</b> <span style="color: ${phColor}; font-weight: 700;">${pt.ph}</span> (${pt.ph < 5.5 ? 'Ácido' : 'Fértil'})<br />
             <b>Textura:</b> ${pt.texture}<br />
             <b>Materia Orgánica:</b> ${pt.organicMatter}%<br />
             <b>Fecha Muestreo:</b> ${pt.samplingDate}
+            <div style="margin-top: 8px; padding-top: 6px; border-top: 1px solid rgba(255,255,255,0.15);">
+              <a href="/dashboard/suelos?tab=simulator&texture=${textureParam}&ph=${pt.ph}&om=${pt.organicMatter}" 
+                 style="display: inline-flex; align-items: center; gap: 4px; color: #38bdf8; font-weight: 600; text-decoration: none; font-size: 0.76rem;" 
+                 title="Abrir simulación pF y retención en el Módulo de Suelos">
+                🔬 Simular en Módulo de Suelos ➔
+              </a>
+            </div>
           </div>
         `);
 

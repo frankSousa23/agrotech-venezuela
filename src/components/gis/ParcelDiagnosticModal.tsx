@@ -291,7 +291,31 @@ export default function ParcelDiagnosticModal({ parcel, onClose }: ParcelDiagnos
               </div>
             </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+            <a 
+              href={`/dashboard/suelos?tab=simulator&texture=${encodeURIComponent(texture)}&ph=${avgPh}&om=${organicMatter}`}
+              id="btn_modal_header_simulate_soil"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '5px',
+                background: 'rgba(6, 182, 212, 0.2)',
+                border: '1px solid #06b6d4',
+                color: '#38bdf8',
+                padding: '6px 12px',
+                borderRadius: '8px',
+                fontSize: '0.76rem',
+                fontWeight: 700,
+                textDecoration: 'none',
+                cursor: 'pointer',
+                whiteSpace: 'nowrap'
+              }}
+              title="Analizar física de suelos Saxton-Rawls y curva pF en el Módulo de Suelos"
+            >
+              <span>🔬 Simular Suelo pF</span>
+            </a>
             <a 
               href={`/dashboard/recomendaciones?area=${parcel.areaHectares}&crop=${encodeURIComponent(selectedCrop)}&parcelName=${encodeURIComponent(parcel.name || 'Parcela')}&ph=${avgPh}&soilTexture=${encodeURIComponent(texture)}#impact_roi_widget`}
               id="btn_modal_header_calculate_roi"

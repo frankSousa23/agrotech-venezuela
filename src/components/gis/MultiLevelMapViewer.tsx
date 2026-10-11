@@ -953,6 +953,36 @@ export default function MultiLevelMapViewer({
               <div><b>Destacado:</b> {currentMunicipality.agriculturalHighlights}</div>
             </div>
 
+            {/* 🔬 Botón de acceso directo al Módulo de Suelos para simulación pF */}
+            <div style={{ marginBottom: '10px' }}>
+              <a
+                href={`/dashboard/suelos?tab=simulator&texture=${encodeURIComponent(currentMunicipality.soilTexture)}&ph=${currentMunicipality.avgPh}`}
+                id="btn_map_simulate_municipality_soil"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '6px',
+                  width: '100%',
+                  padding: '7px 10px',
+                  background: 'rgba(16, 185, 129, 0.18)',
+                  border: '1px solid rgba(16, 185, 129, 0.45)',
+                  borderRadius: '6px',
+                  color: '#34d399',
+                  fontSize: '0.75rem',
+                  fontWeight: 600,
+                  textDecoration: 'none',
+                  transition: 'all 0.2s'
+                }}
+                title={`Simular retención hídrica Saxton-Rawls para suelo ${currentMunicipality.soilTexture} en el Módulo de Suelos`}
+              >
+                <FlaskConical size={14} />
+                <span>Simular Curva pF de {currentMunicipality.name} ➔</span>
+              </a>
+            </div>
+
             {/* 🔬 Retroalimentación Edafoclimática Contextual de Nivel 3 (Task 2.2) */}
             <div style={{
               padding: '10px',
