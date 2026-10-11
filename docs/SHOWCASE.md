@@ -127,15 +127,77 @@ Bienvenido a la **Galería Visual de Operación** de **Agrotech Venezuela**. Est
 
 ---
 
+## 🧪 7. Módulo de Suelos MapBiomas: Simulador Interactivo de Curva de Retención pF
+
+> **Ruta en plataforma:** `/dashboard/suelos` (Pestaña *2. Simulador Curva pF (Saxton-Rawls)*)  
+> **Tecnologías:** Next.js 16, SVG Reactivo puro, Modelo Edafológico Saxton-Rawls & van Genuchten, Presets Regionales (Turén, Guanipa, Quíbor, Calabozo, Sur del Lago).
+
+![Simulador Curva pF Saxton-Rawls](images/showcase/07_modulo_suelos_simulador_pf.png)
+
+### Capacidades Demostradas en Pantalla:
+- **Trazado Vectorial en Tiempo Real de la Curva de Desorción de Agua en el Suelo:**
+  - Gráfico logarítmico pF ($\log_{10}|\psi|$) vs Humedad Volumétrica ($\theta\%$).
+  - Marcadores interactivos automáticos:
+    - **Saturación ($\theta_s$)**: Capacidad máxima de anegamiento.
+    - **Capacidad de Campo ($\theta_{fc}$ a -33 kPa)**: Retención óptima tras drenaje gravitacional.
+    - **Punto de Marchitez Permanente ($\theta_{pwp}$ a -1500 kPa)**: Límite inferior de extracción radicular.
+    - **Umbral de Estrés (PAW 50%)**: Línea de activación de riego deficitario controlado.
+- **Sliders Reactivos de Laboratorio Edafológico:**
+  - Control de Porcentaje de Arena (%) y Arcilla (%) con auto-cálculo de limo y normalización textural.
+  - Control de pH, Materia Orgánica y Aluminio Intercambiable ($Al^{3+}$ en meq/100g).
+- **Presets Territoriales Instantáneos:**
+  - Carga con 1 clic de perfiles edafológicos reales calibrados de Venezuela: Turén (Aluvial cerealero), Calabozo (Vertisol arrocero), Guanipa (Sabana ácida), Quíbor (Salino-sódico) y Sur del Lago (Aluvial platanero).
+- **Prescripción Química Dinámica (Kamprath / Yeso):**
+  - Desglose instantáneo de toneladas métricas por hectárea y sacos equivalentes de 50 kg requeridos para la parcela.
+
+---
+
+## 🛰️ 8. Hub de Exportación Geoespacial & Scripts Google Earth Engine
+
+> **Ruta en plataforma:** `/dashboard/suelos` (Pestaña *3. Hub de Exportación MapBiomas*)  
+> **Tecnologías:** RFC 7946 GeoJSON FeatureCollection, Google Earth Engine API Generator (`mapbiomas_soil_engine.js`), CORS Headers `Access-Control-Allow-Origin: *`.
+
+![Hub de Exportación MapBiomas](images/showcase/08_modulo_suelos_export_hub_mapbiomas.png)
+
+### Capacidades Demostradas en Pantalla:
+- **Descargas Directas Turnkey para Investigadores y Plataformas:**
+  - **Capa GeoJSON Completa (RFC 7946)**: Exportación de todos los perfiles de suelo calibrados con propiedades edafológicas y de retención hídrica en 1 clic (`/api/v1/soil/export/geojson`).
+  - **Módulo JavaScript para Google Earth Engine**: Generador dinámico de `mapbiomas_soil_engine.js` descargable para importar directamente en el Code Editor de GEE (`/api/v1/soil/export/gee-script`).
+- **Selector de Snippets de Integración en Tiempo Real:**
+  - Código listo para copiar y pegar en **cURL**, **Python**, **JavaScript** e **Iframe**.
+  - Permite a desarrolladores de Provita, Wataniba, LSIGMA USB o el equipo regional de MapBiomas consumir la API federada sin configurar servidores intermedios.
+
+---
+
+## 🔌 9. Microfrontend Embebible para Portales MapBiomas (`/embed/soil-module`)
+
+> **Ruta en plataforma:** `/embed/soil-module`  
+> **Tecnologías:** Zero-Shell Microfrontend, Glassmorphism Adaptativo, Protocolo Bidireccional `window.postMessage`, Parámetros de URL (`lat`, `lon`, `theme`).
+
+![Microfrontend Embebible](images/showcase/09_modulo_suelos_microfrontend_embed.png)
+
+### Capacidades Demostradas en Pantalla:
+- **Integración Transparente sin Barreras de Despliegue:**
+  - Vista compacta sin menús ni cabeceras, diseñada específicamente para embeberse como iframe en el visor web oficial de MapBiomas Venezuela o plataformas aliadas.
+- **Diagnóstico Territorial Inmediato:**
+  - Indicador de estado de acidez y balance edafológico.
+  - Medidor visual de Agua Disponible para la Planta (PAW %).
+  - Dosis de enmienda recomendada en t/ha de cal o yeso según modelo Kamprath regional.
+- **Sincronización Interactiva:**
+  - Comunicación de eventos de coordenadas GPS en tiempo real entre el mapa anfitrión y el widget mediante `postMessage`.
+
+---
+
 ## 🎯 Resumen de Arquitectura e Integridad
 
 | Dimensión | Especificación Técnica | Estado de Verificación |
 | :--- | :--- | :---: |
-| **Pruebas Automatizadas** | 294 pruebas (239 Jest en 33 suites + 55 Pytest en 17 módulos) | `100% PASS` |
-| **Compilación Next.js 16** | 35 rutas de producción generadas de forma estática y dinámica | `CLEAN BUILD` |
+| **Pruebas Automatizadas** | 306 pruebas (251 Jest en 34 suites + 55 Pytest en 17 módulos) | `100% PASS` |
+| **Compilación Next.js 16** | 40 rutas de producción generadas de forma estática y dinámica | `CLEAN BUILD` |
 | **Rigor de Tipado** | TypeScript modo estricto en toda la base de código | `0 ERRORES` |
 | **Licenciamiento** | Código abierto bajo Licencia MIT con atribución CC BY 4.0 | `CERTIFICADO` |
 | **Soberanía & Costo Cloud** | 0 dependencias pagas obligatorias, SQLite WAL + IndexedDB offline | `RESILIENTE` |
 
 ---
 *Para consultar cómo cada uno de estos módulos responde a la rúbrica oficial de evaluación del jurado, consulte la [Guía de Auditoría para Evaluadores](GUIA_EVALUADOR.md).*
+

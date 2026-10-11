@@ -15,11 +15,11 @@ Esta guía proporciona a los miembros del comité técnico evaluador y jurados d
 | :--- | :---: | :--- | :--- | :---: |
 | **1. Complejidad Técnica** | **20%** | WebGIS 3 Niveles ([`VenezuelaStateMapInner.tsx`](../src/components/gis/VenezuelaStateMapInner.tsx)), Radar SAR ([`sarRadarService.ts`](../src/lib/geo/sarRadarService.ts)), Shoelace WGS84 ([`spatialUtils.ts`](../src/lib/geo/spatialUtils.ts)), Saxton-Rawls ([`pedotransferEngine.ts`](../src/lib/agronomy/pedotransferEngine.ts)), Oráculo MRV ([`risk_and_carbon_engine.py`](../backend/src/risk_and_carbon_engine.py)) | [`spatial.test.ts`](../__tests__/api/spatial.test.ts)<br>[`pedotransfer.test.ts`](../__tests__/agronomy/pedotransfer.test.ts)<br>[`test_risk_and_carbon.py`](../backend/tests/test_risk_and_carbon.py) | [Ver Detalle ↓](#criterio-1) |
 | **2. Originalidad e Innovación** | **20%** | Prescripción Química Kamprath/Dolomita/Yeso ([`spatialUtils.ts`](../src/lib/geo/spatialUtils.ts)), Dual-Mode UI ([`UIModeContext.tsx`](../src/lib/context/UIModeContext.tsx), [`FarmerModeToggle.tsx`](../src/components/layout/FarmerModeToggle.tsx)), Maquinaria VRA ([`machineryExporter.ts`](../src/lib/geo/machineryExporter.ts)) | [`soils.test.ts`](../__tests__/api/soils.test.ts)<br>[`recomendaciones.test.ts`](../__tests__/api/recomendaciones.test.ts)<br>[`machinery-exporter.test.ts`](../__tests__/api/machinery-exporter.test.ts) | [Ver Detalle ↓](#criterio-2) |
-| **3. Claridad y Estructura** | **15%** | Next.js 16 Turbopack (35 rutas), Tour Demo Interactivo ([`postulacion/page.tsx`](../src/app/dashboard/postulacion/page.tsx)), OpenAPI 3.0 ([`main.py`](../backend/src/main.py)), KaTeX | [`routing-and-redirects.test.ts`](../__tests__/api/routing-and-redirects.test.ts)<br>[`security-and-dossier.test.ts`](../__tests__/api/security-and-dossier.test.ts)<br>[`native-gis-lifecycle.test.ts`](../__tests__/api/native-gis-lifecycle.test.ts) | [Ver Detalle ↓](#criterio-3) |
+| **3. Claridad y Estructura** | **15%** | Next.js 16 Turbopack (40 rutas), Tour Demo Interactivo ([`postulacion/page.tsx`](../src/app/dashboard/postulacion/page.tsx)), OpenAPI 3.0 ([`main.py`](../backend/src/main.py)), KaTeX | [`routing-and-redirects.test.ts`](../__tests__/api/routing-and-redirects.test.ts)<br>[`security-and-dossier.test.ts`](../__tests__/api/security-and-dossier.test.ts)<br>[`native-gis-lifecycle.test.ts`](../__tests__/api/native-gis-lifecycle.test.ts) | [Ver Detalle ↓](#criterio-3) |
 | **4. Resultados, Discusión y Conclusiones** | **20%** | Escenarios Turén / Calabozo, Costeo ROI Desacoplado ([`roiCostEngine.ts`](../src/lib/agronomy/roiCostEngine.ts), [`ImpactRoiWidget.tsx`](../src/components/agronomy/ImpactRoiWidget.tsx)), Cuarentena HTTP 409 ([`ParcelConflictModal.tsx`](../src/components/tierras/ParcelConflictModal.tsx)) | [`roiCostEngine.test.ts`](../__tests__/agronomy/roiCostEngine.test.ts)<br>[`ImpactRoiWidget.test.ts`](../__tests__/agronomy/ImpactRoiWidget.test.ts)<br>[`parcels-conflict.test.ts`](../__tests__/api/parcels-conflict.test.ts) | [Ver Detalle ↓](#criterio-4) |
 | **5. Aporte General y Social** | **20%** | Modo Productor Fácil (4 Puertas), Voz Web Speech Nativa, Parser Vernáculo ([`vernacularParser.ts`](../src/lib/farmer/vernacularParser.ts)), Resiliencia 2G ([`fieldDiaryStorage.ts`](../src/lib/diary/fieldDiaryStorage.ts)) | [`vernacular-parser.test.ts`](../__tests__/api/vernacular-parser.test.ts)<br>[`farmer-ux-and-intentions.test.ts`](../__tests__/api/farmer-ux-and-intentions.test.ts)<br>[`parcels-and-diary.test.ts`](../__tests__/api/parcels-and-diary.test.ts) | [Ver Detalle ↓](#criterio-5) |
-| **6. Aporte a MapBiomas Venezuela** | **5%** | Operacionalización de Colección 3.0 (1985–2024) para Maquinaria ([`mapbiomasTrajectory.ts`](../src/lib/geo/mapbiomasTrajectory.ts), [`mapbiomas_analyzer.py`](../backend/src/mapbiomas_analyzer.py)) y Validación de Campo | [`mapbiomas-discrepancy-and-pedagogy.test.ts`](../__tests__/api/mapbiomas-discrepancy-and-pedagogy.test.ts)<br>[`test_mapbiomas_discrepancy.py`](../backend/tests/test_mapbiomas_discrepancy.py) | [Ver Detalle ↓](#criterio-6) |
-| **Total Ponderado Oficial** | **100%** | **Sustentado en 294 Pruebas Automatizadas (239 Jest + 55 Pytest) y Licencia MIT** | `npm run test:all` | [Verificación ↓](#rigor-tecnico) |
+| **6. Aporte a MapBiomas Venezuela** | **5%** | Módulo de Suelos MapBiomas TRL 4, API Federada CORS ([`spatialSoilIndex.ts`](../src/lib/soil-module/spatialSoilIndex.ts)), Generador GEE (`mapbiomas_soil_engine.js`), Widget Embebible ([`/embed/soil-module`](../src/app/embed/soil-module/page.tsx)) y Trayectorias | [`soil-federated-module.test.ts`](../__tests__/api/soil-federated-module.test.ts)<br>[`mapbiomas-discrepancy-and-pedagogy.test.ts`](../__tests__/api/mapbiomas-discrepancy-and-pedagogy.test.ts)<br>[`test_mapbiomas_discrepancy.py`](../backend/tests/test_mapbiomas_discrepancy.py) | [Ver Detalle ↓](#criterio-6) |
+| **Total Ponderado Oficial** | **100%** | **Sustentado en 306 Pruebas Automatizadas (251 Jest + 55 Pytest) y Licencia MIT** | `npm run test:all` | [Verificación ↓](#rigor-tecnico) |
 
 ---
 
@@ -152,9 +152,16 @@ Esta guía proporciona a los miembros del comité técnico evaluador y jurados d
    - Demuestra que los 40 años de series históricas de MapBiomas no solo sirven para monitoreo macro-ecológico, sino para **decisiones agronómicas microeconómicas directas en la cabina del tractor**.
    - Archivo fuente: [`src/lib/geo/mapbiomasTrajectory.ts`](../src/lib/geo/mapbiomasTrajectory.ts) y [`backend/src/mapbiomas_analyzer.py`](../backend/src/mapbiomas_analyzer.py)
    - Test suite: [`__tests__/api/mapbiomas-discrepancy-and-pedagogy.test.ts`](../__tests__/api/mapbiomas-discrepancy-and-pedagogy.test.ts) y [`backend/tests/test_mapbiomas_discrepancy.py`](../backend/tests/test_mapbiomas_discrepancy.py)
-2. **Retroalimentación de Verdad de Terreno (Ground Truth)**:
+2. **Módulo de Suelos Operacional & Federación Geoespacial (TRL 4)**:
+   - Prototipo funcional para acoplar la clasificación satelital con física edafológica (Saxton-Rawls) y enmiendas Kamprath:
+     - API abierta CORS: `GET /api/v1/soil/point` (k-NN / IDW), `POST /api/v1/soil/intersect` (área Shoelace WGS84, pH ponderado, retención hídrica en m³ y enmiendas en sacos de 50 kg).
+     - Exportación RFC 7946 GeoJSON (`/api/v1/soil/export/geojson`) y generador modular de scripts JavaScript para Google Earth Engine (`/api/v1/soil/export/gee-script`).
+     - Microfrontend embebible `/embed/soil-module` para integración nativa como iframe en portales de MapBiomas Venezuela.
+   - Archivos fuente: [`src/lib/soil-module/spatialSoilIndex.ts`](../src/lib/soil-module/spatialSoilIndex.ts), [`src/lib/soil-module/geeTemplateGenerator.ts`](../src/lib/soil-module/geeTemplateGenerator.ts), [`src/app/embed/soil-module/page.tsx`](../src/app/embed/soil-module/page.tsx).
+   - Test suite: [`__tests__/api/soil-federated-module.test.ts`](../__tests__/api/soil-federated-module.test.ts).
+3. **Retroalimentación de Verdad de Terreno (Ground Truth)**:
    - El productor valida en campo si la clasificación satelital coincide con la realidad de su tablón a través del Cuaderno de Campo.
-3. **Cita y Atribución Rigurosa**:
+4. **Cita y Atribución Rigurosa**:
    - Reconocimiento explícito a la Red MapBiomas Venezuela (Provita, LSIGMA USB, Wataniba y RAISG) bajo licencia **Creative Commons Atribución 4.0 Internacional (CC BY 4.0)** en interfaces, mapas y documentación.
 
 [Volver al Índice ↑](#indice)
@@ -164,12 +171,12 @@ Esta guía proporciona a los miembros del comité técnico evaluador y jurados d
 <a id="rigor-tecnico"></a>
 ## 7. Rigor Científico, Testing y Reproducibilidad Experimental
 
-### 🧪 Verificación Automatizada Inmediata (294 Tests Pasando al 100%):
+### 🧪 Verificación Automatizada Inmediata (306 Tests Pasando al 100%):
 
 La solidez técnica del proyecto no se fundamenta en afirmaciones declarativas, sino en una **batería de pruebas automatizadas reproducibles** que cualquier miembro del jurado puede ejecutar localmente tras clonar el repositorio:
 
 ```bash
-# 1. Ejecutar las 239 pruebas unitarias y de integración de Frontend (Jest)
+# 1. Ejecutar las 251 pruebas unitarias y de integración de Frontend (Jest)
 npm test
 
 # 2. Generar el reporte categorizado por subsistemas
@@ -181,7 +188,7 @@ npm run test:backend
 # 4. Verificación de Tipos TypeScript (0 errores obligatorios)
 npm run typecheck
 
-# 5. Compilación de Producción Next.js 16 Turbopack (35 rutas limpias)
+# 5. Compilación de Producción Next.js 16 Turbopack (40 rutas limpias)
 npm run build
 ```
 
