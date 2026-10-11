@@ -17,7 +17,7 @@ SLIDE_DURATION_SEC = 5.0
 TRANSITION_DURATION_SEC = 1.0
 
 OUTPUT_MP4_PATH = os.path.join(os.path.dirname(__file__), "..", "..", "agrotech_presentacion_pitch.mp4")
-ARTIFACT_MP4_PATH = r"C:\Users\Windows\.gemini\antigravity-ide\brain\53e299c0-4dbe-437d-b32a-f4ed190b0ece\agrotech_presentacion_pitch.mp4"
+ARTIFACT_MP4_PATH = os.environ.get("AGROTECH_ARTIFACT_MP4", OUTPUT_MP4_PATH)
 
 # Intentar cargar fuentes del sistema Windows
 def get_fonts():
@@ -270,7 +270,7 @@ def create_slide_7():
     draw.text((120, 150), "Verificacion Exhaustiva y Benchmarking", fill=(255, 255, 255), font=font_title)
 
     metrics = [
-        ("69 / 69", "Pruebas Automatizadas", "39 Pytest (Backend & ML) + 30 Jest (WebGIS & APIs)\n100% de cobertura y 0 errores de compilacion."),
+        ("306 / 306", "Pruebas Automatizadas", "55 Pytest (Backend & ML) + 251 Jest (WebGIS & APIs)\n100% de cobertura y 0 errores de compilacion."),
         ("< 25 ms", "Latencia en Cache", "Base de datos SQLite en modo WAL para operacion\noffline y reduccion del 98% de tiempo de respuesta."),
         ("100%", "Multi-Contenedor Docker", "Orquestacion en docker-compose: Next.js (3000),\nFastAPI (8000), Streamlit (8501) y PostgreSQL (5444)."),
         ("CI / CD", "GitHub Actions", "Pipeline automatizado de integracion continua con\npruebas automaticas en cada push a la rama main.")

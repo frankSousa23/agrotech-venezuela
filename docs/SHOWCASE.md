@@ -199,5 +199,6 @@ Bienvenido a la **Galería Visual de Operación** de **Agrotech Venezuela**. Est
 | **Soberanía & Costo Cloud** | 0 dependencias pagas obligatorias, SQLite WAL + IndexedDB offline | `RESILIENTE` |
 
 ---
+*Para consultar la guía operativa completa de uso en terreno y simulación del Módulo de Suelos paso a paso (del mapa al surco), consulte la [Guía Operativa del Módulo de Suelos](GUIA_MODULO_SUELOS.md).*  
 *Para consultar cómo cada uno de estos módulos responde a la rúbrica oficial de evaluación del jurado, consulte la [Guía de Auditoría para Evaluadores](GUIA_EVALUADOR.md).*
 
