@@ -27,7 +27,9 @@ import {
   Cpu,
   Radio,
   AlertTriangle,
-  DollarSign
+  DollarSign,
+  Droplets,
+  ChevronDown
 } from 'lucide-react';
 
 export default function TierrasPage() {
@@ -245,97 +247,113 @@ export default function TierrasPage() {
                     </div>
                   </div>
 
-                  <div className={styles.cardActions} style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '1.2rem' }}>
-                    {parcelConflict ? (
-                      <button
-                        onClick={() => setSelectedConflictForModal(parcelConflict)}
+                  <div className={styles.cardActions} style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '1.2rem' }}>
+                    {/* Fila 1: Acciones Primarias */}
+                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                      <Link 
+                        href={`/dashboard/suelos?tab=simulator&parcelId=${p.id}&parcelName=${encodeURIComponent(p.name)}&texture=${encodeURIComponent(p.soilTexture || 'Franco')}&ph=${p.ph || 6.2}`}
                         className={styles.actionBtn}
-                        style={{
-                          background: '#eab308',
-                          border: 'none',
-                          color: '#0f172a',
-                          fontWeight: 700,
-                          cursor: 'pointer',
-                          flex: 1,
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: '6px'
-                        }}
+                        style={{ background: 'rgba(6, 182, 212, 0.2)', border: '1px solid rgba(6, 182, 212, 0.5)', color: '#38bdf8', fontWeight: 600, flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '5px' }}
+                        title="Simular retención hídrica, confort de raíz y enmienda de este lote en el módulo de suelos"
+                        id={`btn_suelo_${p.id}`}
                       >
-                        <AlertTriangle size={14} /> Resolver Conflicto
-                      </button>
-                    ) : (
+                        <Droplets size={14} color="#06b6d4" /> Curva Hídrica & Suelo
+                      </Link>
+
+                      {parcelConflict ? (
+                        <button
+                          onClick={() => setSelectedConflictForModal(parcelConflict)}
+                          className={styles.actionBtn}
+                          style={{
+                            background: '#eab308',
+                            border: 'none',
+                            color: '#0f172a',
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                            flex: 1,
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '6px'
+                          }}
+                        >
+                          <AlertTriangle size={14} /> Resolver Conflicto
+                        </button>
+                      ) : (
+                        <button 
+                          onClick={() => handleOpenDiagnostic(p)}
+                          className={styles.actionBtn}
+                          style={{ background: '#16a34a', border: 'none', color: '#fff', cursor: 'pointer', flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}
+                        >
+                          <Sparkles size={14} /> Gemelo Digital & IA
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Fila 2: Cuadrícula de Acciones de Gestión y Precisión */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: '6px' }}>
+                      <Link 
+                        href={`/dashboard/recomendaciones?stateId=${p.stateId}&crop=${encodeURIComponent(p.currentCrop || 'Maíz Blanco')}&parcelName=${encodeURIComponent(p.name)}`}
+                        className={styles.actionBtn}
+                        style={{ background: 'rgba(56, 189, 248, 0.1)', border: '1px solid rgba(56, 189, 248, 0.3)', color: '#38bdf8', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px', fontSize: '0.75rem', padding: '6px 8px' }}
+                        title="Obtener prescripción agronómica detallada con Gemini AI"
+                      >
+                        <Sparkles size={12} /> Asesor IA
+                      </Link>
+
+                      <Link 
+                        href={`/dashboard/recomendaciones?parcelId=${p.id}&stateId=${p.stateId}&crop=${encodeURIComponent(p.currentCrop || 'Maíz Blanco')}&area=${p.areaHectares}&parcelName=${encodeURIComponent(p.name)}#impact_roi_widget`}
+                        className={styles.actionBtn}
+                        style={{ background: 'rgba(52, 211, 153, 0.12)', border: '1px solid rgba(52, 211, 153, 0.35)', color: '#6ee7b7', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px', fontSize: '0.75rem', padding: '6px 8px' }}
+                        title="Calcular Retorno de Inversión (ROI) operativo y ahorro en insumos de esta parcela"
+                        id={`btn_roi_${p.id}`}
+                      >
+                        <DollarSign size={12} /> ROI Finca
+                      </Link>
+
+                      <Link 
+                        href={`/dashboard/recomendaciones?parcelId=${p.id}&stateId=${p.stateId}&crop=${encodeURIComponent(p.currentCrop || 'Maíz Blanco')}&area=${p.areaHectares}#carbon-credits`}
+                        className={styles.actionBtn}
+                        style={{ background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.3)', color: '#34d399', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px', fontSize: '0.75rem', padding: '6px 8px' }}
+                        title="Calcular bonos de carbono y reducción de emisiones Verra VCS para esta parcela"
+                      >
+                        <Sprout size={12} /> Carbono
+                      </Link>
+
+                      <Link 
+                        href={`/dashboard/iot?parcelId=${p.id}&parcelName=${encodeURIComponent(p.name)}`}
+                        className={styles.actionBtn}
+                        style={{ background: 'rgba(168, 85, 247, 0.1)', border: '1px solid rgba(168, 85, 247, 0.3)', color: '#c084fc', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px', fontSize: '0.75rem', padding: '6px 8px' }}
+                        title="Monitorear gemelo IoT y telemetría in-situ de esta parcela"
+                      >
+                        <Radio size={12} /> Lab IoT
+                      </Link>
+
                       <button 
-                        onClick={() => handleOpenDiagnostic(p)}
+                        onClick={() => setSelectedParcelForMachinery(p)}
                         className={styles.actionBtn}
-                        style={{ background: '#16a34a', border: 'none', color: '#fff', cursor: 'pointer', flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}
+                        style={{ background: 'rgba(234, 179, 8, 0.1)', border: '1px solid rgba(234, 179, 8, 0.3)', color: '#facc15', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px', cursor: 'pointer', fontSize: '0.75rem', padding: '6px 8px' }}
+                        title="Exportar archivo VRA para tractor GPS, dron o ficha analógica"
                       >
-                        <Sparkles size={14} /> Gemelo Digital & IA
+                        <Tractor size={12} /> Maquinaria
                       </button>
-                    )}
 
-                    <Link 
-                      href={`/dashboard/recomendaciones?stateId=${p.stateId}&crop=${encodeURIComponent(p.currentCrop || 'Maíz Blanco')}&parcelName=${encodeURIComponent(p.name)}`}
-                      className={styles.actionBtn}
-                      style={{ background: 'rgba(56, 189, 248, 0.15)', border: '1px solid rgba(56, 189, 248, 0.4)', color: '#38bdf8', flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}
-                      title="Obtener prescripción agronómica detallada con Gemini AI"
-                    >
-                      <Sparkles size={14} /> Prescripción IA
-                    </Link>
+                      <Link 
+                        href={`/dashboard/bitacora?parcelId=${p.id}&parcelName=${encodeURIComponent(p.name)}`} 
+                        className={styles.actionBtn}
+                        style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px', fontSize: '0.75rem', padding: '6px 8px' }}
+                      >
+                        <BookOpen size={12} /> Bitácora
+                      </Link>
 
-                    <Link 
-                      href={`/dashboard/recomendaciones?parcelId=${p.id}&stateId=${p.stateId}&crop=${encodeURIComponent(p.currentCrop || 'Maíz Blanco')}&area=${p.areaHectares}&parcelName=${encodeURIComponent(p.name)}#impact_roi_widget`}
-                      className={styles.actionBtn}
-                      style={{ background: 'rgba(52, 211, 153, 0.2)', border: '1px solid rgba(52, 211, 153, 0.5)', color: '#6ee7b7', flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}
-                      title="Calcular Retorno de Inversión (ROI) operativo y ahorro en insumos de esta parcela"
-                      id={`btn_roi_${p.id}`}
-                    >
-                      <DollarSign size={14} /> ROI Finca
-                    </Link>
-
-                    <Link 
-                      href={`/dashboard/recomendaciones?parcelId=${p.id}&stateId=${p.stateId}&crop=${encodeURIComponent(p.currentCrop || 'Maíz Blanco')}&area=${p.areaHectares}#carbon-credits`}
-                      className={styles.actionBtn}
-                      style={{ background: 'rgba(16, 185, 129, 0.15)', border: '1px solid rgba(16, 185, 129, 0.4)', color: '#34d399', flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}
-                      title="Calcular bonos de carbono y reducción de emisiones Verra VCS para esta parcela"
-                    >
-                      <Sprout size={14} /> Carbono MRV
-                    </Link>
-
-                    <Link 
-                      href={`/dashboard/iot?parcelId=${p.id}&parcelName=${encodeURIComponent(p.name)}`}
-                      className={styles.actionBtn}
-                      style={{ background: 'rgba(168, 85, 247, 0.15)', border: '1px solid rgba(168, 85, 247, 0.4)', color: '#c084fc', flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}
-                      title="Monitorear gemelo IoT y telemetría in-situ de esta parcela"
-                    >
-                      <Radio size={14} /> Lab IoT
-                    </Link>
-
-                    <Link 
-                      href={`/dashboard/mapa?state=${p.stateId}&level=3`} 
-                      className={styles.actionBtn}
-                      style={{ flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}
-                    >
-                      <Map size={14} /> WebGIS
-                    </Link>
-
-                    <button 
-                      onClick={() => setSelectedParcelForMachinery(p)}
-                      className={styles.actionBtn}
-                      style={{ background: 'rgba(234, 179, 8, 0.15)', border: '1px solid rgba(234, 179, 8, 0.4)', color: '#facc15', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px', cursor: 'pointer', flex: 1 }}
-                      title="Exportar archivo VRA para tractor GPS, dron o ficha analógica"
-                    >
-                      <Tractor size={14} /> Maquinaria & Dron
-                    </button>
-
-                    <Link 
-                      href={`/dashboard/bitacora?parcelId=${p.id}&parcelName=${encodeURIComponent(p.name)}`} 
-                      className={styles.actionBtn}
-                      style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px', flex: 1 }}
-                    >
-                      <BookOpen size={14} /> Bitácora
-                    </Link>
+                      <Link 
+                        href={`/dashboard/mapa?state=${p.stateId}&level=3`} 
+                        className={styles.actionBtn}
+                        style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '4px', fontSize: '0.75rem', padding: '6px 8px' }}
+                      >
+                        <Map size={12} /> WebGIS
+                      </Link>
+                    </div>
                   </div>
                 </div>
               );

@@ -35,20 +35,38 @@ function BitacoraContent() {
   const searchParams = useSearchParams();
   const queryParcelId = searchParams.get('parcelId');
 
+  const queryAction = searchParams.get('action') || searchParams.get('logType');
+  const queryDosage = searchParams.get('dosage');
+  const querySacos = searchParams.get('sacos');
+
   const [logs, setLogs] = useState<InMemFieldLog[]>([]);
   const [parcels, setParcels] = useState<InMemParcel[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(() => Boolean(queryAction || queryDosage));
   const [filterParcelId, setFilterParcelId] = useState<string | null>(queryParcelId);
 
   // Form states
   const [parcelId, setParcelId] = useState(queryParcelId || '');
-  const [logType, setLogType] = useState<'SIEMBRA' | 'ENCALADO' | 'FERTILIZACION' | 'RIEGO' | 'COSECHA' | 'OBSERVACION'>('SIEMBRA');
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [dosage, setDosage] = useState('');
+  const [logType, setLogType] = useState<'SIEMBRA' | 'ENCALADO' | 'FERTILIZACION' | 'RIEGO' | 'COSECHA' | 'OBSERVACION'>(() => {
+    if (queryAction && ['SIEMBRA', 'ENCALADO', 'FERTILIZACION', 'RIEGO', 'COSECHA', 'OBSERVACION'].includes(queryAction.toUpperCase())) {
+      return queryAction.toUpperCase() as any;
+    }
+    return 'SIEMBRA';
+  });
+  const [title, setTitle] = useState(() => {
+    if (queryAction?.toUpperCase() === 'ENCALADO') return 'Enmienda de Cal Agrícola (Módulo de Suelos)';
+    return '';
+  });
+  const [description, setDescription] = useState(() => {
+    if (queryDosage) return `Enmienda recomendada por análisis edafológico Saxton-Rawls / Kamprath: ${queryDosage}`;
+    return '';
+  });
+  const [dosage, setDosage] = useState(queryDosage || '');
   const [yieldTonHa, setYieldTonHa] = useState('');
-  const [voiceFeedback, setVoiceFeedback] = useState<string | null>(null);
+  const [voiceFeedback, setVoiceFeedback] = useState<string | null>(() => {
+    if (querySacos) return `Dosis transferida: ${queryDosage}`;
+    return null;
+  });
 
   const { isListening, transcript, startListening, stopListening, resetTranscript } = useVoiceAssistant();
 
@@ -270,24 +288,55 @@ function BitacoraContent() {
           </p>
         </div>
 
-        <button 
-          onClick={() => setShowModal(true)}
-          style={{
-            background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
-            border: 'none',
-            borderRadius: '8px',
-            padding: '0.75rem 1.25rem',
-            color: '#fff',
-            fontWeight: 600,
-            fontSize: '0.9rem',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem'
-          }}
-        >
-          <Plus size={18} /> Nueva Labor o Cosecha
-        </button>
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          <button
+            type="button"
+            onClick={() => {
+              setShowModal(true);
+              if (!isListening) {
+                startListening();
+              }
+            }}
+            style={{
+              background: isListening ? '#ef4444' : 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+              border: 'none',
+              borderRadius: '8px',
+              padding: '0.75rem 1.25rem',
+              color: '#fff',
+              fontWeight: 600,
+              fontSize: '0.9rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)'
+            }}
+            id="btn_quick_voice_dictation"
+            title="Activar dictado por voz campesino inmediato"
+          >
+            {isListening ? <MicOff size={18} /> : <Mic size={18} />}
+            <span>{isListening ? 'Escuchando...' : 'Dictar por Voz'}</span>
+          </button>
+
+          <button 
+            onClick={() => setShowModal(true)}
+            style={{
+              background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+              border: 'none',
+              borderRadius: '8px',
+              padding: '0.75rem 1.25rem',
+              color: '#fff',
+              fontWeight: 600,
+              fontSize: '0.9rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem'
+            }}
+          >
+            <Plus size={18} /> Nueva Labor o Cosecha
+          </button>
+        </div>
       </div>
 
       {/* Barra de Plantillas Rápidas Fenológicas (1 Clic) */}

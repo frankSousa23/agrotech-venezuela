@@ -4,7 +4,10 @@ import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import styles from './page.module.css';
 import { evaluatePointSoil, SoilPointAnalysisResult } from '@/lib/soil-module/spatialSoilIndex';
-import { Sprout, MapPin, Droplets, ShieldCheck, RefreshCw } from 'lucide-react';
+import { normalizeSoilTexture } from '@/lib/agronomy/pedotransferEngine';
+import SoilModeSwitcher, { SoilDisplayMode } from '@/components/soils/SoilModeSwitcher';
+import SoilPedagogicalWaterBar from '@/components/soils/SoilPedagogicalWaterBar';
+import { Sprout, MapPin, Droplets, ShieldCheck, RefreshCw, ExternalLink } from 'lucide-react';
 
 function EmbedSoilModuleContent() {
   const searchParams = useSearchParams();
@@ -25,6 +28,7 @@ function EmbedSoilModuleContent() {
 
   const themeParam = searchParams.get('theme') || 'dark';
   const isDark = themeParam !== 'light';
+  const [displayMode, setDisplayMode] = useState<SoilDisplayMode>('didactic');
 
   const [analysis, setAnalysis] = useState<SoilPointAnalysisResult>(() => {
     return evaluatePointSoil(lat, lon);
@@ -73,6 +77,10 @@ function EmbedSoilModuleContent() {
   const paw = analysis.hydraulics.plantAvailableWaterPct;
   const pawColor = paw >= 50 ? '#10b981' : paw >= 25 ? '#f59e0b' : '#ef4444';
 
+  const limingBags = analysis.recommendations.limeTonsPerHa > 0 
+    ? Math.round(analysis.recommendations.limeTonsPerHa * 20) 
+    : 0;
+
   return (
     <div className={`${styles.container} ${isDark ? styles.darkTheme : styles.lightTheme}`}>
       <div className={styles.card}>
@@ -92,6 +100,11 @@ function EmbedSoilModuleContent() {
           </div>
         </div>
 
+        {/* Conmutador Didáctico / Técnico */}
+        <div style={{ marginBottom: '6px' }}>
+          <SoilModeSwitcher currentMode={displayMode} onChangeMode={setDisplayMode} />
+        </div>
+
         {/* Barra de Coordenadas y Punto Georreferenciado */}
         <div className={styles.coordBar}>
           <MapPin size={16} color="#06b6d4" />
@@ -100,47 +113,60 @@ function EmbedSoilModuleContent() {
           </span>
         </div>
 
-        {/* Métricas Físico-Químicas */}
-        <div className={styles.grid}>
-          <div className={styles.metricBox}>
-            <span className={styles.metricLabel}>Textura de Suelo</span>
-            <span className={styles.metricValue}>{analysis.interpolated.texture}</span>
-          </div>
+        {displayMode === 'didactic' ? (
+          /* Vista Didáctica MapBiomas: Barra de Confort Hídrico */
+          <SoilPedagogicalWaterBar
+            texture={normalizeSoilTexture(analysis.interpolated.texture)}
+            moisturePct={26}
+            fieldCapacity={analysis.hydraulics.fieldCapacityTheta}
+            wiltingPoint={analysis.hydraulics.wiltingPointTheta}
+            criticalThreshold={analysis.hydraulics.criticalMoistureTheta}
+            saturationTheta={analysis.hydraulics.saturationTheta}
+          />
+        ) : (
+          /* Vista Técnica: Métricas Físico-Químicas y Barra PAW */
+          <>
+            <div className={styles.grid}>
+              <div className={styles.metricBox}>
+                <span className={styles.metricLabel}>Textura de Suelo</span>
+                <span className={styles.metricValue}>{analysis.interpolated.texture}</span>
+              </div>
 
-          <div className={styles.metricBox}>
-            <span className={styles.metricLabel}>pH Actual</span>
-            <span className={styles.metricValue} style={{ color: analysis.interpolated.ph < 5.5 ? '#f59e0b' : '#10b981' }}>
-              {analysis.interpolated.ph.toFixed(2)}
-            </span>
-          </div>
+              <div className={styles.metricBox}>
+                <span className={styles.metricLabel}>pH Actual</span>
+                <span className={styles.metricValue} style={{ color: analysis.interpolated.ph < 5.5 ? '#f59e0b' : '#10b981' }}>
+                  {analysis.interpolated.ph.toFixed(2)}
+                </span>
+              </div>
 
-          <div className={styles.metricBox}>
-            <span className={styles.metricLabel}>Materia Orgánica</span>
-            <span className={styles.metricValue}>{analysis.interpolated.organicMatter.toFixed(1)}%</span>
-          </div>
+              <div className={styles.metricBox}>
+                <span className={styles.metricLabel}>Materia Orgánica</span>
+                <span className={styles.metricValue}>{analysis.interpolated.organicMatter.toFixed(1)}%</span>
+              </div>
 
-          <div className={styles.metricBox}>
-            <span className={styles.metricLabel}>Capacidad de Campo</span>
-            <span className={styles.metricValue}>{analysis.hydraulics.fieldCapacityTheta.toFixed(1)}%</span>
-          </div>
-        </div>
+              <div className={styles.metricBox}>
+                <span className={styles.metricLabel}>Capacidad de Campo</span>
+                <span className={styles.metricValue}>{analysis.hydraulics.fieldCapacityTheta.toFixed(1)}%</span>
+              </div>
+            </div>
 
-        {/* Barra de Agua Disponible (PAW) */}
-        <div className={styles.pawContainer}>
-          <div className={styles.pawHeader}>
-            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <Droplets size={14} color="#06b6d4" />
-              Agua Disponible para la Planta (PAW):
-            </span>
-            <span style={{ color: pawColor }}>{paw.toFixed(1)}% ({paw >= 50 ? 'Óptimo' : 'Estrés'})</span>
-          </div>
-          <div className={styles.pawBarTrack}>
-            <div
-              className={styles.pawBarFill}
-              style={{ width: `${Math.min(100, paw)}%`, backgroundColor: pawColor }}
-            />
-          </div>
-        </div>
+            <div className={styles.pawContainer}>
+              <div className={styles.pawHeader}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <Droplets size={14} color="#06b6d4" />
+                  Agua Disponible para la Planta (PAW):
+                </span>
+                <span style={{ color: pawColor }}>{paw.toFixed(1)}% ({paw >= 50 ? 'Óptimo' : 'Estrés'})</span>
+              </div>
+              <div className={styles.pawBarTrack}>
+                <div
+                  className={styles.pawBarFill}
+                  style={{ width: `${Math.min(100, paw)}%`, backgroundColor: pawColor }}
+                />
+              </div>
+            </div>
+          </>
+        )}
 
         {/* Caja de Prescripción Química */}
         <div className={styles.prescriptionBox}>
@@ -149,7 +175,7 @@ function EmbedSoilModuleContent() {
           {analysis.recommendations.notes}
           {analysis.recommendations.limeTonsPerHa > 0 && (
             <div style={{ marginTop: '6px', fontWeight: 600 }}>
-              Dosis Sugerida: {analysis.recommendations.limeTonsPerHa} t/ha de {analysis.recommendations.limeType}
+              Dosis Sugerida: {analysis.recommendations.limeTonsPerHa} t/ha ({limingBags} sacos de 50 kg/ha) de {analysis.recommendations.limeType}
             </div>
           )}
           {(analysis.recommendations.gypsumTonsPerHa ?? 0) > 0 && (
@@ -157,6 +183,34 @@ function EmbedSoilModuleContent() {
               Dosis Sugerida: {analysis.recommendations.gypsumTonsPerHa} t/ha de Yeso Agrícola
             </div>
           )}
+        </div>
+
+        {/* Botón CTA Institucional para MapBiomas */}
+        <div style={{ marginTop: '4px' }}>
+          <a 
+            href={`/dashboard/suelos?tab=simulator&lat=${lat}&lon=${lon}&texture=${analysis.interpolated.texture}&ph=${analysis.interpolated.ph}&from=mapbiomas`}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '6px',
+              padding: '10px 14px',
+              borderRadius: '8px',
+              fontSize: '0.85rem',
+              fontWeight: 700,
+              background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+              color: '#ffffff',
+              textDecoration: 'none',
+              boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
+              boxSizing: 'border-box'
+            }}
+            id="btn_open_agrotech_full"
+          >
+            <ExternalLink size={15} />
+            <span>Abrir en Agrotech Completo (Simulador & Fincas)</span>
+          </a>
         </div>
 
         {/* Pie de Firma y Atribución */}

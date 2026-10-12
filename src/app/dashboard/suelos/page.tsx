@@ -3,10 +3,14 @@
 import { useEffect, useState, useMemo, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import styles from './page.module.css';
+import Link from 'next/link';
 import SoilModal from '@/components/forms/SoilModal';
 import SoilRetentionCurveCanvas from '@/components/soils/SoilRetentionCurveCanvas';
 import SoilSimulationSliders, { SoilSimulationParams } from '@/components/soils/SoilSimulationSliders';
 import MapBiomasExportHub from '@/components/soils/MapBiomasExportHub';
+import SoilModeSwitcher, { SoilDisplayMode } from '@/components/soils/SoilModeSwitcher';
+import SoilPedagogicalWaterBar from '@/components/soils/SoilPedagogicalWaterBar';
+import MapBiomas40YearTrajectoryCard, { formatRegenerativeLimingBags } from '@/components/soils/MapBiomas40YearTrajectoryCard';
 import { REGIONAL_SOIL_HYDRAULICS, calculatePAW, normalizeSoilTexture, SoilTextureType } from '@/lib/agronomy/pedotransferEngine';
 import { calculateRegionalLimingNeed } from '@/lib/geo/spatialUtils';
 import { 
@@ -19,7 +23,11 @@ import {
   Filter,
   Activity,
   Layers,
-  Code
+  Code,
+  Sprout,
+  BookOpen,
+  Radio,
+  ArrowRight
 } from 'lucide-react';
 
 function SuelosContent() {
@@ -30,11 +38,15 @@ function SuelosContent() {
     : 'catalog';
 
   const [activeTab, setActiveTab] = useState<'catalog' | 'simulator' | 'export_hub'>(initialTab);
+  const [displayMode, setDisplayMode] = useState<SoilDisplayMode>('didactic');
   const [soils, setSoils] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [phFilter, setPhFilter] = useState('all');
+
+  const originParcelId = searchParams.get('parcelId');
+  const originParcelName = searchParams.get('parcelName');
 
   // Estado del simulador interactivo Saxton-Rawls con lectura de query params
   const [simParams, setSimParams] = useState<SoilSimulationParams>(() => {
@@ -300,66 +312,156 @@ function SuelosContent() {
 
       {/* PESTAÑA 2: SIMULADOR DE FÍSICA HÍDRICA pF (Saxton-Rawls & Kamprath) */}
       {activeTab === 'simulator' && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
-          {/* Columna Izquierda: Sliders y Parámetros */}
-          <div className="glass-panel" style={{ padding: '20px', borderRadius: '16px' }}>
-            <h3 style={{ margin: '0 0 12px 0', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Activity size={18} color="#06b6d4" />
-              Controles de Simulación Física & Química
-            </h3>
-            <p style={{ margin: '0 0 16px 0', fontSize: '0.82rem', color: '#94a3b8' }}>
-              Ajusta las fracciones texturales y reactividad para recalcular en tiempo real la curva van Genuchten, el agua útil y la dosis de enmienda.
-            </p>
-            <SoilSimulationSliders params={simParams} onChange={setSimParams} />
-          </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          {/* Alerta de Lote Vinculado desde Mis Tierras */}
+          {originParcelName && (
+            <div style={{ background: 'rgba(56, 189, 248, 0.12)', border: '1px solid rgba(56, 189, 248, 0.35)', padding: '10px 16px', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.88rem', color: '#38bdf8' }}>
+              <MapPin size={18} />
+              <span>Simulando física edafológica y retención hídrica de la parcela: <b>{originParcelName}</b></span>
+            </div>
+          )}
 
-          {/* Columna Derecha: Gráfico de Curva pF y Diagnóstico */}
-          <div className="glass-panel" style={{ padding: '20px', borderRadius: '16px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div>
-              <h3 style={{ margin: '0 0 4px 0', fontSize: '1.1rem' }}>
-                Curva de Retención Hídrica (pF / van Genuchten)
+          {/* Conmutador Dual-Mode: Didáctico MapBiomas vs Técnico van Genuchten */}
+          <SoilModeSwitcher currentMode={displayMode} onChangeMode={setDisplayMode} />
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
+            {/* Columna Izquierda: Sliders y Parámetros */}
+            <div className="glass-panel" style={{ padding: '20px', borderRadius: '16px' }}>
+              <h3 style={{ margin: '0 0 12px 0', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Activity size={18} color="#06b6d4" />
+                Controles de Simulación Física & Química
               </h3>
-              <p style={{ margin: 0, fontSize: '0.82rem', color: '#94a3b8' }}>
-                Relación entre humedad volumétrica (θ %) y potencial mátrico (pF).
+              <p style={{ margin: '0 0 16px 0', fontSize: '0.82rem', color: '#94a3b8' }}>
+                Ajusta las fracciones texturales y reactividad para recalcular en tiempo real la retención hídrica, el confort de la planta y la dosis de enmienda.
               </p>
+              <SoilSimulationSliders params={simParams} onChange={setSimParams} />
             </div>
 
-            <SoilRetentionCurveCanvas
-              texture={simParams.texture}
-              moisturePct={simParams.currentMoisturePct}
-              fieldCapacity={hydProps.fieldCapacityTheta}
-              wiltingPoint={hydProps.wiltingPointTheta}
-              criticalThreshold={hydProps.criticalMoistureTheta}
-              saturationTheta={hydProps.saturationTheta}
-            />
+            {/* Columna Derecha: Visualización Según Modo */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              {displayMode === 'didactic' ? (
+                <>
+                  {/* Semáforo de Confort Hídrico Didáctico */}
+                  <SoilPedagogicalWaterBar
+                    texture={simParams.texture}
+                    moisturePct={simParams.currentMoisturePct}
+                    fieldCapacity={hydProps.fieldCapacityTheta}
+                    wiltingPoint={hydProps.wiltingPointTheta}
+                    criticalThreshold={hydProps.criticalMoistureTheta}
+                    saturationTheta={hydProps.saturationTheta}
+                  />
 
-            {/* Tarjeta de Resumen Numérico */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
-              <div style={{ padding: '10px', background: 'rgba(255,255,255,0.04)', borderRadius: '8px', textAlign: 'center' }}>
-                <span style={{ fontSize: '0.72rem', color: '#94a3b8', display: 'block' }}>θ_FC (Campo)</span>
-                <span style={{ fontSize: '1rem', fontWeight: 700, color: '#10b981' }}>{hydProps.fieldCapacityTheta}%</span>
-              </div>
-              <div style={{ padding: '10px', background: 'rgba(255,255,255,0.04)', borderRadius: '8px', textAlign: 'center' }}>
-                <span style={{ fontSize: '0.72rem', color: '#94a3b8', display: 'block' }}>θ_PWP (Marchitez)</span>
-                <span style={{ fontSize: '1rem', fontWeight: 700, color: '#ef4444' }}>{hydProps.wiltingPointTheta}%</span>
-              </div>
-              <div style={{ padding: '10px', background: 'rgba(255,255,255,0.04)', borderRadius: '8px', textAlign: 'center' }}>
-                <span style={{ fontSize: '0.72rem', color: '#94a3b8', display: 'block' }}>Agua Útil (PAW)</span>
-                <span style={{ fontSize: '1rem', fontWeight: 700, color: currentPaw >= 50 ? '#10b981' : '#f59e0b' }}>
-                  {currentPaw.toFixed(1)}%
-                </span>
-              </div>
-            </div>
+                  {/* Memoria Territorial MapBiomas 40 Años (1985-2024) */}
+                  <MapBiomas40YearTrajectoryCard
+                    lat={simParams.texture === 'arenoso' ? 8.9 : 9.324}
+                    lon={simParams.texture === 'arenoso' ? -63.5 : -69.112}
+                    currentOrganicMatterPct={simParams.organicMatterPct}
+                    onApplyRegenerativeDose={(tons) => {
+                      setSimParams(prev => ({ ...prev, ph: Math.min(6.8, prev.ph + 0.6) }));
+                    }}
+                  />
+                </>
+              ) : (
+                /* Modo Técnico Avanzado (Curva pF van Genuchten) */
+                <div className="glass-panel" style={{ padding: '20px', borderRadius: '16px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div>
+                    <h3 style={{ margin: '0 0 4px 0', fontSize: '1.1rem' }}>
+                      Curva de Retención Hídrica (pF / van Genuchten)
+                    </h3>
+                    <p style={{ margin: 0, fontSize: '0.82rem', color: '#94a3b8' }}>
+                      Relación logarítmica entre humedad volumétrica (θ %) y potencial mátrico (pF).
+                    </p>
+                  </div>
 
-            {/* Prescripción Kamprath Resultante */}
-            <div style={{ padding: '12px 14px', background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.3)', borderRadius: '10px', fontSize: '0.85rem' }}>
-              <b>Diagnóstico Edafológico Calculado:</b>
-              <div style={{ marginTop: '4px', color: '#cbd5e1' }}>{limingCalc.regionalSoilNotes}</div>
-              {limingCalc.limeTonsPerHa > 0 && (
-                <div style={{ marginTop: '6px', fontWeight: 700, color: '#a7f3d0' }}>
-                  Prescripción Kamprath: {limingCalc.limeTonsPerHa} t/ha ({limingCalc.totalLimeTons} t totales para 100 ha) de {limingCalc.limeType}.
+                  <SoilRetentionCurveCanvas
+                    texture={simParams.texture}
+                    moisturePct={simParams.currentMoisturePct}
+                    fieldCapacity={hydProps.fieldCapacityTheta}
+                    wiltingPoint={hydProps.wiltingPointTheta}
+                    criticalThreshold={hydProps.criticalMoistureTheta}
+                    saturationTheta={hydProps.saturationTheta}
+                  />
+
+                  {/* Tarjeta de Resumen Numérico Técnico */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
+                    <div style={{ padding: '10px', background: 'rgba(255,255,255,0.04)', borderRadius: '8px', textAlign: 'center' }}>
+                      <span style={{ fontSize: '0.72rem', color: '#94a3b8', display: 'block' }}>θ_FC (Campo)</span>
+                      <span style={{ fontSize: '1rem', fontWeight: 700, color: '#10b981' }}>{hydProps.fieldCapacityTheta}%</span>
+                    </div>
+                    <div style={{ padding: '10px', background: 'rgba(255,255,255,0.04)', borderRadius: '8px', textAlign: 'center' }}>
+                      <span style={{ fontSize: '0.72rem', color: '#94a3b8', display: 'block' }}>θ_PWP (Marchitez)</span>
+                      <span style={{ fontSize: '1rem', fontWeight: 700, color: '#ef4444' }}>{hydProps.wiltingPointTheta}%</span>
+                    </div>
+                    <div style={{ padding: '10px', background: 'rgba(255,255,255,0.04)', borderRadius: '8px', textAlign: 'center' }}>
+                      <span style={{ fontSize: '0.72rem', color: '#94a3b8', display: 'block' }}>Agua Útil (PAW)</span>
+                      <span style={{ fontSize: '1rem', fontWeight: 700, color: currentPaw >= 50 ? '#10b981' : '#f59e0b' }}>
+                        {currentPaw.toFixed(1)}%
+                      </span>
+                    </div>
+                  </div>
                 </div>
               )}
+
+              {/* Prescripción Kamprath con Conversión Vernacular a Sacos y Acciones Cruzadas */}
+              {(() => {
+                const limingBags = limingCalc.limeTonsPerHa > 0 ? Math.round(limingCalc.limeTonsPerHa * 20) : 0;
+                const limingText = limingCalc.limeTonsPerHa > 0 
+                  ? `${limingCalc.limeTonsPerHa} t/ha (${limingBags} sacos de 50 kg) de ${limingCalc.limeType}`
+                  : 'Suelo no requiere enmienda cálcica';
+
+                return (
+                  <div className="glass-panel" style={{ padding: '16px', borderRadius: '14px', background: 'rgba(16, 185, 129, 0.08)', border: '1px solid rgba(16, 185, 129, 0.25)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <div>
+                      <div style={{ fontSize: '0.78rem', color: '#6ee7b7', textTransform: 'uppercase', fontWeight: 700 }}>
+                        Diagnóstico Edafológico & Enmienda Kamprath:
+                      </div>
+                      <div style={{ marginTop: '4px', fontSize: '0.85rem', color: '#cbd5e1' }}>{limingCalc.regionalSoilNotes}</div>
+                      {limingCalc.limeTonsPerHa > 0 && (
+                        <div style={{ marginTop: '6px', fontWeight: 700, color: '#a7f3d0', fontSize: '0.9rem' }}>
+                          Dosis Sugerida: {limingCalc.limeTonsPerHa} t/ha • <b>{limingBags} sacos de 50 kg por hectárea</b> de {limingCalc.limeType}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Botonera de Enlaces Cruzados (Cross-Module Data Fabric) */}
+                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', paddingTop: '8px', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
+                      {limingCalc.limeTonsPerHa > 0 && (
+                        <Link 
+                          href={`/dashboard/bitacora?action=ENCALADO&dosage=${encodeURIComponent(limingText)}&sacos=${limingBags}&parcelId=${originParcelId || ''}`}
+                          className="btn-primary"
+                          style={{ fontSize: '0.78rem', padding: '6px 12px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                          title="Traspasar esta labor recomendada directamente a la bitácora de campo"
+                        >
+                          <BookOpen size={14} />
+                          <span>Registrar Enmienda en Bitácora</span>
+                        </Link>
+                      )}
+
+                      <Link 
+                        href={`/dashboard/cultivos?phMin=${Math.max(4.5, (simParams.ph - 0.5)).toFixed(1)}&phMax=${Math.min(8.5, (simParams.ph + 0.5)).toFixed(1)}`}
+                        className="btn-secondary"
+                        style={{ fontSize: '0.78rem', padding: '6px 12px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                        title="Ver cultivos que prosperan con este rango de pH"
+                      >
+                        <Sprout size={14} color="#10b981" />
+                        <span>Ver Cultivos Compatibles</span>
+                      </Link>
+
+                      {currentPaw < 50 && (
+                        <Link 
+                          href={`/dashboard/iot?preset=CORN&moisture=${simParams.currentMoisturePct}`}
+                          className="btn-secondary"
+                          style={{ fontSize: '0.78rem', padding: '6px 12px', display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#c084fc', borderColor: 'rgba(168, 85, 247, 0.4)' }}
+                          title="Simular pulso de riego en banco de pruebas IoT para aliviar el déficit hídrico"
+                        >
+                          <Radio size={14} />
+                          <span>Probar Riego en IoT Lab</span>
+                        </Link>
+                      )}
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
           </div>
         </div>
