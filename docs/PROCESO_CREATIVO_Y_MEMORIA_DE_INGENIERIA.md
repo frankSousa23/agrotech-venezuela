@@ -25,7 +25,7 @@ Este documento recoge la memoria íntima de ingeniería, el método creativo de 
 │   pinto coordenadas decimales" │  • El productor habla en 'sacos/ha'   │  • Dual-Mode UI (Voz campesina)│
 │                                │  • Cero laboratorios edáficos rápidos │  • Saxton-Rawls + Kamprath    │
 ├────────────────────────────────┴───────────────────────────────────────┴───────────────────────────────┤
-│                      4. LA FORJA EN ANTIGRAVITY CON GEMINI (306 TESTS AUTOMATIZADOS)                   │
+│                      4. LA FORJA EN ANTIGRAVITY CON GEMINI (311 TESTS AUTOMATIZADOS)                   │
 │  Frank Sousa (Arquitecto / Revisor Implacable) ⇄ Gemini (Copiloto de Código, Álgebra Espacial y Refactor)│
 └────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -86,7 +86,7 @@ La dinámica de trabajo se rigió por un principio innegociable de autoría:
 │   Exigencia de Pruebas Unitarias             ▼                                                   │
 │          │                        [ Suite de Pruebas Automatizadas ]                             │
 │          │                                   │                                                   │
-│          └───────────────────────────────────┴── 306 Tests (251 Jest + 55 Pytest) PASS (100%)    │
+│          └───────────────────────────────────┴── 311 Tests (256 Jest + 55 Pytest) PASS (100%)    │
 │                                                                                                  │
 └──────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -97,7 +97,7 @@ Una de las señas de identidad de este repositorio ha sido el volumen y la inten
 - Cuando se diseñó el cálculo de hectáreas, rechazamos aproximaciones euclidianas planas por su distorsión en latitudes tropicales (8°N - 10°N), implementando la geodésica esferoidal WGS84 con Shoelace geodésico y Haversine.
 - Cuando una base de datos SQLite de caché espacial sufrió una corrupción fortuita de imagen de disco durante pruebas de backend, no nos limitamos a borrarla: reconstruimos `backend/src/cache_manager.py` con bloques de auto-recuperación y auto-sanado (`_reset_corrupt_db()`), garantizando que la plataforma nunca se detenga en un despliegue de campo.
 
-El resultado tangible de este proceso no son promesas abstractas: es una suite de **306 pruebas automatizadas (251 en Jest distribuidas en 34 suites + 55 en Pytest distribuidas en 17 módulos)** con **0 errores de TypeScript** y **40 rutas de producción en Next.js 16**, que certifican un nivel de madurez técnica **TRL 4 (Prototipo funcional plenamente integrado y probado en entorno simulado y real)**.
+El resultado tangible de este proceso no son promesas abstractas: es una suite de **311 pruebas automatizadas (256 en Jest distribuidas en 36 suites + 55 en Pytest distribuidas en 17 módulos)** con **0 errores de TypeScript** y **40 rutas de producción en Next.js 16**, que certifican un nivel de madurez técnica **TRL 4 (Prototipo funcional plenamente integrado y probado en entorno simulado y real)**.
 
 ### 2.3 El Tamiz Crítico del Desarrollador Único (Solo Developer): Filtrar, Moldear y Transformar
 Frente a la narrativa habitual de grandes equipos corporativos, Agrotech Venezuela fue diseñado, estructurado y programado bajo la responsabilidad directa de un **desarrollador único** (*solo developer*). Esta condición moldeó una relación de trabajo muy particular con las herramientas de asistencia técnica y de inteligencia artificial (Gemini dentro del entorno Google Antigravity).
@@ -107,7 +107,7 @@ A lo largo del proyecto, mantuve una actitud proactiva de investigación: pedí 
 - **Moldear y Transformar**: Tomar conceptos abstractos o librerías genéricas y adaptarlas a las matemáticas soberanas (Shoelace geodésico WGS84, modelo de enmiendas de Kamprath, curvas Saxton-Rawls).
 - **Podar y Descartar**: Eliminar sin titubeos dependencias innecesarias, código inflado (*bloatware*) o arquitecturas en la nube que hubiesen generado costos recurrentes inasumibles para el agricultor.
 
-Cada línea integrada fue supervisada, modificada y sometida a rondas consecutivas de pruebas automatizadas hasta alcanzar los 306 tests en verde. Las sugerencias fueron el catalizador; la soberanía de criterio, el juicio crítico y la autoría final fueron enteramente humanos.
+Cada línea integrada fue supervisada, modificada y sometida a rondas consecutivas de pruebas automatizadas hasta alcanzar los 311 tests en verde. Las sugerencias fueron el catalizador; la soberanía de criterio, el juicio crítico y la autoría final fueron enteramente humanos.
 
 ---
 

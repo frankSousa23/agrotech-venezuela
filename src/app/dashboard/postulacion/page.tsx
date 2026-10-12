@@ -53,7 +53,7 @@ export default function PostulacionPage() {
             <FlaskConical size={13} /> Prototipo Operacional — Módulo de Suelos MapBiomas Venezuela
           </span>
           <span className="badge-pill badge-emerald">
-            <CheckCircle2 size={13} /> 292 Tests Automatizados Pasando (237 Jest + 55 Pytest)
+            <CheckCircle2 size={13} /> 311 Tests Automatizados Pasando (256 Jest + 55 Pytest)
           </span>
           <span className="badge-pill badge-cyan">
             <Globe size={13} /> 24 Estados & 335 Municipios Activos
@@ -362,7 +362,7 @@ export default function PostulacionPage() {
               <Activity size={22} color="#38bdf8" /> Auditoría de Trayectoria: Las 5 Eras del Desarrollo
             </h2>
             <span style={{ fontSize: '0.75rem', background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', padding: '4px 10px', borderRadius: '20px', border: '1px solid rgba(56, 189, 248, 0.3)', fontWeight: 600 }}>
-              Solo Developer • Vacaciones Laborales • 292 Tests PASS
+              Solo Developer • Vacaciones Laborales • 311 Tests PASS
             </span>
           </div>
           <span style={{ fontSize: '0.82rem', color: '#94a3b8', marginTop: '4px', display: 'block' }}>
@@ -449,10 +449,10 @@ export default function PostulacionPage() {
               <CheckCircle2 size={16} color="#2dd4bf" />
             </div>
             <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#fff', margin: 0 }}>
-              5. TRL 4: 292 Tests & Cero Regresiones
+              5. TRL 4: 311 Tests & Cero Regresiones
             </h4>
             <p style={{ fontSize: '0.78rem', color: '#cbd5e1', margin: 0, lineHeight: 1.45 }}>
-              Forja en Google Antigravity con Gemini como copiloto. Rol de Frank Sousa como filtro soberano implacable (podando código inflado). 292 pruebas automatizadas consecutivas (237 Jest + 55 Pytest, 100% PASS), 0 errores TypeScript, 35 rutas de producción y costo operativo $0.00 USD/mes.
+              Forja en Google Antigravity con Gemini como copiloto. Rol de Frank Sousa como filtro soberano implacable (podando código inflado). 311 pruebas automatizadas consecutivas (256 Jest + 55 Pytest, 100% PASS), 0 errores TypeScript, 40 rutas de producción y costo operativo $0.00 USD/mes.
             </p>
           </div>
         </div>
@@ -632,7 +632,7 @@ export default function PostulacionPage() {
                 Artículo Técnico: Arquitectura y Algoritmos
               </h3>
               <p style={{ fontSize: '0.82rem', color: '#94a3b8', margin: 0, lineHeight: 1.4 }}>
-                Manuscrito formal de validación técnica TRL 4 (292 tests), arquitectura WebGIS Next.js 16/FastAPI, penetración radar SAR Banda C, formulación Shoelace WGS84, escenarios de simulación y hoja de ruta TRL 5/6.
+                Manuscrito formal de validación técnica TRL 4 (311 tests), arquitectura WebGIS Next.js 16/FastAPI, penetración radar SAR Banda C, formulación Shoelace WGS84, escenarios de simulación y hoja de ruta TRL 5/6.
               </p>
             </div>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
@@ -722,7 +722,7 @@ export default function PostulacionPage() {
                 Memoria Creativa & Estándares de Compilación PDF
               </h3>
               <p style={{ fontSize: '0.82rem', color: '#94a3b8', margin: 0, lineHeight: 1.4 }}>
-                La voz humana de Frank Sousa como desarrollador único: génesis académica con la cátedra de edafología (UNERG), certificado oficial en MapBiomas (40 años), producción vegetal y pasturas, forja rigurosa en Antigravity (292 tests), evolución IoT desde ensayos con Arduino hacia grandes cosechas, y directrices PDF (ISO A4, 15mm, 300 DPI).
+                La voz humana de Frank Sousa como desarrollador único: génesis académica con la cátedra de edafología (UNERG), certificado oficial en MapBiomas (40 años), producción vegetal y pasturas, forja rigurosa en Antigravity (311 tests), evolución IoT desde ensayos con Arduino hacia grandes cosechas, y directrices PDF (ISO A4, 15mm, 300 DPI).
               </p>
             </div>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
@@ -821,14 +821,14 @@ export default function PostulacionPage() {
                 <FlaskConical size={20} color="#10b981" />
                 <span style={{ fontSize: '0.92rem', fontWeight: 700, color: '#f8fafc' }}>Artículo Técnico Arbitrable</span>
               </div>
-              <span className="badge-pill badge-cyan" style={{ fontSize: '0.7rem' }}>TRL 4 Validado (292 Tests)</span>
+              <span className="badge-pill badge-cyan" style={{ fontSize: '0.7rem' }}>TRL 4 Validado (311 Tests)</span>
             </div>
             <p style={{ fontSize: '0.8rem', color: '#cbd5e1', margin: 0, lineHeight: 1.45 }}>
               Gemelo Digital Agronómico, Teledetección Multi-Escala e IA Prescriptiva. Incluye Oráculo SAR Sentinel-1 all-weather, Shoelace esferoidal, pedocalibración Saxton-Rawls, memoria de 40 años MapBiomas y escenarios de simulación en Turén y Calabozo.
             </p>
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', fontSize: '0.7rem', color: '#94a3b8' }}>
               <span>• ~3.200 palabras (&lt; 10k)</span>
-              <span>• 292 tests passing (237 Jest + 55 Pytest)</span>
+              <span>• 311 tests passing (256 Jest + 55 Pytest)</span>
               <span>• Frank Alfonso Sousa Mota (UNERG)</span>
             </div>
             <div style={{ display: 'flex', gap: '8px', marginTop: 'auto', paddingTop: '8px' }}>
@@ -948,7 +948,7 @@ export default function PostulacionPage() {
             </p>
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', fontSize: '0.7rem', color: '#94a3b8' }}>
               <span>• 100% Ponderado</span>
-              <span>• 292 tests</span>
+              <span>• 311 tests</span>
               <span>• Anexo II MapBiomas</span>
             </div>
             <div style={{ display: 'flex', gap: '8px', marginTop: 'auto', paddingTop: '8px' }}>

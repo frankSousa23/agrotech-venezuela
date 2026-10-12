@@ -149,6 +149,9 @@ Bienvenido a la **Galería Visual de Operación** de **Agrotech Venezuela**. Est
   - Carga con 1 clic de perfiles edafológicos reales calibrados de Venezuela: Turén (Aluvial cerealero), Calabozo (Vertisol arrocero), Guanipa (Sabana ácida), Quíbor (Salino-sódico) y Sur del Lago (Aluvial platanero).
 - **Prescripción Química Dinámica (Kamprath / Yeso):**
   - Desglose instantáneo de toneladas métricas por hectárea y sacos equivalentes de 50 kg requeridos para la parcela.
+- **Capa Pedagógica MapBiomas ("Esponja de Suelo" & Memoria Histórica de 40 Años):**
+  - **Barra de Confort Hídrico**: Diagnóstico visual intuitivo del perfil de agua en 4 zonas de saturación (Sequía, Estrés, Confort Óptimo y Saturación) y cálculo en tiempo real de los días de autonomía hídrica del cultivo según la demanda evaporativa ($ET_c$) y la textura edafológica Saxton-Rawls.
+  - **Tarjeta de Memoria de 40 Años**: Evaluación de la trayectoria histórica (1985–2024), cuantificación del agotamiento de materia orgánica (-55% a -61% por conversión histórica) y prescripción regenerativa en sacos tradicionales de 50 kg de compost con botón de traspaso directo en 1 clic a la Bitácora Campesina.
 
 ---
 
@@ -192,7 +195,7 @@ Bienvenido a la **Galería Visual de Operación** de **Agrotech Venezuela**. Est
 
 | Dimensión | Especificación Técnica | Estado de Verificación |
 | :--- | :--- | :---: |
-| **Pruebas Automatizadas** | 306 pruebas (251 Jest en 34 suites + 55 Pytest en 17 módulos) | `100% PASS` |
+| **Pruebas Automatizadas** | 311 pruebas (256 Jest en 36 suites + 55 Pytest en 17 módulos) | `100% PASS` |
 | **Compilación Next.js 16** | 40 rutas de producción generadas de forma estática y dinámica | `CLEAN BUILD` |
 | **Rigor de Tipado** | TypeScript modo estricto en toda la base de código | `0 ERRORES` |
 | **Licenciamiento** | Código abierto bajo Licencia MIT con atribución CC BY 4.0 | `CERTIFICADO` |

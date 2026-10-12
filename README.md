@@ -7,7 +7,7 @@
 [![Next.js 16](https://img.shields.io/badge/Next.js-16%20(Turbopack)-black.svg)](https://nextjs.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-2.0-009688.svg)](https://fastapi.tiangolo.com/)
 [![Python 3.13](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
-[![Tests: 306 Passing](https://img.shields.io/badge/Tests-306%20Passing-brightgreen.svg)]()
+[![Tests: 311 Passing](https://img.shields.io/badge/Tests-311%20Passing-brightgreen.svg)]()
 [![TRL: 4](https://img.shields.io/badge/TRL-4%20(Prototipo%20Funcional)-blue.svg)]()
 [![MapBiomas Col 3.0](https://img.shields.io/badge/MapBiomas-Colección%203.0%20(1985--2024)-amber.svg)](https://venezuela.mapbiomas.org)
 [![MapBiomas Suelos: TRL 4](https://img.shields.io/badge/MapBiomas%20Suelos-Prototipo%20Operacional%20TRL%204-emerald.svg)](https://venezuela.mapbiomas.org)
@@ -20,9 +20,9 @@ Para facilitar la exploración inmediata según el interés de cada visitante de
 
 | Perfil de Visitante | Documentos Clave y Rutas Recomendadas | Qué Encontrará |
 | :--- | :--- | :--- |
-| 🏛️ **Jurado MapBiomas 2026** | • 📑 [Expediente Oficial Compilado en PDF](docs/mapbiomas_premio_2026/Postulacion_Expediente_Premio_2026.pdf)<br>• 📄 [Artículo Técnico Consolidado](docs/mapbiomas_premio_2026/ARTICULO_TECNICO_DRAFT.md)<br>• 📊 [Matriz de Cumplimiento de Evaluación](docs/mapbiomas_premio_2026/MATRIZ_CUMPLIMIENTO_EVALUACION.md)<br>• 🧭 [Guía de Auditoría para Evaluadores](docs/GUIA_EVALUADOR.md)<br>• 📸 [Showcase Visual en Alta Resolución](docs/SHOWCASE.md) | Validación formal del prototipo TRL 4, cumplimiento del baremo oficial (6 criterios), 306 pruebas automáticas y memoria técnica. |
+| 🏛️ **Jurado MapBiomas 2026** | • 📑 [Expediente Oficial Compilado en PDF](docs/mapbiomas_premio_2026/Postulacion_Expediente_Premio_2026.pdf)<br>• 📄 [Artículo Técnico Consolidado](docs/mapbiomas_premio_2026/ARTICULO_TECNICO_DRAFT.md)<br>• 📊 [Matriz de Cumplimiento de Evaluación](docs/mapbiomas_premio_2026/MATRIZ_CUMPLIMIENTO_EVALUACION.md)<br>• 🧭 [Guía de Auditoría para Evaluadores](docs/GUIA_EVALUADOR.md)<br>• 📸 [Showcase Visual en Alta Resolución](docs/SHOWCASE.md) | Validación formal del prototipo TRL 4, cumplimiento del baremo oficial (6 criterios), 311 pruebas automáticas y memoria técnica. |
 | 👨‍🌾 **Productores y Agrónomos** | • 🌾 [Guía Operativa del Módulo de Suelos](docs/GUIA_MODULO_SUELOS.md)<br>• 🚜 [Ficha de Cabina Plastificable](docs/SHOWCASE.md#5-ficha-de-cabina-plastificable--manual-agronómico-de-campo)<br>• 🗣️ **Modo Productor Fácil** (4 Puertas táctiles y voz)<br>• 📓 **Bitácora de Campo** con costeo en sacos y jornales | Cómo usar el sistema desde el mapa, simular curvas de retención hídrica ($pF$), calcular sacos de cal/tablón y descargar recetas. |
-| 💻 **Desarrolladores & GIS** | • 🛠️ [Guía de Desarrollo y Despliegue (`DEVELOPING.md`)](DEVELOPING.md)<br>• 📐 [Proceso Creativo y Memoria de Ingeniería](docs/PROCESO_CREATIVO_Y_MEMORIA_DE_INGENIERIA.md)<br>• 📜 [Directrices de Arquitectura (`AGENTS.md`)](AGENTS.md)<br>• 🚀 [Inicio Rápido Zero-Config (#-inicio-rápido)](#-inicio-rápido-turnkey-zero-config-en-2-minutos) | Stack Next.js 16 + FastAPI, 40 rutas, Leaflet nativo con `useRef`, OpenAPI 3.0 Swagger y ejecución de los 306 tests. |
+| 💻 **Desarrolladores & GIS** | • 🛠️ [Guía de Desarrollo y Despliegue (`DEVELOPING.md`)](DEVELOPING.md)<br>• 📐 [Proceso Creativo y Memoria de Ingeniería](docs/PROCESO_CREATIVO_Y_MEMORIA_DE_INGENIERIA.md)<br>• 📜 [Directrices de Arquitectura (`AGENTS.md`)](AGENTS.md)<br>• 🚀 [Inicio Rápido Zero-Config (#-inicio-rápido)](#-inicio-rápido-turnkey-zero-config-en-2-minutos) | Stack Next.js 16 + FastAPI, 40 rutas, Leaflet nativo con `useRef`, OpenAPI 3.0 Swagger y ejecución de los 311 tests. |
 | 🔬 **Científicos Edafológicos** | • 🧪 [Manual de Suelos y Fórmulas](docs/GUIA_MODULO_SUELOS.md)<br>• 🛰️ [Procedencia de Datos y Marco Legal](docs/DATA_PROVENANCE_AND_LEGAL_FRAMEWORK.md)<br>• 📡 [Servicio Radar SAR All-Weather](docs/SHOWCASE.md#1-visor-webgis-multi-escala--cruce-satelital) | Modelos matemáticos (Saxton-Rawls PAW, Kamprath Al³⁺, Shoelace WGS84, IPCC Tier 2) y oráculo satelital radar Sentinel-1. |
 | 📊 **Gremios e Inversores** | • 💼 [Dossier y Pitch Deck Oficial](docs/mapbiomas_premio_2026/PITCH_DECK.md)<br>• 💰 [Calculadora de ROI Rural Desacoplado](docs/SHOWCASE.md#3-motor-de-costeo-operativo--retorno-de-inversión-roi-desacoplado)<br>• 🌿 [Modelo de Agregación Carbon Pooling](docs/mapbiomas_premio_2026/PITCH_DECK.md#5-investigación-en-carbono-mrv-y-sandbox-didáctico-agro-iot-byod) | Retorno de inversión estimado (hasta 3.8x), modelo de negocio B2B cooperativas, inclusión rural y monetización sostenible. |
 
@@ -153,12 +153,12 @@ Abre **`http://localhost:3000`** en tu navegador para interactuar con la platafo
 
 ---
 
-## 🧪 Calidad de Software & Validación Automatizada (306 Tests)
+## 🧪 Calidad de Software & Validación Automatizada (311 Tests)
 
-El código fuente cuenta con una suite rigurosa de **306 pruebas automatizadas (100% passing)** ejecutadas antes de cada versión:
+El código fuente cuenta con una suite rigurosa de **311 pruebas automatizadas (100% passing)** ejecutadas antes de cada versión:
 
 ```bash
-# Ejecutar verificación completa (251 tests Jest + 55 tests Pytest)
+# Ejecutar verificación completa (256 tests Jest + 55 tests Pytest)
 npm run test:all
 
 # Matriz ejecutiva visual de pruebas (resumen categorizado)
@@ -172,10 +172,10 @@ npm run build
 ```
 
 <details>
-<summary><b>🔍 Ver Desglose Completo de las 306 Pruebas Automatizadas por Subsistema (Clic para expandir)</b></summary>
+<summary><b>🔍 Ver Desglose Completo de las 311 Pruebas Automatizadas por Subsistema (Clic para expandir)</b></summary>
 
 ```text
-▶ SUITE DE FRONTEND WEBGIS, ARQUITECTURA & AGRO-SISTEMAS [Jest (Next.js 16 / React 19) — 251 pruebas en 34 suites]
+▶ SUITE DE FRONTEND WEBGIS, ARQUITECTURA & AGRO-SISTEMAS [Jest (Next.js 16 / React 19) — 256 pruebas en 36 suites]
 ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 
   Agronomía & Física Edafológica
@@ -186,6 +186,8 @@ npm run build
     ✔ PASS  crops.test.ts                      │  2 tests │ Catálogo agronómico de cereales, leguminosas y frutales tropicales
     ✔ PASS  recomendaciones.test.ts            │  7 tests │ Prescripciones de fertilización NPK, enmiendas órgano-minerales y API RBAC
     ✔ PASS  roiCostEngine.test.ts              │  6 tests │ Motor de costeo operativo (mecanizado diésel/VRA vs pequeño productor sacos/jornales)
+    ✔ PASS  SoilPedagogicalWaterBar.test.tsx   │  3 tests │ Barra didáctica 4 zonas de confort hídrico y días de autonomía
+    ✔ PASS  MapBiomas40YearTrajectoryCard.test.tsx │  2 tests │ Tarjeta histórica MapBiomas 40 años (-55% MO) y enmiendas en sacos 50kg
 
   Geoespacial, WebGIS & Sensores
     ✔ PASS  spatial.test.ts                    │ 11 tests │ Shoelace geodésico WGS84, Haversine y point-in-polygon Ray-Casting
@@ -249,10 +251,10 @@ npm run build
 ================================================================================
    RESUMEN GENERAL DE VERIFICACIÓN Y CALIDAD DE SOFTWARE
 ================================================================================
-   ✔ Frontend WebGIS & Agronomía (Jest):   251 pruebas en 34 suites  [100% OK]
+   ✔ Frontend WebGIS & Agronomía (Jest):   256 pruebas en 36 suites  [100% OK]
    ✔ Backend Espacial, ML & SAR (Pytest):  55 pruebas en 17 módulos [100% OK]
    -----------------------------------------------------------------------------
-   ✔ TOTAL CONSOLIDADO DEL SISTEMA:       306 PRUEBAS AUTOMATIZADAS PASADAS CON ÉXITO
+   ✔ TOTAL CONSOLIDADO DEL SISTEMA:       311 PRUEBAS AUTOMATIZADAS PASADAS CON ÉXITO
    • Estado de TypeScript:                0 Errores (tsc --noEmit limpio)
    • Compilación Next.js 16 Turbopack:    40 Rutas de Producción Verificadas
    • Nivel de Madurez Tecnológica:        TRL 4 (Validación Tecnológica en Entorno de Laboratorio)

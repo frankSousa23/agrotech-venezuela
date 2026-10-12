@@ -168,8 +168,8 @@ describe('Security Hardening, Guest Sandbox Isolation & Award Dossier Suite', ()
         expect(stats.size).toBeGreaterThan(1000); // Al menos 1 KB de contenido técnico
         if (fileName === 'MEMORANDO_POSTULACION.md') {
           const content = fs.readFileSync(filePath, 'utf8');
-          expect(content).toContain('292 pruebas automatizadas');
-          expect(content).toContain('35 rutas');
+          expect(content).toContain('311 pruebas automatizadas');
+          expect(content).toContain('40 rutas');
           expect(content).toContain('Auditoría de la Trayectoria de Desarrollo');
           expect(content).toContain('5 Eras');
           expect(content).toContain('solo developer');
@@ -208,7 +208,7 @@ describe('Security Hardening, Guest Sandbox Isolation & Award Dossier Suite', ()
           expect(memoirContent).toContain('Gemini');
           expect(memoirContent).toContain('Google Maps');
           expect(memoirContent).toContain('Sentinel-1');
-          expect(memoirContent).toContain('292');
+          expect(memoirContent).toContain('311');
           expect(memoirContent).toContain('ISO A4');
           expect(memoirContent).toContain('15 mm');
 

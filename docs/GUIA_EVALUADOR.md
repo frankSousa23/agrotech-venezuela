@@ -18,8 +18,8 @@ Esta guía proporciona a los miembros del comité técnico evaluador y jurados d
 | **3. Claridad y Estructura** | **15%** | Next.js 16 Turbopack (40 rutas), Tour Demo Interactivo ([`postulacion/page.tsx`](../src/app/dashboard/postulacion/page.tsx)), OpenAPI 3.0 ([`main.py`](../backend/src/main.py)), KaTeX | [`routing-and-redirects.test.ts`](../__tests__/api/routing-and-redirects.test.ts)<br>[`security-and-dossier.test.ts`](../__tests__/api/security-and-dossier.test.ts)<br>[`native-gis-lifecycle.test.ts`](../__tests__/api/native-gis-lifecycle.test.ts) | [Ver Detalle ↓](#criterio-3) |
 | **4. Resultados, Discusión y Conclusiones** | **20%** | Escenarios Turén / Calabozo, Costeo ROI Desacoplado ([`roiCostEngine.ts`](../src/lib/agronomy/roiCostEngine.ts), [`ImpactRoiWidget.tsx`](../src/components/agronomy/ImpactRoiWidget.tsx)), Cuarentena HTTP 409 ([`ParcelConflictModal.tsx`](../src/components/tierras/ParcelConflictModal.tsx)) | [`roiCostEngine.test.ts`](../__tests__/agronomy/roiCostEngine.test.ts)<br>[`ImpactRoiWidget.test.ts`](../__tests__/agronomy/ImpactRoiWidget.test.ts)<br>[`parcels-conflict.test.ts`](../__tests__/api/parcels-conflict.test.ts) | [Ver Detalle ↓](#criterio-4) |
 | **5. Aporte General y Social** | **20%** | Modo Productor Fácil (4 Puertas), Voz Web Speech Nativa, Parser Vernáculo ([`vernacularParser.ts`](../src/lib/farmer/vernacularParser.ts)), Resiliencia 2G ([`fieldDiaryStorage.ts`](../src/lib/diary/fieldDiaryStorage.ts)) | [`vernacular-parser.test.ts`](../__tests__/api/vernacular-parser.test.ts)<br>[`farmer-ux-and-intentions.test.ts`](../__tests__/api/farmer-ux-and-intentions.test.ts)<br>[`parcels-and-diary.test.ts`](../__tests__/api/parcels-and-diary.test.ts) | [Ver Detalle ↓](#criterio-5) |
-| **6. Aporte a MapBiomas Venezuela** | **5%** | Módulo de Suelos MapBiomas TRL 4, API Federada CORS ([`spatialSoilIndex.ts`](../src/lib/soil-module/spatialSoilIndex.ts)), Generador GEE (`mapbiomas_soil_engine.js`), Widget Embebible ([`/embed/soil-module`](../src/app/embed/soil-module/page.tsx)) y Trayectorias | [`soil-federated-module.test.ts`](../__tests__/api/soil-federated-module.test.ts)<br>[`mapbiomas-discrepancy-and-pedagogy.test.ts`](../__tests__/api/mapbiomas-discrepancy-and-pedagogy.test.ts)<br>[`test_mapbiomas_discrepancy.py`](../backend/tests/test_mapbiomas_discrepancy.py) | [Ver Detalle ↓](#criterio-6) |
-| **Total Ponderado Oficial** | **100%** | **Sustentado en 306 Pruebas Automatizadas (251 Jest + 55 Pytest) y Licencia MIT** | `npm run test:all` | [Verificación ↓](#rigor-tecnico) |
+| **6. Aporte a MapBiomas Venezuela** | **5%** | Módulo de Suelos MapBiomas TRL 4, Capa Pedagógica (Esponja de Suelo, Autonomía y Tarjeta 40 Años), API Federada CORS ([`spatialSoilIndex.ts`](../src/lib/soil-module/spatialSoilIndex.ts)), GEE y Widget Embebible ([`/embed/soil-module`](../src/app/embed/soil-module/page.tsx)) | [`soil-federated-module.test.ts`](../__tests__/api/soil-federated-module.test.ts)<br>[`SoilPedagogicalWaterBar.test.tsx`](../src/components/soils/__tests__/SoilPedagogicalWaterBar.test.tsx)<br>[`MapBiomas40YearTrajectoryCard.test.tsx`](../src/components/soils/__tests__/MapBiomas40YearTrajectoryCard.test.tsx) | [Ver Detalle ↓](#criterio-6) |
+| **Total Ponderado Oficial** | **100%** | **Sustentado en 311 Pruebas Automatizadas (256 Jest + 55 Pytest) y Licencia MIT** | `npm run test:all` | [Verificación ↓](#rigor-tecnico) |
 
 ---
 
@@ -82,7 +82,7 @@ Esta guía proporciona a los miembros del comité técnico evaluador y jurados d
 
 ### 🏛️ Arquitectura Limpia y Rendimiento WebGIS:
 1. **Next.js 16 App Router con Turbopack**:
-   - 35 rutas de producción generadas de forma limpia (0 warnings de compilación).
+   - 40 rutas de producción generadas de forma limpia (0 warnings de compilación).
    - Test suite de enrutamiento: [`__tests__/api/routing-and-redirects.test.ts`](../__tests__/api/routing-and-redirects.test.ts)
 2. **Ciclo de Vida Leaflet Seguro**:
    - Implementación pura con Leaflet nativo (`L.map`) encapsulado en `useRef` para prevenir fugas de memoria y pantallas blancas en React 19:
@@ -159,9 +159,14 @@ Esta guía proporciona a los miembros del comité técnico evaluador y jurados d
      - Microfrontend embebible `/embed/soil-module` para integración nativa como iframe en portales de MapBiomas Venezuela.
    - Archivos fuente: [`src/lib/soil-module/spatialSoilIndex.ts`](../src/lib/soil-module/spatialSoilIndex.ts), [`src/lib/soil-module/geeTemplateGenerator.ts`](../src/lib/soil-module/geeTemplateGenerator.ts), [`src/app/embed/soil-module/page.tsx`](../src/app/embed/soil-module/page.tsx).
    - Test suite: [`__tests__/api/soil-federated-module.test.ts`](../__tests__/api/soil-federated-module.test.ts).
-3. **Retroalimentación de Verdad de Terreno (Ground Truth)**:
+3. **Capa Pedagógica MapBiomas & Memoria Histórica de 40 Años**:
+   - Visualización pedagógica del agua en suelo ("Esponja de Suelo") con 4 zonas dinámicas de confort hídrico (Sequía, Estrés, Confort Óptimo, Saturación) y cálculo de autonomía hídrica en días de reserva según textura Saxton-Rawls y demanda evapotranspirativa.
+   - Tarjeta de Memoria Histórica de 40 años que documenta la pérdida acumulada de Materia Orgánica (-55% a -61%) por conversión histórica de bosque a pastura/monocultivo (1985–2024), con cálculo de enmienda de compost en sacos tradicionales de 50 kg y traspaso inmediato en 1 clic a la Bitácora de Campo.
+   - Archivos fuente: [`src/components/soils/SoilPedagogicalWaterBar.tsx`](../src/components/soils/SoilPedagogicalWaterBar.tsx), [`src/components/soils/MapBiomas40YearTrajectoryCard.tsx`](../src/components/soils/MapBiomas40YearTrajectoryCard.tsx).
+   - Test suites: [`src/components/soils/__tests__/SoilPedagogicalWaterBar.test.tsx`](../src/components/soils/__tests__/SoilPedagogicalWaterBar.test.tsx) y [`src/components/soils/__tests__/MapBiomas40YearTrajectoryCard.test.tsx`](../src/components/soils/__tests__/MapBiomas40YearTrajectoryCard.test.tsx).
+4. **Retroalimentación de Verdad de Terreno (Ground Truth)**:
    - El productor valida en campo si la clasificación satelital coincide con la realidad de su tablón a través del Cuaderno de Campo.
-4. **Cita y Atribución Rigurosa**:
+5. **Cita y Atribución Rigurosa**:
    - Reconocimiento explícito a la Red MapBiomas Venezuela (Provita, LSIGMA USB, Wataniba y RAISG) bajo licencia **Creative Commons Atribución 4.0 Internacional (CC BY 4.0)** en interfaces, mapas y documentación.
 
 [Volver al Índice ↑](#indice)
@@ -171,18 +176,18 @@ Esta guía proporciona a los miembros del comité técnico evaluador y jurados d
 <a id="rigor-tecnico"></a>
 ## 7. Rigor Científico, Testing y Reproducibilidad Experimental
 
-### 🧪 Verificación Automatizada Inmediata (306 Tests Pasando al 100%):
+### 🧪 Verificación Automatizada Inmediata (311 Tests Pasando al 100%):
 
 La solidez técnica del proyecto no se fundamenta en afirmaciones declarativas, sino en una **batería de pruebas automatizadas reproducibles** que cualquier miembro del jurado puede ejecutar localmente tras clonar el repositorio:
 
 ```bash
-# 1. Ejecutar las 251 pruebas unitarias y de integración de Frontend (Jest)
+# 1. Ejecutar las 256 pruebas unitarias y de integración de Frontend (Jest en 36 suites)
 npm test
 
 # 2. Generar el reporte categorizado por subsistemas
 npm run test:summary
 
-# 3. Ejecutar las 55 pruebas de Backend Espacial, ML, Saxton-Rawls y Oráculo SAR (Pytest)
+# 3. Ejecutar las 55 pruebas de Backend Espacial, ML, Saxton-Rawls y Oráculo SAR (Pytest en 17 módulos)
 npm run test:backend
 
 # 4. Verificación de Tipos TypeScript (0 errores obligatorios)

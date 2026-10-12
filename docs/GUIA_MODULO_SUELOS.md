@@ -3,7 +3,7 @@
 
 **Autor:** Ing. Frank Alfonso Sousa Mota — Agrotech Venezuela  
 **Licencia:** MIT (Software Libre) | Atribución de Coberturas: MapBiomas Venezuela (CC BY 4.0)  
-**Nivel de Madurez:** TRL 4 (Prototipo Operacional Validado con 306 Pruebas Automatizadas)  
+**Nivel de Madurez:** TRL 4 (Prototipo Operacional Validado con 311 Pruebas Automatizadas)  
 
 ---
 
@@ -96,6 +96,42 @@ La estación de trabajo cuenta con 4 pestañas especializadas. La pestaña centr
    - **Caso Sur del Lago**: Recomienda Cal Dolomítica ($CaCO_3 + MgCO_3$) para mantener el balance $Ca:Mg$ entre 3:1 y 4:1.
    - **Caso Quíbor / Lara ($pH \ge 7.4$)**:
      Recomienda **Yeso Agrícola** ($CaSO_4 \cdot 2H_2O$) a razón de 2.5 t/ha para lixiviar el sodio intercambiable ($Na^+$) mediante sulfatos sin elevar más el pH.
+
+---
+
+### 3.3 Capa Pedagógica MapBiomas: Esponja de Suelo, Autonomía Hídrica y Memoria de 40 Años
+
+Para reducir la fricción cognitiva y democratizar la física edafológica tanto para usuarios generales de MapBiomas (educadores, ambientalistas) como para productores agrícolas, el módulo introduce una capa pedagógica interactiva:
+
+#### 1. Conmutador de Modo Dual (Didáctico MapBiomas vs. Técnico Avanzado)
+- Situado en la cabecera del simulador y del microfrontend embebible (`/embed/soil-module`).
+- **Modo Didáctico MapBiomas**: Oculta los ejes logarítmicos de tensión mátrica ($pF$, kPa) y presenta la analogía de la **"Esponja de Suelo"**, fraccionando el estado hídrico en 4 zonas fisiológicas claras, estimando días de agua disponible y calculando dosis en sacos de 50 kg.
+- **Modo Técnico Avanzado**: Despliega la curva completa de retención Saxton-Rawls / van Genuchten con coordenadas numéricas de potencial mátrico ($\psi$), volumen theta ($\theta$) y parámetros hidráulicos.
+
+#### 2. Barra de Confort Hídrico ("Esponja de Suelo")
+Un indicador gráfico visual reactivo que clasifica el contenido de agua en 4 zonas fisiológicas:
+- 🔴 **Marchitez Crítica ($\theta < \theta_{PWP}$)**: El agua está tan fuertemente retenida por los microporos que las raíces no pueden absorberla. Las plantas sufren marchitez permanente e irreversible.
+- 🟡 **Estrés Hídrico ($\theta_{PWP} \le \theta < \theta_{crit}$)**: El suelo aún contiene humedad, pero la planta realiza un gasto metabólico excesivo para extraerla. Es la franja de activación preventiva de riego.
+- 🟢 **Confort Radicular Óptimo ($\theta_{crit} \le \theta \le \theta_{FC}$)**: Franja de máxima turgencia y fotosíntesis activa sin asfixia radicular.
+- 🔵 **Encharcamiento / Asfixia ($\theta > \theta_{FC}$)**: Suelo saturado por encima de capacidad de campo. Ausencia de oxígeno en el perfil y alto riesgo de proliferación de patógenos anaeróbicos (*Phytophthora*).
+
+#### 3. Cálculo de Días de Autonomía Hídrica
+- Cuando la humedad supera el punto de marchitez ($\theta > \theta_{PWP}$), el sistema calcula la **Lámina Útil de Agua**:
+  $$\text{Lámina Útil (mm)} = (\theta - \theta_{PWP}) \times 3.0 \quad (\text{para un estrato radicular de 300 mm})$$
+- Computa los días de reserva hídrica con base en la evapotranspiración regional diaria promedio ($4.5\text{ mm/día}$):
+  $$\text{Días de Autonomía} = \frac{\text{Lámina Útil (mm)}}{4.5\text{ mm/día}}$$
+- Mensaje traducido al productor: *"Te quedan aproximadamente X días de agua en el suelo antes de que las plantas comiencen a sufrir sed"*.
+
+#### 4. Tarjeta de Memoria Histórica MapBiomas (40 Años, 1985–2024)
+- Conecta la clasificación satelital histórica de MapBiomas con la pérdida acumulada de fertilidad:
+  - Analiza la transición desde la clase original en 1985 hasta 2024 mediante `calculateMapBiomasTrajectory`.
+  - Evalúa los años continuos bajo uso antrópico intensivo. Si supera 15 años de monocultivo, cuantifica una pérdida estimada de materia orgánica de **-55% a -61%**.
+  - Emite recomendaciones regenerativas directas: rotación con abonos verdes (crotalaria, canavalia) y dosificación de enmiendas de cal convertidas automáticamente a **sacos tradicionales de 50 kg por hectárea**.
+
+#### 5. Traspaso Bidireccional Cross-Módulo
+- **De Tierras a Suelos**: En cada lote registrado en `/dashboard/tierras`, el botón `[💧 Curva Hídrica & Suelo]` abre el simulador precargando textura, pH y coordenadas del lote.
+- **De Suelos a Bitácora**: El botón `[📒 Registrar Enmienda en Bitácora]` transfiere directamente la labor `ENCALADO`, la dosis calculada en t/ha y su equivalente en sacos de 50 kg para asentar la labor en un clic.
+- **De Suelos a Cultivos e IoT**: Enlaces contextuales para filtrar especies aptas según el pH simulado y disparar telemetría de microrriego en `/dashboard/iot` cuando $\text{PAW} < 50\%$.
 
 ---
 

@@ -6,9 +6,9 @@
  * 
  * Script nativo en Node.js (cero dependencias externas) que genera un informe
  * visual consolidado de la suite de pruebas completa:
- * - Jest (251 pruebas en 34 suites de frontend, agronomía, geoespacial y UI)
+ * - Jest (256 pruebas en 36 suites de frontend, agronomía, geoespacial y UI)
  * - Pytest (55 pruebas en 17 módulos de backend FastAPI, ML, SAR y satélites)
- * Total: 306 pruebas automatizadas con 100% de cobertura y paso limpio.
+ * Total: 311 pruebas automatizadas con 100% de cobertura y paso limpio.
  */
 
 const fs = require('fs');
@@ -39,7 +39,9 @@ const frontendSuites = [
       { name: 'soil-federated-module.test.ts', tests: 12, focus: 'Módulo Suelos MapBiomas: k-NN/IDW, generador Earth Engine, polígonos GeoJSON y CORS /api/v1/soil/*' },
       { name: 'crops.test.ts', tests: 2, focus: 'Catálogo agronómico de cereales, leguminosas y frutales tropicales' },
       { name: 'recomendaciones.test.ts', tests: 7, focus: 'Prescripciones de fertilización NPK, enmiendas órgano-minerales y API RBAC' },
-      { name: 'roiCostEngine.test.ts', tests: 6, focus: 'Motor de costeo operativo (mecanizado diésel/VRA vs pequeño productor sacos/jornales)' }
+      { name: 'roiCostEngine.test.ts', tests: 6, focus: 'Motor de costeo operativo (mecanizado diésel/VRA vs pequeño productor sacos/jornales)' },
+      { name: 'SoilPedagogicalWaterBar.test.tsx', tests: 3, focus: 'Barra didáctica 4 zonas de confort hídrico y días de autonomía' },
+      { name: 'MapBiomas40YearTrajectoryCard.test.tsx', tests: 2, focus: 'Tarjeta histórica MapBiomas 40 años (-55% MO) y enmiendas en sacos 50kg' }
     ]
   },
   {

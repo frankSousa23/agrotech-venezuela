@@ -5,10 +5,10 @@
 - **Ecosistema**: Agrotech Venezuela
 - **Nicho Tecnológico**: AgTech, Modelado de Carbono Orgánico (MRV prospectivo), Observación Satelital (WebGIS Multi-Escala) y Prototipado Agro-IoT BYOD.
 - **Convocatoria**: Segunda Edición del Premio MapBiomas Venezuela 2026 — **Categoría General** (Artículo Técnico)
-- **Nivel de Madurez Tecnológica**: **TRL 4** (Prototipo funcional de software validado en entorno de desarrollo y simulación local con datos espaciales reales y 306 pruebas automatizadas: 251 Jest + 55 Pytest; con hoja de ruta hacia TRL 5/6).
+- **Nivel de Madurez Tecnológica**: **TRL 4** (Prototipo funcional de software validado en entorno de desarrollo y simulación local con datos espaciales reales y 311 pruebas automatizadas: 256 Jest en 36 suites + 55 Pytest en 17 módulos; con hoja de ruta hacia TRL 5/6).
 - **Licencia**: Código bajo MIT License (Copyright 2026 Frank Sousa) / Datos de Cobertura bajo Creative Commons Atribución 4.0 Internacional (CC BY 4.0 - MapBiomas Venezuela).
 
-[⬅️ Ir al README Principal](../../README.md) | [🛠️ Ver Guía de Desarrollo & Arquitectura](../../DEVELOPING.md) | [📊 Ver Pitch Deck](PITCH_DECK.md)
+[⬅️ Ir al README Principal](../README.md) | [🛠️ Ver Guía de Desarrollo & Arquitectura](../DEVELOPING.md) | [📊 Ver Pitch Deck](../PITCH_DECK.md)
 
 ---
 
@@ -20,6 +20,11 @@ La agricultura en Venezuela y la cuenca tropical enfrenta una paradoja estructur
 3. **Inaccesibilidad a Mercados de Carbono**: Aunque las prácticas regenerativas capturan carbono, una auditoría Verra VCS individual cuesta más de \$45,000 USD, excluyendo a predios menores de 500 ha.
 
 **Agrotech Venezuela** democratiza la agricultura de precisión transformando coordenadas GPS en un **Gemelo Digital instantáneo**, combinando prescripción edafológica en sacos accesibles, un modelo de investigación económica de **Agregación de Carbono (Carbon Pooling)**, un sandbox didáctico Agro-IoT BYOD y un protocolo de sincronización rural **QoS** que opera sin colapsar bajo señales celulares 2G/EDGE.
+
+### 1.1 Misión Estratégica: Prototipo Operacional para el Módulo de Suelos de MapBiomas Venezuela (*MapBiomas Suelos*)
+A nivel regional, la red MapBiomas ha evolucionado hacia módulos temáticos biogeoquímicos especializados (como *MapBiomas Solo* en Brasil y *MapBiomas Fogo*). En Venezuela, la Colección 3.0 (1985–2024) ha logrado un mapeo extraordinario de 40 años de cobertura y uso del suelo (LULC), pero la iniciativa nacional aún carece de un **Módulo de Suelos** que traduzca esas 4 décadas de transiciones de cobertura en balances edafológicos subsuperficiales.
+
+**Agrotech Venezuela fue conceptualizado e implementado con ese propósito fundacional:** servir como el **prototipo operacional de código abierto (TRL 4) prediseñado para complementar y convertirse en el futuro Módulo de Suelos de MapBiomas Venezuela**. La plataforma conecta 40 años de datos satelitales históricos con modelos edafológicos deterministas (Kamprath para neutralización de acidez y Al³⁺, Saxton-Rawls USDA para curvas de retención hídrica PAW, oráculo satelital radar Sentinel-1 SAR y 1.245 perfiles edafológicos calibrados), cubriendo de forma sinérgica tanto la producción vegetal de ciclo corto (cereales, leguminosas, hortalizas) como la nutrición de pastizales y forrajes ganaderos.
 
 ---
 
@@ -65,12 +70,20 @@ El sistema se sitúa en **TRL 4 (Prototipo funcional de software validado en ent
 - **Asesoría IA Adaptativa (Dual-Tone)**: La IA ("El Compadre Agrónomo") adapta dinámicamente su vocabulario según la interfaz activa, hablando en sacos y días de sol para agricultores, y en ecuaciones edafológicas para técnicos.
 - **IA On-Demand & FinOps Cero Deuda**: Gemini 1.5 Flash activado bajo demanda mediante la cuota gratuita de Google AI Studio (15 RPM / 1.500 RPD) para asistencia cualitativa y vernacular, mientras los cálculos agronómicos de rutina (Kamprath, Shoelace, Saxton-Rawls) se resuelven en motores locales deterministas a costo marginal cero ($0.00).
 - **Neutralidad de Hardware (BYOD)**: Enfoque 100% Software-First. El laboratorio IoT es un sandbox experimental y educativo; la plataforma no fabrica hardware ni requiere sensores físicos en campo para operar.
-- **Calidad de Software Certificada**: **306 pruebas automatizadas (251 Jest + 55 Pytest, 100% aprobadas)**, 0 errores de compilación TypeScript.
+- **Calidad de Software Certificada**: **311 pruebas automatizadas (256 Jest en 36 suites + 55 Pytest en 17 módulos, 100% aprobadas)**, 0 errores de compilación TypeScript.
 
 ### Hoja de Ruta de Escalabilidad (Roadmap TRL 4 → TRL 6)
-1. **TRL 4 (Actual)**: Prototipo funcional completo verificado en local con 306 pruebas automatizadas y datos satelitales históricos.
+1. **TRL 4 (Actual)**: Prototipo funcional completo verificado en local con 311 pruebas automatizadas y datos satelitales históricos.
 2. **TRL 5 (Fase Siguiente)**: Despliegue en servidor cloud con canal piloto multiusuario.
 3. **TRL 6 (Validación en Campo)**: Pruebas piloto participativas en parcelas reales en colaboración con cooperativas agrícolas de Portuguesa y Guárico.
+
+### 4.1 Auditoría de la Trayectoria de Desarrollo: Las 5 Eras del Ciclo Evolutivo
+Agrotech Venezuela fue concebido, diseñado y construido de forma soberana por un **desarrollador único** (*solo developer*, Frank Sousa) durante sus vacaciones laborales, forjando el sistema a lo largo de 5 eras de desarrollo auditadas:
+1. **Era 1 — La Semilla Académica & Certificación MapBiomas**: Génesis con la cátedra de edafología agronómica (UNERG), dualidad entre producción vegetal (maíz/arroz) y pasturas/forrajes pecuarios, y acreditación con **certificado oficial** en el taller de la plataforma MapBiomas (40 años de trayectoria), concibiendo el proyecto como el prototipo fundacional para dotar a MapBiomas Venezuela de su futuro Módulo de Suelos.
+2. **Era 2 — El Choque Tropical & Soberanía Satelital**: Descarte de Google Maps ante la muralla del 75% de nubosidad tropical, adopción del radar SAR Sentinel-1 Banda C (5.405 GHz) para atravesar tormentas y desarrollo de WebGIS nativo en Leaflet con React 19 (`useRef`).
+3. **Era 3 — Inclusión Rural Radical & Voz Campesina**: Arquitectura Dual-Mode UI (4 puertas táctiles gigantes de 80px), dictado por voz nativo con Web Speech API, y parser vernáculo que normaliza sacos (50 kg), tambores (200 L), canecas (20 L) y tablones (1 ha) con caché offline SQLite WAL (<25 ms).
+4. **Era 4 — Blindaje Científico, Maquinaria & Procedencia Legal**: Calibraciones edafológicas regionales (Kamprath modificado, cal dolomítica, yeso agrícola), Saxton-Rawls PAW, exportador tri-modal para maquinaria (Shapefiles UTM 19N, KML drones, fichas analógicas) y marco legal internacional de procedencia (Copernicus, NASA, MapBiomas CC BY 4.0).
+5. **Era 5 — La Síntesis de Calidad TRL 4 & Antigravity Forge**: Pair-programming con Gemini bajo supervisión implacable del autor (filtrando y podando código inflado), 311 pruebas automatizadas consecutivas (256 Jest en 36 suites + 55 Pytest en 17 módulos, 100% PASS), 0 errores TypeScript, 40 rutas y costo operativo $0.00 USD/mes.
 
 ---
 
@@ -148,4 +161,4 @@ El presente memorando valida formalmente la postulación técnica e instituciona
 
 | Postulante y Responsable Técnico | Categoría | Estatus del Ecosistema | Fecha de Emisión |
 | :--- | :--- | :--- | :---: |
-| **Ing. Frank Alfonso Sousa Mota** | **Categoría General** (Artículo Técnico) | **TRL 4 Validado en Desarrollo (306 tests)** | Septiembre 2026 |
+| **Ing. Frank Alfonso Sousa Mota** | **Categoría General** (Artículo Técnico) | **TRL 4 Validado en Desarrollo (311 tests)** | Septiembre 2026 |
